@@ -1400,6 +1400,7 @@ export type PlayerEventParticipationScalarFieldEnum = (typeof PlayerEventPartici
 export const AccountScalarFieldEnum = {
   id: 'id',
   email: 'email',
+  password_hash: 'password_hash',
   role: 'role',
   display_name: 'display_name',
   is_verified: 'is_verified',

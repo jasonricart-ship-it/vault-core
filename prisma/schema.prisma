@@ -245,6 +245,7 @@ model PlayerEventParticipation {
 model Account {
   id               String   @id @default(uuid())
   email            String   @unique
+  password_hash    String
   role             String
   display_name     String?
   is_verified      Boolean  @default(false)

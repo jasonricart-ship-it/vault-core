@@ -27,6 +27,7 @@ export type AggregateAccount = {
 export type AccountMinAggregateOutputType = {
   id: string | null
   email: string | null
+  password_hash: string | null
   role: string | null
   display_name: string | null
   is_verified: boolean | null
@@ -40,6 +41,7 @@ export type AccountMinAggregateOutputType = {
 export type AccountMaxAggregateOutputType = {
   id: string | null
   email: string | null
+  password_hash: string | null
   role: string | null
   display_name: string | null
   is_verified: boolean | null
@@ -53,6 +55,7 @@ export type AccountMaxAggregateOutputType = {
 export type AccountCountAggregateOutputType = {
   id: number
   email: number
+  password_hash: number
   role: number
   display_name: number
   is_verified: number
@@ -68,6 +71,7 @@ export type AccountCountAggregateOutputType = {
 export type AccountMinAggregateInputType = {
   id?: true
   email?: true
+  password_hash?: true
   role?: true
   display_name?: true
   is_verified?: true
@@ -81,6 +85,7 @@ export type AccountMinAggregateInputType = {
 export type AccountMaxAggregateInputType = {
   id?: true
   email?: true
+  password_hash?: true
   role?: true
   display_name?: true
   is_verified?: true
@@ -94,6 +99,7 @@ export type AccountMaxAggregateInputType = {
 export type AccountCountAggregateInputType = {
   id?: true
   email?: true
+  password_hash?: true
   role?: true
   display_name?: true
   is_verified?: true
@@ -180,6 +186,7 @@ export type AccountGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
 export type AccountGroupByOutputType = {
   id: string
   email: string
+  password_hash: string
   role: string
   display_name: string | null
   is_verified: boolean
@@ -214,6 +221,7 @@ export type AccountWhereInput = {
   NOT?: Prisma.AccountWhereInput | Prisma.AccountWhereInput[]
   id?: Prisma.StringFilter<"Account"> | string
   email?: Prisma.StringFilter<"Account"> | string
+  password_hash?: Prisma.StringFilter<"Account"> | string
   role?: Prisma.StringFilter<"Account"> | string
   display_name?: Prisma.StringNullableFilter<"Account"> | string | null
   is_verified?: Prisma.BoolFilter<"Account"> | boolean
@@ -229,6 +237,7 @@ export type AccountWhereInput = {
 export type AccountOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  password_hash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   display_name?: Prisma.SortOrderInput | Prisma.SortOrder
   is_verified?: Prisma.SortOrder
@@ -247,6 +256,7 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.AccountWhereInput | Prisma.AccountWhereInput[]
   OR?: Prisma.AccountWhereInput[]
   NOT?: Prisma.AccountWhereInput | Prisma.AccountWhereInput[]
+  password_hash?: Prisma.StringFilter<"Account"> | string
   role?: Prisma.StringFilter<"Account"> | string
   display_name?: Prisma.StringNullableFilter<"Account"> | string | null
   is_verified?: Prisma.BoolFilter<"Account"> | boolean
@@ -262,6 +272,7 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
 export type AccountOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  password_hash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   display_name?: Prisma.SortOrderInput | Prisma.SortOrder
   is_verified?: Prisma.SortOrder
@@ -281,6 +292,7 @@ export type AccountScalarWhereWithAggregatesInput = {
   NOT?: Prisma.AccountScalarWhereWithAggregatesInput | Prisma.AccountScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Account"> | string
   email?: Prisma.StringWithAggregatesFilter<"Account"> | string
+  password_hash?: Prisma.StringWithAggregatesFilter<"Account"> | string
   role?: Prisma.StringWithAggregatesFilter<"Account"> | string
   display_name?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
   is_verified?: Prisma.BoolWithAggregatesFilter<"Account"> | boolean
@@ -294,6 +306,7 @@ export type AccountScalarWhereWithAggregatesInput = {
 export type AccountCreateInput = {
   id?: string
   email: string
+  password_hash: string
   role: string
   display_name?: string | null
   is_verified?: boolean
@@ -309,6 +322,7 @@ export type AccountCreateInput = {
 export type AccountUncheckedCreateInput = {
   id?: string
   email: string
+  password_hash: string
   role: string
   display_name?: string | null
   is_verified?: boolean
@@ -324,6 +338,7 @@ export type AccountUncheckedCreateInput = {
 export type AccountUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -339,6 +354,7 @@ export type AccountUpdateInput = {
 export type AccountUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -354,6 +370,7 @@ export type AccountUncheckedUpdateInput = {
 export type AccountCreateManyInput = {
   id?: string
   email: string
+  password_hash: string
   role: string
   display_name?: string | null
   is_verified?: boolean
@@ -367,6 +384,7 @@ export type AccountCreateManyInput = {
 export type AccountUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -380,6 +398,7 @@ export type AccountUpdateManyMutationInput = {
 export type AccountUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -398,6 +417,7 @@ export type AccountNullableScalarRelationFilter = {
 export type AccountCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  password_hash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   display_name?: Prisma.SortOrder
   is_verified?: Prisma.SortOrder
@@ -411,6 +431,7 @@ export type AccountCountOrderByAggregateInput = {
 export type AccountMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  password_hash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   display_name?: Prisma.SortOrder
   is_verified?: Prisma.SortOrder
@@ -424,6 +445,7 @@ export type AccountMaxOrderByAggregateInput = {
 export type AccountMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   email?: Prisma.SortOrder
+  password_hash?: Prisma.SortOrder
   role?: Prisma.SortOrder
   display_name?: Prisma.SortOrder
   is_verified?: Prisma.SortOrder
@@ -469,6 +491,7 @@ export type AccountUpdateOneWithoutManaged_orgsNestedInput = {
 export type AccountCreateWithoutGuardian_playersInput = {
   id?: string
   email: string
+  password_hash: string
   role: string
   display_name?: string | null
   is_verified?: boolean
@@ -483,6 +506,7 @@ export type AccountCreateWithoutGuardian_playersInput = {
 export type AccountUncheckedCreateWithoutGuardian_playersInput = {
   id?: string
   email: string
+  password_hash: string
   role: string
   display_name?: string | null
   is_verified?: boolean
@@ -513,6 +537,7 @@ export type AccountUpdateToOneWithWhereWithoutGuardian_playersInput = {
 export type AccountUpdateWithoutGuardian_playersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -527,6 +552,7 @@ export type AccountUpdateWithoutGuardian_playersInput = {
 export type AccountUncheckedUpdateWithoutGuardian_playersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -541,6 +567,7 @@ export type AccountUncheckedUpdateWithoutGuardian_playersInput = {
 export type AccountCreateWithoutManaged_orgsInput = {
   id?: string
   email: string
+  password_hash: string
   role: string
   display_name?: string | null
   is_verified?: boolean
@@ -555,6 +582,7 @@ export type AccountCreateWithoutManaged_orgsInput = {
 export type AccountUncheckedCreateWithoutManaged_orgsInput = {
   id?: string
   email: string
+  password_hash: string
   role: string
   display_name?: string | null
   is_verified?: boolean
@@ -585,6 +613,7 @@ export type AccountUpdateToOneWithWhereWithoutManaged_orgsInput = {
 export type AccountUpdateWithoutManaged_orgsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -599,6 +628,7 @@ export type AccountUpdateWithoutManaged_orgsInput = {
 export type AccountUncheckedUpdateWithoutManaged_orgsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -653,6 +683,7 @@ export type AccountCountOutputTypeCountManaged_orgsArgs<ExtArgs extends runtime.
 export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
+  password_hash?: boolean
   role?: boolean
   display_name?: boolean
   is_verified?: boolean
@@ -669,6 +700,7 @@ export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
 export type AccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
+  password_hash?: boolean
   role?: boolean
   display_name?: boolean
   is_verified?: boolean
@@ -682,6 +714,7 @@ export type AccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type AccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   email?: boolean
+  password_hash?: boolean
   role?: boolean
   display_name?: boolean
   is_verified?: boolean
@@ -695,6 +728,7 @@ export type AccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
 export type AccountSelectScalar = {
   id?: boolean
   email?: boolean
+  password_hash?: boolean
   role?: boolean
   display_name?: boolean
   is_verified?: boolean
@@ -705,7 +739,7 @@ export type AccountSelectScalar = {
   last_login_at?: boolean
 }
 
-export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "role" | "display_name" | "is_verified" | "linked_player_id" | "linked_org_id" | "linked_gov_id" | "created_at" | "last_login_at", ExtArgs["result"]["account"]>
+export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password_hash" | "role" | "display_name" | "is_verified" | "linked_player_id" | "linked_org_id" | "linked_gov_id" | "created_at" | "last_login_at", ExtArgs["result"]["account"]>
 export type AccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   guardian_players?: boolean | Prisma.Account$guardian_playersArgs<ExtArgs>
   managed_orgs?: boolean | Prisma.Account$managed_orgsArgs<ExtArgs>
@@ -723,6 +757,7 @@ export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     email: string
+    password_hash: string
     role: string
     display_name: string | null
     is_verified: boolean
@@ -1158,6 +1193,7 @@ export interface Prisma__AccountClient<T, Null = never, ExtArgs extends runtime.
 export interface AccountFieldRefs {
   readonly id: Prisma.FieldRef<"Account", 'String'>
   readonly email: Prisma.FieldRef<"Account", 'String'>
+  readonly password_hash: Prisma.FieldRef<"Account", 'String'>
   readonly role: Prisma.FieldRef<"Account", 'String'>
   readonly display_name: Prisma.FieldRef<"Account", 'String'>
   readonly is_verified: Prisma.FieldRef<"Account", 'Boolean'>
