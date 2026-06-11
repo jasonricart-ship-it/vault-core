@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 export function SubjectMarker({
   ppcNumber,
   displayName,
@@ -23,10 +25,15 @@ export function SubjectMarker({
           />
           <div className="pointer-events-none absolute inset-x-4 top-4 h-10 rounded-full bg-white/10 blur-2xl" />
 
-          <div className="relative mx-auto flex aspect-[4/5] max-w-[220px] flex-col items-center justify-end">
-            <div className="absolute top-6 h-16 w-16 rounded-full bg-[linear-gradient(145deg,#6b7280,#374151)] shadow-[inset_0_-4px_12px_rgba(0,0,0,0.35)]" />
-            <div className="h-[62%] w-[78%] rounded-t-[999px] bg-[linear-gradient(180deg,#7b8490_0%,#4b5563_45%,#374151_100%)] shadow-[inset_0_8px_18px_rgba(255,255,255,0.08),inset_0_-10px_20px_rgba(0,0,0,0.35)]" />
-            <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,rgba(255,255,255,0.12),transparent_45%)]" />
+          <div className="relative mx-auto max-w-[220px]">
+            <Image
+              src="/images/PPC-BeauRicart-SculptureBust-GreyScale.png"
+              alt={`Archival bust of ${displayName}`}
+              width={900}
+              height={900}
+              className="h-auto w-full object-contain"
+              priority
+            />
           </div>
         </div>
       </div>
