@@ -1,13 +1,24 @@
 import "dotenv/config";
 import { Pool } from "pg";
 import { PrismaPg } from "@prisma/adapter-pg";
-import { PrismaClient } from "../app/generated/prisma/client";
+import { PrismaClient } from "../lib/generated/prisma/client";
 
 const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 const adapter = new PrismaPg(pool);
 const prisma = new PrismaClient({ adapter });
 
 async function main() {
+  await prisma.playerOrgAffiliation.deleteMany();
+  await prisma.orgGovAffiliation.deleteMany();
+  await prisma.playerEventParticipation.deleteMany();
+  await prisma.gumItem.deleteMany();
+  await prisma.evidenceFile.deleteMany();
+  await prisma.player.deleteMany();
+  await prisma.event.deleteMany();
+  await prisma.organization.deleteMany();
+  await prisma.governingBody.deleteMany({ where: { parent_gov_id: { not: null } } });
+  await prisma.governingBody.deleteMany();
+
   const usah = await prisma.governingBody.create({
     data: {
       gov_code: "USAH",
@@ -19,7 +30,7 @@ async function main() {
     },
   });
 
-  await prisma.governingBody.create({
+  const tiehl = await prisma.governingBody.create({
     data: {
       gov_code: "TIEHL",
       name: "Tiehl League",
@@ -31,7 +42,7 @@ async function main() {
     },
   });
 
-  await prisma.organization.create({
+  const ohaaa = await prisma.organization.create({
     data: {
       org_code: "OHAAA",
       name: "Ohio AAA Blue Jackets",
@@ -43,7 +54,7 @@ async function main() {
     },
   });
 
-  await prisma.player.create({
+  const beau = await prisma.player.create({
     data: {
       ppc_number: "PPC-0247",
       display_name: 'Jason "Beau" Ricart',
@@ -55,6 +66,38 @@ async function main() {
       vault_level: "recorded",
       bust_color: "grayscale",
       exhibit_status: "active",
+    },
+  });
+
+  await prisma.playerOrgAffiliation.create({
+    data: {
+      player_id: beau.id,
+      org_id: ohaaa.id,
+      season_year: 2024,
+      jersey_number: "86",
+      role: "player",
+      status: "active",
+      verified_by_org: true,
+    },
+  });
+
+  await prisma.orgGovAffiliation.create({
+    data: {
+      org_id: ohaaa.id,
+      gov_id: tiehl.id,
+      affiliation_type: "member",
+      status: "active",
+      verified: true,
+    },
+  });
+
+  await prisma.orgGovAffiliation.create({
+    data: {
+      org_id: ohaaa.id,
+      gov_id: usah.id,
+      affiliation_type: "sanctioned",
+      status: "active",
+      verified: true,
     },
   });
 }
