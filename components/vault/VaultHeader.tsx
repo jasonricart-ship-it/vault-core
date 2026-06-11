@@ -1,8 +1,8 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { VaultWordmark } from "./VaultWordmark";
 
 const PRIMARY_NAV = [
   { label: "PPC", href: "/vault/ppc/PPC-0247", key: "ppc" },
@@ -67,7 +67,14 @@ export function VaultHeader() {
 
           <div className="flex justify-center">
             <Link href="/vault/ppc/PPC-0247" aria-label="The Vault">
-              <VaultWordmark />
+              <Image
+                src="/images/Vault-Main-Logo-VectorArt.png"
+                alt="The Vault"
+                width={2400}
+                height={480}
+                priority
+                className="h-28 w-auto drop-shadow-[0_18px_40px_rgba(0,0,0,0.85)]"
+              />
             </Link>
           </div>
 

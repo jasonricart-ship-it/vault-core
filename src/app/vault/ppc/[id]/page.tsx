@@ -176,13 +176,14 @@ function ArchiveAuthoritySection({
       </div>
 
       <div className="mt-6 flex flex-col gap-5 sm:flex-row sm:items-center">
-        <div className="flex h-28 w-28 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-[linear-gradient(180deg,#f8fafc,#e2e8f0)] shadow-inner">
-          <div className="text-center">
-            <div className="mx-auto mb-2 h-10 w-10 rounded-full border border-slate-300 bg-slate-200" />
-            <p className="text-[10px] font-semibold tracking-[0.16em] text-slate-500 uppercase">
-              Archive crest
-            </p>
-          </div>
+        <div className="flex h-28 w-28 shrink-0 items-center justify-center rounded-2xl border border-slate-200 bg-[linear-gradient(180deg,#f8fafc,#e2e8f0)] p-3 shadow-inner">
+          <Image
+            src="/images/OHAAAStoneReliefLogo.png"
+            alt="Ohio AAA Blue Jackets Archive Crest"
+            width={120}
+            height={120}
+            className="h-auto w-full object-contain"
+          />
         </div>
         <div>
           <p className="text-xs font-semibold tracking-[0.18em] text-slate-500 uppercase">
