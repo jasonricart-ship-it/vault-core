@@ -22,6 +22,7 @@ export type PlayerProfile = {
   preferred_name: string | null;
   primary_sport: string | null;
   jersey_number: string | null;
+  strength_score: number;
   vault_level: string;
   bust_color: string;
   exhibit_status: string;

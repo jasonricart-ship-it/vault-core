@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { headers } from "next/headers";
+import type { BustColor } from "@/lib/types";
 import type { PlayerProfile } from "@/components/vault/record/types";
 
 export const dynamic = "force-dynamic";
@@ -26,6 +27,40 @@ async function getPlayer(id: string): Promise<PlayerProfile | null> {
   return response.json();
 }
 
+function formatLevel(value: string) {
+  return value.replace(/_/g, " ");
+}
+
+function getBustFilter(bustColor: string): string | undefined {
+  switch (bustColor as BustColor) {
+    case "grayscale":
+      return "grayscale(100%)";
+    case "bronze":
+      return "sepia(60%) saturate(150%) hue-rotate(5deg)";
+    case "silver":
+      return "grayscale(30%) brightness(110%)";
+    case "gold":
+      return undefined;
+    default:
+      return "grayscale(100%)";
+  }
+}
+
+function getBustCaption(bustColor: string) {
+  switch (bustColor as BustColor) {
+    case "grayscale":
+      return "Bust locked — grayscale";
+    case "bronze":
+      return "Bust — bronze";
+    case "silver":
+      return "Bust — silver";
+    case "gold":
+      return "Bust — gold (full color)";
+    default:
+      return "Bust locked — grayscale";
+  }
+}
+
 function LightCard({ children }: { children: React.ReactNode }) {
   return (
     <section className="rounded-2xl border border-slate-200/90 bg-white p-6 shadow-[0_10px_28px_rgba(12,35,64,0.06)]">
@@ -45,13 +80,9 @@ function MetricTile({ label, value }: { label: string; value: string }) {
   );
 }
 
-function PlayerSculptureCard({
-  player,
-  isGrayscale,
-}: {
-  player: PlayerProfile;
-  isGrayscale: boolean;
-}) {
+function PlayerSculptureCard({ player }: { player: PlayerProfile }) {
+  const bustFilter = getBustFilter(player.bust_color);
+
   return (
     <LightCard>
       <div className="flex items-start justify-between gap-4">
@@ -69,15 +100,14 @@ function PlayerSculptureCard({
       </div>
 
       <div className="mt-6 overflow-hidden rounded-[20px] border border-slate-200 bg-gradient-to-b from-slate-50 to-slate-100/80 p-4">
-        <div
-          className={`relative mx-auto max-w-[320px] ${isGrayscale ? "grayscale" : ""}`}
-        >
+        <div className="relative mx-auto max-w-[320px]">
           <Image
             src="/images/PPC-BeauRicart-SculptureBust-GreyScale.png"
             alt={`Archival bust of ${player.display_name}`}
             width={900}
             height={900}
             className="h-auto w-full object-contain"
+            style={bustFilter ? { filter: bustFilter } : undefined}
             priority
           />
         </div>
@@ -95,7 +125,11 @@ function PlayerSculptureCard({
         </p>
       </div>
 
-      <p className="mt-4 text-xs leading-6 text-slate-500">
+      <p className="mt-4 text-center text-xs tracking-[0.12em] text-slate-500 uppercase">
+        {getBustCaption(player.bust_color)}
+      </p>
+
+      <p className="mt-2 text-xs leading-6 text-slate-500">
         Displayed as a fixed artifact once approved.
       </p>
     </LightCard>
@@ -119,6 +153,12 @@ function PlayerRecordCard({ player }: { player: PlayerProfile }) {
         <span className="inline-flex items-center rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-xs font-semibold text-slate-700">
           View: <span className="ml-1 text-slate-900">public</span>
         </span>
+        <span className="inline-flex items-center rounded-full border border-[#B8972A]/25 bg-[#B8972A]/8 px-3 py-1.5 text-xs font-semibold text-slate-700">
+          Vault Level:{" "}
+          <span className="ml-1 capitalize text-[#B8972A]">
+            {formatLevel(player.vault_level)}
+          </span>
+        </span>
       </div>
 
       <p className="mt-5 max-w-2xl text-sm leading-7 text-slate-600">
@@ -128,8 +168,12 @@ function PlayerRecordCard({ player }: { player: PlayerProfile }) {
         authority permits more.
       </p>
 
-      <div className="mt-6 grid gap-3 sm:grid-cols-3">
+      <div className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <MetricTile label="PPC ID" value={player.ppc_number} />
+        <MetricTile
+          label="Strength Score"
+          value={`${player.strength_score} / 100`}
+        />
         <MetricTile label="Issued Artifacts" value="0" />
         <MetricTile label="Evidence On File" value="0 photos • 0 docs" />
       </div>
@@ -225,13 +269,12 @@ export default async function PpcProfilePage({
     );
   }
 
-  const isGrayscale = player.bust_color === "grayscale";
   const primaryOrg = player.org_affiliations[0]?.org;
 
   return (
     <div className="space-y-6">
       <section className="grid gap-6 lg:grid-cols-2">
-        <PlayerSculptureCard player={player} isGrayscale={isGrayscale} />
+        <PlayerSculptureCard player={player} />
         <PlayerRecordCard player={player} />
       </section>
 

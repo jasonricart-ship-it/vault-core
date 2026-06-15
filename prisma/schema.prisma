@@ -40,6 +40,7 @@ model Player {
   org_affiliations    PlayerOrgAffiliation[]
   event_participation PlayerEventParticipation[]
   gum_items           GumItem[]
+  achievements        Achievement[]
 
   @@map("players")
 }
@@ -67,7 +68,6 @@ model GoverningBody {
   parent                GoverningBody?  @relation("GovHierarchy", fields: [parent_gov_id], references: [id])
   children              GoverningBody[] @relation("GovHierarchy")
   org_affiliations      OrgGovAffiliation[]
-  events                Event[]
 
   @@map("governing_bodies")
 }
@@ -96,35 +96,78 @@ model Organization {
   gov_affiliations      OrgGovAffiliation[]
   player_affiliations   PlayerOrgAffiliation[]
   events                Event[]
+  achievements          Achievement[]
+  schedule_entries      ScheduleEntry[]
   gum_items             GumItem[]
 
   @@map("organizations")
 }
 
 model Event {
-  id                  String   @id @default(uuid())
-  evt_code            String   @unique
+  id                  String    @id @default(uuid())
+  evt_code            String    @unique
+  org_id              String
+  gov_id              String?
   name                String
-  event_type          String
-  sport               String?
   season_year         Int
-  start_date          DateTime?
-  end_date            DateTime?
+  event_date          DateTime?
   location            String?
-  sanctioning_gov_id  String?
-  sanctioning_org_id  String?
-  authority_level     String?
-  vault_level         String   @default("recorded")
-  is_verified         Boolean  @default(false)
-  created_at          DateTime @default(now())
-  updated_at          DateTime @updatedAt
+  city                String?
+  state               String?
+  registration_status String    @default("active")
+  created_at          DateTime  @default(now())
+  updated_at          DateTime  @updatedAt
 
-  sanctioning_gov     GoverningBody? @relation(fields: [sanctioning_gov_id], references: [id])
-  sanctioning_org     Organization?  @relation(fields: [sanctioning_org_id], references: [id])
+  org                  Organization               @relation(fields: [org_id], references: [id])
+  achievements         Achievement[]
+  schedule_entries     ScheduleEntry[]
   player_participation PlayerEventParticipation[]
-  gum_items           GumItem[]
+  gum_items            GumItem[]
 
   @@map("events")
+}
+
+model Achievement {
+  id                String    @id @default(uuid())
+  ppc_id            String?
+  evt_id            String?
+  org_id            String?
+  achievement_type  String
+  achievement_scope String    @default("personal")
+  medal_tier        String?
+  notes             String?
+  season_year       Int?
+  awarded_at        DateTime?
+  capture_lat       Float?
+  capture_lng       Float?
+  capture_timestamp DateTime?
+  capture_device_id String?
+  native_capture    Boolean   @default(false)
+  created_at        DateTime  @default(now())
+
+  player Player?       @relation(fields: [ppc_id], references: [id])
+  event  Event?        @relation(fields: [evt_id], references: [id])
+  org    Organization? @relation(fields: [org_id], references: [id])
+
+  @@map("achievements")
+}
+
+model ScheduleEntry {
+  id          String    @id @default(uuid())
+  org_id      String
+  evt_id      String?
+  opponent    String?
+  game_date   DateTime?
+  location    String?
+  result      String?
+  season_year Int?
+  notes       String?
+  created_at  DateTime  @default(now())
+
+  org   Organization @relation(fields: [org_id], references: [id])
+  event Event?       @relation(fields: [evt_id], references: [id])
+
+  @@map("schedule_entries")
 }
 
 model GumItem {
