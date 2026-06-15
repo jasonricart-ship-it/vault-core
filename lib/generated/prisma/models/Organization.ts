@@ -324,6 +324,8 @@ export type OrganizationWhereInput = {
   gov_affiliations?: Prisma.OrgGovAffiliationListRelationFilter
   player_affiliations?: Prisma.PlayerOrgAffiliationListRelationFilter
   events?: Prisma.EventListRelationFilter
+  achievements?: Prisma.AchievementListRelationFilter
+  schedule_entries?: Prisma.ScheduleEntryListRelationFilter
   gum_items?: Prisma.GumItemListRelationFilter
 }
 
@@ -350,6 +352,8 @@ export type OrganizationOrderByWithRelationInput = {
   gov_affiliations?: Prisma.OrgGovAffiliationOrderByRelationAggregateInput
   player_affiliations?: Prisma.PlayerOrgAffiliationOrderByRelationAggregateInput
   events?: Prisma.EventOrderByRelationAggregateInput
+  achievements?: Prisma.AchievementOrderByRelationAggregateInput
+  schedule_entries?: Prisma.ScheduleEntryOrderByRelationAggregateInput
   gum_items?: Prisma.GumItemOrderByRelationAggregateInput
 }
 
@@ -379,6 +383,8 @@ export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
   gov_affiliations?: Prisma.OrgGovAffiliationListRelationFilter
   player_affiliations?: Prisma.PlayerOrgAffiliationListRelationFilter
   events?: Prisma.EventListRelationFilter
+  achievements?: Prisma.AchievementListRelationFilter
+  schedule_entries?: Prisma.ScheduleEntryListRelationFilter
   gum_items?: Prisma.GumItemListRelationFilter
 }, "id" | "org_code">
 
@@ -453,7 +459,9 @@ export type OrganizationCreateInput = {
   admin?: Prisma.AccountCreateNestedOneWithoutManaged_orgsInput
   gov_affiliations?: Prisma.OrgGovAffiliationCreateNestedManyWithoutOrgInput
   player_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutOrgInput
-  events?: Prisma.EventCreateNestedManyWithoutSanctioning_orgInput
+  events?: Prisma.EventCreateNestedManyWithoutOrgInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutOrgInput
+  schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutOrgInput
 }
 
@@ -478,7 +486,9 @@ export type OrganizationUncheckedCreateInput = {
   updated_at?: Date | string
   gov_affiliations?: Prisma.OrgGovAffiliationUncheckedCreateNestedManyWithoutOrgInput
   player_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutOrgInput
-  events?: Prisma.EventUncheckedCreateNestedManyWithoutSanctioning_orgInput
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutOrgInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutOrgInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutOrgInput
 }
 
@@ -503,7 +513,9 @@ export type OrganizationUpdateInput = {
   admin?: Prisma.AccountUpdateOneWithoutManaged_orgsNestedInput
   gov_affiliations?: Prisma.OrgGovAffiliationUpdateManyWithoutOrgNestedInput
   player_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutOrgNestedInput
-  events?: Prisma.EventUpdateManyWithoutSanctioning_orgNestedInput
+  events?: Prisma.EventUpdateManyWithoutOrgNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutOrgNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutOrgNestedInput
 }
 
@@ -528,7 +540,9 @@ export type OrganizationUncheckedUpdateInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   gov_affiliations?: Prisma.OrgGovAffiliationUncheckedUpdateManyWithoutOrgNestedInput
   player_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutOrgNestedInput
-  events?: Prisma.EventUncheckedUpdateManyWithoutSanctioning_orgNestedInput
+  events?: Prisma.EventUncheckedUpdateManyWithoutOrgNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutOrgNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutOrgNestedInput
 }
 
@@ -665,14 +679,14 @@ export type OrganizationSumOrderByAggregateInput = {
   strength_score?: Prisma.SortOrder
 }
 
-export type OrganizationNullableScalarRelationFilter = {
-  is?: Prisma.OrganizationWhereInput | null
-  isNot?: Prisma.OrganizationWhereInput | null
-}
-
 export type OrganizationScalarRelationFilter = {
   is?: Prisma.OrganizationWhereInput
   isNot?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationNullableScalarRelationFilter = {
+  is?: Prisma.OrganizationWhereInput | null
+  isNot?: Prisma.OrganizationWhereInput | null
 }
 
 export type OrganizationListRelationFilter = {
@@ -691,14 +705,42 @@ export type OrganizationCreateNestedOneWithoutEventsInput = {
   connect?: Prisma.OrganizationWhereUniqueInput
 }
 
-export type OrganizationUpdateOneWithoutEventsNestedInput = {
+export type OrganizationUpdateOneRequiredWithoutEventsNestedInput = {
   create?: Prisma.XOR<Prisma.OrganizationCreateWithoutEventsInput, Prisma.OrganizationUncheckedCreateWithoutEventsInput>
   connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutEventsInput
   upsert?: Prisma.OrganizationUpsertWithoutEventsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutEventsInput, Prisma.OrganizationUpdateWithoutEventsInput>, Prisma.OrganizationUncheckedUpdateWithoutEventsInput>
+}
+
+export type OrganizationCreateNestedOneWithoutAchievementsInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutAchievementsInput, Prisma.OrganizationUncheckedCreateWithoutAchievementsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutAchievementsInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneWithoutAchievementsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutAchievementsInput, Prisma.OrganizationUncheckedCreateWithoutAchievementsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutAchievementsInput
+  upsert?: Prisma.OrganizationUpsertWithoutAchievementsInput
   disconnect?: Prisma.OrganizationWhereInput | boolean
   delete?: Prisma.OrganizationWhereInput | boolean
   connect?: Prisma.OrganizationWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutEventsInput, Prisma.OrganizationUpdateWithoutEventsInput>, Prisma.OrganizationUncheckedUpdateWithoutEventsInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutAchievementsInput, Prisma.OrganizationUpdateWithoutAchievementsInput>, Prisma.OrganizationUncheckedUpdateWithoutAchievementsInput>
+}
+
+export type OrganizationCreateNestedOneWithoutSchedule_entriesInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutSchedule_entriesInput, Prisma.OrganizationUncheckedCreateWithoutSchedule_entriesInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutSchedule_entriesInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneRequiredWithoutSchedule_entriesNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutSchedule_entriesInput, Prisma.OrganizationUncheckedCreateWithoutSchedule_entriesInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutSchedule_entriesInput
+  upsert?: Prisma.OrganizationUpsertWithoutSchedule_entriesInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutSchedule_entriesInput, Prisma.OrganizationUpdateWithoutSchedule_entriesInput>, Prisma.OrganizationUncheckedUpdateWithoutSchedule_entriesInput>
 }
 
 export type OrganizationCreateNestedOneWithoutGum_itemsInput = {
@@ -808,6 +850,8 @@ export type OrganizationCreateWithoutEventsInput = {
   admin?: Prisma.AccountCreateNestedOneWithoutManaged_orgsInput
   gov_affiliations?: Prisma.OrgGovAffiliationCreateNestedManyWithoutOrgInput
   player_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutOrgInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutOrgInput
+  schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutOrgInput
 }
 
@@ -832,6 +876,8 @@ export type OrganizationUncheckedCreateWithoutEventsInput = {
   updated_at?: Date | string
   gov_affiliations?: Prisma.OrgGovAffiliationUncheckedCreateNestedManyWithoutOrgInput
   player_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutOrgInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutOrgInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutOrgInput
 }
 
@@ -872,6 +918,8 @@ export type OrganizationUpdateWithoutEventsInput = {
   admin?: Prisma.AccountUpdateOneWithoutManaged_orgsNestedInput
   gov_affiliations?: Prisma.OrgGovAffiliationUpdateManyWithoutOrgNestedInput
   player_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutOrgNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutOrgNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutOrgNestedInput
 }
 
@@ -896,6 +944,248 @@ export type OrganizationUncheckedUpdateWithoutEventsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   gov_affiliations?: Prisma.OrgGovAffiliationUncheckedUpdateManyWithoutOrgNestedInput
   player_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutOrgNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutOrgNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutOrgNestedInput
+  gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutOrgNestedInput
+}
+
+export type OrganizationCreateWithoutAchievementsInput = {
+  id?: string
+  org_code: string
+  name: string
+  short_name?: string | null
+  sport?: string | null
+  org_type: string
+  state?: string | null
+  city?: string | null
+  vault_level?: string
+  strength_score?: number
+  registration_status?: string
+  is_verified?: boolean
+  authorization_granted?: boolean
+  annual_renewal_due?: Date | string | null
+  last_renewed_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  admin?: Prisma.AccountCreateNestedOneWithoutManaged_orgsInput
+  gov_affiliations?: Prisma.OrgGovAffiliationCreateNestedManyWithoutOrgInput
+  player_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutOrgInput
+  events?: Prisma.EventCreateNestedManyWithoutOrgInput
+  schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutOrgInput
+  gum_items?: Prisma.GumItemCreateNestedManyWithoutOrgInput
+}
+
+export type OrganizationUncheckedCreateWithoutAchievementsInput = {
+  id?: string
+  org_code: string
+  name: string
+  short_name?: string | null
+  sport?: string | null
+  org_type: string
+  state?: string | null
+  city?: string | null
+  vault_level?: string
+  strength_score?: number
+  registration_status?: string
+  is_verified?: boolean
+  authorization_granted?: boolean
+  annual_renewal_due?: Date | string | null
+  last_renewed_at?: Date | string | null
+  admin_account_id?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  gov_affiliations?: Prisma.OrgGovAffiliationUncheckedCreateNestedManyWithoutOrgInput
+  player_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutOrgInput
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutOrgInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutOrgInput
+  gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutOrgInput
+}
+
+export type OrganizationCreateOrConnectWithoutAchievementsInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutAchievementsInput, Prisma.OrganizationUncheckedCreateWithoutAchievementsInput>
+}
+
+export type OrganizationUpsertWithoutAchievementsInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutAchievementsInput, Prisma.OrganizationUncheckedUpdateWithoutAchievementsInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutAchievementsInput, Prisma.OrganizationUncheckedCreateWithoutAchievementsInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutAchievementsInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutAchievementsInput, Prisma.OrganizationUncheckedUpdateWithoutAchievementsInput>
+}
+
+export type OrganizationUpdateWithoutAchievementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  org_code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  short_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  org_type?: Prisma.StringFieldUpdateOperationsInput | string
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  authorization_granted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  annual_renewal_due?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_renewed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  admin?: Prisma.AccountUpdateOneWithoutManaged_orgsNestedInput
+  gov_affiliations?: Prisma.OrgGovAffiliationUpdateManyWithoutOrgNestedInput
+  player_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutOrgNestedInput
+  events?: Prisma.EventUpdateManyWithoutOrgNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutOrgNestedInput
+  gum_items?: Prisma.GumItemUpdateManyWithoutOrgNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutAchievementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  org_code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  short_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  org_type?: Prisma.StringFieldUpdateOperationsInput | string
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  authorization_granted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  annual_renewal_due?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_renewed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  admin_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gov_affiliations?: Prisma.OrgGovAffiliationUncheckedUpdateManyWithoutOrgNestedInput
+  player_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutOrgNestedInput
+  events?: Prisma.EventUncheckedUpdateManyWithoutOrgNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutOrgNestedInput
+  gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutOrgNestedInput
+}
+
+export type OrganizationCreateWithoutSchedule_entriesInput = {
+  id?: string
+  org_code: string
+  name: string
+  short_name?: string | null
+  sport?: string | null
+  org_type: string
+  state?: string | null
+  city?: string | null
+  vault_level?: string
+  strength_score?: number
+  registration_status?: string
+  is_verified?: boolean
+  authorization_granted?: boolean
+  annual_renewal_due?: Date | string | null
+  last_renewed_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  admin?: Prisma.AccountCreateNestedOneWithoutManaged_orgsInput
+  gov_affiliations?: Prisma.OrgGovAffiliationCreateNestedManyWithoutOrgInput
+  player_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutOrgInput
+  events?: Prisma.EventCreateNestedManyWithoutOrgInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutOrgInput
+  gum_items?: Prisma.GumItemCreateNestedManyWithoutOrgInput
+}
+
+export type OrganizationUncheckedCreateWithoutSchedule_entriesInput = {
+  id?: string
+  org_code: string
+  name: string
+  short_name?: string | null
+  sport?: string | null
+  org_type: string
+  state?: string | null
+  city?: string | null
+  vault_level?: string
+  strength_score?: number
+  registration_status?: string
+  is_verified?: boolean
+  authorization_granted?: boolean
+  annual_renewal_due?: Date | string | null
+  last_renewed_at?: Date | string | null
+  admin_account_id?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  gov_affiliations?: Prisma.OrgGovAffiliationUncheckedCreateNestedManyWithoutOrgInput
+  player_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutOrgInput
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutOrgInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutOrgInput
+  gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutOrgInput
+}
+
+export type OrganizationCreateOrConnectWithoutSchedule_entriesInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutSchedule_entriesInput, Prisma.OrganizationUncheckedCreateWithoutSchedule_entriesInput>
+}
+
+export type OrganizationUpsertWithoutSchedule_entriesInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutSchedule_entriesInput, Prisma.OrganizationUncheckedUpdateWithoutSchedule_entriesInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutSchedule_entriesInput, Prisma.OrganizationUncheckedCreateWithoutSchedule_entriesInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutSchedule_entriesInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutSchedule_entriesInput, Prisma.OrganizationUncheckedUpdateWithoutSchedule_entriesInput>
+}
+
+export type OrganizationUpdateWithoutSchedule_entriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  org_code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  short_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  org_type?: Prisma.StringFieldUpdateOperationsInput | string
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  authorization_granted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  annual_renewal_due?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_renewed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  admin?: Prisma.AccountUpdateOneWithoutManaged_orgsNestedInput
+  gov_affiliations?: Prisma.OrgGovAffiliationUpdateManyWithoutOrgNestedInput
+  player_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutOrgNestedInput
+  events?: Prisma.EventUpdateManyWithoutOrgNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutOrgNestedInput
+  gum_items?: Prisma.GumItemUpdateManyWithoutOrgNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutSchedule_entriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  org_code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  short_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  org_type?: Prisma.StringFieldUpdateOperationsInput | string
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  authorization_granted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  annual_renewal_due?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_renewed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  admin_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gov_affiliations?: Prisma.OrgGovAffiliationUncheckedUpdateManyWithoutOrgNestedInput
+  player_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutOrgNestedInput
+  events?: Prisma.EventUncheckedUpdateManyWithoutOrgNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutOrgNestedInput
 }
 
@@ -920,7 +1210,9 @@ export type OrganizationCreateWithoutGum_itemsInput = {
   admin?: Prisma.AccountCreateNestedOneWithoutManaged_orgsInput
   gov_affiliations?: Prisma.OrgGovAffiliationCreateNestedManyWithoutOrgInput
   player_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutOrgInput
-  events?: Prisma.EventCreateNestedManyWithoutSanctioning_orgInput
+  events?: Prisma.EventCreateNestedManyWithoutOrgInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutOrgInput
+  schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutGum_itemsInput = {
@@ -944,7 +1236,9 @@ export type OrganizationUncheckedCreateWithoutGum_itemsInput = {
   updated_at?: Date | string
   gov_affiliations?: Prisma.OrgGovAffiliationUncheckedCreateNestedManyWithoutOrgInput
   player_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutOrgInput
-  events?: Prisma.EventUncheckedCreateNestedManyWithoutSanctioning_orgInput
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutOrgInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutOrgInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutGum_itemsInput = {
@@ -984,7 +1278,9 @@ export type OrganizationUpdateWithoutGum_itemsInput = {
   admin?: Prisma.AccountUpdateOneWithoutManaged_orgsNestedInput
   gov_affiliations?: Prisma.OrgGovAffiliationUpdateManyWithoutOrgNestedInput
   player_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutOrgNestedInput
-  events?: Prisma.EventUpdateManyWithoutSanctioning_orgNestedInput
+  events?: Prisma.EventUpdateManyWithoutOrgNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutOrgNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutGum_itemsInput = {
@@ -1008,7 +1304,9 @@ export type OrganizationUncheckedUpdateWithoutGum_itemsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   gov_affiliations?: Prisma.OrgGovAffiliationUncheckedUpdateManyWithoutOrgNestedInput
   player_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutOrgNestedInput
-  events?: Prisma.EventUncheckedUpdateManyWithoutSanctioning_orgNestedInput
+  events?: Prisma.EventUncheckedUpdateManyWithoutOrgNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutOrgNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationCreateWithoutPlayer_affiliationsInput = {
@@ -1031,7 +1329,9 @@ export type OrganizationCreateWithoutPlayer_affiliationsInput = {
   updated_at?: Date | string
   admin?: Prisma.AccountCreateNestedOneWithoutManaged_orgsInput
   gov_affiliations?: Prisma.OrgGovAffiliationCreateNestedManyWithoutOrgInput
-  events?: Prisma.EventCreateNestedManyWithoutSanctioning_orgInput
+  events?: Prisma.EventCreateNestedManyWithoutOrgInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutOrgInput
+  schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutOrgInput
 }
 
@@ -1055,7 +1355,9 @@ export type OrganizationUncheckedCreateWithoutPlayer_affiliationsInput = {
   created_at?: Date | string
   updated_at?: Date | string
   gov_affiliations?: Prisma.OrgGovAffiliationUncheckedCreateNestedManyWithoutOrgInput
-  events?: Prisma.EventUncheckedCreateNestedManyWithoutSanctioning_orgInput
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutOrgInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutOrgInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutOrgInput
 }
 
@@ -1095,7 +1397,9 @@ export type OrganizationUpdateWithoutPlayer_affiliationsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   admin?: Prisma.AccountUpdateOneWithoutManaged_orgsNestedInput
   gov_affiliations?: Prisma.OrgGovAffiliationUpdateManyWithoutOrgNestedInput
-  events?: Prisma.EventUpdateManyWithoutSanctioning_orgNestedInput
+  events?: Prisma.EventUpdateManyWithoutOrgNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutOrgNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutOrgNestedInput
 }
 
@@ -1119,7 +1423,9 @@ export type OrganizationUncheckedUpdateWithoutPlayer_affiliationsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   gov_affiliations?: Prisma.OrgGovAffiliationUncheckedUpdateManyWithoutOrgNestedInput
-  events?: Prisma.EventUncheckedUpdateManyWithoutSanctioning_orgNestedInput
+  events?: Prisma.EventUncheckedUpdateManyWithoutOrgNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutOrgNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutOrgNestedInput
 }
 
@@ -1143,7 +1449,9 @@ export type OrganizationCreateWithoutGov_affiliationsInput = {
   updated_at?: Date | string
   admin?: Prisma.AccountCreateNestedOneWithoutManaged_orgsInput
   player_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutOrgInput
-  events?: Prisma.EventCreateNestedManyWithoutSanctioning_orgInput
+  events?: Prisma.EventCreateNestedManyWithoutOrgInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutOrgInput
+  schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutOrgInput
 }
 
@@ -1167,7 +1475,9 @@ export type OrganizationUncheckedCreateWithoutGov_affiliationsInput = {
   created_at?: Date | string
   updated_at?: Date | string
   player_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutOrgInput
-  events?: Prisma.EventUncheckedCreateNestedManyWithoutSanctioning_orgInput
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutOrgInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutOrgInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutOrgInput
 }
 
@@ -1207,7 +1517,9 @@ export type OrganizationUpdateWithoutGov_affiliationsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   admin?: Prisma.AccountUpdateOneWithoutManaged_orgsNestedInput
   player_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutOrgNestedInput
-  events?: Prisma.EventUpdateManyWithoutSanctioning_orgNestedInput
+  events?: Prisma.EventUpdateManyWithoutOrgNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutOrgNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutOrgNestedInput
 }
 
@@ -1231,7 +1543,9 @@ export type OrganizationUncheckedUpdateWithoutGov_affiliationsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   player_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutOrgNestedInput
-  events?: Prisma.EventUncheckedUpdateManyWithoutSanctioning_orgNestedInput
+  events?: Prisma.EventUncheckedUpdateManyWithoutOrgNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutOrgNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutOrgNestedInput
 }
 
@@ -1255,7 +1569,9 @@ export type OrganizationCreateWithoutAdminInput = {
   updated_at?: Date | string
   gov_affiliations?: Prisma.OrgGovAffiliationCreateNestedManyWithoutOrgInput
   player_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutOrgInput
-  events?: Prisma.EventCreateNestedManyWithoutSanctioning_orgInput
+  events?: Prisma.EventCreateNestedManyWithoutOrgInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutOrgInput
+  schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutOrgInput
 }
 
@@ -1279,7 +1595,9 @@ export type OrganizationUncheckedCreateWithoutAdminInput = {
   updated_at?: Date | string
   gov_affiliations?: Prisma.OrgGovAffiliationUncheckedCreateNestedManyWithoutOrgInput
   player_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutOrgInput
-  events?: Prisma.EventUncheckedCreateNestedManyWithoutSanctioning_orgInput
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutOrgInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutOrgInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutOrgInput
 }
 
@@ -1373,7 +1691,9 @@ export type OrganizationUpdateWithoutAdminInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   gov_affiliations?: Prisma.OrgGovAffiliationUpdateManyWithoutOrgNestedInput
   player_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutOrgNestedInput
-  events?: Prisma.EventUpdateManyWithoutSanctioning_orgNestedInput
+  events?: Prisma.EventUpdateManyWithoutOrgNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutOrgNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutOrgNestedInput
 }
 
@@ -1397,7 +1717,9 @@ export type OrganizationUncheckedUpdateWithoutAdminInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   gov_affiliations?: Prisma.OrgGovAffiliationUncheckedUpdateManyWithoutOrgNestedInput
   player_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutOrgNestedInput
-  events?: Prisma.EventUncheckedUpdateManyWithoutSanctioning_orgNestedInput
+  events?: Prisma.EventUncheckedUpdateManyWithoutOrgNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutOrgNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutOrgNestedInput
 }
 
@@ -1430,6 +1752,8 @@ export type OrganizationCountOutputType = {
   gov_affiliations: number
   player_affiliations: number
   events: number
+  achievements: number
+  schedule_entries: number
   gum_items: number
 }
 
@@ -1437,6 +1761,8 @@ export type OrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Exte
   gov_affiliations?: boolean | OrganizationCountOutputTypeCountGov_affiliationsArgs
   player_affiliations?: boolean | OrganizationCountOutputTypeCountPlayer_affiliationsArgs
   events?: boolean | OrganizationCountOutputTypeCountEventsArgs
+  achievements?: boolean | OrganizationCountOutputTypeCountAchievementsArgs
+  schedule_entries?: boolean | OrganizationCountOutputTypeCountSchedule_entriesArgs
   gum_items?: boolean | OrganizationCountOutputTypeCountGum_itemsArgs
 }
 
@@ -1474,6 +1800,20 @@ export type OrganizationCountOutputTypeCountEventsArgs<ExtArgs extends runtime.T
 /**
  * OrganizationCountOutputType without action
  */
+export type OrganizationCountOutputTypeCountAchievementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AchievementWhereInput
+}
+
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountSchedule_entriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ScheduleEntryWhereInput
+}
+
+/**
+ * OrganizationCountOutputType without action
+ */
 export type OrganizationCountOutputTypeCountGum_itemsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.GumItemWhereInput
 }
@@ -1502,6 +1842,8 @@ export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   gov_affiliations?: boolean | Prisma.Organization$gov_affiliationsArgs<ExtArgs>
   player_affiliations?: boolean | Prisma.Organization$player_affiliationsArgs<ExtArgs>
   events?: boolean | Prisma.Organization$eventsArgs<ExtArgs>
+  achievements?: boolean | Prisma.Organization$achievementsArgs<ExtArgs>
+  schedule_entries?: boolean | Prisma.Organization$schedule_entriesArgs<ExtArgs>
   gum_items?: boolean | Prisma.Organization$gum_itemsArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["organization"]>
@@ -1577,6 +1919,8 @@ export type OrganizationInclude<ExtArgs extends runtime.Types.Extensions.Interna
   gov_affiliations?: boolean | Prisma.Organization$gov_affiliationsArgs<ExtArgs>
   player_affiliations?: boolean | Prisma.Organization$player_affiliationsArgs<ExtArgs>
   events?: boolean | Prisma.Organization$eventsArgs<ExtArgs>
+  achievements?: boolean | Prisma.Organization$achievementsArgs<ExtArgs>
+  schedule_entries?: boolean | Prisma.Organization$schedule_entriesArgs<ExtArgs>
   gum_items?: boolean | Prisma.Organization$gum_itemsArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }
@@ -1594,6 +1938,8 @@ export type $OrganizationPayload<ExtArgs extends runtime.Types.Extensions.Intern
     gov_affiliations: Prisma.$OrgGovAffiliationPayload<ExtArgs>[]
     player_affiliations: Prisma.$PlayerOrgAffiliationPayload<ExtArgs>[]
     events: Prisma.$EventPayload<ExtArgs>[]
+    achievements: Prisma.$AchievementPayload<ExtArgs>[]
+    schedule_entries: Prisma.$ScheduleEntryPayload<ExtArgs>[]
     gum_items: Prisma.$GumItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -2013,6 +2359,8 @@ export interface Prisma__OrganizationClient<T, Null = never, ExtArgs extends run
   gov_affiliations<T extends Prisma.Organization$gov_affiliationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$gov_affiliationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrgGovAffiliationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   player_affiliations<T extends Prisma.Organization$player_affiliationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$player_affiliationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlayerOrgAffiliationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   events<T extends Prisma.Organization$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  achievements<T extends Prisma.Organization$achievementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$achievementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  schedule_entries<T extends Prisma.Organization$schedule_entriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$schedule_entriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ScheduleEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   gum_items<T extends Prisma.Organization$gum_itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$gum_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GumItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -2550,6 +2898,54 @@ export type Organization$eventsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.EventScalarFieldEnum | Prisma.EventScalarFieldEnum[]
+}
+
+/**
+ * Organization.achievements
+ */
+export type Organization$achievementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Achievement
+   */
+  select?: Prisma.AchievementSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Achievement
+   */
+  omit?: Prisma.AchievementOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AchievementInclude<ExtArgs> | null
+  where?: Prisma.AchievementWhereInput
+  orderBy?: Prisma.AchievementOrderByWithRelationInput | Prisma.AchievementOrderByWithRelationInput[]
+  cursor?: Prisma.AchievementWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AchievementScalarFieldEnum | Prisma.AchievementScalarFieldEnum[]
+}
+
+/**
+ * Organization.schedule_entries
+ */
+export type Organization$schedule_entriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ScheduleEntry
+   */
+  select?: Prisma.ScheduleEntrySelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ScheduleEntry
+   */
+  omit?: Prisma.ScheduleEntryOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ScheduleEntryInclude<ExtArgs> | null
+  where?: Prisma.ScheduleEntryWhereInput
+  orderBy?: Prisma.ScheduleEntryOrderByWithRelationInput | Prisma.ScheduleEntryOrderByWithRelationInput[]
+  cursor?: Prisma.ScheduleEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ScheduleEntryScalarFieldEnum | Prisma.ScheduleEntryScalarFieldEnum[]
 }
 
 /**

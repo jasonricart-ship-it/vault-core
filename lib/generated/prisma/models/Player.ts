@@ -356,6 +356,7 @@ export type PlayerWhereInput = {
   org_affiliations?: Prisma.PlayerOrgAffiliationListRelationFilter
   event_participation?: Prisma.PlayerEventParticipationListRelationFilter
   gum_items?: Prisma.GumItemListRelationFilter
+  achievements?: Prisma.AchievementListRelationFilter
 }
 
 export type PlayerOrderByWithRelationInput = {
@@ -385,6 +386,7 @@ export type PlayerOrderByWithRelationInput = {
   org_affiliations?: Prisma.PlayerOrgAffiliationOrderByRelationAggregateInput
   event_participation?: Prisma.PlayerEventParticipationOrderByRelationAggregateInput
   gum_items?: Prisma.GumItemOrderByRelationAggregateInput
+  achievements?: Prisma.AchievementOrderByRelationAggregateInput
 }
 
 export type PlayerWhereUniqueInput = Prisma.AtLeast<{
@@ -417,6 +419,7 @@ export type PlayerWhereUniqueInput = Prisma.AtLeast<{
   org_affiliations?: Prisma.PlayerOrgAffiliationListRelationFilter
   event_participation?: Prisma.PlayerEventParticipationListRelationFilter
   gum_items?: Prisma.GumItemListRelationFilter
+  achievements?: Prisma.AchievementListRelationFilter
 }, "id" | "ppc_number">
 
 export type PlayerOrderByWithAggregationInput = {
@@ -503,6 +506,7 @@ export type PlayerCreateInput = {
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateInput = {
@@ -531,6 +535,7 @@ export type PlayerUncheckedCreateInput = {
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUpdateInput = {
@@ -559,6 +564,7 @@ export type PlayerUpdateInput = {
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateInput = {
@@ -587,6 +593,7 @@ export type PlayerUncheckedUpdateInput = {
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateManyInput = {
@@ -794,6 +801,22 @@ export type DateTimeFieldUpdateOperationsInput = {
   set?: Date | string
 }
 
+export type PlayerCreateNestedOneWithoutAchievementsInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutAchievementsInput, Prisma.PlayerUncheckedCreateWithoutAchievementsInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutAchievementsInput
+  connect?: Prisma.PlayerWhereUniqueInput
+}
+
+export type PlayerUpdateOneWithoutAchievementsNestedInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutAchievementsInput, Prisma.PlayerUncheckedCreateWithoutAchievementsInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutAchievementsInput
+  upsert?: Prisma.PlayerUpsertWithoutAchievementsInput
+  disconnect?: Prisma.PlayerWhereInput | boolean
+  delete?: Prisma.PlayerWhereInput | boolean
+  connect?: Prisma.PlayerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlayerUpdateToOneWithWhereWithoutAchievementsInput, Prisma.PlayerUpdateWithoutAchievementsInput>, Prisma.PlayerUncheckedUpdateWithoutAchievementsInput>
+}
+
 export type PlayerCreateNestedOneWithoutGum_itemsInput = {
   create?: Prisma.XOR<Prisma.PlayerCreateWithoutGum_itemsInput, Prisma.PlayerUncheckedCreateWithoutGum_itemsInput>
   connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutGum_itemsInput
@@ -880,6 +903,134 @@ export type PlayerUncheckedUpdateManyWithoutGuardianNestedInput = {
   deleteMany?: Prisma.PlayerScalarWhereInput | Prisma.PlayerScalarWhereInput[]
 }
 
+export type PlayerCreateWithoutAchievementsInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  created_by?: string | null
+  guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
+}
+
+export type PlayerUncheckedCreateWithoutAchievementsInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  guardian_account_id?: string | null
+  created_by?: string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
+}
+
+export type PlayerCreateOrConnectWithoutAchievementsInput = {
+  where: Prisma.PlayerWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutAchievementsInput, Prisma.PlayerUncheckedCreateWithoutAchievementsInput>
+}
+
+export type PlayerUpsertWithoutAchievementsInput = {
+  update: Prisma.XOR<Prisma.PlayerUpdateWithoutAchievementsInput, Prisma.PlayerUncheckedUpdateWithoutAchievementsInput>
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutAchievementsInput, Prisma.PlayerUncheckedCreateWithoutAchievementsInput>
+  where?: Prisma.PlayerWhereInput
+}
+
+export type PlayerUpdateToOneWithWhereWithoutAchievementsInput = {
+  where?: Prisma.PlayerWhereInput
+  data: Prisma.XOR<Prisma.PlayerUpdateWithoutAchievementsInput, Prisma.PlayerUncheckedUpdateWithoutAchievementsInput>
+}
+
+export type PlayerUpdateWithoutAchievementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
+}
+
+export type PlayerUncheckedUpdateWithoutAchievementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  guardian_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
+}
+
 export type PlayerCreateWithoutGum_itemsInput = {
   id?: string
   ppc_number: string
@@ -905,6 +1056,7 @@ export type PlayerCreateWithoutGum_itemsInput = {
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutGum_itemsInput = {
@@ -932,6 +1084,7 @@ export type PlayerUncheckedCreateWithoutGum_itemsInput = {
   created_by?: string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutGum_itemsInput = {
@@ -975,6 +1128,7 @@ export type PlayerUpdateWithoutGum_itemsInput = {
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutGum_itemsInput = {
@@ -1002,6 +1156,7 @@ export type PlayerUncheckedUpdateWithoutGum_itemsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateWithoutOrg_affiliationsInput = {
@@ -1029,6 +1184,7 @@ export type PlayerCreateWithoutOrg_affiliationsInput = {
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutOrg_affiliationsInput = {
@@ -1056,6 +1212,7 @@ export type PlayerUncheckedCreateWithoutOrg_affiliationsInput = {
   created_by?: string | null
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutOrg_affiliationsInput = {
@@ -1099,6 +1256,7 @@ export type PlayerUpdateWithoutOrg_affiliationsInput = {
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutOrg_affiliationsInput = {
@@ -1126,6 +1284,7 @@ export type PlayerUncheckedUpdateWithoutOrg_affiliationsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateWithoutEvent_participationInput = {
@@ -1153,6 +1312,7 @@ export type PlayerCreateWithoutEvent_participationInput = {
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutEvent_participationInput = {
@@ -1180,6 +1340,7 @@ export type PlayerUncheckedCreateWithoutEvent_participationInput = {
   created_by?: string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutEvent_participationInput = {
@@ -1223,6 +1384,7 @@ export type PlayerUpdateWithoutEvent_participationInput = {
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutEvent_participationInput = {
@@ -1250,6 +1412,7 @@ export type PlayerUncheckedUpdateWithoutEvent_participationInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateWithoutGuardianInput = {
@@ -1277,6 +1440,7 @@ export type PlayerCreateWithoutGuardianInput = {
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutGuardianInput = {
@@ -1304,6 +1468,7 @@ export type PlayerUncheckedCreateWithoutGuardianInput = {
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutGuardianInput = {
@@ -1409,6 +1574,7 @@ export type PlayerUpdateWithoutGuardianInput = {
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutGuardianInput = {
@@ -1436,6 +1602,7 @@ export type PlayerUncheckedUpdateWithoutGuardianInput = {
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateManyWithoutGuardianInput = {
@@ -1471,12 +1638,14 @@ export type PlayerCountOutputType = {
   org_affiliations: number
   event_participation: number
   gum_items: number
+  achievements: number
 }
 
 export type PlayerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   org_affiliations?: boolean | PlayerCountOutputTypeCountOrg_affiliationsArgs
   event_participation?: boolean | PlayerCountOutputTypeCountEvent_participationArgs
   gum_items?: boolean | PlayerCountOutputTypeCountGum_itemsArgs
+  achievements?: boolean | PlayerCountOutputTypeCountAchievementsArgs
 }
 
 /**
@@ -1510,6 +1679,13 @@ export type PlayerCountOutputTypeCountGum_itemsArgs<ExtArgs extends runtime.Type
   where?: Prisma.GumItemWhereInput
 }
 
+/**
+ * PlayerCountOutputType without action
+ */
+export type PlayerCountOutputTypeCountAchievementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AchievementWhereInput
+}
+
 
 export type PlayerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1538,6 +1714,7 @@ export type PlayerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   org_affiliations?: boolean | Prisma.Player$org_affiliationsArgs<ExtArgs>
   event_participation?: boolean | Prisma.Player$event_participationArgs<ExtArgs>
   gum_items?: boolean | Prisma.Player$gum_itemsArgs<ExtArgs>
+  achievements?: boolean | Prisma.Player$achievementsArgs<ExtArgs>
   _count?: boolean | Prisma.PlayerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["player"]>
 
@@ -1624,6 +1801,7 @@ export type PlayerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   org_affiliations?: boolean | Prisma.Player$org_affiliationsArgs<ExtArgs>
   event_participation?: boolean | Prisma.Player$event_participationArgs<ExtArgs>
   gum_items?: boolean | Prisma.Player$gum_itemsArgs<ExtArgs>
+  achievements?: boolean | Prisma.Player$achievementsArgs<ExtArgs>
   _count?: boolean | Prisma.PlayerCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PlayerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1640,6 +1818,7 @@ export type $PlayerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     org_affiliations: Prisma.$PlayerOrgAffiliationPayload<ExtArgs>[]
     event_participation: Prisma.$PlayerEventParticipationPayload<ExtArgs>[]
     gum_items: Prisma.$GumItemPayload<ExtArgs>[]
+    achievements: Prisma.$AchievementPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2062,6 +2241,7 @@ export interface Prisma__PlayerClient<T, Null = never, ExtArgs extends runtime.T
   org_affiliations<T extends Prisma.Player$org_affiliationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$org_affiliationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlayerOrgAffiliationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   event_participation<T extends Prisma.Player$event_participationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$event_participationArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlayerEventParticipationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   gum_items<T extends Prisma.Player$gum_itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$gum_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GumItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  achievements<T extends Prisma.Player$achievementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$achievementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2602,6 +2782,30 @@ export type Player$gum_itemsArgs<ExtArgs extends runtime.Types.Extensions.Intern
   take?: number
   skip?: number
   distinct?: Prisma.GumItemScalarFieldEnum | Prisma.GumItemScalarFieldEnum[]
+}
+
+/**
+ * Player.achievements
+ */
+export type Player$achievementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Achievement
+   */
+  select?: Prisma.AchievementSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Achievement
+   */
+  omit?: Prisma.AchievementOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AchievementInclude<ExtArgs> | null
+  where?: Prisma.AchievementWhereInput
+  orderBy?: Prisma.AchievementOrderByWithRelationInput | Prisma.AchievementOrderByWithRelationInput[]
+  cursor?: Prisma.AchievementWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AchievementScalarFieldEnum | Prisma.AchievementScalarFieldEnum[]
 }
 
 /**

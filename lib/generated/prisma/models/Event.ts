@@ -37,18 +37,15 @@ export type EventSumAggregateOutputType = {
 export type EventMinAggregateOutputType = {
   id: string | null
   evt_code: string | null
+  org_id: string | null
+  gov_id: string | null
   name: string | null
-  event_type: string | null
-  sport: string | null
   season_year: number | null
-  start_date: Date | null
-  end_date: Date | null
+  event_date: Date | null
   location: string | null
-  sanctioning_gov_id: string | null
-  sanctioning_org_id: string | null
-  authority_level: string | null
-  vault_level: string | null
-  is_verified: boolean | null
+  city: string | null
+  state: string | null
+  registration_status: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -56,18 +53,15 @@ export type EventMinAggregateOutputType = {
 export type EventMaxAggregateOutputType = {
   id: string | null
   evt_code: string | null
+  org_id: string | null
+  gov_id: string | null
   name: string | null
-  event_type: string | null
-  sport: string | null
   season_year: number | null
-  start_date: Date | null
-  end_date: Date | null
+  event_date: Date | null
   location: string | null
-  sanctioning_gov_id: string | null
-  sanctioning_org_id: string | null
-  authority_level: string | null
-  vault_level: string | null
-  is_verified: boolean | null
+  city: string | null
+  state: string | null
+  registration_status: string | null
   created_at: Date | null
   updated_at: Date | null
 }
@@ -75,18 +69,15 @@ export type EventMaxAggregateOutputType = {
 export type EventCountAggregateOutputType = {
   id: number
   evt_code: number
+  org_id: number
+  gov_id: number
   name: number
-  event_type: number
-  sport: number
   season_year: number
-  start_date: number
-  end_date: number
+  event_date: number
   location: number
-  sanctioning_gov_id: number
-  sanctioning_org_id: number
-  authority_level: number
-  vault_level: number
-  is_verified: number
+  city: number
+  state: number
+  registration_status: number
   created_at: number
   updated_at: number
   _all: number
@@ -104,18 +95,15 @@ export type EventSumAggregateInputType = {
 export type EventMinAggregateInputType = {
   id?: true
   evt_code?: true
+  org_id?: true
+  gov_id?: true
   name?: true
-  event_type?: true
-  sport?: true
   season_year?: true
-  start_date?: true
-  end_date?: true
+  event_date?: true
   location?: true
-  sanctioning_gov_id?: true
-  sanctioning_org_id?: true
-  authority_level?: true
-  vault_level?: true
-  is_verified?: true
+  city?: true
+  state?: true
+  registration_status?: true
   created_at?: true
   updated_at?: true
 }
@@ -123,18 +111,15 @@ export type EventMinAggregateInputType = {
 export type EventMaxAggregateInputType = {
   id?: true
   evt_code?: true
+  org_id?: true
+  gov_id?: true
   name?: true
-  event_type?: true
-  sport?: true
   season_year?: true
-  start_date?: true
-  end_date?: true
+  event_date?: true
   location?: true
-  sanctioning_gov_id?: true
-  sanctioning_org_id?: true
-  authority_level?: true
-  vault_level?: true
-  is_verified?: true
+  city?: true
+  state?: true
+  registration_status?: true
   created_at?: true
   updated_at?: true
 }
@@ -142,18 +127,15 @@ export type EventMaxAggregateInputType = {
 export type EventCountAggregateInputType = {
   id?: true
   evt_code?: true
+  org_id?: true
+  gov_id?: true
   name?: true
-  event_type?: true
-  sport?: true
   season_year?: true
-  start_date?: true
-  end_date?: true
+  event_date?: true
   location?: true
-  sanctioning_gov_id?: true
-  sanctioning_org_id?: true
-  authority_level?: true
-  vault_level?: true
-  is_verified?: true
+  city?: true
+  state?: true
+  registration_status?: true
   created_at?: true
   updated_at?: true
   _all?: true
@@ -248,18 +230,15 @@ export type EventGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type EventGroupByOutputType = {
   id: string
   evt_code: string
+  org_id: string
+  gov_id: string | null
   name: string
-  event_type: string
-  sport: string | null
   season_year: number
-  start_date: Date | null
-  end_date: Date | null
+  event_date: Date | null
   location: string | null
-  sanctioning_gov_id: string | null
-  sanctioning_org_id: string | null
-  authority_level: string | null
-  vault_level: string
-  is_verified: boolean
+  city: string | null
+  state: string | null
+  registration_status: string
   created_at: Date
   updated_at: Date
   _count: EventCountAggregateOutputType | null
@@ -290,22 +269,20 @@ export type EventWhereInput = {
   NOT?: Prisma.EventWhereInput | Prisma.EventWhereInput[]
   id?: Prisma.StringFilter<"Event"> | string
   evt_code?: Prisma.StringFilter<"Event"> | string
+  org_id?: Prisma.StringFilter<"Event"> | string
+  gov_id?: Prisma.StringNullableFilter<"Event"> | string | null
   name?: Prisma.StringFilter<"Event"> | string
-  event_type?: Prisma.StringFilter<"Event"> | string
-  sport?: Prisma.StringNullableFilter<"Event"> | string | null
   season_year?: Prisma.IntFilter<"Event"> | number
-  start_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
-  end_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
+  event_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
   location?: Prisma.StringNullableFilter<"Event"> | string | null
-  sanctioning_gov_id?: Prisma.StringNullableFilter<"Event"> | string | null
-  sanctioning_org_id?: Prisma.StringNullableFilter<"Event"> | string | null
-  authority_level?: Prisma.StringNullableFilter<"Event"> | string | null
-  vault_level?: Prisma.StringFilter<"Event"> | string
-  is_verified?: Prisma.BoolFilter<"Event"> | boolean
+  city?: Prisma.StringNullableFilter<"Event"> | string | null
+  state?: Prisma.StringNullableFilter<"Event"> | string | null
+  registration_status?: Prisma.StringFilter<"Event"> | string
   created_at?: Prisma.DateTimeFilter<"Event"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Event"> | Date | string
-  sanctioning_gov?: Prisma.XOR<Prisma.GoverningBodyNullableScalarRelationFilter, Prisma.GoverningBodyWhereInput> | null
-  sanctioning_org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
+  org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  achievements?: Prisma.AchievementListRelationFilter
+  schedule_entries?: Prisma.ScheduleEntryListRelationFilter
   player_participation?: Prisma.PlayerEventParticipationListRelationFilter
   gum_items?: Prisma.GumItemListRelationFilter
 }
@@ -313,22 +290,20 @@ export type EventWhereInput = {
 export type EventOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   evt_code?: Prisma.SortOrder
+  org_id?: Prisma.SortOrder
+  gov_id?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
-  event_type?: Prisma.SortOrder
-  sport?: Prisma.SortOrderInput | Prisma.SortOrder
   season_year?: Prisma.SortOrder
-  start_date?: Prisma.SortOrderInput | Prisma.SortOrder
-  end_date?: Prisma.SortOrderInput | Prisma.SortOrder
+  event_date?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
-  sanctioning_gov_id?: Prisma.SortOrderInput | Prisma.SortOrder
-  sanctioning_org_id?: Prisma.SortOrderInput | Prisma.SortOrder
-  authority_level?: Prisma.SortOrderInput | Prisma.SortOrder
-  vault_level?: Prisma.SortOrder
-  is_verified?: Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
+  state?: Prisma.SortOrderInput | Prisma.SortOrder
+  registration_status?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
-  sanctioning_gov?: Prisma.GoverningBodyOrderByWithRelationInput
-  sanctioning_org?: Prisma.OrganizationOrderByWithRelationInput
+  org?: Prisma.OrganizationOrderByWithRelationInput
+  achievements?: Prisma.AchievementOrderByRelationAggregateInput
+  schedule_entries?: Prisma.ScheduleEntryOrderByRelationAggregateInput
   player_participation?: Prisma.PlayerEventParticipationOrderByRelationAggregateInput
   gum_items?: Prisma.GumItemOrderByRelationAggregateInput
 }
@@ -339,22 +314,20 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.EventWhereInput | Prisma.EventWhereInput[]
   OR?: Prisma.EventWhereInput[]
   NOT?: Prisma.EventWhereInput | Prisma.EventWhereInput[]
+  org_id?: Prisma.StringFilter<"Event"> | string
+  gov_id?: Prisma.StringNullableFilter<"Event"> | string | null
   name?: Prisma.StringFilter<"Event"> | string
-  event_type?: Prisma.StringFilter<"Event"> | string
-  sport?: Prisma.StringNullableFilter<"Event"> | string | null
   season_year?: Prisma.IntFilter<"Event"> | number
-  start_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
-  end_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
+  event_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
   location?: Prisma.StringNullableFilter<"Event"> | string | null
-  sanctioning_gov_id?: Prisma.StringNullableFilter<"Event"> | string | null
-  sanctioning_org_id?: Prisma.StringNullableFilter<"Event"> | string | null
-  authority_level?: Prisma.StringNullableFilter<"Event"> | string | null
-  vault_level?: Prisma.StringFilter<"Event"> | string
-  is_verified?: Prisma.BoolFilter<"Event"> | boolean
+  city?: Prisma.StringNullableFilter<"Event"> | string | null
+  state?: Prisma.StringNullableFilter<"Event"> | string | null
+  registration_status?: Prisma.StringFilter<"Event"> | string
   created_at?: Prisma.DateTimeFilter<"Event"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Event"> | Date | string
-  sanctioning_gov?: Prisma.XOR<Prisma.GoverningBodyNullableScalarRelationFilter, Prisma.GoverningBodyWhereInput> | null
-  sanctioning_org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
+  org?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  achievements?: Prisma.AchievementListRelationFilter
+  schedule_entries?: Prisma.ScheduleEntryListRelationFilter
   player_participation?: Prisma.PlayerEventParticipationListRelationFilter
   gum_items?: Prisma.GumItemListRelationFilter
 }, "id" | "evt_code">
@@ -362,18 +335,15 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
 export type EventOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   evt_code?: Prisma.SortOrder
+  org_id?: Prisma.SortOrder
+  gov_id?: Prisma.SortOrderInput | Prisma.SortOrder
   name?: Prisma.SortOrder
-  event_type?: Prisma.SortOrder
-  sport?: Prisma.SortOrderInput | Prisma.SortOrder
   season_year?: Prisma.SortOrder
-  start_date?: Prisma.SortOrderInput | Prisma.SortOrder
-  end_date?: Prisma.SortOrderInput | Prisma.SortOrder
+  event_date?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
-  sanctioning_gov_id?: Prisma.SortOrderInput | Prisma.SortOrder
-  sanctioning_org_id?: Prisma.SortOrderInput | Prisma.SortOrder
-  authority_level?: Prisma.SortOrderInput | Prisma.SortOrder
-  vault_level?: Prisma.SortOrder
-  is_verified?: Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
+  state?: Prisma.SortOrderInput | Prisma.SortOrder
+  registration_status?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   _count?: Prisma.EventCountOrderByAggregateInput
@@ -389,18 +359,15 @@ export type EventScalarWhereWithAggregatesInput = {
   NOT?: Prisma.EventScalarWhereWithAggregatesInput | Prisma.EventScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"Event"> | string
   evt_code?: Prisma.StringWithAggregatesFilter<"Event"> | string
+  org_id?: Prisma.StringWithAggregatesFilter<"Event"> | string
+  gov_id?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   name?: Prisma.StringWithAggregatesFilter<"Event"> | string
-  event_type?: Prisma.StringWithAggregatesFilter<"Event"> | string
-  sport?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   season_year?: Prisma.IntWithAggregatesFilter<"Event"> | number
-  start_date?: Prisma.DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
-  end_date?: Prisma.DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
+  event_date?: Prisma.DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
   location?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
-  sanctioning_gov_id?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
-  sanctioning_org_id?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
-  authority_level?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
-  vault_level?: Prisma.StringWithAggregatesFilter<"Event"> | string
-  is_verified?: Prisma.BoolWithAggregatesFilter<"Event"> | boolean
+  city?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
+  state?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
+  registration_status?: Prisma.StringWithAggregatesFilter<"Event"> | string
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Event"> | Date | string
 }
@@ -408,20 +375,19 @@ export type EventScalarWhereWithAggregatesInput = {
 export type EventCreateInput = {
   id?: string
   evt_code: string
+  gov_id?: string | null
   name: string
-  event_type: string
-  sport?: string | null
   season_year: number
-  start_date?: Date | string | null
-  end_date?: Date | string | null
+  event_date?: Date | string | null
   location?: string | null
-  authority_level?: string | null
-  vault_level?: string
-  is_verified?: boolean
+  city?: string | null
+  state?: string | null
+  registration_status?: string
   created_at?: Date | string
   updated_at?: Date | string
-  sanctioning_gov?: Prisma.GoverningBodyCreateNestedOneWithoutEventsInput
-  sanctioning_org?: Prisma.OrganizationCreateNestedOneWithoutEventsInput
+  org: Prisma.OrganizationCreateNestedOneWithoutEventsInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutEventInput
+  schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutEventInput
 }
@@ -429,20 +395,19 @@ export type EventCreateInput = {
 export type EventUncheckedCreateInput = {
   id?: string
   evt_code: string
+  org_id: string
+  gov_id?: string | null
   name: string
-  event_type: string
-  sport?: string | null
   season_year: number
-  start_date?: Date | string | null
-  end_date?: Date | string | null
+  event_date?: Date | string | null
   location?: string | null
-  sanctioning_gov_id?: string | null
-  sanctioning_org_id?: string | null
-  authority_level?: string | null
-  vault_level?: string
-  is_verified?: boolean
+  city?: string | null
+  state?: string | null
+  registration_status?: string
   created_at?: Date | string
   updated_at?: Date | string
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutEventInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutEventInput
 }
@@ -450,20 +415,19 @@ export type EventUncheckedCreateInput = {
 export type EventUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   evt_code?: Prisma.StringFieldUpdateOperationsInput | string
+  gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  event_type?: Prisma.StringFieldUpdateOperationsInput | string
-  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
-  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authority_level?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  sanctioning_gov?: Prisma.GoverningBodyUpdateOneWithoutEventsNestedInput
-  sanctioning_org?: Prisma.OrganizationUpdateOneWithoutEventsNestedInput
+  org?: Prisma.OrganizationUpdateOneRequiredWithoutEventsNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutEventNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutEventNestedInput
   player_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutEventNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutEventNestedInput
 }
@@ -471,20 +435,19 @@ export type EventUpdateInput = {
 export type EventUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   evt_code?: Prisma.StringFieldUpdateOperationsInput | string
+  org_id?: Prisma.StringFieldUpdateOperationsInput | string
+  gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  event_type?: Prisma.StringFieldUpdateOperationsInput | string
-  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
-  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sanctioning_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sanctioning_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authority_level?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutEventNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutEventNestedInput
   player_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutEventNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutEventNestedInput
 }
@@ -492,18 +455,15 @@ export type EventUncheckedUpdateInput = {
 export type EventCreateManyInput = {
   id?: string
   evt_code: string
+  org_id: string
+  gov_id?: string | null
   name: string
-  event_type: string
-  sport?: string | null
   season_year: number
-  start_date?: Date | string | null
-  end_date?: Date | string | null
+  event_date?: Date | string | null
   location?: string | null
-  sanctioning_gov_id?: string | null
-  sanctioning_org_id?: string | null
-  authority_level?: string | null
-  vault_level?: string
-  is_verified?: boolean
+  city?: string | null
+  state?: string | null
+  registration_status?: string
   created_at?: Date | string
   updated_at?: Date | string
 }
@@ -511,16 +471,14 @@ export type EventCreateManyInput = {
 export type EventUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   evt_code?: Prisma.StringFieldUpdateOperationsInput | string
+  gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  event_type?: Prisma.StringFieldUpdateOperationsInput | string
-  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
-  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authority_level?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -528,18 +486,15 @@ export type EventUpdateManyMutationInput = {
 export type EventUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   evt_code?: Prisma.StringFieldUpdateOperationsInput | string
+  org_id?: Prisma.StringFieldUpdateOperationsInput | string
+  gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  event_type?: Prisma.StringFieldUpdateOperationsInput | string
-  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
-  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sanctioning_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sanctioning_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authority_level?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -557,18 +512,15 @@ export type EventOrderByRelationAggregateInput = {
 export type EventCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   evt_code?: Prisma.SortOrder
+  org_id?: Prisma.SortOrder
+  gov_id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  event_type?: Prisma.SortOrder
-  sport?: Prisma.SortOrder
   season_year?: Prisma.SortOrder
-  start_date?: Prisma.SortOrder
-  end_date?: Prisma.SortOrder
+  event_date?: Prisma.SortOrder
   location?: Prisma.SortOrder
-  sanctioning_gov_id?: Prisma.SortOrder
-  sanctioning_org_id?: Prisma.SortOrder
-  authority_level?: Prisma.SortOrder
-  vault_level?: Prisma.SortOrder
-  is_verified?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  state?: Prisma.SortOrder
+  registration_status?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -580,18 +532,15 @@ export type EventAvgOrderByAggregateInput = {
 export type EventMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   evt_code?: Prisma.SortOrder
+  org_id?: Prisma.SortOrder
+  gov_id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  event_type?: Prisma.SortOrder
-  sport?: Prisma.SortOrder
   season_year?: Prisma.SortOrder
-  start_date?: Prisma.SortOrder
-  end_date?: Prisma.SortOrder
+  event_date?: Prisma.SortOrder
   location?: Prisma.SortOrder
-  sanctioning_gov_id?: Prisma.SortOrder
-  sanctioning_org_id?: Prisma.SortOrder
-  authority_level?: Prisma.SortOrder
-  vault_level?: Prisma.SortOrder
-  is_verified?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  state?: Prisma.SortOrder
+  registration_status?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -599,18 +548,15 @@ export type EventMaxOrderByAggregateInput = {
 export type EventMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   evt_code?: Prisma.SortOrder
+  org_id?: Prisma.SortOrder
+  gov_id?: Prisma.SortOrder
   name?: Prisma.SortOrder
-  event_type?: Prisma.SortOrder
-  sport?: Prisma.SortOrder
   season_year?: Prisma.SortOrder
-  start_date?: Prisma.SortOrder
-  end_date?: Prisma.SortOrder
+  event_date?: Prisma.SortOrder
   location?: Prisma.SortOrder
-  sanctioning_gov_id?: Prisma.SortOrder
-  sanctioning_org_id?: Prisma.SortOrder
-  authority_level?: Prisma.SortOrder
-  vault_level?: Prisma.SortOrder
-  is_verified?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  state?: Prisma.SortOrder
+  registration_status?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
 }
@@ -629,88 +575,78 @@ export type EventScalarRelationFilter = {
   isNot?: Prisma.EventWhereInput
 }
 
-export type EventCreateNestedManyWithoutSanctioning_govInput = {
-  create?: Prisma.XOR<Prisma.EventCreateWithoutSanctioning_govInput, Prisma.EventUncheckedCreateWithoutSanctioning_govInput> | Prisma.EventCreateWithoutSanctioning_govInput[] | Prisma.EventUncheckedCreateWithoutSanctioning_govInput[]
-  connectOrCreate?: Prisma.EventCreateOrConnectWithoutSanctioning_govInput | Prisma.EventCreateOrConnectWithoutSanctioning_govInput[]
-  createMany?: Prisma.EventCreateManySanctioning_govInputEnvelope
+export type EventCreateNestedManyWithoutOrgInput = {
+  create?: Prisma.XOR<Prisma.EventCreateWithoutOrgInput, Prisma.EventUncheckedCreateWithoutOrgInput> | Prisma.EventCreateWithoutOrgInput[] | Prisma.EventUncheckedCreateWithoutOrgInput[]
+  connectOrCreate?: Prisma.EventCreateOrConnectWithoutOrgInput | Prisma.EventCreateOrConnectWithoutOrgInput[]
+  createMany?: Prisma.EventCreateManyOrgInputEnvelope
   connect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
 }
 
-export type EventUncheckedCreateNestedManyWithoutSanctioning_govInput = {
-  create?: Prisma.XOR<Prisma.EventCreateWithoutSanctioning_govInput, Prisma.EventUncheckedCreateWithoutSanctioning_govInput> | Prisma.EventCreateWithoutSanctioning_govInput[] | Prisma.EventUncheckedCreateWithoutSanctioning_govInput[]
-  connectOrCreate?: Prisma.EventCreateOrConnectWithoutSanctioning_govInput | Prisma.EventCreateOrConnectWithoutSanctioning_govInput[]
-  createMany?: Prisma.EventCreateManySanctioning_govInputEnvelope
+export type EventUncheckedCreateNestedManyWithoutOrgInput = {
+  create?: Prisma.XOR<Prisma.EventCreateWithoutOrgInput, Prisma.EventUncheckedCreateWithoutOrgInput> | Prisma.EventCreateWithoutOrgInput[] | Prisma.EventUncheckedCreateWithoutOrgInput[]
+  connectOrCreate?: Prisma.EventCreateOrConnectWithoutOrgInput | Prisma.EventCreateOrConnectWithoutOrgInput[]
+  createMany?: Prisma.EventCreateManyOrgInputEnvelope
   connect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
 }
 
-export type EventUpdateManyWithoutSanctioning_govNestedInput = {
-  create?: Prisma.XOR<Prisma.EventCreateWithoutSanctioning_govInput, Prisma.EventUncheckedCreateWithoutSanctioning_govInput> | Prisma.EventCreateWithoutSanctioning_govInput[] | Prisma.EventUncheckedCreateWithoutSanctioning_govInput[]
-  connectOrCreate?: Prisma.EventCreateOrConnectWithoutSanctioning_govInput | Prisma.EventCreateOrConnectWithoutSanctioning_govInput[]
-  upsert?: Prisma.EventUpsertWithWhereUniqueWithoutSanctioning_govInput | Prisma.EventUpsertWithWhereUniqueWithoutSanctioning_govInput[]
-  createMany?: Prisma.EventCreateManySanctioning_govInputEnvelope
+export type EventUpdateManyWithoutOrgNestedInput = {
+  create?: Prisma.XOR<Prisma.EventCreateWithoutOrgInput, Prisma.EventUncheckedCreateWithoutOrgInput> | Prisma.EventCreateWithoutOrgInput[] | Prisma.EventUncheckedCreateWithoutOrgInput[]
+  connectOrCreate?: Prisma.EventCreateOrConnectWithoutOrgInput | Prisma.EventCreateOrConnectWithoutOrgInput[]
+  upsert?: Prisma.EventUpsertWithWhereUniqueWithoutOrgInput | Prisma.EventUpsertWithWhereUniqueWithoutOrgInput[]
+  createMany?: Prisma.EventCreateManyOrgInputEnvelope
   set?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
   disconnect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
   delete?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
   connect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
-  update?: Prisma.EventUpdateWithWhereUniqueWithoutSanctioning_govInput | Prisma.EventUpdateWithWhereUniqueWithoutSanctioning_govInput[]
-  updateMany?: Prisma.EventUpdateManyWithWhereWithoutSanctioning_govInput | Prisma.EventUpdateManyWithWhereWithoutSanctioning_govInput[]
+  update?: Prisma.EventUpdateWithWhereUniqueWithoutOrgInput | Prisma.EventUpdateWithWhereUniqueWithoutOrgInput[]
+  updateMany?: Prisma.EventUpdateManyWithWhereWithoutOrgInput | Prisma.EventUpdateManyWithWhereWithoutOrgInput[]
   deleteMany?: Prisma.EventScalarWhereInput | Prisma.EventScalarWhereInput[]
 }
 
-export type EventUncheckedUpdateManyWithoutSanctioning_govNestedInput = {
-  create?: Prisma.XOR<Prisma.EventCreateWithoutSanctioning_govInput, Prisma.EventUncheckedCreateWithoutSanctioning_govInput> | Prisma.EventCreateWithoutSanctioning_govInput[] | Prisma.EventUncheckedCreateWithoutSanctioning_govInput[]
-  connectOrCreate?: Prisma.EventCreateOrConnectWithoutSanctioning_govInput | Prisma.EventCreateOrConnectWithoutSanctioning_govInput[]
-  upsert?: Prisma.EventUpsertWithWhereUniqueWithoutSanctioning_govInput | Prisma.EventUpsertWithWhereUniqueWithoutSanctioning_govInput[]
-  createMany?: Prisma.EventCreateManySanctioning_govInputEnvelope
+export type EventUncheckedUpdateManyWithoutOrgNestedInput = {
+  create?: Prisma.XOR<Prisma.EventCreateWithoutOrgInput, Prisma.EventUncheckedCreateWithoutOrgInput> | Prisma.EventCreateWithoutOrgInput[] | Prisma.EventUncheckedCreateWithoutOrgInput[]
+  connectOrCreate?: Prisma.EventCreateOrConnectWithoutOrgInput | Prisma.EventCreateOrConnectWithoutOrgInput[]
+  upsert?: Prisma.EventUpsertWithWhereUniqueWithoutOrgInput | Prisma.EventUpsertWithWhereUniqueWithoutOrgInput[]
+  createMany?: Prisma.EventCreateManyOrgInputEnvelope
   set?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
   disconnect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
   delete?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
   connect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
-  update?: Prisma.EventUpdateWithWhereUniqueWithoutSanctioning_govInput | Prisma.EventUpdateWithWhereUniqueWithoutSanctioning_govInput[]
-  updateMany?: Prisma.EventUpdateManyWithWhereWithoutSanctioning_govInput | Prisma.EventUpdateManyWithWhereWithoutSanctioning_govInput[]
+  update?: Prisma.EventUpdateWithWhereUniqueWithoutOrgInput | Prisma.EventUpdateWithWhereUniqueWithoutOrgInput[]
+  updateMany?: Prisma.EventUpdateManyWithWhereWithoutOrgInput | Prisma.EventUpdateManyWithWhereWithoutOrgInput[]
   deleteMany?: Prisma.EventScalarWhereInput | Prisma.EventScalarWhereInput[]
 }
 
-export type EventCreateNestedManyWithoutSanctioning_orgInput = {
-  create?: Prisma.XOR<Prisma.EventCreateWithoutSanctioning_orgInput, Prisma.EventUncheckedCreateWithoutSanctioning_orgInput> | Prisma.EventCreateWithoutSanctioning_orgInput[] | Prisma.EventUncheckedCreateWithoutSanctioning_orgInput[]
-  connectOrCreate?: Prisma.EventCreateOrConnectWithoutSanctioning_orgInput | Prisma.EventCreateOrConnectWithoutSanctioning_orgInput[]
-  createMany?: Prisma.EventCreateManySanctioning_orgInputEnvelope
-  connect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
+export type EventCreateNestedOneWithoutAchievementsInput = {
+  create?: Prisma.XOR<Prisma.EventCreateWithoutAchievementsInput, Prisma.EventUncheckedCreateWithoutAchievementsInput>
+  connectOrCreate?: Prisma.EventCreateOrConnectWithoutAchievementsInput
+  connect?: Prisma.EventWhereUniqueInput
 }
 
-export type EventUncheckedCreateNestedManyWithoutSanctioning_orgInput = {
-  create?: Prisma.XOR<Prisma.EventCreateWithoutSanctioning_orgInput, Prisma.EventUncheckedCreateWithoutSanctioning_orgInput> | Prisma.EventCreateWithoutSanctioning_orgInput[] | Prisma.EventUncheckedCreateWithoutSanctioning_orgInput[]
-  connectOrCreate?: Prisma.EventCreateOrConnectWithoutSanctioning_orgInput | Prisma.EventCreateOrConnectWithoutSanctioning_orgInput[]
-  createMany?: Prisma.EventCreateManySanctioning_orgInputEnvelope
-  connect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
+export type EventUpdateOneWithoutAchievementsNestedInput = {
+  create?: Prisma.XOR<Prisma.EventCreateWithoutAchievementsInput, Prisma.EventUncheckedCreateWithoutAchievementsInput>
+  connectOrCreate?: Prisma.EventCreateOrConnectWithoutAchievementsInput
+  upsert?: Prisma.EventUpsertWithoutAchievementsInput
+  disconnect?: Prisma.EventWhereInput | boolean
+  delete?: Prisma.EventWhereInput | boolean
+  connect?: Prisma.EventWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EventUpdateToOneWithWhereWithoutAchievementsInput, Prisma.EventUpdateWithoutAchievementsInput>, Prisma.EventUncheckedUpdateWithoutAchievementsInput>
 }
 
-export type EventUpdateManyWithoutSanctioning_orgNestedInput = {
-  create?: Prisma.XOR<Prisma.EventCreateWithoutSanctioning_orgInput, Prisma.EventUncheckedCreateWithoutSanctioning_orgInput> | Prisma.EventCreateWithoutSanctioning_orgInput[] | Prisma.EventUncheckedCreateWithoutSanctioning_orgInput[]
-  connectOrCreate?: Prisma.EventCreateOrConnectWithoutSanctioning_orgInput | Prisma.EventCreateOrConnectWithoutSanctioning_orgInput[]
-  upsert?: Prisma.EventUpsertWithWhereUniqueWithoutSanctioning_orgInput | Prisma.EventUpsertWithWhereUniqueWithoutSanctioning_orgInput[]
-  createMany?: Prisma.EventCreateManySanctioning_orgInputEnvelope
-  set?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
-  disconnect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
-  delete?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
-  connect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
-  update?: Prisma.EventUpdateWithWhereUniqueWithoutSanctioning_orgInput | Prisma.EventUpdateWithWhereUniqueWithoutSanctioning_orgInput[]
-  updateMany?: Prisma.EventUpdateManyWithWhereWithoutSanctioning_orgInput | Prisma.EventUpdateManyWithWhereWithoutSanctioning_orgInput[]
-  deleteMany?: Prisma.EventScalarWhereInput | Prisma.EventScalarWhereInput[]
+export type EventCreateNestedOneWithoutSchedule_entriesInput = {
+  create?: Prisma.XOR<Prisma.EventCreateWithoutSchedule_entriesInput, Prisma.EventUncheckedCreateWithoutSchedule_entriesInput>
+  connectOrCreate?: Prisma.EventCreateOrConnectWithoutSchedule_entriesInput
+  connect?: Prisma.EventWhereUniqueInput
 }
 
-export type EventUncheckedUpdateManyWithoutSanctioning_orgNestedInput = {
-  create?: Prisma.XOR<Prisma.EventCreateWithoutSanctioning_orgInput, Prisma.EventUncheckedCreateWithoutSanctioning_orgInput> | Prisma.EventCreateWithoutSanctioning_orgInput[] | Prisma.EventUncheckedCreateWithoutSanctioning_orgInput[]
-  connectOrCreate?: Prisma.EventCreateOrConnectWithoutSanctioning_orgInput | Prisma.EventCreateOrConnectWithoutSanctioning_orgInput[]
-  upsert?: Prisma.EventUpsertWithWhereUniqueWithoutSanctioning_orgInput | Prisma.EventUpsertWithWhereUniqueWithoutSanctioning_orgInput[]
-  createMany?: Prisma.EventCreateManySanctioning_orgInputEnvelope
-  set?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
-  disconnect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
-  delete?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
-  connect?: Prisma.EventWhereUniqueInput | Prisma.EventWhereUniqueInput[]
-  update?: Prisma.EventUpdateWithWhereUniqueWithoutSanctioning_orgInput | Prisma.EventUpdateWithWhereUniqueWithoutSanctioning_orgInput[]
-  updateMany?: Prisma.EventUpdateManyWithWhereWithoutSanctioning_orgInput | Prisma.EventUpdateManyWithWhereWithoutSanctioning_orgInput[]
-  deleteMany?: Prisma.EventScalarWhereInput | Prisma.EventScalarWhereInput[]
+export type EventUpdateOneWithoutSchedule_entriesNestedInput = {
+  create?: Prisma.XOR<Prisma.EventCreateWithoutSchedule_entriesInput, Prisma.EventUncheckedCreateWithoutSchedule_entriesInput>
+  connectOrCreate?: Prisma.EventCreateOrConnectWithoutSchedule_entriesInput
+  upsert?: Prisma.EventUpsertWithoutSchedule_entriesInput
+  disconnect?: Prisma.EventWhereInput | boolean
+  delete?: Prisma.EventWhereInput | boolean
+  connect?: Prisma.EventWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EventUpdateToOneWithWhereWithoutSchedule_entriesInput, Prisma.EventUpdateWithoutSchedule_entriesInput>, Prisma.EventUncheckedUpdateWithoutSchedule_entriesInput>
 }
 
 export type EventCreateNestedOneWithoutGum_itemsInput = {
@@ -743,70 +679,68 @@ export type EventUpdateOneRequiredWithoutPlayer_participationNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EventUpdateToOneWithWhereWithoutPlayer_participationInput, Prisma.EventUpdateWithoutPlayer_participationInput>, Prisma.EventUncheckedUpdateWithoutPlayer_participationInput>
 }
 
-export type EventCreateWithoutSanctioning_govInput = {
+export type EventCreateWithoutOrgInput = {
   id?: string
   evt_code: string
+  gov_id?: string | null
   name: string
-  event_type: string
-  sport?: string | null
   season_year: number
-  start_date?: Date | string | null
-  end_date?: Date | string | null
+  event_date?: Date | string | null
   location?: string | null
-  authority_level?: string | null
-  vault_level?: string
-  is_verified?: boolean
+  city?: string | null
+  state?: string | null
+  registration_status?: string
   created_at?: Date | string
   updated_at?: Date | string
-  sanctioning_org?: Prisma.OrganizationCreateNestedOneWithoutEventsInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutEventInput
+  schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutEventInput
 }
 
-export type EventUncheckedCreateWithoutSanctioning_govInput = {
+export type EventUncheckedCreateWithoutOrgInput = {
   id?: string
   evt_code: string
+  gov_id?: string | null
   name: string
-  event_type: string
-  sport?: string | null
   season_year: number
-  start_date?: Date | string | null
-  end_date?: Date | string | null
+  event_date?: Date | string | null
   location?: string | null
-  sanctioning_org_id?: string | null
-  authority_level?: string | null
-  vault_level?: string
-  is_verified?: boolean
+  city?: string | null
+  state?: string | null
+  registration_status?: string
   created_at?: Date | string
   updated_at?: Date | string
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutEventInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutEventInput
 }
 
-export type EventCreateOrConnectWithoutSanctioning_govInput = {
+export type EventCreateOrConnectWithoutOrgInput = {
   where: Prisma.EventWhereUniqueInput
-  create: Prisma.XOR<Prisma.EventCreateWithoutSanctioning_govInput, Prisma.EventUncheckedCreateWithoutSanctioning_govInput>
+  create: Prisma.XOR<Prisma.EventCreateWithoutOrgInput, Prisma.EventUncheckedCreateWithoutOrgInput>
 }
 
-export type EventCreateManySanctioning_govInputEnvelope = {
-  data: Prisma.EventCreateManySanctioning_govInput | Prisma.EventCreateManySanctioning_govInput[]
+export type EventCreateManyOrgInputEnvelope = {
+  data: Prisma.EventCreateManyOrgInput | Prisma.EventCreateManyOrgInput[]
   skipDuplicates?: boolean
 }
 
-export type EventUpsertWithWhereUniqueWithoutSanctioning_govInput = {
+export type EventUpsertWithWhereUniqueWithoutOrgInput = {
   where: Prisma.EventWhereUniqueInput
-  update: Prisma.XOR<Prisma.EventUpdateWithoutSanctioning_govInput, Prisma.EventUncheckedUpdateWithoutSanctioning_govInput>
-  create: Prisma.XOR<Prisma.EventCreateWithoutSanctioning_govInput, Prisma.EventUncheckedCreateWithoutSanctioning_govInput>
+  update: Prisma.XOR<Prisma.EventUpdateWithoutOrgInput, Prisma.EventUncheckedUpdateWithoutOrgInput>
+  create: Prisma.XOR<Prisma.EventCreateWithoutOrgInput, Prisma.EventUncheckedCreateWithoutOrgInput>
 }
 
-export type EventUpdateWithWhereUniqueWithoutSanctioning_govInput = {
+export type EventUpdateWithWhereUniqueWithoutOrgInput = {
   where: Prisma.EventWhereUniqueInput
-  data: Prisma.XOR<Prisma.EventUpdateWithoutSanctioning_govInput, Prisma.EventUncheckedUpdateWithoutSanctioning_govInput>
+  data: Prisma.XOR<Prisma.EventUpdateWithoutOrgInput, Prisma.EventUncheckedUpdateWithoutOrgInput>
 }
 
-export type EventUpdateManyWithWhereWithoutSanctioning_govInput = {
+export type EventUpdateManyWithWhereWithoutOrgInput = {
   where: Prisma.EventScalarWhereInput
-  data: Prisma.XOR<Prisma.EventUpdateManyMutationInput, Prisma.EventUncheckedUpdateManyWithoutSanctioning_govInput>
+  data: Prisma.XOR<Prisma.EventUpdateManyMutationInput, Prisma.EventUncheckedUpdateManyWithoutOrgInput>
 }
 
 export type EventScalarWhereInput = {
@@ -815,125 +749,238 @@ export type EventScalarWhereInput = {
   NOT?: Prisma.EventScalarWhereInput | Prisma.EventScalarWhereInput[]
   id?: Prisma.StringFilter<"Event"> | string
   evt_code?: Prisma.StringFilter<"Event"> | string
+  org_id?: Prisma.StringFilter<"Event"> | string
+  gov_id?: Prisma.StringNullableFilter<"Event"> | string | null
   name?: Prisma.StringFilter<"Event"> | string
-  event_type?: Prisma.StringFilter<"Event"> | string
-  sport?: Prisma.StringNullableFilter<"Event"> | string | null
   season_year?: Prisma.IntFilter<"Event"> | number
-  start_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
-  end_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
+  event_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
   location?: Prisma.StringNullableFilter<"Event"> | string | null
-  sanctioning_gov_id?: Prisma.StringNullableFilter<"Event"> | string | null
-  sanctioning_org_id?: Prisma.StringNullableFilter<"Event"> | string | null
-  authority_level?: Prisma.StringNullableFilter<"Event"> | string | null
-  vault_level?: Prisma.StringFilter<"Event"> | string
-  is_verified?: Prisma.BoolFilter<"Event"> | boolean
+  city?: Prisma.StringNullableFilter<"Event"> | string | null
+  state?: Prisma.StringNullableFilter<"Event"> | string | null
+  registration_status?: Prisma.StringFilter<"Event"> | string
   created_at?: Prisma.DateTimeFilter<"Event"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Event"> | Date | string
 }
 
-export type EventCreateWithoutSanctioning_orgInput = {
+export type EventCreateWithoutAchievementsInput = {
   id?: string
   evt_code: string
+  gov_id?: string | null
   name: string
-  event_type: string
-  sport?: string | null
   season_year: number
-  start_date?: Date | string | null
-  end_date?: Date | string | null
+  event_date?: Date | string | null
   location?: string | null
-  authority_level?: string | null
-  vault_level?: string
-  is_verified?: boolean
+  city?: string | null
+  state?: string | null
+  registration_status?: string
   created_at?: Date | string
   updated_at?: Date | string
-  sanctioning_gov?: Prisma.GoverningBodyCreateNestedOneWithoutEventsInput
+  org: Prisma.OrganizationCreateNestedOneWithoutEventsInput
+  schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutEventInput
 }
 
-export type EventUncheckedCreateWithoutSanctioning_orgInput = {
+export type EventUncheckedCreateWithoutAchievementsInput = {
   id?: string
   evt_code: string
+  org_id: string
+  gov_id?: string | null
   name: string
-  event_type: string
-  sport?: string | null
   season_year: number
-  start_date?: Date | string | null
-  end_date?: Date | string | null
+  event_date?: Date | string | null
   location?: string | null
-  sanctioning_gov_id?: string | null
-  authority_level?: string | null
-  vault_level?: string
-  is_verified?: boolean
+  city?: string | null
+  state?: string | null
+  registration_status?: string
   created_at?: Date | string
   updated_at?: Date | string
+  schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutEventInput
 }
 
-export type EventCreateOrConnectWithoutSanctioning_orgInput = {
+export type EventCreateOrConnectWithoutAchievementsInput = {
   where: Prisma.EventWhereUniqueInput
-  create: Prisma.XOR<Prisma.EventCreateWithoutSanctioning_orgInput, Prisma.EventUncheckedCreateWithoutSanctioning_orgInput>
+  create: Prisma.XOR<Prisma.EventCreateWithoutAchievementsInput, Prisma.EventUncheckedCreateWithoutAchievementsInput>
 }
 
-export type EventCreateManySanctioning_orgInputEnvelope = {
-  data: Prisma.EventCreateManySanctioning_orgInput | Prisma.EventCreateManySanctioning_orgInput[]
-  skipDuplicates?: boolean
+export type EventUpsertWithoutAchievementsInput = {
+  update: Prisma.XOR<Prisma.EventUpdateWithoutAchievementsInput, Prisma.EventUncheckedUpdateWithoutAchievementsInput>
+  create: Prisma.XOR<Prisma.EventCreateWithoutAchievementsInput, Prisma.EventUncheckedCreateWithoutAchievementsInput>
+  where?: Prisma.EventWhereInput
 }
 
-export type EventUpsertWithWhereUniqueWithoutSanctioning_orgInput = {
+export type EventUpdateToOneWithWhereWithoutAchievementsInput = {
+  where?: Prisma.EventWhereInput
+  data: Prisma.XOR<Prisma.EventUpdateWithoutAchievementsInput, Prisma.EventUncheckedUpdateWithoutAchievementsInput>
+}
+
+export type EventUpdateWithoutAchievementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  evt_code?: Prisma.StringFieldUpdateOperationsInput | string
+  gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  season_year?: Prisma.IntFieldUpdateOperationsInput | number
+  event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  org?: Prisma.OrganizationUpdateOneRequiredWithoutEventsNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutEventNestedInput
+  player_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutEventNestedInput
+  gum_items?: Prisma.GumItemUpdateManyWithoutEventNestedInput
+}
+
+export type EventUncheckedUpdateWithoutAchievementsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  evt_code?: Prisma.StringFieldUpdateOperationsInput | string
+  org_id?: Prisma.StringFieldUpdateOperationsInput | string
+  gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  season_year?: Prisma.IntFieldUpdateOperationsInput | number
+  event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutEventNestedInput
+  player_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutEventNestedInput
+  gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutEventNestedInput
+}
+
+export type EventCreateWithoutSchedule_entriesInput = {
+  id?: string
+  evt_code: string
+  gov_id?: string | null
+  name: string
+  season_year: number
+  event_date?: Date | string | null
+  location?: string | null
+  city?: string | null
+  state?: string | null
+  registration_status?: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  org: Prisma.OrganizationCreateNestedOneWithoutEventsInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutEventInput
+  player_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutEventInput
+  gum_items?: Prisma.GumItemCreateNestedManyWithoutEventInput
+}
+
+export type EventUncheckedCreateWithoutSchedule_entriesInput = {
+  id?: string
+  evt_code: string
+  org_id: string
+  gov_id?: string | null
+  name: string
+  season_year: number
+  event_date?: Date | string | null
+  location?: string | null
+  city?: string | null
+  state?: string | null
+  registration_status?: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutEventInput
+  player_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutEventInput
+  gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutEventInput
+}
+
+export type EventCreateOrConnectWithoutSchedule_entriesInput = {
   where: Prisma.EventWhereUniqueInput
-  update: Prisma.XOR<Prisma.EventUpdateWithoutSanctioning_orgInput, Prisma.EventUncheckedUpdateWithoutSanctioning_orgInput>
-  create: Prisma.XOR<Prisma.EventCreateWithoutSanctioning_orgInput, Prisma.EventUncheckedCreateWithoutSanctioning_orgInput>
+  create: Prisma.XOR<Prisma.EventCreateWithoutSchedule_entriesInput, Prisma.EventUncheckedCreateWithoutSchedule_entriesInput>
 }
 
-export type EventUpdateWithWhereUniqueWithoutSanctioning_orgInput = {
-  where: Prisma.EventWhereUniqueInput
-  data: Prisma.XOR<Prisma.EventUpdateWithoutSanctioning_orgInput, Prisma.EventUncheckedUpdateWithoutSanctioning_orgInput>
+export type EventUpsertWithoutSchedule_entriesInput = {
+  update: Prisma.XOR<Prisma.EventUpdateWithoutSchedule_entriesInput, Prisma.EventUncheckedUpdateWithoutSchedule_entriesInput>
+  create: Prisma.XOR<Prisma.EventCreateWithoutSchedule_entriesInput, Prisma.EventUncheckedCreateWithoutSchedule_entriesInput>
+  where?: Prisma.EventWhereInput
 }
 
-export type EventUpdateManyWithWhereWithoutSanctioning_orgInput = {
-  where: Prisma.EventScalarWhereInput
-  data: Prisma.XOR<Prisma.EventUpdateManyMutationInput, Prisma.EventUncheckedUpdateManyWithoutSanctioning_orgInput>
+export type EventUpdateToOneWithWhereWithoutSchedule_entriesInput = {
+  where?: Prisma.EventWhereInput
+  data: Prisma.XOR<Prisma.EventUpdateWithoutSchedule_entriesInput, Prisma.EventUncheckedUpdateWithoutSchedule_entriesInput>
+}
+
+export type EventUpdateWithoutSchedule_entriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  evt_code?: Prisma.StringFieldUpdateOperationsInput | string
+  gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  season_year?: Prisma.IntFieldUpdateOperationsInput | number
+  event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  org?: Prisma.OrganizationUpdateOneRequiredWithoutEventsNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutEventNestedInput
+  player_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutEventNestedInput
+  gum_items?: Prisma.GumItemUpdateManyWithoutEventNestedInput
+}
+
+export type EventUncheckedUpdateWithoutSchedule_entriesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  evt_code?: Prisma.StringFieldUpdateOperationsInput | string
+  org_id?: Prisma.StringFieldUpdateOperationsInput | string
+  gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  season_year?: Prisma.IntFieldUpdateOperationsInput | number
+  event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutEventNestedInput
+  player_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutEventNestedInput
+  gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateWithoutGum_itemsInput = {
   id?: string
   evt_code: string
+  gov_id?: string | null
   name: string
-  event_type: string
-  sport?: string | null
   season_year: number
-  start_date?: Date | string | null
-  end_date?: Date | string | null
+  event_date?: Date | string | null
   location?: string | null
-  authority_level?: string | null
-  vault_level?: string
-  is_verified?: boolean
+  city?: string | null
+  state?: string | null
+  registration_status?: string
   created_at?: Date | string
   updated_at?: Date | string
-  sanctioning_gov?: Prisma.GoverningBodyCreateNestedOneWithoutEventsInput
-  sanctioning_org?: Prisma.OrganizationCreateNestedOneWithoutEventsInput
+  org: Prisma.OrganizationCreateNestedOneWithoutEventsInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutEventInput
+  schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutGum_itemsInput = {
   id?: string
   evt_code: string
+  org_id: string
+  gov_id?: string | null
   name: string
-  event_type: string
-  sport?: string | null
   season_year: number
-  start_date?: Date | string | null
-  end_date?: Date | string | null
+  event_date?: Date | string | null
   location?: string | null
-  sanctioning_gov_id?: string | null
-  sanctioning_org_id?: string | null
-  authority_level?: string | null
-  vault_level?: string
-  is_verified?: boolean
+  city?: string | null
+  state?: string | null
+  registration_status?: string
   created_at?: Date | string
   updated_at?: Date | string
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutEventInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutEventInput
 }
 
@@ -956,80 +1003,76 @@ export type EventUpdateToOneWithWhereWithoutGum_itemsInput = {
 export type EventUpdateWithoutGum_itemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   evt_code?: Prisma.StringFieldUpdateOperationsInput | string
+  gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  event_type?: Prisma.StringFieldUpdateOperationsInput | string
-  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
-  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authority_level?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  sanctioning_gov?: Prisma.GoverningBodyUpdateOneWithoutEventsNestedInput
-  sanctioning_org?: Prisma.OrganizationUpdateOneWithoutEventsNestedInput
+  org?: Prisma.OrganizationUpdateOneRequiredWithoutEventsNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutEventNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutEventNestedInput
   player_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutGum_itemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   evt_code?: Prisma.StringFieldUpdateOperationsInput | string
+  org_id?: Prisma.StringFieldUpdateOperationsInput | string
+  gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  event_type?: Prisma.StringFieldUpdateOperationsInput | string
-  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
-  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sanctioning_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sanctioning_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authority_level?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutEventNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutEventNestedInput
   player_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateWithoutPlayer_participationInput = {
   id?: string
   evt_code: string
+  gov_id?: string | null
   name: string
-  event_type: string
-  sport?: string | null
   season_year: number
-  start_date?: Date | string | null
-  end_date?: Date | string | null
+  event_date?: Date | string | null
   location?: string | null
-  authority_level?: string | null
-  vault_level?: string
-  is_verified?: boolean
+  city?: string | null
+  state?: string | null
+  registration_status?: string
   created_at?: Date | string
   updated_at?: Date | string
-  sanctioning_gov?: Prisma.GoverningBodyCreateNestedOneWithoutEventsInput
-  sanctioning_org?: Prisma.OrganizationCreateNestedOneWithoutEventsInput
+  org: Prisma.OrganizationCreateNestedOneWithoutEventsInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutEventInput
+  schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutPlayer_participationInput = {
   id?: string
   evt_code: string
+  org_id: string
+  gov_id?: string | null
   name: string
-  event_type: string
-  sport?: string | null
   season_year: number
-  start_date?: Date | string | null
-  end_date?: Date | string | null
+  event_date?: Date | string | null
   location?: string | null
-  sanctioning_gov_id?: string | null
-  sanctioning_org_id?: string | null
-  authority_level?: string | null
-  vault_level?: string
-  is_verified?: boolean
+  city?: string | null
+  state?: string | null
+  registration_status?: string
   created_at?: Date | string
   updated_at?: Date | string
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutEventInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutEventInput
 }
 
@@ -1052,191 +1095,105 @@ export type EventUpdateToOneWithWhereWithoutPlayer_participationInput = {
 export type EventUpdateWithoutPlayer_participationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   evt_code?: Prisma.StringFieldUpdateOperationsInput | string
+  gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  event_type?: Prisma.StringFieldUpdateOperationsInput | string
-  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
-  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authority_level?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  sanctioning_gov?: Prisma.GoverningBodyUpdateOneWithoutEventsNestedInput
-  sanctioning_org?: Prisma.OrganizationUpdateOneWithoutEventsNestedInput
+  org?: Prisma.OrganizationUpdateOneRequiredWithoutEventsNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutEventNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutEventNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutPlayer_participationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   evt_code?: Prisma.StringFieldUpdateOperationsInput | string
+  org_id?: Prisma.StringFieldUpdateOperationsInput | string
+  gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  event_type?: Prisma.StringFieldUpdateOperationsInput | string
-  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
-  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sanctioning_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sanctioning_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authority_level?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutEventNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutEventNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutEventNestedInput
 }
 
-export type EventCreateManySanctioning_govInput = {
+export type EventCreateManyOrgInput = {
   id?: string
   evt_code: string
+  gov_id?: string | null
   name: string
-  event_type: string
-  sport?: string | null
   season_year: number
-  start_date?: Date | string | null
-  end_date?: Date | string | null
+  event_date?: Date | string | null
   location?: string | null
-  sanctioning_org_id?: string | null
-  authority_level?: string | null
-  vault_level?: string
-  is_verified?: boolean
+  city?: string | null
+  state?: string | null
+  registration_status?: string
   created_at?: Date | string
   updated_at?: Date | string
 }
 
-export type EventUpdateWithoutSanctioning_govInput = {
+export type EventUpdateWithoutOrgInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   evt_code?: Prisma.StringFieldUpdateOperationsInput | string
+  gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  event_type?: Prisma.StringFieldUpdateOperationsInput | string
-  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
-  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authority_level?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  sanctioning_org?: Prisma.OrganizationUpdateOneWithoutEventsNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutEventNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutEventNestedInput
   player_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutEventNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutEventNestedInput
 }
 
-export type EventUncheckedUpdateWithoutSanctioning_govInput = {
+export type EventUncheckedUpdateWithoutOrgInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   evt_code?: Prisma.StringFieldUpdateOperationsInput | string
+  gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  event_type?: Prisma.StringFieldUpdateOperationsInput | string
-  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
-  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sanctioning_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authority_level?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutEventNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutEventNestedInput
   player_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutEventNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutEventNestedInput
 }
 
-export type EventUncheckedUpdateManyWithoutSanctioning_govInput = {
+export type EventUncheckedUpdateManyWithoutOrgInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   evt_code?: Prisma.StringFieldUpdateOperationsInput | string
+  gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   name?: Prisma.StringFieldUpdateOperationsInput | string
-  event_type?: Prisma.StringFieldUpdateOperationsInput | string
-  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
-  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sanctioning_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authority_level?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type EventCreateManySanctioning_orgInput = {
-  id?: string
-  evt_code: string
-  name: string
-  event_type: string
-  sport?: string | null
-  season_year: number
-  start_date?: Date | string | null
-  end_date?: Date | string | null
-  location?: string | null
-  sanctioning_gov_id?: string | null
-  authority_level?: string | null
-  vault_level?: string
-  is_verified?: boolean
-  created_at?: Date | string
-  updated_at?: Date | string
-}
-
-export type EventUpdateWithoutSanctioning_orgInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  evt_code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  event_type?: Prisma.StringFieldUpdateOperationsInput | string
-  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  season_year?: Prisma.IntFieldUpdateOperationsInput | number
-  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authority_level?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  sanctioning_gov?: Prisma.GoverningBodyUpdateOneWithoutEventsNestedInput
-  player_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutEventNestedInput
-  gum_items?: Prisma.GumItemUpdateManyWithoutEventNestedInput
-}
-
-export type EventUncheckedUpdateWithoutSanctioning_orgInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  evt_code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  event_type?: Prisma.StringFieldUpdateOperationsInput | string
-  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  season_year?: Prisma.IntFieldUpdateOperationsInput | number
-  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sanctioning_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authority_level?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  player_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutEventNestedInput
-  gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutEventNestedInput
-}
-
-export type EventUncheckedUpdateManyWithoutSanctioning_orgInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  evt_code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  event_type?: Prisma.StringFieldUpdateOperationsInput | string
-  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  season_year?: Prisma.IntFieldUpdateOperationsInput | number
-  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  sanctioning_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  authority_level?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1247,11 +1204,15 @@ export type EventUncheckedUpdateManyWithoutSanctioning_orgInput = {
  */
 
 export type EventCountOutputType = {
+  achievements: number
+  schedule_entries: number
   player_participation: number
   gum_items: number
 }
 
 export type EventCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  achievements?: boolean | EventCountOutputTypeCountAchievementsArgs
+  schedule_entries?: boolean | EventCountOutputTypeCountSchedule_entriesArgs
   player_participation?: boolean | EventCountOutputTypeCountPlayer_participationArgs
   gum_items?: boolean | EventCountOutputTypeCountGum_itemsArgs
 }
@@ -1264,6 +1225,20 @@ export type EventCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extens
    * Select specific fields to fetch from the EventCountOutputType
    */
   select?: Prisma.EventCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * EventCountOutputType without action
+ */
+export type EventCountOutputTypeCountAchievementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AchievementWhereInput
+}
+
+/**
+ * EventCountOutputType without action
+ */
+export type EventCountOutputTypeCountSchedule_entriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ScheduleEntryWhereInput
 }
 
 /**
@@ -1284,22 +1259,20 @@ export type EventCountOutputTypeCountGum_itemsArgs<ExtArgs extends runtime.Types
 export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   evt_code?: boolean
+  org_id?: boolean
+  gov_id?: boolean
   name?: boolean
-  event_type?: boolean
-  sport?: boolean
   season_year?: boolean
-  start_date?: boolean
-  end_date?: boolean
+  event_date?: boolean
   location?: boolean
-  sanctioning_gov_id?: boolean
-  sanctioning_org_id?: boolean
-  authority_level?: boolean
-  vault_level?: boolean
-  is_verified?: boolean
+  city?: boolean
+  state?: boolean
+  registration_status?: boolean
   created_at?: boolean
   updated_at?: boolean
-  sanctioning_gov?: boolean | Prisma.Event$sanctioning_govArgs<ExtArgs>
-  sanctioning_org?: boolean | Prisma.Event$sanctioning_orgArgs<ExtArgs>
+  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  achievements?: boolean | Prisma.Event$achievementsArgs<ExtArgs>
+  schedule_entries?: boolean | Prisma.Event$schedule_entriesArgs<ExtArgs>
   player_participation?: boolean | Prisma.Event$player_participationArgs<ExtArgs>
   gum_items?: boolean | Prisma.Event$gum_itemsArgs<ExtArgs>
   _count?: boolean | Prisma.EventCountOutputTypeDefaultArgs<ExtArgs>
@@ -1308,104 +1281,90 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
 export type EventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   evt_code?: boolean
+  org_id?: boolean
+  gov_id?: boolean
   name?: boolean
-  event_type?: boolean
-  sport?: boolean
   season_year?: boolean
-  start_date?: boolean
-  end_date?: boolean
+  event_date?: boolean
   location?: boolean
-  sanctioning_gov_id?: boolean
-  sanctioning_org_id?: boolean
-  authority_level?: boolean
-  vault_level?: boolean
-  is_verified?: boolean
+  city?: boolean
+  state?: boolean
+  registration_status?: boolean
   created_at?: boolean
   updated_at?: boolean
-  sanctioning_gov?: boolean | Prisma.Event$sanctioning_govArgs<ExtArgs>
-  sanctioning_org?: boolean | Prisma.Event$sanctioning_orgArgs<ExtArgs>
+  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["event"]>
 
 export type EventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   evt_code?: boolean
+  org_id?: boolean
+  gov_id?: boolean
   name?: boolean
-  event_type?: boolean
-  sport?: boolean
   season_year?: boolean
-  start_date?: boolean
-  end_date?: boolean
+  event_date?: boolean
   location?: boolean
-  sanctioning_gov_id?: boolean
-  sanctioning_org_id?: boolean
-  authority_level?: boolean
-  vault_level?: boolean
-  is_verified?: boolean
+  city?: boolean
+  state?: boolean
+  registration_status?: boolean
   created_at?: boolean
   updated_at?: boolean
-  sanctioning_gov?: boolean | Prisma.Event$sanctioning_govArgs<ExtArgs>
-  sanctioning_org?: boolean | Prisma.Event$sanctioning_orgArgs<ExtArgs>
+  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["event"]>
 
 export type EventSelectScalar = {
   id?: boolean
   evt_code?: boolean
+  org_id?: boolean
+  gov_id?: boolean
   name?: boolean
-  event_type?: boolean
-  sport?: boolean
   season_year?: boolean
-  start_date?: boolean
-  end_date?: boolean
+  event_date?: boolean
   location?: boolean
-  sanctioning_gov_id?: boolean
-  sanctioning_org_id?: boolean
-  authority_level?: boolean
-  vault_level?: boolean
-  is_verified?: boolean
+  city?: boolean
+  state?: boolean
+  registration_status?: boolean
   created_at?: boolean
   updated_at?: boolean
 }
 
-export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "evt_code" | "name" | "event_type" | "sport" | "season_year" | "start_date" | "end_date" | "location" | "sanctioning_gov_id" | "sanctioning_org_id" | "authority_level" | "vault_level" | "is_verified" | "created_at" | "updated_at", ExtArgs["result"]["event"]>
+export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "evt_code" | "org_id" | "gov_id" | "name" | "season_year" | "event_date" | "location" | "city" | "state" | "registration_status" | "created_at" | "updated_at", ExtArgs["result"]["event"]>
 export type EventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  sanctioning_gov?: boolean | Prisma.Event$sanctioning_govArgs<ExtArgs>
-  sanctioning_org?: boolean | Prisma.Event$sanctioning_orgArgs<ExtArgs>
+  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  achievements?: boolean | Prisma.Event$achievementsArgs<ExtArgs>
+  schedule_entries?: boolean | Prisma.Event$schedule_entriesArgs<ExtArgs>
   player_participation?: boolean | Prisma.Event$player_participationArgs<ExtArgs>
   gum_items?: boolean | Prisma.Event$gum_itemsArgs<ExtArgs>
   _count?: boolean | Prisma.EventCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EventIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  sanctioning_gov?: boolean | Prisma.Event$sanctioning_govArgs<ExtArgs>
-  sanctioning_org?: boolean | Prisma.Event$sanctioning_orgArgs<ExtArgs>
+  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }
 export type EventIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  sanctioning_gov?: boolean | Prisma.Event$sanctioning_govArgs<ExtArgs>
-  sanctioning_org?: boolean | Prisma.Event$sanctioning_orgArgs<ExtArgs>
+  org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }
 
 export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Event"
   objects: {
-    sanctioning_gov: Prisma.$GoverningBodyPayload<ExtArgs> | null
-    sanctioning_org: Prisma.$OrganizationPayload<ExtArgs> | null
+    org: Prisma.$OrganizationPayload<ExtArgs>
+    achievements: Prisma.$AchievementPayload<ExtArgs>[]
+    schedule_entries: Prisma.$ScheduleEntryPayload<ExtArgs>[]
     player_participation: Prisma.$PlayerEventParticipationPayload<ExtArgs>[]
     gum_items: Prisma.$GumItemPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     evt_code: string
+    org_id: string
+    gov_id: string | null
     name: string
-    event_type: string
-    sport: string | null
     season_year: number
-    start_date: Date | null
-    end_date: Date | null
+    event_date: Date | null
     location: string | null
-    sanctioning_gov_id: string | null
-    sanctioning_org_id: string | null
-    authority_level: string | null
-    vault_level: string
-    is_verified: boolean
+    city: string | null
+    state: string | null
+    registration_status: string
     created_at: Date
     updated_at: Date
   }, ExtArgs["result"]["event"]>
@@ -1802,8 +1761,9 @@ readonly fields: EventFieldRefs;
  */
 export interface Prisma__EventClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  sanctioning_gov<T extends Prisma.Event$sanctioning_govArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$sanctioning_govArgs<ExtArgs>>): Prisma.Prisma__GoverningBodyClient<runtime.Types.Result.GetResult<Prisma.$GoverningBodyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  sanctioning_org<T extends Prisma.Event$sanctioning_orgArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$sanctioning_orgArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  org<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  achievements<T extends Prisma.Event$achievementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$achievementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  schedule_entries<T extends Prisma.Event$schedule_entriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$schedule_entriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ScheduleEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   player_participation<T extends Prisma.Event$player_participationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$player_participationArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlayerEventParticipationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   gum_items<T extends Prisma.Event$gum_itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$gum_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GumItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1837,18 +1797,15 @@ export interface Prisma__EventClient<T, Null = never, ExtArgs extends runtime.Ty
 export interface EventFieldRefs {
   readonly id: Prisma.FieldRef<"Event", 'String'>
   readonly evt_code: Prisma.FieldRef<"Event", 'String'>
+  readonly org_id: Prisma.FieldRef<"Event", 'String'>
+  readonly gov_id: Prisma.FieldRef<"Event", 'String'>
   readonly name: Prisma.FieldRef<"Event", 'String'>
-  readonly event_type: Prisma.FieldRef<"Event", 'String'>
-  readonly sport: Prisma.FieldRef<"Event", 'String'>
   readonly season_year: Prisma.FieldRef<"Event", 'Int'>
-  readonly start_date: Prisma.FieldRef<"Event", 'DateTime'>
-  readonly end_date: Prisma.FieldRef<"Event", 'DateTime'>
+  readonly event_date: Prisma.FieldRef<"Event", 'DateTime'>
   readonly location: Prisma.FieldRef<"Event", 'String'>
-  readonly sanctioning_gov_id: Prisma.FieldRef<"Event", 'String'>
-  readonly sanctioning_org_id: Prisma.FieldRef<"Event", 'String'>
-  readonly authority_level: Prisma.FieldRef<"Event", 'String'>
-  readonly vault_level: Prisma.FieldRef<"Event", 'String'>
-  readonly is_verified: Prisma.FieldRef<"Event", 'Boolean'>
+  readonly city: Prisma.FieldRef<"Event", 'String'>
+  readonly state: Prisma.FieldRef<"Event", 'String'>
+  readonly registration_status: Prisma.FieldRef<"Event", 'String'>
   readonly created_at: Prisma.FieldRef<"Event", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Event", 'DateTime'>
 }
@@ -2252,41 +2209,51 @@ export type EventDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Interna
 }
 
 /**
- * Event.sanctioning_gov
+ * Event.achievements
  */
-export type Event$sanctioning_govArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Event$achievementsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the GoverningBody
+   * Select specific fields to fetch from the Achievement
    */
-  select?: Prisma.GoverningBodySelect<ExtArgs> | null
+  select?: Prisma.AchievementSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the GoverningBody
+   * Omit specific fields from the Achievement
    */
-  omit?: Prisma.GoverningBodyOmit<ExtArgs> | null
+  omit?: Prisma.AchievementOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.GoverningBodyInclude<ExtArgs> | null
-  where?: Prisma.GoverningBodyWhereInput
+  include?: Prisma.AchievementInclude<ExtArgs> | null
+  where?: Prisma.AchievementWhereInput
+  orderBy?: Prisma.AchievementOrderByWithRelationInput | Prisma.AchievementOrderByWithRelationInput[]
+  cursor?: Prisma.AchievementWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AchievementScalarFieldEnum | Prisma.AchievementScalarFieldEnum[]
 }
 
 /**
- * Event.sanctioning_org
+ * Event.schedule_entries
  */
-export type Event$sanctioning_orgArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Event$schedule_entriesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Organization
+   * Select specific fields to fetch from the ScheduleEntry
    */
-  select?: Prisma.OrganizationSelect<ExtArgs> | null
+  select?: Prisma.ScheduleEntrySelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Organization
+   * Omit specific fields from the ScheduleEntry
    */
-  omit?: Prisma.OrganizationOmit<ExtArgs> | null
+  omit?: Prisma.ScheduleEntryOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.OrganizationInclude<ExtArgs> | null
-  where?: Prisma.OrganizationWhereInput
+  include?: Prisma.ScheduleEntryInclude<ExtArgs> | null
+  where?: Prisma.ScheduleEntryWhereInput
+  orderBy?: Prisma.ScheduleEntryOrderByWithRelationInput | Prisma.ScheduleEntryOrderByWithRelationInput[]
+  cursor?: Prisma.ScheduleEntryWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ScheduleEntryScalarFieldEnum | Prisma.ScheduleEntryScalarFieldEnum[]
 }
 
 /**

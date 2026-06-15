@@ -55,6 +55,8 @@ export const ModelName = {
   GoverningBody: 'GoverningBody',
   Organization: 'Organization',
   Event: 'Event',
+  Achievement: 'Achievement',
+  ScheduleEntry: 'ScheduleEntry',
   GumItem: 'GumItem',
   EvidenceFile: 'EvidenceFile',
   PlayerOrgAffiliation: 'PlayerOrgAffiliation',
@@ -158,23 +160,58 @@ export type OrganizationScalarFieldEnum = (typeof OrganizationScalarFieldEnum)[k
 export const EventScalarFieldEnum = {
   id: 'id',
   evt_code: 'evt_code',
+  org_id: 'org_id',
+  gov_id: 'gov_id',
   name: 'name',
-  event_type: 'event_type',
-  sport: 'sport',
   season_year: 'season_year',
-  start_date: 'start_date',
-  end_date: 'end_date',
+  event_date: 'event_date',
   location: 'location',
-  sanctioning_gov_id: 'sanctioning_gov_id',
-  sanctioning_org_id: 'sanctioning_org_id',
-  authority_level: 'authority_level',
-  vault_level: 'vault_level',
-  is_verified: 'is_verified',
+  city: 'city',
+  state: 'state',
+  registration_status: 'registration_status',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
 
 export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+
+export const AchievementScalarFieldEnum = {
+  id: 'id',
+  ppc_id: 'ppc_id',
+  evt_id: 'evt_id',
+  org_id: 'org_id',
+  achievement_type: 'achievement_type',
+  achievement_scope: 'achievement_scope',
+  medal_tier: 'medal_tier',
+  notes: 'notes',
+  season_year: 'season_year',
+  awarded_at: 'awarded_at',
+  capture_lat: 'capture_lat',
+  capture_lng: 'capture_lng',
+  capture_timestamp: 'capture_timestamp',
+  capture_device_id: 'capture_device_id',
+  native_capture: 'native_capture',
+  created_at: 'created_at'
+} as const
+
+export type AchievementScalarFieldEnum = (typeof AchievementScalarFieldEnum)[keyof typeof AchievementScalarFieldEnum]
+
+
+export const ScheduleEntryScalarFieldEnum = {
+  id: 'id',
+  org_id: 'org_id',
+  evt_id: 'evt_id',
+  opponent: 'opponent',
+  game_date: 'game_date',
+  location: 'location',
+  result: 'result',
+  season_year: 'season_year',
+  notes: 'notes',
+  created_at: 'created_at'
+} as const
+
+export type ScheduleEntryScalarFieldEnum = (typeof ScheduleEntryScalarFieldEnum)[keyof typeof ScheduleEntryScalarFieldEnum]
 
 
 export const GumItemScalarFieldEnum = {

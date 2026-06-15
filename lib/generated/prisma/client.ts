@@ -62,6 +62,16 @@ export type Organization = Prisma.OrganizationModel
  */
 export type Event = Prisma.EventModel
 /**
+ * Model Achievement
+ * 
+ */
+export type Achievement = Prisma.AchievementModel
+/**
+ * Model ScheduleEntry
+ * 
+ */
+export type ScheduleEntry = Prisma.ScheduleEntryModel
+/**
  * Model GumItem
  * 
  */

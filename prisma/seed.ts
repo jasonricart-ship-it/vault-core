@@ -11,6 +11,8 @@ async function main() {
   await prisma.playerOrgAffiliation.deleteMany();
   await prisma.orgGovAffiliation.deleteMany();
   await prisma.playerEventParticipation.deleteMany();
+  await prisma.achievement.deleteMany();
+  await prisma.scheduleEntry.deleteMany();
   await prisma.gumItem.deleteMany();
   await prisma.evidenceFile.deleteMany();
   await prisma.player.deleteMany();
@@ -98,6 +100,43 @@ async function main() {
       affiliation_type: "sanctioned",
       status: "active",
       verified: true,
+    },
+  });
+
+  const tiehlChampionship = await prisma.event.create({
+    data: {
+      evt_code: "EVT-2024-0001",
+      org_id: ohaaa.id,
+      name: "Tiehl League Championship 2024",
+      season_year: 2024,
+      location: "Columbus, OH",
+      registration_status: "active",
+    },
+  });
+
+  await prisma.achievement.create({
+    data: {
+      ppc_id: beau.id,
+      evt_id: tiehlChampionship.id,
+      org_id: ohaaa.id,
+      achievement_type: "champion",
+      achievement_scope: "team",
+      medal_tier: "gold",
+      season_year: 2024,
+      notes: "Tiehl League Championship — Team Champion",
+    },
+  });
+
+  await prisma.achievement.create({
+    data: {
+      ppc_id: beau.id,
+      evt_id: tiehlChampionship.id,
+      org_id: ohaaa.id,
+      achievement_type: "mvp",
+      achievement_scope: "personal",
+      medal_tier: "gold",
+      season_year: 2024,
+      notes: "Tournament MVP",
     },
   });
 }

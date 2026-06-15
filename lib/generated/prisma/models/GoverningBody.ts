@@ -323,7 +323,6 @@ export type GoverningBodyWhereInput = {
   parent?: Prisma.XOR<Prisma.GoverningBodyNullableScalarRelationFilter, Prisma.GoverningBodyWhereInput> | null
   children?: Prisma.GoverningBodyListRelationFilter
   org_affiliations?: Prisma.OrgGovAffiliationListRelationFilter
-  events?: Prisma.EventListRelationFilter
 }
 
 export type GoverningBodyOrderByWithRelationInput = {
@@ -348,7 +347,6 @@ export type GoverningBodyOrderByWithRelationInput = {
   parent?: Prisma.GoverningBodyOrderByWithRelationInput
   children?: Prisma.GoverningBodyOrderByRelationAggregateInput
   org_affiliations?: Prisma.OrgGovAffiliationOrderByRelationAggregateInput
-  events?: Prisma.EventOrderByRelationAggregateInput
 }
 
 export type GoverningBodyWhereUniqueInput = Prisma.AtLeast<{
@@ -376,7 +374,6 @@ export type GoverningBodyWhereUniqueInput = Prisma.AtLeast<{
   parent?: Prisma.XOR<Prisma.GoverningBodyNullableScalarRelationFilter, Prisma.GoverningBodyWhereInput> | null
   children?: Prisma.GoverningBodyListRelationFilter
   org_affiliations?: Prisma.OrgGovAffiliationListRelationFilter
-  events?: Prisma.EventListRelationFilter
 }, "id" | "gov_code">
 
 export type GoverningBodyOrderByWithAggregationInput = {
@@ -450,7 +447,6 @@ export type GoverningBodyCreateInput = {
   parent?: Prisma.GoverningBodyCreateNestedOneWithoutChildrenInput
   children?: Prisma.GoverningBodyCreateNestedManyWithoutParentInput
   org_affiliations?: Prisma.OrgGovAffiliationCreateNestedManyWithoutGovInput
-  events?: Prisma.EventCreateNestedManyWithoutSanctioning_govInput
 }
 
 export type GoverningBodyUncheckedCreateInput = {
@@ -474,7 +470,6 @@ export type GoverningBodyUncheckedCreateInput = {
   updated_at?: Date | string
   children?: Prisma.GoverningBodyUncheckedCreateNestedManyWithoutParentInput
   org_affiliations?: Prisma.OrgGovAffiliationUncheckedCreateNestedManyWithoutGovInput
-  events?: Prisma.EventUncheckedCreateNestedManyWithoutSanctioning_govInput
 }
 
 export type GoverningBodyUpdateInput = {
@@ -498,7 +493,6 @@ export type GoverningBodyUpdateInput = {
   parent?: Prisma.GoverningBodyUpdateOneWithoutChildrenNestedInput
   children?: Prisma.GoverningBodyUpdateManyWithoutParentNestedInput
   org_affiliations?: Prisma.OrgGovAffiliationUpdateManyWithoutGovNestedInput
-  events?: Prisma.EventUpdateManyWithoutSanctioning_govNestedInput
 }
 
 export type GoverningBodyUncheckedUpdateInput = {
@@ -522,7 +516,6 @@ export type GoverningBodyUncheckedUpdateInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.GoverningBodyUncheckedUpdateManyWithoutParentNestedInput
   org_affiliations?: Prisma.OrgGovAffiliationUncheckedUpdateManyWithoutGovNestedInput
-  events?: Prisma.EventUncheckedUpdateManyWithoutSanctioning_govNestedInput
 }
 
 export type GoverningBodyCreateManyInput = {
@@ -736,22 +729,6 @@ export type GoverningBodyUncheckedUpdateManyWithoutParentNestedInput = {
   deleteMany?: Prisma.GoverningBodyScalarWhereInput | Prisma.GoverningBodyScalarWhereInput[]
 }
 
-export type GoverningBodyCreateNestedOneWithoutEventsInput = {
-  create?: Prisma.XOR<Prisma.GoverningBodyCreateWithoutEventsInput, Prisma.GoverningBodyUncheckedCreateWithoutEventsInput>
-  connectOrCreate?: Prisma.GoverningBodyCreateOrConnectWithoutEventsInput
-  connect?: Prisma.GoverningBodyWhereUniqueInput
-}
-
-export type GoverningBodyUpdateOneWithoutEventsNestedInput = {
-  create?: Prisma.XOR<Prisma.GoverningBodyCreateWithoutEventsInput, Prisma.GoverningBodyUncheckedCreateWithoutEventsInput>
-  connectOrCreate?: Prisma.GoverningBodyCreateOrConnectWithoutEventsInput
-  upsert?: Prisma.GoverningBodyUpsertWithoutEventsInput
-  disconnect?: Prisma.GoverningBodyWhereInput | boolean
-  delete?: Prisma.GoverningBodyWhereInput | boolean
-  connect?: Prisma.GoverningBodyWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.GoverningBodyUpdateToOneWithWhereWithoutEventsInput, Prisma.GoverningBodyUpdateWithoutEventsInput>, Prisma.GoverningBodyUncheckedUpdateWithoutEventsInput>
-}
-
 export type GoverningBodyCreateNestedOneWithoutOrg_affiliationsInput = {
   create?: Prisma.XOR<Prisma.GoverningBodyCreateWithoutOrg_affiliationsInput, Prisma.GoverningBodyUncheckedCreateWithoutOrg_affiliationsInput>
   connectOrCreate?: Prisma.GoverningBodyCreateOrConnectWithoutOrg_affiliationsInput
@@ -786,7 +763,6 @@ export type GoverningBodyCreateWithoutChildrenInput = {
   updated_at?: Date | string
   parent?: Prisma.GoverningBodyCreateNestedOneWithoutChildrenInput
   org_affiliations?: Prisma.OrgGovAffiliationCreateNestedManyWithoutGovInput
-  events?: Prisma.EventCreateNestedManyWithoutSanctioning_govInput
 }
 
 export type GoverningBodyUncheckedCreateWithoutChildrenInput = {
@@ -809,7 +785,6 @@ export type GoverningBodyUncheckedCreateWithoutChildrenInput = {
   created_at?: Date | string
   updated_at?: Date | string
   org_affiliations?: Prisma.OrgGovAffiliationUncheckedCreateNestedManyWithoutGovInput
-  events?: Prisma.EventUncheckedCreateNestedManyWithoutSanctioning_govInput
 }
 
 export type GoverningBodyCreateOrConnectWithoutChildrenInput = {
@@ -837,7 +812,6 @@ export type GoverningBodyCreateWithoutParentInput = {
   updated_at?: Date | string
   children?: Prisma.GoverningBodyCreateNestedManyWithoutParentInput
   org_affiliations?: Prisma.OrgGovAffiliationCreateNestedManyWithoutGovInput
-  events?: Prisma.EventCreateNestedManyWithoutSanctioning_govInput
 }
 
 export type GoverningBodyUncheckedCreateWithoutParentInput = {
@@ -860,7 +834,6 @@ export type GoverningBodyUncheckedCreateWithoutParentInput = {
   updated_at?: Date | string
   children?: Prisma.GoverningBodyUncheckedCreateNestedManyWithoutParentInput
   org_affiliations?: Prisma.OrgGovAffiliationUncheckedCreateNestedManyWithoutGovInput
-  events?: Prisma.EventUncheckedCreateNestedManyWithoutSanctioning_govInput
 }
 
 export type GoverningBodyCreateOrConnectWithoutParentInput = {
@@ -904,7 +877,6 @@ export type GoverningBodyUpdateWithoutChildrenInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   parent?: Prisma.GoverningBodyUpdateOneWithoutChildrenNestedInput
   org_affiliations?: Prisma.OrgGovAffiliationUpdateManyWithoutGovNestedInput
-  events?: Prisma.EventUpdateManyWithoutSanctioning_govNestedInput
 }
 
 export type GoverningBodyUncheckedUpdateWithoutChildrenInput = {
@@ -927,7 +899,6 @@ export type GoverningBodyUncheckedUpdateWithoutChildrenInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   org_affiliations?: Prisma.OrgGovAffiliationUncheckedUpdateManyWithoutGovNestedInput
-  events?: Prisma.EventUncheckedUpdateManyWithoutSanctioning_govNestedInput
 }
 
 export type GoverningBodyUpsertWithWhereUniqueWithoutParentInput = {
@@ -970,114 +941,6 @@ export type GoverningBodyScalarWhereInput = {
   updated_at?: Prisma.DateTimeFilter<"GoverningBody"> | Date | string
 }
 
-export type GoverningBodyCreateWithoutEventsInput = {
-  id?: string
-  gov_code: string
-  name: string
-  short_name?: string | null
-  gov_tier: string
-  sport?: string | null
-  jurisdiction?: string | null
-  vault_level?: string
-  strength_score?: number
-  registration_status?: string
-  is_verified?: boolean
-  authorization_granted?: boolean
-  authorization_scope?: string | null
-  annual_renewal_due?: Date | string | null
-  last_renewed_at?: Date | string | null
-  created_at?: Date | string
-  updated_at?: Date | string
-  parent?: Prisma.GoverningBodyCreateNestedOneWithoutChildrenInput
-  children?: Prisma.GoverningBodyCreateNestedManyWithoutParentInput
-  org_affiliations?: Prisma.OrgGovAffiliationCreateNestedManyWithoutGovInput
-}
-
-export type GoverningBodyUncheckedCreateWithoutEventsInput = {
-  id?: string
-  gov_code: string
-  name: string
-  short_name?: string | null
-  gov_tier: string
-  sport?: string | null
-  parent_gov_id?: string | null
-  jurisdiction?: string | null
-  vault_level?: string
-  strength_score?: number
-  registration_status?: string
-  is_verified?: boolean
-  authorization_granted?: boolean
-  authorization_scope?: string | null
-  annual_renewal_due?: Date | string | null
-  last_renewed_at?: Date | string | null
-  created_at?: Date | string
-  updated_at?: Date | string
-  children?: Prisma.GoverningBodyUncheckedCreateNestedManyWithoutParentInput
-  org_affiliations?: Prisma.OrgGovAffiliationUncheckedCreateNestedManyWithoutGovInput
-}
-
-export type GoverningBodyCreateOrConnectWithoutEventsInput = {
-  where: Prisma.GoverningBodyWhereUniqueInput
-  create: Prisma.XOR<Prisma.GoverningBodyCreateWithoutEventsInput, Prisma.GoverningBodyUncheckedCreateWithoutEventsInput>
-}
-
-export type GoverningBodyUpsertWithoutEventsInput = {
-  update: Prisma.XOR<Prisma.GoverningBodyUpdateWithoutEventsInput, Prisma.GoverningBodyUncheckedUpdateWithoutEventsInput>
-  create: Prisma.XOR<Prisma.GoverningBodyCreateWithoutEventsInput, Prisma.GoverningBodyUncheckedCreateWithoutEventsInput>
-  where?: Prisma.GoverningBodyWhereInput
-}
-
-export type GoverningBodyUpdateToOneWithWhereWithoutEventsInput = {
-  where?: Prisma.GoverningBodyWhereInput
-  data: Prisma.XOR<Prisma.GoverningBodyUpdateWithoutEventsInput, Prisma.GoverningBodyUncheckedUpdateWithoutEventsInput>
-}
-
-export type GoverningBodyUpdateWithoutEventsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  gov_code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  short_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  gov_tier?: Prisma.StringFieldUpdateOperationsInput | string
-  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jurisdiction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
-  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
-  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  authorization_granted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  authorization_scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  annual_renewal_due?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  last_renewed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  parent?: Prisma.GoverningBodyUpdateOneWithoutChildrenNestedInput
-  children?: Prisma.GoverningBodyUpdateManyWithoutParentNestedInput
-  org_affiliations?: Prisma.OrgGovAffiliationUpdateManyWithoutGovNestedInput
-}
-
-export type GoverningBodyUncheckedUpdateWithoutEventsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  gov_code?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  short_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  gov_tier?: Prisma.StringFieldUpdateOperationsInput | string
-  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  parent_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  jurisdiction?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
-  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
-  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
-  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  authorization_granted?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  authorization_scope?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  annual_renewal_due?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  last_renewed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  children?: Prisma.GoverningBodyUncheckedUpdateManyWithoutParentNestedInput
-  org_affiliations?: Prisma.OrgGovAffiliationUncheckedUpdateManyWithoutGovNestedInput
-}
-
 export type GoverningBodyCreateWithoutOrg_affiliationsInput = {
   id?: string
   gov_code: string
@@ -1098,7 +961,6 @@ export type GoverningBodyCreateWithoutOrg_affiliationsInput = {
   updated_at?: Date | string
   parent?: Prisma.GoverningBodyCreateNestedOneWithoutChildrenInput
   children?: Prisma.GoverningBodyCreateNestedManyWithoutParentInput
-  events?: Prisma.EventCreateNestedManyWithoutSanctioning_govInput
 }
 
 export type GoverningBodyUncheckedCreateWithoutOrg_affiliationsInput = {
@@ -1121,7 +983,6 @@ export type GoverningBodyUncheckedCreateWithoutOrg_affiliationsInput = {
   created_at?: Date | string
   updated_at?: Date | string
   children?: Prisma.GoverningBodyUncheckedCreateNestedManyWithoutParentInput
-  events?: Prisma.EventUncheckedCreateNestedManyWithoutSanctioning_govInput
 }
 
 export type GoverningBodyCreateOrConnectWithoutOrg_affiliationsInput = {
@@ -1160,7 +1021,6 @@ export type GoverningBodyUpdateWithoutOrg_affiliationsInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   parent?: Prisma.GoverningBodyUpdateOneWithoutChildrenNestedInput
   children?: Prisma.GoverningBodyUpdateManyWithoutParentNestedInput
-  events?: Prisma.EventUpdateManyWithoutSanctioning_govNestedInput
 }
 
 export type GoverningBodyUncheckedUpdateWithoutOrg_affiliationsInput = {
@@ -1183,7 +1043,6 @@ export type GoverningBodyUncheckedUpdateWithoutOrg_affiliationsInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.GoverningBodyUncheckedUpdateManyWithoutParentNestedInput
-  events?: Prisma.EventUncheckedUpdateManyWithoutSanctioning_govNestedInput
 }
 
 export type GoverningBodyCreateManyParentInput = {
@@ -1226,7 +1085,6 @@ export type GoverningBodyUpdateWithoutParentInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.GoverningBodyUpdateManyWithoutParentNestedInput
   org_affiliations?: Prisma.OrgGovAffiliationUpdateManyWithoutGovNestedInput
-  events?: Prisma.EventUpdateManyWithoutSanctioning_govNestedInput
 }
 
 export type GoverningBodyUncheckedUpdateWithoutParentInput = {
@@ -1249,7 +1107,6 @@ export type GoverningBodyUncheckedUpdateWithoutParentInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   children?: Prisma.GoverningBodyUncheckedUpdateManyWithoutParentNestedInput
   org_affiliations?: Prisma.OrgGovAffiliationUncheckedUpdateManyWithoutGovNestedInput
-  events?: Prisma.EventUncheckedUpdateManyWithoutSanctioning_govNestedInput
 }
 
 export type GoverningBodyUncheckedUpdateManyWithoutParentInput = {
@@ -1280,13 +1137,11 @@ export type GoverningBodyUncheckedUpdateManyWithoutParentInput = {
 export type GoverningBodyCountOutputType = {
   children: number
   org_affiliations: number
-  events: number
 }
 
 export type GoverningBodyCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   children?: boolean | GoverningBodyCountOutputTypeCountChildrenArgs
   org_affiliations?: boolean | GoverningBodyCountOutputTypeCountOrg_affiliationsArgs
-  events?: boolean | GoverningBodyCountOutputTypeCountEventsArgs
 }
 
 /**
@@ -1313,13 +1168,6 @@ export type GoverningBodyCountOutputTypeCountOrg_affiliationsArgs<ExtArgs extend
   where?: Prisma.OrgGovAffiliationWhereInput
 }
 
-/**
- * GoverningBodyCountOutputType without action
- */
-export type GoverningBodyCountOutputTypeCountEventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.EventWhereInput
-}
-
 
 export type GoverningBodySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1343,7 +1191,6 @@ export type GoverningBodySelect<ExtArgs extends runtime.Types.Extensions.Interna
   parent?: boolean | Prisma.GoverningBody$parentArgs<ExtArgs>
   children?: boolean | Prisma.GoverningBody$childrenArgs<ExtArgs>
   org_affiliations?: boolean | Prisma.GoverningBody$org_affiliationsArgs<ExtArgs>
-  events?: boolean | Prisma.GoverningBody$eventsArgs<ExtArgs>
   _count?: boolean | Prisma.GoverningBodyCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["governingBody"]>
 
@@ -1417,7 +1264,6 @@ export type GoverningBodyInclude<ExtArgs extends runtime.Types.Extensions.Intern
   parent?: boolean | Prisma.GoverningBody$parentArgs<ExtArgs>
   children?: boolean | Prisma.GoverningBody$childrenArgs<ExtArgs>
   org_affiliations?: boolean | Prisma.GoverningBody$org_affiliationsArgs<ExtArgs>
-  events?: boolean | Prisma.GoverningBody$eventsArgs<ExtArgs>
   _count?: boolean | Prisma.GoverningBodyCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type GoverningBodyIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1433,7 +1279,6 @@ export type $GoverningBodyPayload<ExtArgs extends runtime.Types.Extensions.Inter
     parent: Prisma.$GoverningBodyPayload<ExtArgs> | null
     children: Prisma.$GoverningBodyPayload<ExtArgs>[]
     org_affiliations: Prisma.$OrgGovAffiliationPayload<ExtArgs>[]
-    events: Prisma.$EventPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1851,7 +1696,6 @@ export interface Prisma__GoverningBodyClient<T, Null = never, ExtArgs extends ru
   parent<T extends Prisma.GoverningBody$parentArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GoverningBody$parentArgs<ExtArgs>>): Prisma.Prisma__GoverningBodyClient<runtime.Types.Result.GetResult<Prisma.$GoverningBodyPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   children<T extends Prisma.GoverningBody$childrenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GoverningBody$childrenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GoverningBodyPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   org_affiliations<T extends Prisma.GoverningBody$org_affiliationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GoverningBody$org_affiliationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrgGovAffiliationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  events<T extends Prisma.GoverningBody$eventsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.GoverningBody$eventsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EventPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2364,30 +2208,6 @@ export type GoverningBody$org_affiliationsArgs<ExtArgs extends runtime.Types.Ext
   take?: number
   skip?: number
   distinct?: Prisma.OrgGovAffiliationScalarFieldEnum | Prisma.OrgGovAffiliationScalarFieldEnum[]
-}
-
-/**
- * GoverningBody.events
- */
-export type GoverningBody$eventsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Event
-   */
-  select?: Prisma.EventSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Event
-   */
-  omit?: Prisma.EventOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.EventInclude<ExtArgs> | null
-  where?: Prisma.EventWhereInput
-  orderBy?: Prisma.EventOrderByWithRelationInput | Prisma.EventOrderByWithRelationInput[]
-  cursor?: Prisma.EventWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.EventScalarFieldEnum | Prisma.EventScalarFieldEnum[]
 }
 
 /**

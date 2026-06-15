@@ -23,6 +23,15 @@ export async function GET(
         },
       },
       gum_items: true,
+      achievements: {
+        include: {
+          event: true,
+          org: true,
+        },
+        orderBy: {
+          season_year: "desc",
+        },
+      },
     },
   });
 

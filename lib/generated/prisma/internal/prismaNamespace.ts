@@ -388,6 +388,8 @@ export const ModelName = {
   GoverningBody: 'GoverningBody',
   Organization: 'Organization',
   Event: 'Event',
+  Achievement: 'Achievement',
+  ScheduleEntry: 'ScheduleEntry',
   GumItem: 'GumItem',
   EvidenceFile: 'EvidenceFile',
   PlayerOrgAffiliation: 'PlayerOrgAffiliation',
@@ -409,7 +411,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "player" | "governingBody" | "organization" | "event" | "gumItem" | "evidenceFile" | "playerOrgAffiliation" | "orgGovAffiliation" | "playerEventParticipation" | "account"
+    modelProps: "player" | "governingBody" | "organization" | "event" | "achievement" | "scheduleEntry" | "gumItem" | "evidenceFile" | "playerOrgAffiliation" | "orgGovAffiliation" | "playerEventParticipation" | "account"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -706,6 +708,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.EventCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.EventCountAggregateOutputType> | number
+        }
+      }
+    }
+    Achievement: {
+      payload: Prisma.$AchievementPayload<ExtArgs>
+      fields: Prisma.AchievementFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AchievementFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AchievementPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AchievementFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AchievementPayload>
+        }
+        findFirst: {
+          args: Prisma.AchievementFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AchievementPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AchievementFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AchievementPayload>
+        }
+        findMany: {
+          args: Prisma.AchievementFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AchievementPayload>[]
+        }
+        create: {
+          args: Prisma.AchievementCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AchievementPayload>
+        }
+        createMany: {
+          args: Prisma.AchievementCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AchievementCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AchievementPayload>[]
+        }
+        delete: {
+          args: Prisma.AchievementDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AchievementPayload>
+        }
+        update: {
+          args: Prisma.AchievementUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AchievementPayload>
+        }
+        deleteMany: {
+          args: Prisma.AchievementDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AchievementUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AchievementUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AchievementPayload>[]
+        }
+        upsert: {
+          args: Prisma.AchievementUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AchievementPayload>
+        }
+        aggregate: {
+          args: Prisma.AchievementAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAchievement>
+        }
+        groupBy: {
+          args: Prisma.AchievementGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AchievementGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AchievementCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AchievementCountAggregateOutputType> | number
+        }
+      }
+    }
+    ScheduleEntry: {
+      payload: Prisma.$ScheduleEntryPayload<ExtArgs>
+      fields: Prisma.ScheduleEntryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ScheduleEntryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScheduleEntryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ScheduleEntryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScheduleEntryPayload>
+        }
+        findFirst: {
+          args: Prisma.ScheduleEntryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScheduleEntryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ScheduleEntryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScheduleEntryPayload>
+        }
+        findMany: {
+          args: Prisma.ScheduleEntryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScheduleEntryPayload>[]
+        }
+        create: {
+          args: Prisma.ScheduleEntryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScheduleEntryPayload>
+        }
+        createMany: {
+          args: Prisma.ScheduleEntryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ScheduleEntryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScheduleEntryPayload>[]
+        }
+        delete: {
+          args: Prisma.ScheduleEntryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScheduleEntryPayload>
+        }
+        update: {
+          args: Prisma.ScheduleEntryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScheduleEntryPayload>
+        }
+        deleteMany: {
+          args: Prisma.ScheduleEntryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ScheduleEntryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ScheduleEntryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScheduleEntryPayload>[]
+        }
+        upsert: {
+          args: Prisma.ScheduleEntryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ScheduleEntryPayload>
+        }
+        aggregate: {
+          args: Prisma.ScheduleEntryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateScheduleEntry>
+        }
+        groupBy: {
+          args: Prisma.ScheduleEntryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ScheduleEntryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ScheduleEntryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ScheduleEntryCountAggregateOutputType> | number
         }
       }
     }
@@ -1271,23 +1421,58 @@ export type OrganizationScalarFieldEnum = (typeof OrganizationScalarFieldEnum)[k
 export const EventScalarFieldEnum = {
   id: 'id',
   evt_code: 'evt_code',
+  org_id: 'org_id',
+  gov_id: 'gov_id',
   name: 'name',
-  event_type: 'event_type',
-  sport: 'sport',
   season_year: 'season_year',
-  start_date: 'start_date',
-  end_date: 'end_date',
+  event_date: 'event_date',
   location: 'location',
-  sanctioning_gov_id: 'sanctioning_gov_id',
-  sanctioning_org_id: 'sanctioning_org_id',
-  authority_level: 'authority_level',
-  vault_level: 'vault_level',
-  is_verified: 'is_verified',
+  city: 'city',
+  state: 'state',
+  registration_status: 'registration_status',
   created_at: 'created_at',
   updated_at: 'updated_at'
 } as const
 
 export type EventScalarFieldEnum = (typeof EventScalarFieldEnum)[keyof typeof EventScalarFieldEnum]
+
+
+export const AchievementScalarFieldEnum = {
+  id: 'id',
+  ppc_id: 'ppc_id',
+  evt_id: 'evt_id',
+  org_id: 'org_id',
+  achievement_type: 'achievement_type',
+  achievement_scope: 'achievement_scope',
+  medal_tier: 'medal_tier',
+  notes: 'notes',
+  season_year: 'season_year',
+  awarded_at: 'awarded_at',
+  capture_lat: 'capture_lat',
+  capture_lng: 'capture_lng',
+  capture_timestamp: 'capture_timestamp',
+  capture_device_id: 'capture_device_id',
+  native_capture: 'native_capture',
+  created_at: 'created_at'
+} as const
+
+export type AchievementScalarFieldEnum = (typeof AchievementScalarFieldEnum)[keyof typeof AchievementScalarFieldEnum]
+
+
+export const ScheduleEntryScalarFieldEnum = {
+  id: 'id',
+  org_id: 'org_id',
+  evt_id: 'evt_id',
+  opponent: 'opponent',
+  game_date: 'game_date',
+  location: 'location',
+  result: 'result',
+  season_year: 'season_year',
+  notes: 'notes',
+  created_at: 'created_at'
+} as const
+
+export type ScheduleEntryScalarFieldEnum = (typeof ScheduleEntryScalarFieldEnum)[keyof typeof ScheduleEntryScalarFieldEnum]
 
 
 export const GumItemScalarFieldEnum = {
@@ -1494,20 +1679,6 @@ export type ListIntFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel,
 
 
 /**
- * Reference to a field of type 'Decimal'
- */
-export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
-    
-
-
-/**
- * Reference to a field of type 'Decimal[]'
- */
-export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
-    
-
-
-/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -1518,6 +1689,20 @@ export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, '
  * Reference to a field of type 'Float[]'
  */
 export type ListFloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float[]'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal'
+ */
+export type DecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal'>
+    
+
+
+/**
+ * Reference to a field of type 'Decimal[]'
+ */
+export type ListDecimalFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Decimal[]'>
     
 
 /**
@@ -1634,6 +1819,8 @@ export type GlobalOmitConfig = {
   governingBody?: Prisma.GoverningBodyOmit
   organization?: Prisma.OrganizationOmit
   event?: Prisma.EventOmit
+  achievement?: Prisma.AchievementOmit
+  scheduleEntry?: Prisma.ScheduleEntryOmit
   gumItem?: Prisma.GumItemOmit
   evidenceFile?: Prisma.EvidenceFileOmit
   playerOrgAffiliation?: Prisma.PlayerOrgAffiliationOmit

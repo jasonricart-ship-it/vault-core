@@ -943,14 +943,6 @@ export type GumItemUncheckedUpdateManyWithoutEventNestedInput = {
   deleteMany?: Prisma.GumItemScalarWhereInput | Prisma.GumItemScalarWhereInput[]
 }
 
-export type NullableIntFieldUpdateOperationsInput = {
-  set?: number | null
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
 export type GumItemCreateWithoutPlayerInput = {
   id?: string
   gum_code: string
