@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { calculateStrength } from "@/lib/strength";
 
 export async function GET(
   _request: Request,
@@ -21,6 +22,7 @@ export async function GET(
           },
         },
       },
+      gum_items: true,
     },
   });
 
@@ -37,8 +39,19 @@ export async function GET(
     ),
   );
 
+  const gov_affiliations = [...govAffiliationMap.values()];
+
+  const strength = calculateStrength({
+    org_affiliations: player.org_affiliations,
+    gov_affiliations,
+    gum_items_count: player.gum_items.length,
+  });
+
   return NextResponse.json({
     ...player,
-    gov_affiliations: [...govAffiliationMap.values()],
+    gov_affiliations,
+    strength_score: strength.score,
+    vault_level: strength.vault_level,
+    bust_color: strength.bust_color,
   });
 }
