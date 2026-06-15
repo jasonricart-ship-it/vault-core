@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { headers } from "next/headers";
 import type { BustColor } from "@/lib/types";
-import type { PlayerProfile } from "@/components/vault/record/types";
+import type { Achievement, PlayerProfile } from "@/components/vault/record/types";
 
 export const dynamic = "force-dynamic";
 
@@ -59,6 +59,65 @@ function getBustCaption(bustColor: string) {
     default:
       return "Bust locked — grayscale";
   }
+}
+
+function getMedalEmoji(medalTier: string | null) {
+  switch (medalTier) {
+    case "gold":
+      return "🥇";
+    case "silver":
+      return "🥈";
+    case "bronze":
+      return "🥉";
+    default:
+      return "🏅";
+  }
+}
+
+function formatAchievementType(type: string) {
+  return type.replace(/_/g, " ").toUpperCase();
+}
+
+function formatAchievementScope(achievement: Achievement) {
+  const scope =
+    achievement.achievement_scope.charAt(0).toUpperCase() +
+    achievement.achievement_scope.slice(1);
+
+  if (achievement.achievement_scope === "team" && achievement.event?.evt_code) {
+    return `${scope} achievement · ${achievement.event.evt_code}`;
+  }
+
+  return `${scope} achievement`;
+}
+
+type SeasonGroup = {
+  seasonYear: number;
+  orgName: string;
+  orgCode: string;
+  achievements: Achievement[];
+};
+
+function groupAchievementsBySeason(achievements: Achievement[]): SeasonGroup[] {
+  const bySeason = new Map<number, Achievement[]>();
+
+  for (const achievement of achievements) {
+    const seasonYear = achievement.season_year ?? 0;
+    const existing = bySeason.get(seasonYear) ?? [];
+    existing.push(achievement);
+    bySeason.set(seasonYear, existing);
+  }
+
+  return [...bySeason.entries()]
+    .sort(([a], [b]) => b - a)
+    .map(([seasonYear, seasonAchievements]) => {
+      const org = seasonAchievements[0]?.org;
+      return {
+        seasonYear,
+        orgName: org?.name ?? "Unknown Organization",
+        orgCode: org?.org_code ?? "",
+        achievements: seasonAchievements,
+      };
+    });
 }
 
 function LightCard({ children }: { children: React.ReactNode }) {
@@ -244,6 +303,62 @@ function ArchiveAuthoritySection({
   );
 }
 
+function PlayerHistorySection({ achievements }: { achievements: Achievement[] }) {
+  const seasons = groupAchievementsBySeason(achievements);
+
+  return (
+    <LightCard>
+      <div>
+        <p className="text-[11px] font-semibold tracking-[0.24em] text-slate-500 uppercase">
+          Career Record
+        </p>
+        <h2 className="mt-1 text-xl font-semibold tracking-tight text-slate-900">
+          Player History
+        </h2>
+      </div>
+
+      {seasons.length === 0 ? (
+        <p className="mt-6 text-sm text-slate-600">
+          No recorded achievements on file.
+        </p>
+      ) : (
+        <div className="mt-6 space-y-8">
+          {seasons.map((season) => (
+            <div key={season.seasonYear}>
+              <h3 className="border-b border-[#B8972A]/20 pb-3 text-base font-semibold text-[#B8972A]">
+                {season.seasonYear} — {season.orgName}
+                {season.orgCode ? ` (${season.orgCode})` : ""}
+              </h3>
+
+              <ul className="mt-4 space-y-4">
+                {season.achievements.map((achievement, index) => (
+                  <li
+                    key={`${season.seasonYear}-${achievement.achievement_type}-${index}`}
+                    className="rounded-xl border border-slate-200 bg-slate-50/60 px-4 py-4"
+                  >
+                    <p className="text-sm font-semibold tracking-wide text-slate-900">
+                      <span className="mr-2" aria-hidden="true">
+                        {getMedalEmoji(achievement.medal_tier)}
+                      </span>
+                      {formatAchievementType(achievement.achievement_type)}
+                      {achievement.event?.name
+                        ? ` — ${achievement.event.name}`
+                        : ""}
+                    </p>
+                    <p className="mt-1 pl-7 text-sm text-slate-600">
+                      {formatAchievementScope(achievement)}
+                    </p>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )}
+    </LightCard>
+  );
+}
+
 export default async function PpcProfilePage({
   params,
 }: {
@@ -283,6 +398,10 @@ export default async function PpcProfilePage({
           orgName={primaryOrg.name}
           orgCode={primaryOrg.org_code}
         />
+      ) : null}
+
+      {player.achievements?.length ? (
+        <PlayerHistorySection achievements={player.achievements} />
       ) : null}
     </div>
   );

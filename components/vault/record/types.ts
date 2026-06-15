@@ -16,6 +16,22 @@ export type GovAffiliation = {
   };
 };
 
+export type Achievement = {
+  achievement_type: string;
+  achievement_scope: string;
+  medal_tier: string | null;
+  season_year: number | null;
+  notes: string | null;
+  event: {
+    name: string;
+    evt_code: string;
+  } | null;
+  org: {
+    name: string;
+    org_code: string;
+  } | null;
+};
+
 export type PlayerProfile = {
   ppc_number: string;
   display_name: string;
@@ -28,6 +44,7 @@ export type PlayerProfile = {
   exhibit_status: string;
   org_affiliations: OrgAffiliation[];
   gov_affiliations: GovAffiliation[];
+  achievements: Achievement[];
 };
 
 export type ProvenanceRow = {
