@@ -2,7 +2,8 @@ import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 import { getToken } from "next-auth/jwt";
 
-function isPublicPpcProfile(pathname: string) {
+function isPublicPpcRoute(pathname: string) {
+  if (pathname === "/vault/ppc") return true;
   return /^\/vault\/ppc\/[^/]+$/.test(pathname);
 }
 
@@ -15,7 +16,7 @@ function isProtectedRoute(pathname: string) {
     return true;
   }
 
-  if (pathname.startsWith("/vault/ppc") && !isPublicPpcProfile(pathname)) {
+  if (pathname.startsWith("/vault/ppc") && !isPublicPpcRoute(pathname)) {
     return true;
   }
 

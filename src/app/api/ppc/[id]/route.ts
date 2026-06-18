@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import {
+  fetchLatestEvidence,
+  resolveLatestAchievement,
+  resolveLatestSeason,
+} from "@/lib/ppc-corridors";
 import { calculateStrength } from "@/lib/strength";
 
 export async function GET(
@@ -16,7 +21,17 @@ export async function GET(
           org: {
             include: {
               gov_affiliations: {
-                include: { gov: true },
+                include: {
+                  gov: {
+                    include: {
+                      parent: {
+                        include: {
+                          parent: true,
+                        },
+                      },
+                    },
+                  },
+                },
               },
             },
           },
@@ -28,8 +43,19 @@ export async function GET(
           event: true,
           org: true,
         },
+        orderBy: [{ awarded_at: "desc" }, { created_at: "desc" }],
+      },
+      event_participation: {
+        include: {
+          event: true,
+        },
         orderBy: {
-          season_year: "desc",
+          created_at: "desc",
+        },
+      },
+      hall_of_fame_nominations: {
+        orderBy: {
+          created_at: "desc",
         },
       },
     },
@@ -56,11 +82,22 @@ export async function GET(
     gum_items_count: player.gum_items.length,
   });
 
+  const gumItemIds = player.gum_items.map((g) => g.id);
+  const [latest_evidence, latest_achievement, latest_season] = await Promise.all([
+    fetchLatestEvidence(player.id, gumItemIds),
+    Promise.resolve(resolveLatestAchievement(player)),
+    Promise.resolve(resolveLatestSeason(player)),
+  ]);
+
   return NextResponse.json({
     ...player,
     gov_affiliations,
-    strength_score: strength.score,
-    vault_level: strength.vault_level,
-    bust_color: strength.bust_color,
+    strength_score: player.strength_score,
+    vault_level: player.vault_level,
+    bust_color: player.bust_color,
+    calculated_strength: strength,
+    latest_evidence,
+    latest_achievement,
+    latest_season,
   });
 }

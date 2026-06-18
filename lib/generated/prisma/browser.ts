@@ -53,10 +53,20 @@ export type ScheduleEntry = Prisma.ScheduleEntryModel
  */
 export type GumItem = Prisma.GumItemModel
 /**
+ * Model ItemAuthorityLog
+ * 
+ */
+export type ItemAuthorityLog = Prisma.ItemAuthorityLogModel
+/**
  * Model EvidenceFile
  * 
  */
 export type EvidenceFile = Prisma.EvidenceFileModel
+/**
+ * Model SharedCapture
+ * 
+ */
+export type SharedCapture = Prisma.SharedCaptureModel
 /**
  * Model PlayerOrgAffiliation
  * 
@@ -77,3 +87,63 @@ export type PlayerEventParticipation = Prisma.PlayerEventParticipationModel
  * 
  */
 export type Account = Prisma.AccountModel
+/**
+ * Model VaultViolation
+ * 
+ */
+export type VaultViolation = Prisma.VaultViolationModel
+/**
+ * Model ViolationAffectedRecord
+ * 
+ */
+export type ViolationAffectedRecord = Prisma.ViolationAffectedRecordModel
+/**
+ * Model ReinstatementApplication
+ * 
+ */
+export type ReinstatementApplication = Prisma.ReinstatementApplicationModel
+/**
+ * Model PlayerGuardian
+ * 
+ */
+export type PlayerGuardian = Prisma.PlayerGuardianModel
+/**
+ * Model AccountTransition
+ * 
+ */
+export type AccountTransition = Prisma.AccountTransitionModel
+/**
+ * Model AccountDelegate
+ * 
+ */
+export type AccountDelegate = Prisma.AccountDelegateModel
+/**
+ * Model CorridorAccessGrant
+ * 
+ */
+export type CorridorAccessGrant = Prisma.CorridorAccessGrantModel
+/**
+ * Model GuardianActionLog
+ * 
+ */
+export type GuardianActionLog = Prisma.GuardianActionLogModel
+/**
+ * Model RepresentativeContact
+ * 
+ */
+export type RepresentativeContact = Prisma.RepresentativeContactModel
+/**
+ * Model HallOfFameInductee
+ * 
+ */
+export type HallOfFameInductee = Prisma.HallOfFameInducteeModel
+/**
+ * Model HallOfFameNomination
+ * 
+ */
+export type HallOfFameNomination = Prisma.HallOfFameNominationModel
+/**
+ * Model VaultRegistryCollector
+ * 
+ */
+export type VaultRegistryCollector = Prisma.VaultRegistryCollectorModel

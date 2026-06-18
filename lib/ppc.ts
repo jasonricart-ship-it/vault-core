@@ -2,7 +2,7 @@ import { prisma } from "@/lib/db";
 
 const PPC_PATTERN = /^PPC-(\d+)$/;
 
-export async function generateNextPpcNumber(): Promise<string> {
+export async function generateNextPpcNumber(minNumber = 1): Promise<string> {
   const players = await prisma.player.findMany({
     where: { ppc_number: { startsWith: "PPC-" } },
     select: { ppc_number: true },
@@ -16,7 +16,8 @@ export async function generateNextPpcNumber(): Promise<string> {
     }
   }
 
-  return `PPC-${String(highest + 1).padStart(4, "0")}`;
+  const next = Math.max(highest + 1, minNumber);
+  return `PPC-${String(next).padStart(5, "0")}`;
 }
 
 export function buildDisplayName(

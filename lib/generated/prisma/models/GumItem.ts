@@ -64,6 +64,14 @@ export type GumItemMinAggregateOutputType = {
   created_at: Date | null
   updated_at: Date | null
   submitted_by: string | null
+  authority_account_id: string | null
+  authority_type: string | null
+  authority_since: Date | null
+  authority_notes: string | null
+  is_frozen: boolean | null
+  frozen_reason: string | null
+  frozen_at: Date | null
+  frozen_by: string | null
 }
 
 export type GumItemMaxAggregateOutputType = {
@@ -92,6 +100,14 @@ export type GumItemMaxAggregateOutputType = {
   created_at: Date | null
   updated_at: Date | null
   submitted_by: string | null
+  authority_account_id: string | null
+  authority_type: string | null
+  authority_since: Date | null
+  authority_notes: string | null
+  is_frozen: boolean | null
+  frozen_reason: string | null
+  frozen_at: Date | null
+  frozen_by: string | null
 }
 
 export type GumItemCountAggregateOutputType = {
@@ -120,6 +136,14 @@ export type GumItemCountAggregateOutputType = {
   created_at: number
   updated_at: number
   submitted_by: number
+  authority_account_id: number
+  authority_type: number
+  authority_since: number
+  authority_notes: number
+  is_frozen: number
+  frozen_reason: number
+  frozen_at: number
+  frozen_by: number
   _all: number
 }
 
@@ -162,6 +186,14 @@ export type GumItemMinAggregateInputType = {
   created_at?: true
   updated_at?: true
   submitted_by?: true
+  authority_account_id?: true
+  authority_type?: true
+  authority_since?: true
+  authority_notes?: true
+  is_frozen?: true
+  frozen_reason?: true
+  frozen_at?: true
+  frozen_by?: true
 }
 
 export type GumItemMaxAggregateInputType = {
@@ -190,6 +222,14 @@ export type GumItemMaxAggregateInputType = {
   created_at?: true
   updated_at?: true
   submitted_by?: true
+  authority_account_id?: true
+  authority_type?: true
+  authority_since?: true
+  authority_notes?: true
+  is_frozen?: true
+  frozen_reason?: true
+  frozen_at?: true
+  frozen_by?: true
 }
 
 export type GumItemCountAggregateInputType = {
@@ -218,6 +258,14 @@ export type GumItemCountAggregateInputType = {
   created_at?: true
   updated_at?: true
   submitted_by?: true
+  authority_account_id?: true
+  authority_type?: true
+  authority_since?: true
+  authority_notes?: true
+  is_frozen?: true
+  frozen_reason?: true
+  frozen_at?: true
+  frozen_by?: true
   _all?: true
 }
 
@@ -333,6 +381,14 @@ export type GumItemGroupByOutputType = {
   created_at: Date
   updated_at: Date
   submitted_by: string | null
+  authority_account_id: string | null
+  authority_type: string
+  authority_since: Date
+  authority_notes: string | null
+  is_frozen: boolean
+  frozen_reason: string | null
+  frozen_at: Date | null
+  frozen_by: string | null
   _count: GumItemCountAggregateOutputType | null
   _avg: GumItemAvgAggregateOutputType | null
   _sum: GumItemSumAggregateOutputType | null
@@ -384,6 +440,14 @@ export type GumItemWhereInput = {
   created_at?: Prisma.DateTimeFilter<"GumItem"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"GumItem"> | Date | string
   submitted_by?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  authority_account_id?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  authority_type?: Prisma.StringFilter<"GumItem"> | string
+  authority_since?: Prisma.DateTimeFilter<"GumItem"> | Date | string
+  authority_notes?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  is_frozen?: Prisma.BoolFilter<"GumItem"> | boolean
+  frozen_reason?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  frozen_at?: Prisma.DateTimeNullableFilter<"GumItem"> | Date | string | null
+  frozen_by?: Prisma.StringNullableFilter<"GumItem"> | string | null
   player?: Prisma.XOR<Prisma.PlayerNullableScalarRelationFilter, Prisma.PlayerWhereInput> | null
   org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
   event?: Prisma.XOR<Prisma.EventNullableScalarRelationFilter, Prisma.EventWhereInput> | null
@@ -415,6 +479,14 @@ export type GumItemOrderByWithRelationInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   submitted_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  authority_account_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  authority_type?: Prisma.SortOrder
+  authority_since?: Prisma.SortOrder
+  authority_notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  is_frozen?: Prisma.SortOrder
+  frozen_reason?: Prisma.SortOrderInput | Prisma.SortOrder
+  frozen_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  frozen_by?: Prisma.SortOrderInput | Prisma.SortOrder
   player?: Prisma.PlayerOrderByWithRelationInput
   org?: Prisma.OrganizationOrderByWithRelationInput
   event?: Prisma.EventOrderByWithRelationInput
@@ -449,6 +521,14 @@ export type GumItemWhereUniqueInput = Prisma.AtLeast<{
   created_at?: Prisma.DateTimeFilter<"GumItem"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"GumItem"> | Date | string
   submitted_by?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  authority_account_id?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  authority_type?: Prisma.StringFilter<"GumItem"> | string
+  authority_since?: Prisma.DateTimeFilter<"GumItem"> | Date | string
+  authority_notes?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  is_frozen?: Prisma.BoolFilter<"GumItem"> | boolean
+  frozen_reason?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  frozen_at?: Prisma.DateTimeNullableFilter<"GumItem"> | Date | string | null
+  frozen_by?: Prisma.StringNullableFilter<"GumItem"> | string | null
   player?: Prisma.XOR<Prisma.PlayerNullableScalarRelationFilter, Prisma.PlayerWhereInput> | null
   org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
   event?: Prisma.XOR<Prisma.EventNullableScalarRelationFilter, Prisma.EventWhereInput> | null
@@ -480,6 +560,14 @@ export type GumItemOrderByWithAggregationInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   submitted_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  authority_account_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  authority_type?: Prisma.SortOrder
+  authority_since?: Prisma.SortOrder
+  authority_notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  is_frozen?: Prisma.SortOrder
+  frozen_reason?: Prisma.SortOrderInput | Prisma.SortOrder
+  frozen_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  frozen_by?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.GumItemCountOrderByAggregateInput
   _avg?: Prisma.GumItemAvgOrderByAggregateInput
   _max?: Prisma.GumItemMaxOrderByAggregateInput
@@ -516,6 +604,14 @@ export type GumItemScalarWhereWithAggregatesInput = {
   created_at?: Prisma.DateTimeWithAggregatesFilter<"GumItem"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"GumItem"> | Date | string
   submitted_by?: Prisma.StringNullableWithAggregatesFilter<"GumItem"> | string | null
+  authority_account_id?: Prisma.StringNullableWithAggregatesFilter<"GumItem"> | string | null
+  authority_type?: Prisma.StringWithAggregatesFilter<"GumItem"> | string
+  authority_since?: Prisma.DateTimeWithAggregatesFilter<"GumItem"> | Date | string
+  authority_notes?: Prisma.StringNullableWithAggregatesFilter<"GumItem"> | string | null
+  is_frozen?: Prisma.BoolWithAggregatesFilter<"GumItem"> | boolean
+  frozen_reason?: Prisma.StringNullableWithAggregatesFilter<"GumItem"> | string | null
+  frozen_at?: Prisma.DateTimeNullableWithAggregatesFilter<"GumItem"> | Date | string | null
+  frozen_by?: Prisma.StringNullableWithAggregatesFilter<"GumItem"> | string | null
 }
 
 export type GumItemCreateInput = {
@@ -541,6 +637,14 @@ export type GumItemCreateInput = {
   created_at?: Date | string
   updated_at?: Date | string
   submitted_by?: string | null
+  authority_account_id?: string | null
+  authority_type?: string
+  authority_since?: Date | string
+  authority_notes?: string | null
+  is_frozen?: boolean
+  frozen_reason?: string | null
+  frozen_at?: Date | string | null
+  frozen_by?: string | null
   player?: Prisma.PlayerCreateNestedOneWithoutGum_itemsInput
   org?: Prisma.OrganizationCreateNestedOneWithoutGum_itemsInput
   event?: Prisma.EventCreateNestedOneWithoutGum_itemsInput
@@ -572,6 +676,14 @@ export type GumItemUncheckedCreateInput = {
   created_at?: Date | string
   updated_at?: Date | string
   submitted_by?: string | null
+  authority_account_id?: string | null
+  authority_type?: string
+  authority_since?: Date | string
+  authority_notes?: string | null
+  is_frozen?: boolean
+  frozen_reason?: string | null
+  frozen_at?: Date | string | null
+  frozen_by?: string | null
 }
 
 export type GumItemUpdateInput = {
@@ -597,6 +709,14 @@ export type GumItemUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submitted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_type?: Prisma.StringFieldUpdateOperationsInput | string
+  authority_since?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authority_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_frozen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   player?: Prisma.PlayerUpdateOneWithoutGum_itemsNestedInput
   org?: Prisma.OrganizationUpdateOneWithoutGum_itemsNestedInput
   event?: Prisma.EventUpdateOneWithoutGum_itemsNestedInput
@@ -628,6 +748,14 @@ export type GumItemUncheckedUpdateInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submitted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_type?: Prisma.StringFieldUpdateOperationsInput | string
+  authority_since?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authority_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_frozen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type GumItemCreateManyInput = {
@@ -656,6 +784,14 @@ export type GumItemCreateManyInput = {
   created_at?: Date | string
   updated_at?: Date | string
   submitted_by?: string | null
+  authority_account_id?: string | null
+  authority_type?: string
+  authority_since?: Date | string
+  authority_notes?: string | null
+  is_frozen?: boolean
+  frozen_reason?: string | null
+  frozen_at?: Date | string | null
+  frozen_by?: string | null
 }
 
 export type GumItemUpdateManyMutationInput = {
@@ -681,6 +817,14 @@ export type GumItemUpdateManyMutationInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submitted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_type?: Prisma.StringFieldUpdateOperationsInput | string
+  authority_since?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authority_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_frozen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type GumItemUncheckedUpdateManyInput = {
@@ -709,6 +853,14 @@ export type GumItemUncheckedUpdateManyInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submitted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_type?: Prisma.StringFieldUpdateOperationsInput | string
+  authority_since?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authority_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_frozen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type GumItemListRelationFilter = {
@@ -747,6 +899,14 @@ export type GumItemCountOrderByAggregateInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   submitted_by?: Prisma.SortOrder
+  authority_account_id?: Prisma.SortOrder
+  authority_type?: Prisma.SortOrder
+  authority_since?: Prisma.SortOrder
+  authority_notes?: Prisma.SortOrder
+  is_frozen?: Prisma.SortOrder
+  frozen_reason?: Prisma.SortOrder
+  frozen_at?: Prisma.SortOrder
+  frozen_by?: Prisma.SortOrder
 }
 
 export type GumItemAvgOrderByAggregateInput = {
@@ -781,6 +941,14 @@ export type GumItemMaxOrderByAggregateInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   submitted_by?: Prisma.SortOrder
+  authority_account_id?: Prisma.SortOrder
+  authority_type?: Prisma.SortOrder
+  authority_since?: Prisma.SortOrder
+  authority_notes?: Prisma.SortOrder
+  is_frozen?: Prisma.SortOrder
+  frozen_reason?: Prisma.SortOrder
+  frozen_at?: Prisma.SortOrder
+  frozen_by?: Prisma.SortOrder
 }
 
 export type GumItemMinOrderByAggregateInput = {
@@ -809,6 +977,14 @@ export type GumItemMinOrderByAggregateInput = {
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   submitted_by?: Prisma.SortOrder
+  authority_account_id?: Prisma.SortOrder
+  authority_type?: Prisma.SortOrder
+  authority_since?: Prisma.SortOrder
+  authority_notes?: Prisma.SortOrder
+  is_frozen?: Prisma.SortOrder
+  frozen_reason?: Prisma.SortOrder
+  frozen_at?: Prisma.SortOrder
+  frozen_by?: Prisma.SortOrder
 }
 
 export type GumItemSumOrderByAggregateInput = {
@@ -966,6 +1142,14 @@ export type GumItemCreateWithoutPlayerInput = {
   created_at?: Date | string
   updated_at?: Date | string
   submitted_by?: string | null
+  authority_account_id?: string | null
+  authority_type?: string
+  authority_since?: Date | string
+  authority_notes?: string | null
+  is_frozen?: boolean
+  frozen_reason?: string | null
+  frozen_at?: Date | string | null
+  frozen_by?: string | null
   org?: Prisma.OrganizationCreateNestedOneWithoutGum_itemsInput
   event?: Prisma.EventCreateNestedOneWithoutGum_itemsInput
 }
@@ -995,6 +1179,14 @@ export type GumItemUncheckedCreateWithoutPlayerInput = {
   created_at?: Date | string
   updated_at?: Date | string
   submitted_by?: string | null
+  authority_account_id?: string | null
+  authority_type?: string
+  authority_since?: Date | string
+  authority_notes?: string | null
+  is_frozen?: boolean
+  frozen_reason?: string | null
+  frozen_at?: Date | string | null
+  frozen_by?: string | null
 }
 
 export type GumItemCreateOrConnectWithoutPlayerInput = {
@@ -1052,6 +1244,14 @@ export type GumItemScalarWhereInput = {
   created_at?: Prisma.DateTimeFilter<"GumItem"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"GumItem"> | Date | string
   submitted_by?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  authority_account_id?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  authority_type?: Prisma.StringFilter<"GumItem"> | string
+  authority_since?: Prisma.DateTimeFilter<"GumItem"> | Date | string
+  authority_notes?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  is_frozen?: Prisma.BoolFilter<"GumItem"> | boolean
+  frozen_reason?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  frozen_at?: Prisma.DateTimeNullableFilter<"GumItem"> | Date | string | null
+  frozen_by?: Prisma.StringNullableFilter<"GumItem"> | string | null
 }
 
 export type GumItemCreateWithoutOrgInput = {
@@ -1077,6 +1277,14 @@ export type GumItemCreateWithoutOrgInput = {
   created_at?: Date | string
   updated_at?: Date | string
   submitted_by?: string | null
+  authority_account_id?: string | null
+  authority_type?: string
+  authority_since?: Date | string
+  authority_notes?: string | null
+  is_frozen?: boolean
+  frozen_reason?: string | null
+  frozen_at?: Date | string | null
+  frozen_by?: string | null
   player?: Prisma.PlayerCreateNestedOneWithoutGum_itemsInput
   event?: Prisma.EventCreateNestedOneWithoutGum_itemsInput
 }
@@ -1106,6 +1314,14 @@ export type GumItemUncheckedCreateWithoutOrgInput = {
   created_at?: Date | string
   updated_at?: Date | string
   submitted_by?: string | null
+  authority_account_id?: string | null
+  authority_type?: string
+  authority_since?: Date | string
+  authority_notes?: string | null
+  is_frozen?: boolean
+  frozen_reason?: string | null
+  frozen_at?: Date | string | null
+  frozen_by?: string | null
 }
 
 export type GumItemCreateOrConnectWithoutOrgInput = {
@@ -1157,6 +1373,14 @@ export type GumItemCreateWithoutEventInput = {
   created_at?: Date | string
   updated_at?: Date | string
   submitted_by?: string | null
+  authority_account_id?: string | null
+  authority_type?: string
+  authority_since?: Date | string
+  authority_notes?: string | null
+  is_frozen?: boolean
+  frozen_reason?: string | null
+  frozen_at?: Date | string | null
+  frozen_by?: string | null
   player?: Prisma.PlayerCreateNestedOneWithoutGum_itemsInput
   org?: Prisma.OrganizationCreateNestedOneWithoutGum_itemsInput
 }
@@ -1186,6 +1410,14 @@ export type GumItemUncheckedCreateWithoutEventInput = {
   created_at?: Date | string
   updated_at?: Date | string
   submitted_by?: string | null
+  authority_account_id?: string | null
+  authority_type?: string
+  authority_since?: Date | string
+  authority_notes?: string | null
+  is_frozen?: boolean
+  frozen_reason?: string | null
+  frozen_at?: Date | string | null
+  frozen_by?: string | null
 }
 
 export type GumItemCreateOrConnectWithoutEventInput = {
@@ -1239,6 +1471,14 @@ export type GumItemCreateManyPlayerInput = {
   created_at?: Date | string
   updated_at?: Date | string
   submitted_by?: string | null
+  authority_account_id?: string | null
+  authority_type?: string
+  authority_since?: Date | string
+  authority_notes?: string | null
+  is_frozen?: boolean
+  frozen_reason?: string | null
+  frozen_at?: Date | string | null
+  frozen_by?: string | null
 }
 
 export type GumItemUpdateWithoutPlayerInput = {
@@ -1264,6 +1504,14 @@ export type GumItemUpdateWithoutPlayerInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submitted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_type?: Prisma.StringFieldUpdateOperationsInput | string
+  authority_since?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authority_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_frozen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   org?: Prisma.OrganizationUpdateOneWithoutGum_itemsNestedInput
   event?: Prisma.EventUpdateOneWithoutGum_itemsNestedInput
 }
@@ -1293,6 +1541,14 @@ export type GumItemUncheckedUpdateWithoutPlayerInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submitted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_type?: Prisma.StringFieldUpdateOperationsInput | string
+  authority_since?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authority_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_frozen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type GumItemUncheckedUpdateManyWithoutPlayerInput = {
@@ -1320,6 +1576,14 @@ export type GumItemUncheckedUpdateManyWithoutPlayerInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submitted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_type?: Prisma.StringFieldUpdateOperationsInput | string
+  authority_since?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authority_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_frozen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type GumItemCreateManyOrgInput = {
@@ -1347,6 +1611,14 @@ export type GumItemCreateManyOrgInput = {
   created_at?: Date | string
   updated_at?: Date | string
   submitted_by?: string | null
+  authority_account_id?: string | null
+  authority_type?: string
+  authority_since?: Date | string
+  authority_notes?: string | null
+  is_frozen?: boolean
+  frozen_reason?: string | null
+  frozen_at?: Date | string | null
+  frozen_by?: string | null
 }
 
 export type GumItemUpdateWithoutOrgInput = {
@@ -1372,6 +1644,14 @@ export type GumItemUpdateWithoutOrgInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submitted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_type?: Prisma.StringFieldUpdateOperationsInput | string
+  authority_since?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authority_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_frozen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   player?: Prisma.PlayerUpdateOneWithoutGum_itemsNestedInput
   event?: Prisma.EventUpdateOneWithoutGum_itemsNestedInput
 }
@@ -1401,6 +1681,14 @@ export type GumItemUncheckedUpdateWithoutOrgInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submitted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_type?: Prisma.StringFieldUpdateOperationsInput | string
+  authority_since?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authority_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_frozen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type GumItemUncheckedUpdateManyWithoutOrgInput = {
@@ -1428,6 +1716,14 @@ export type GumItemUncheckedUpdateManyWithoutOrgInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submitted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_type?: Prisma.StringFieldUpdateOperationsInput | string
+  authority_since?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authority_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_frozen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type GumItemCreateManyEventInput = {
@@ -1455,6 +1751,14 @@ export type GumItemCreateManyEventInput = {
   created_at?: Date | string
   updated_at?: Date | string
   submitted_by?: string | null
+  authority_account_id?: string | null
+  authority_type?: string
+  authority_since?: Date | string
+  authority_notes?: string | null
+  is_frozen?: boolean
+  frozen_reason?: string | null
+  frozen_at?: Date | string | null
+  frozen_by?: string | null
 }
 
 export type GumItemUpdateWithoutEventInput = {
@@ -1480,6 +1784,14 @@ export type GumItemUpdateWithoutEventInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submitted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_type?: Prisma.StringFieldUpdateOperationsInput | string
+  authority_since?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authority_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_frozen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   player?: Prisma.PlayerUpdateOneWithoutGum_itemsNestedInput
   org?: Prisma.OrganizationUpdateOneWithoutGum_itemsNestedInput
 }
@@ -1509,6 +1821,14 @@ export type GumItemUncheckedUpdateWithoutEventInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submitted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_type?: Prisma.StringFieldUpdateOperationsInput | string
+  authority_since?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authority_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_frozen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type GumItemUncheckedUpdateManyWithoutEventInput = {
@@ -1536,6 +1856,14 @@ export type GumItemUncheckedUpdateManyWithoutEventInput = {
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   submitted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  authority_type?: Prisma.StringFieldUpdateOperationsInput | string
+  authority_since?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  authority_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_frozen?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1566,6 +1894,14 @@ export type GumItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   created_at?: boolean
   updated_at?: boolean
   submitted_by?: boolean
+  authority_account_id?: boolean
+  authority_type?: boolean
+  authority_since?: boolean
+  authority_notes?: boolean
+  is_frozen?: boolean
+  frozen_reason?: boolean
+  frozen_at?: boolean
+  frozen_by?: boolean
   player?: boolean | Prisma.GumItem$playerArgs<ExtArgs>
   org?: boolean | Prisma.GumItem$orgArgs<ExtArgs>
   event?: boolean | Prisma.GumItem$eventArgs<ExtArgs>
@@ -1597,6 +1933,14 @@ export type GumItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   created_at?: boolean
   updated_at?: boolean
   submitted_by?: boolean
+  authority_account_id?: boolean
+  authority_type?: boolean
+  authority_since?: boolean
+  authority_notes?: boolean
+  is_frozen?: boolean
+  frozen_reason?: boolean
+  frozen_at?: boolean
+  frozen_by?: boolean
   player?: boolean | Prisma.GumItem$playerArgs<ExtArgs>
   org?: boolean | Prisma.GumItem$orgArgs<ExtArgs>
   event?: boolean | Prisma.GumItem$eventArgs<ExtArgs>
@@ -1628,6 +1972,14 @@ export type GumItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   created_at?: boolean
   updated_at?: boolean
   submitted_by?: boolean
+  authority_account_id?: boolean
+  authority_type?: boolean
+  authority_since?: boolean
+  authority_notes?: boolean
+  is_frozen?: boolean
+  frozen_reason?: boolean
+  frozen_at?: boolean
+  frozen_by?: boolean
   player?: boolean | Prisma.GumItem$playerArgs<ExtArgs>
   org?: boolean | Prisma.GumItem$orgArgs<ExtArgs>
   event?: boolean | Prisma.GumItem$eventArgs<ExtArgs>
@@ -1659,9 +2011,17 @@ export type GumItemSelectScalar = {
   created_at?: boolean
   updated_at?: boolean
   submitted_by?: boolean
+  authority_account_id?: boolean
+  authority_type?: boolean
+  authority_since?: boolean
+  authority_notes?: boolean
+  is_frozen?: boolean
+  frozen_reason?: boolean
+  frozen_at?: boolean
+  frozen_by?: boolean
 }
 
-export type GumItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "gum_code" | "player_id" | "org_id" | "event_id" | "item_type" | "item_description" | "sport" | "season_year" | "jersey_number" | "gum_classification" | "is_authenticated" | "authenticated_at" | "vault_level" | "strength_score" | "plate_tier" | "serial_number" | "edition_size" | "has_swatch" | "swatch_image_key" | "visibility" | "revealed_by_owner" | "created_at" | "updated_at" | "submitted_by", ExtArgs["result"]["gumItem"]>
+export type GumItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "gum_code" | "player_id" | "org_id" | "event_id" | "item_type" | "item_description" | "sport" | "season_year" | "jersey_number" | "gum_classification" | "is_authenticated" | "authenticated_at" | "vault_level" | "strength_score" | "plate_tier" | "serial_number" | "edition_size" | "has_swatch" | "swatch_image_key" | "visibility" | "revealed_by_owner" | "created_at" | "updated_at" | "submitted_by" | "authority_account_id" | "authority_type" | "authority_since" | "authority_notes" | "is_frozen" | "frozen_reason" | "frozen_at" | "frozen_by", ExtArgs["result"]["gumItem"]>
 export type GumItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   player?: boolean | Prisma.GumItem$playerArgs<ExtArgs>
   org?: boolean | Prisma.GumItem$orgArgs<ExtArgs>
@@ -1711,6 +2071,14 @@ export type $GumItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     created_at: Date
     updated_at: Date
     submitted_by: string | null
+    authority_account_id: string | null
+    authority_type: string
+    authority_since: Date
+    authority_notes: string | null
+    is_frozen: boolean
+    frozen_reason: string | null
+    frozen_at: Date | null
+    frozen_by: string | null
   }, ExtArgs["result"]["gumItem"]>
   composites: {}
 }
@@ -2162,6 +2530,14 @@ export interface GumItemFieldRefs {
   readonly created_at: Prisma.FieldRef<"GumItem", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"GumItem", 'DateTime'>
   readonly submitted_by: Prisma.FieldRef<"GumItem", 'String'>
+  readonly authority_account_id: Prisma.FieldRef<"GumItem", 'String'>
+  readonly authority_type: Prisma.FieldRef<"GumItem", 'String'>
+  readonly authority_since: Prisma.FieldRef<"GumItem", 'DateTime'>
+  readonly authority_notes: Prisma.FieldRef<"GumItem", 'String'>
+  readonly is_frozen: Prisma.FieldRef<"GumItem", 'Boolean'>
+  readonly frozen_reason: Prisma.FieldRef<"GumItem", 'String'>
+  readonly frozen_at: Prisma.FieldRef<"GumItem", 'DateTime'>
+  readonly frozen_by: Prisma.FieldRef<"GumItem", 'String'>
 }
     
 

@@ -31,16 +31,26 @@ model Player {
   signature_on_file   Boolean  @default(false)
   signature_image_key String?
   bust_image_key      String?
+  enrollment_photo_key String?
   created_at          DateTime @default(now())
   updated_at          DateTime @updatedAt
   guardian_account_id String?
   created_by          String?
+  principles_acknowledged_at DateTime?
+  principles_acknowledged_ip   String?
 
   guardian            Account?  @relation("GuardianPlayers", fields: [guardian_account_id], references: [id])
   org_affiliations    PlayerOrgAffiliation[]
   event_participation PlayerEventParticipation[]
   gum_items           GumItem[]
   achievements        Achievement[]
+  violation_affected_records ViolationAffectedRecord[]
+  player_guardians    PlayerGuardian[]
+  account_transitions AccountTransition[]
+  corridor_access_grants CorridorAccessGrant[]
+  guardian_action_logs GuardianActionLog[]
+  hall_of_fame_inductee HallOfFameInductee?
+  hall_of_fame_nominations HallOfFameNomination[]
 
   @@map("players")
 }
@@ -196,12 +206,38 @@ model GumItem {
   created_at          DateTime @default(now())
   updated_at          DateTime @updatedAt
   submitted_by        String?
+  authority_account_id String?
+  authority_type       String   @default("guardian")
+  authority_since      DateTime @default(now())
+  authority_notes      String?
+  is_frozen            Boolean  @default(false)
+  frozen_reason        String?
+  frozen_at            DateTime?
+  frozen_by            String?
 
   player              Player?       @relation(fields: [player_id], references: [id])
   org                 Organization? @relation(fields: [org_id], references: [id])
   event               Event?        @relation(fields: [event_id], references: [id])
 
   @@map("gum_items")
+}
+
+model ItemAuthorityLog {
+  id                String   @id @default(uuid())
+  item_id           String
+  from_account_id   String?
+  to_account_id     String
+  authority_type    String
+  transfer_type     String
+  confirmed_by_from Boolean  @default(false)
+  confirmed_by_to   Boolean  @default(false)
+  vault_witnessed   Boolean  @default(false)
+  effective_date    DateTime
+  documentation_key String?
+  notes             String?
+  created_at        DateTime @default(now())
+
+  @@map("item_authority_log")
 }
 
 model EvidenceFile {
@@ -226,6 +262,24 @@ model EvidenceFile {
   notes               String?
 
   @@map("evidence_files")
+}
+
+model SharedCapture {
+  id                  String    @id @default(uuid())
+  evidence_file_id    String
+  captured_by_account String
+  shared_to_player_id String
+  capture_mode        String    @default("live_capture")
+  metadata_verified   Boolean   @default(false)
+  evidence_class      String    @default("E3")
+  shared_at           DateTime  @default(now())
+  admitted            Boolean   @default(false)
+  admitted_at         DateTime?
+  admitted_by         String?
+  capture_credit      String?
+  secondary_witnesses Json?
+
+  @@map("shared_captures")
 }
 
 model PlayerOrgAffiliation {
@@ -295,11 +349,272 @@ model Account {
   linked_player_id String?
   linked_org_id    String?
   linked_gov_id    String?
+  linked_vrc_id    String?
   created_at       DateTime @default(now())
   last_login_at    DateTime?
+  capture_count    Int      @default(0)
+  capture_rank     String   @default("eye_witness")
 
   guardian_players Player[] @relation("GuardianPlayers")
   managed_orgs     Organization[] @relation("OrgAdmin")
+  player_guardians PlayerGuardian[] @relation("GuardianAccount")
+  account_delegates AccountDelegate[] @relation("DelegateAccount")
+  delegate_of      AccountDelegate[] @relation("DelegateOf")
+  corridor_grants_given CorridorAccessGrant[] @relation("GrantorAccount")
+  corridor_grants_received CorridorAccessGrant[] @relation("GranteeAccount")
+  guardian_action_logs GuardianActionLog[]
+  vault_registry_collector VaultRegistryCollector?
 
   @@map("accounts")
+}
+
+model VaultViolation {
+  id                    String    @id @default(uuid())
+  entity_type           String
+  entity_id             String
+  violation_class       String
+  violation_type        String
+  reported_by           String
+  reported_at           DateTime  @default(now())
+  audit_opened_at       DateTime?
+  audit_due_at          DateTime?
+  audit_completed_at    DateTime?
+  auditor_account_id    String?
+  audit_outcome         String?
+  audit_notes           String?
+  audit_fee_amount      Decimal?
+  audit_fee_paid        Boolean   @default(false)
+  audit_fee_paid_at     DateTime?
+  fine_amount           Decimal?
+  fine_paid             Boolean   @default(false)
+  fine_paid_at          DateTime?
+  records_affected      Int       @default(0)
+  is_public             Boolean   @default(true)
+  suspended_at          DateTime?
+  restored_at           DateTime?
+  permanently_revoked   Boolean   @default(false)
+  created_at            DateTime  @default(now())
+  updated_at            DateTime  @updatedAt
+
+  affected_records      ViolationAffectedRecord[]
+  reinstatement         ReinstatementApplication[]
+
+  @@map("vault_violations")
+}
+
+model ViolationAffectedRecord {
+  id                        String    @id @default(uuid())
+  violation_id              String
+  player_id                 String
+  record_type               String
+  record_id                 String
+  reverification_covered    Boolean   @default(false)
+  reverification_cost       Decimal?
+  created_at                DateTime  @default(now())
+
+  violation                 VaultViolation @relation(fields: [violation_id], references: [id])
+  player                    Player         @relation(fields: [player_id], references: [id])
+
+  @@map("violation_affected_records")
+}
+
+model ReinstatementApplication {
+  id                          String    @id @default(uuid())
+  violation_id                String
+  entity_type                 String
+  entity_id                   String
+  applied_at                  DateTime  @default(now())
+  fines_paid                  Boolean   @default(false)
+  players_made_whole          Boolean   @default(false)
+  suspension_served           Boolean   @default(false)
+  governance_audit_passed     Boolean   @default(false)
+  gov_cosign_account_id       String?
+  gov_cosigned_at             DateTime?
+  vault_approval_account_id   String?
+  vault_approved_at           DateTime?
+  rogue_actor_claim           Boolean   @default(false)
+  rogue_actor_evidence_key    String?
+  self_reported               Boolean   @default(false)
+  outcome                     String?
+  outcome_notes               String?
+  probation_ends_at           DateTime?
+  resolved_at                 DateTime?
+  created_at                  DateTime  @default(now())
+  updated_at                  DateTime  @updatedAt
+
+  violation                   VaultViolation @relation(fields: [violation_id], references: [id])
+
+  @@map("reinstatement_applications")
+}
+
+model PlayerGuardian {
+  id                        String    @id @default(uuid())
+  player_id                 String
+  account_id                String
+  guardian_role             String
+  authority_scope           String    @default("full")
+  legal_documentation_key   String?
+  is_active                 Boolean   @default(true)
+  requires_authority_approval Boolean @default(false)
+  added_by                  String
+  approved_by               String?
+  approved_at               DateTime?
+  effective_date            DateTime?
+  expiry_date               DateTime?
+  revoked_at                DateTime?
+  revoked_by                String?
+  created_at                DateTime  @default(now())
+  modified_at               DateTime  @updatedAt
+
+  player                    Player   @relation(fields: [player_id], references: [id])
+  account                   Account  @relation("GuardianAccount", fields: [account_id], references: [id])
+
+  @@map("player_guardians")
+}
+
+model AccountTransition {
+  id                    String    @id @default(uuid())
+  player_id             String
+  from_account_id       String
+  to_account_id         String
+  transition_type       String
+  effective_date        DateTime
+  authorized_by         String
+  documentation_key     String?
+  notes                 String?
+  created_at            DateTime  @default(now())
+
+  player                Player   @relation(fields: [player_id], references: [id])
+
+  @@map("account_transitions")
+}
+
+model AccountDelegate {
+  id                    String    @id @default(uuid())
+  account_id            String
+  delegate_account_id   String
+  granted_by            String
+  permission_scope      String
+  minor_access_level    Int       @default(0)
+  granted_by_guardian   Boolean   @default(false)
+  level_notes           String?
+  created_at            DateTime  @default(now())
+  revoked_at            DateTime?
+
+  account               Account  @relation("DelegateAccount", fields: [account_id], references: [id])
+  delegate              Account  @relation("DelegateOf", fields: [delegate_account_id], references: [id])
+
+  @@map("account_delegates")
+}
+
+model CorridorAccessGrant {
+  id                    String    @id @default(uuid())
+  grantor_account_id    String
+  grantee_account_id    String
+  player_id             String
+  scope                 String
+  item_id               String?
+  granted_at            DateTime  @default(now())
+  expires_at            DateTime?
+  revoked_at            DateTime?
+  note                  String?
+
+  player                Player   @relation(fields: [player_id], references: [id])
+  grantor               Account  @relation("GrantorAccount", fields: [grantor_account_id], references: [id])
+  grantee               Account  @relation("GranteeAccount", fields: [grantee_account_id], references: [id])
+
+  @@map("corridor_access_grants")
+}
+
+model GuardianActionLog {
+  id                    String    @id @default(uuid())
+  player_id             String
+  account_id            String
+  action_type           String
+  action_detail         Json?
+  permission_used       String
+  created_at            DateTime  @default(now())
+
+  player                Player   @relation(fields: [player_id], references: [id])
+  account               Account  @relation(fields: [account_id], references: [id])
+
+  @@map("guardian_action_log")
+}
+
+model RepresentativeContact {
+  id                    String    @id @default(uuid())
+  rep_id                String?
+  player_id             String?
+  account_id            String?
+  contact_type          String
+  summary               String
+  outcome               String?
+  referred_at           DateTime?
+  created_at            DateTime  @default(now())
+
+  @@map("representative_contacts")
+}
+
+model HallOfFameInductee {
+  id                    String    @id @default(uuid())
+  player_id             String    @unique
+  inducted_at           DateTime?
+  induction_year        Int?
+  career_summary        String?
+  plinth_inscription    String?
+  bust_image_key        String?
+  nomination_notes      String?
+  votes_required        Int       @default(3)
+  votes_received        Int       @default(0)
+  founder_approved      Boolean   @default(false)
+  founder_approved_at   DateTime?
+  founder_account_id    String?
+  status                String    @default("nominated")
+  is_inducted           Boolean   @default(false)
+  inducted_by           String?
+  created_at            DateTime  @default(now())
+  updated_at            DateTime  @updatedAt
+
+  player                Player   @relation(fields: [player_id], references: [id])
+
+  @@map("hall_of_fame_inductees")
+}
+
+model HallOfFameNomination {
+  id                String    @id @default(uuid())
+  player_id         String
+  nominated_by      String
+  nomination_notes  String?
+  career_highlights String?
+  seconded_by       String?
+  seconded_at       DateTime?
+  status            String    @default("open")
+  created_at        DateTime  @default(now())
+
+  player            Player   @relation(fields: [player_id], references: [id])
+
+  @@map("hall_of_fame_nominations")
+}
+
+model VaultRegistryCollector {
+  id              String   @id @default(uuid())
+  vrc_number      String   @unique
+  display_name    String
+  first_name      String
+  last_name       String
+  middle_name     String?
+  collector_focus String?
+  vault_level     String   @default("recorded")
+  strength_score  Int      @default(0)
+  bust_color      String   @default("grayscale")
+  visibility      String   @default("public")
+  exhibit_status  String   @default("active")
+  bust_image_key  String?
+  account_id      String?  @unique
+  is_guardian     Boolean  @default(false)
+  created_at      DateTime @default(now())
+  updated_at      DateTime @updatedAt
+  account         Account? @relation(fields: [account_id], references: [id])
+
+  @@map("vault_registry_collectors")
 }

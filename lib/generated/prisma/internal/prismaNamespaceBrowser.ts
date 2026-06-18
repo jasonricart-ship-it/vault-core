@@ -58,11 +58,25 @@ export const ModelName = {
   Achievement: 'Achievement',
   ScheduleEntry: 'ScheduleEntry',
   GumItem: 'GumItem',
+  ItemAuthorityLog: 'ItemAuthorityLog',
   EvidenceFile: 'EvidenceFile',
+  SharedCapture: 'SharedCapture',
   PlayerOrgAffiliation: 'PlayerOrgAffiliation',
   OrgGovAffiliation: 'OrgGovAffiliation',
   PlayerEventParticipation: 'PlayerEventParticipation',
-  Account: 'Account'
+  Account: 'Account',
+  VaultViolation: 'VaultViolation',
+  ViolationAffectedRecord: 'ViolationAffectedRecord',
+  ReinstatementApplication: 'ReinstatementApplication',
+  PlayerGuardian: 'PlayerGuardian',
+  AccountTransition: 'AccountTransition',
+  AccountDelegate: 'AccountDelegate',
+  CorridorAccessGrant: 'CorridorAccessGrant',
+  GuardianActionLog: 'GuardianActionLog',
+  RepresentativeContact: 'RepresentativeContact',
+  HallOfFameInductee: 'HallOfFameInductee',
+  HallOfFameNomination: 'HallOfFameNomination',
+  VaultRegistryCollector: 'VaultRegistryCollector'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -100,10 +114,13 @@ export const PlayerScalarFieldEnum = {
   signature_on_file: 'signature_on_file',
   signature_image_key: 'signature_image_key',
   bust_image_key: 'bust_image_key',
+  enrollment_photo_key: 'enrollment_photo_key',
   created_at: 'created_at',
   updated_at: 'updated_at',
   guardian_account_id: 'guardian_account_id',
-  created_by: 'created_by'
+  created_by: 'created_by',
+  principles_acknowledged_at: 'principles_acknowledged_at',
+  principles_acknowledged_ip: 'principles_acknowledged_ip'
 } as const
 
 export type PlayerScalarFieldEnum = (typeof PlayerScalarFieldEnum)[keyof typeof PlayerScalarFieldEnum]
@@ -239,10 +256,37 @@ export const GumItemScalarFieldEnum = {
   revealed_by_owner: 'revealed_by_owner',
   created_at: 'created_at',
   updated_at: 'updated_at',
-  submitted_by: 'submitted_by'
+  submitted_by: 'submitted_by',
+  authority_account_id: 'authority_account_id',
+  authority_type: 'authority_type',
+  authority_since: 'authority_since',
+  authority_notes: 'authority_notes',
+  is_frozen: 'is_frozen',
+  frozen_reason: 'frozen_reason',
+  frozen_at: 'frozen_at',
+  frozen_by: 'frozen_by'
 } as const
 
 export type GumItemScalarFieldEnum = (typeof GumItemScalarFieldEnum)[keyof typeof GumItemScalarFieldEnum]
+
+
+export const ItemAuthorityLogScalarFieldEnum = {
+  id: 'id',
+  item_id: 'item_id',
+  from_account_id: 'from_account_id',
+  to_account_id: 'to_account_id',
+  authority_type: 'authority_type',
+  transfer_type: 'transfer_type',
+  confirmed_by_from: 'confirmed_by_from',
+  confirmed_by_to: 'confirmed_by_to',
+  vault_witnessed: 'vault_witnessed',
+  effective_date: 'effective_date',
+  documentation_key: 'documentation_key',
+  notes: 'notes',
+  created_at: 'created_at'
+} as const
+
+export type ItemAuthorityLogScalarFieldEnum = (typeof ItemAuthorityLogScalarFieldEnum)[keyof typeof ItemAuthorityLogScalarFieldEnum]
 
 
 export const EvidenceFileScalarFieldEnum = {
@@ -268,6 +312,25 @@ export const EvidenceFileScalarFieldEnum = {
 } as const
 
 export type EvidenceFileScalarFieldEnum = (typeof EvidenceFileScalarFieldEnum)[keyof typeof EvidenceFileScalarFieldEnum]
+
+
+export const SharedCaptureScalarFieldEnum = {
+  id: 'id',
+  evidence_file_id: 'evidence_file_id',
+  captured_by_account: 'captured_by_account',
+  shared_to_player_id: 'shared_to_player_id',
+  capture_mode: 'capture_mode',
+  metadata_verified: 'metadata_verified',
+  evidence_class: 'evidence_class',
+  shared_at: 'shared_at',
+  admitted: 'admitted',
+  admitted_at: 'admitted_at',
+  admitted_by: 'admitted_by',
+  capture_credit: 'capture_credit',
+  secondary_witnesses: 'secondary_witnesses'
+} as const
+
+export type SharedCaptureScalarFieldEnum = (typeof SharedCaptureScalarFieldEnum)[keyof typeof SharedCaptureScalarFieldEnum]
 
 
 export const PlayerOrgAffiliationScalarFieldEnum = {
@@ -331,11 +394,249 @@ export const AccountScalarFieldEnum = {
   linked_player_id: 'linked_player_id',
   linked_org_id: 'linked_org_id',
   linked_gov_id: 'linked_gov_id',
+  linked_vrc_id: 'linked_vrc_id',
   created_at: 'created_at',
-  last_login_at: 'last_login_at'
+  last_login_at: 'last_login_at',
+  capture_count: 'capture_count',
+  capture_rank: 'capture_rank'
 } as const
 
 export type AccountScalarFieldEnum = (typeof AccountScalarFieldEnum)[keyof typeof AccountScalarFieldEnum]
+
+
+export const VaultViolationScalarFieldEnum = {
+  id: 'id',
+  entity_type: 'entity_type',
+  entity_id: 'entity_id',
+  violation_class: 'violation_class',
+  violation_type: 'violation_type',
+  reported_by: 'reported_by',
+  reported_at: 'reported_at',
+  audit_opened_at: 'audit_opened_at',
+  audit_due_at: 'audit_due_at',
+  audit_completed_at: 'audit_completed_at',
+  auditor_account_id: 'auditor_account_id',
+  audit_outcome: 'audit_outcome',
+  audit_notes: 'audit_notes',
+  audit_fee_amount: 'audit_fee_amount',
+  audit_fee_paid: 'audit_fee_paid',
+  audit_fee_paid_at: 'audit_fee_paid_at',
+  fine_amount: 'fine_amount',
+  fine_paid: 'fine_paid',
+  fine_paid_at: 'fine_paid_at',
+  records_affected: 'records_affected',
+  is_public: 'is_public',
+  suspended_at: 'suspended_at',
+  restored_at: 'restored_at',
+  permanently_revoked: 'permanently_revoked',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type VaultViolationScalarFieldEnum = (typeof VaultViolationScalarFieldEnum)[keyof typeof VaultViolationScalarFieldEnum]
+
+
+export const ViolationAffectedRecordScalarFieldEnum = {
+  id: 'id',
+  violation_id: 'violation_id',
+  player_id: 'player_id',
+  record_type: 'record_type',
+  record_id: 'record_id',
+  reverification_covered: 'reverification_covered',
+  reverification_cost: 'reverification_cost',
+  created_at: 'created_at'
+} as const
+
+export type ViolationAffectedRecordScalarFieldEnum = (typeof ViolationAffectedRecordScalarFieldEnum)[keyof typeof ViolationAffectedRecordScalarFieldEnum]
+
+
+export const ReinstatementApplicationScalarFieldEnum = {
+  id: 'id',
+  violation_id: 'violation_id',
+  entity_type: 'entity_type',
+  entity_id: 'entity_id',
+  applied_at: 'applied_at',
+  fines_paid: 'fines_paid',
+  players_made_whole: 'players_made_whole',
+  suspension_served: 'suspension_served',
+  governance_audit_passed: 'governance_audit_passed',
+  gov_cosign_account_id: 'gov_cosign_account_id',
+  gov_cosigned_at: 'gov_cosigned_at',
+  vault_approval_account_id: 'vault_approval_account_id',
+  vault_approved_at: 'vault_approved_at',
+  rogue_actor_claim: 'rogue_actor_claim',
+  rogue_actor_evidence_key: 'rogue_actor_evidence_key',
+  self_reported: 'self_reported',
+  outcome: 'outcome',
+  outcome_notes: 'outcome_notes',
+  probation_ends_at: 'probation_ends_at',
+  resolved_at: 'resolved_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ReinstatementApplicationScalarFieldEnum = (typeof ReinstatementApplicationScalarFieldEnum)[keyof typeof ReinstatementApplicationScalarFieldEnum]
+
+
+export const PlayerGuardianScalarFieldEnum = {
+  id: 'id',
+  player_id: 'player_id',
+  account_id: 'account_id',
+  guardian_role: 'guardian_role',
+  authority_scope: 'authority_scope',
+  legal_documentation_key: 'legal_documentation_key',
+  is_active: 'is_active',
+  requires_authority_approval: 'requires_authority_approval',
+  added_by: 'added_by',
+  approved_by: 'approved_by',
+  approved_at: 'approved_at',
+  effective_date: 'effective_date',
+  expiry_date: 'expiry_date',
+  revoked_at: 'revoked_at',
+  revoked_by: 'revoked_by',
+  created_at: 'created_at',
+  modified_at: 'modified_at'
+} as const
+
+export type PlayerGuardianScalarFieldEnum = (typeof PlayerGuardianScalarFieldEnum)[keyof typeof PlayerGuardianScalarFieldEnum]
+
+
+export const AccountTransitionScalarFieldEnum = {
+  id: 'id',
+  player_id: 'player_id',
+  from_account_id: 'from_account_id',
+  to_account_id: 'to_account_id',
+  transition_type: 'transition_type',
+  effective_date: 'effective_date',
+  authorized_by: 'authorized_by',
+  documentation_key: 'documentation_key',
+  notes: 'notes',
+  created_at: 'created_at'
+} as const
+
+export type AccountTransitionScalarFieldEnum = (typeof AccountTransitionScalarFieldEnum)[keyof typeof AccountTransitionScalarFieldEnum]
+
+
+export const AccountDelegateScalarFieldEnum = {
+  id: 'id',
+  account_id: 'account_id',
+  delegate_account_id: 'delegate_account_id',
+  granted_by: 'granted_by',
+  permission_scope: 'permission_scope',
+  minor_access_level: 'minor_access_level',
+  granted_by_guardian: 'granted_by_guardian',
+  level_notes: 'level_notes',
+  created_at: 'created_at',
+  revoked_at: 'revoked_at'
+} as const
+
+export type AccountDelegateScalarFieldEnum = (typeof AccountDelegateScalarFieldEnum)[keyof typeof AccountDelegateScalarFieldEnum]
+
+
+export const CorridorAccessGrantScalarFieldEnum = {
+  id: 'id',
+  grantor_account_id: 'grantor_account_id',
+  grantee_account_id: 'grantee_account_id',
+  player_id: 'player_id',
+  scope: 'scope',
+  item_id: 'item_id',
+  granted_at: 'granted_at',
+  expires_at: 'expires_at',
+  revoked_at: 'revoked_at',
+  note: 'note'
+} as const
+
+export type CorridorAccessGrantScalarFieldEnum = (typeof CorridorAccessGrantScalarFieldEnum)[keyof typeof CorridorAccessGrantScalarFieldEnum]
+
+
+export const GuardianActionLogScalarFieldEnum = {
+  id: 'id',
+  player_id: 'player_id',
+  account_id: 'account_id',
+  action_type: 'action_type',
+  action_detail: 'action_detail',
+  permission_used: 'permission_used',
+  created_at: 'created_at'
+} as const
+
+export type GuardianActionLogScalarFieldEnum = (typeof GuardianActionLogScalarFieldEnum)[keyof typeof GuardianActionLogScalarFieldEnum]
+
+
+export const RepresentativeContactScalarFieldEnum = {
+  id: 'id',
+  rep_id: 'rep_id',
+  player_id: 'player_id',
+  account_id: 'account_id',
+  contact_type: 'contact_type',
+  summary: 'summary',
+  outcome: 'outcome',
+  referred_at: 'referred_at',
+  created_at: 'created_at'
+} as const
+
+export type RepresentativeContactScalarFieldEnum = (typeof RepresentativeContactScalarFieldEnum)[keyof typeof RepresentativeContactScalarFieldEnum]
+
+
+export const HallOfFameInducteeScalarFieldEnum = {
+  id: 'id',
+  player_id: 'player_id',
+  inducted_at: 'inducted_at',
+  induction_year: 'induction_year',
+  career_summary: 'career_summary',
+  plinth_inscription: 'plinth_inscription',
+  bust_image_key: 'bust_image_key',
+  nomination_notes: 'nomination_notes',
+  votes_required: 'votes_required',
+  votes_received: 'votes_received',
+  founder_approved: 'founder_approved',
+  founder_approved_at: 'founder_approved_at',
+  founder_account_id: 'founder_account_id',
+  status: 'status',
+  is_inducted: 'is_inducted',
+  inducted_by: 'inducted_by',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type HallOfFameInducteeScalarFieldEnum = (typeof HallOfFameInducteeScalarFieldEnum)[keyof typeof HallOfFameInducteeScalarFieldEnum]
+
+
+export const HallOfFameNominationScalarFieldEnum = {
+  id: 'id',
+  player_id: 'player_id',
+  nominated_by: 'nominated_by',
+  nomination_notes: 'nomination_notes',
+  career_highlights: 'career_highlights',
+  seconded_by: 'seconded_by',
+  seconded_at: 'seconded_at',
+  status: 'status',
+  created_at: 'created_at'
+} as const
+
+export type HallOfFameNominationScalarFieldEnum = (typeof HallOfFameNominationScalarFieldEnum)[keyof typeof HallOfFameNominationScalarFieldEnum]
+
+
+export const VaultRegistryCollectorScalarFieldEnum = {
+  id: 'id',
+  vrc_number: 'vrc_number',
+  display_name: 'display_name',
+  first_name: 'first_name',
+  last_name: 'last_name',
+  middle_name: 'middle_name',
+  collector_focus: 'collector_focus',
+  vault_level: 'vault_level',
+  strength_score: 'strength_score',
+  bust_color: 'bust_color',
+  visibility: 'visibility',
+  exhibit_status: 'exhibit_status',
+  bust_image_key: 'bust_image_key',
+  account_id: 'account_id',
+  is_guardian: 'is_guardian',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type VaultRegistryCollectorScalarFieldEnum = (typeof VaultRegistryCollectorScalarFieldEnum)[keyof typeof VaultRegistryCollectorScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -344,6 +645,14 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {
@@ -360,4 +669,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

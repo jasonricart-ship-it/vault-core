@@ -53,10 +53,13 @@ export type PlayerMinAggregateOutputType = {
   signature_on_file: boolean | null
   signature_image_key: string | null
   bust_image_key: string | null
+  enrollment_photo_key: string | null
   created_at: Date | null
   updated_at: Date | null
   guardian_account_id: string | null
   created_by: string | null
+  principles_acknowledged_at: Date | null
+  principles_acknowledged_ip: string | null
 }
 
 export type PlayerMaxAggregateOutputType = {
@@ -78,10 +81,13 @@ export type PlayerMaxAggregateOutputType = {
   signature_on_file: boolean | null
   signature_image_key: string | null
   bust_image_key: string | null
+  enrollment_photo_key: string | null
   created_at: Date | null
   updated_at: Date | null
   guardian_account_id: string | null
   created_by: string | null
+  principles_acknowledged_at: Date | null
+  principles_acknowledged_ip: string | null
 }
 
 export type PlayerCountAggregateOutputType = {
@@ -103,10 +109,13 @@ export type PlayerCountAggregateOutputType = {
   signature_on_file: number
   signature_image_key: number
   bust_image_key: number
+  enrollment_photo_key: number
   created_at: number
   updated_at: number
   guardian_account_id: number
   created_by: number
+  principles_acknowledged_at: number
+  principles_acknowledged_ip: number
   _all: number
 }
 
@@ -138,10 +147,13 @@ export type PlayerMinAggregateInputType = {
   signature_on_file?: true
   signature_image_key?: true
   bust_image_key?: true
+  enrollment_photo_key?: true
   created_at?: true
   updated_at?: true
   guardian_account_id?: true
   created_by?: true
+  principles_acknowledged_at?: true
+  principles_acknowledged_ip?: true
 }
 
 export type PlayerMaxAggregateInputType = {
@@ -163,10 +175,13 @@ export type PlayerMaxAggregateInputType = {
   signature_on_file?: true
   signature_image_key?: true
   bust_image_key?: true
+  enrollment_photo_key?: true
   created_at?: true
   updated_at?: true
   guardian_account_id?: true
   created_by?: true
+  principles_acknowledged_at?: true
+  principles_acknowledged_ip?: true
 }
 
 export type PlayerCountAggregateInputType = {
@@ -188,10 +203,13 @@ export type PlayerCountAggregateInputType = {
   signature_on_file?: true
   signature_image_key?: true
   bust_image_key?: true
+  enrollment_photo_key?: true
   created_at?: true
   updated_at?: true
   guardian_account_id?: true
   created_by?: true
+  principles_acknowledged_at?: true
+  principles_acknowledged_ip?: true
   _all?: true
 }
 
@@ -300,10 +318,13 @@ export type PlayerGroupByOutputType = {
   signature_on_file: boolean
   signature_image_key: string | null
   bust_image_key: string | null
+  enrollment_photo_key: string | null
   created_at: Date
   updated_at: Date
   guardian_account_id: string | null
   created_by: string | null
+  principles_acknowledged_at: Date | null
+  principles_acknowledged_ip: string | null
   _count: PlayerCountAggregateOutputType | null
   _avg: PlayerAvgAggregateOutputType | null
   _sum: PlayerSumAggregateOutputType | null
@@ -348,15 +369,25 @@ export type PlayerWhereInput = {
   signature_on_file?: Prisma.BoolFilter<"Player"> | boolean
   signature_image_key?: Prisma.StringNullableFilter<"Player"> | string | null
   bust_image_key?: Prisma.StringNullableFilter<"Player"> | string | null
+  enrollment_photo_key?: Prisma.StringNullableFilter<"Player"> | string | null
   created_at?: Prisma.DateTimeFilter<"Player"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Player"> | Date | string
   guardian_account_id?: Prisma.StringNullableFilter<"Player"> | string | null
   created_by?: Prisma.StringNullableFilter<"Player"> | string | null
+  principles_acknowledged_at?: Prisma.DateTimeNullableFilter<"Player"> | Date | string | null
+  principles_acknowledged_ip?: Prisma.StringNullableFilter<"Player"> | string | null
   guardian?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
   org_affiliations?: Prisma.PlayerOrgAffiliationListRelationFilter
   event_participation?: Prisma.PlayerEventParticipationListRelationFilter
   gum_items?: Prisma.GumItemListRelationFilter
   achievements?: Prisma.AchievementListRelationFilter
+  violation_affected_records?: Prisma.ViolationAffectedRecordListRelationFilter
+  player_guardians?: Prisma.PlayerGuardianListRelationFilter
+  account_transitions?: Prisma.AccountTransitionListRelationFilter
+  corridor_access_grants?: Prisma.CorridorAccessGrantListRelationFilter
+  guardian_action_logs?: Prisma.GuardianActionLogListRelationFilter
+  hall_of_fame_inductee?: Prisma.XOR<Prisma.HallOfFameInducteeNullableScalarRelationFilter, Prisma.HallOfFameInducteeWhereInput> | null
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationListRelationFilter
 }
 
 export type PlayerOrderByWithRelationInput = {
@@ -378,15 +409,25 @@ export type PlayerOrderByWithRelationInput = {
   signature_on_file?: Prisma.SortOrder
   signature_image_key?: Prisma.SortOrderInput | Prisma.SortOrder
   bust_image_key?: Prisma.SortOrderInput | Prisma.SortOrder
+  enrollment_photo_key?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   guardian_account_id?: Prisma.SortOrderInput | Prisma.SortOrder
   created_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  principles_acknowledged_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  principles_acknowledged_ip?: Prisma.SortOrderInput | Prisma.SortOrder
   guardian?: Prisma.AccountOrderByWithRelationInput
   org_affiliations?: Prisma.PlayerOrgAffiliationOrderByRelationAggregateInput
   event_participation?: Prisma.PlayerEventParticipationOrderByRelationAggregateInput
   gum_items?: Prisma.GumItemOrderByRelationAggregateInput
   achievements?: Prisma.AchievementOrderByRelationAggregateInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordOrderByRelationAggregateInput
+  player_guardians?: Prisma.PlayerGuardianOrderByRelationAggregateInput
+  account_transitions?: Prisma.AccountTransitionOrderByRelationAggregateInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantOrderByRelationAggregateInput
+  guardian_action_logs?: Prisma.GuardianActionLogOrderByRelationAggregateInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeOrderByWithRelationInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationOrderByRelationAggregateInput
 }
 
 export type PlayerWhereUniqueInput = Prisma.AtLeast<{
@@ -411,15 +452,25 @@ export type PlayerWhereUniqueInput = Prisma.AtLeast<{
   signature_on_file?: Prisma.BoolFilter<"Player"> | boolean
   signature_image_key?: Prisma.StringNullableFilter<"Player"> | string | null
   bust_image_key?: Prisma.StringNullableFilter<"Player"> | string | null
+  enrollment_photo_key?: Prisma.StringNullableFilter<"Player"> | string | null
   created_at?: Prisma.DateTimeFilter<"Player"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Player"> | Date | string
   guardian_account_id?: Prisma.StringNullableFilter<"Player"> | string | null
   created_by?: Prisma.StringNullableFilter<"Player"> | string | null
+  principles_acknowledged_at?: Prisma.DateTimeNullableFilter<"Player"> | Date | string | null
+  principles_acknowledged_ip?: Prisma.StringNullableFilter<"Player"> | string | null
   guardian?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
   org_affiliations?: Prisma.PlayerOrgAffiliationListRelationFilter
   event_participation?: Prisma.PlayerEventParticipationListRelationFilter
   gum_items?: Prisma.GumItemListRelationFilter
   achievements?: Prisma.AchievementListRelationFilter
+  violation_affected_records?: Prisma.ViolationAffectedRecordListRelationFilter
+  player_guardians?: Prisma.PlayerGuardianListRelationFilter
+  account_transitions?: Prisma.AccountTransitionListRelationFilter
+  corridor_access_grants?: Prisma.CorridorAccessGrantListRelationFilter
+  guardian_action_logs?: Prisma.GuardianActionLogListRelationFilter
+  hall_of_fame_inductee?: Prisma.XOR<Prisma.HallOfFameInducteeNullableScalarRelationFilter, Prisma.HallOfFameInducteeWhereInput> | null
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationListRelationFilter
 }, "id" | "ppc_number">
 
 export type PlayerOrderByWithAggregationInput = {
@@ -441,10 +492,13 @@ export type PlayerOrderByWithAggregationInput = {
   signature_on_file?: Prisma.SortOrder
   signature_image_key?: Prisma.SortOrderInput | Prisma.SortOrder
   bust_image_key?: Prisma.SortOrderInput | Prisma.SortOrder
+  enrollment_photo_key?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   guardian_account_id?: Prisma.SortOrderInput | Prisma.SortOrder
   created_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  principles_acknowledged_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  principles_acknowledged_ip?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.PlayerCountOrderByAggregateInput
   _avg?: Prisma.PlayerAvgOrderByAggregateInput
   _max?: Prisma.PlayerMaxOrderByAggregateInput
@@ -474,10 +528,13 @@ export type PlayerScalarWhereWithAggregatesInput = {
   signature_on_file?: Prisma.BoolWithAggregatesFilter<"Player"> | boolean
   signature_image_key?: Prisma.StringNullableWithAggregatesFilter<"Player"> | string | null
   bust_image_key?: Prisma.StringNullableWithAggregatesFilter<"Player"> | string | null
+  enrollment_photo_key?: Prisma.StringNullableWithAggregatesFilter<"Player"> | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Player"> | Date | string
   updated_at?: Prisma.DateTimeWithAggregatesFilter<"Player"> | Date | string
   guardian_account_id?: Prisma.StringNullableWithAggregatesFilter<"Player"> | string | null
   created_by?: Prisma.StringNullableWithAggregatesFilter<"Player"> | string | null
+  principles_acknowledged_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Player"> | Date | string | null
+  principles_acknowledged_ip?: Prisma.StringNullableWithAggregatesFilter<"Player"> | string | null
 }
 
 export type PlayerCreateInput = {
@@ -499,14 +556,24 @@ export type PlayerCreateInput = {
   signature_on_file?: boolean
   signature_image_key?: string | null
   bust_image_key?: string | null
+  enrollment_photo_key?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
   achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateInput = {
@@ -528,14 +595,24 @@ export type PlayerUncheckedCreateInput = {
   signature_on_file?: boolean
   signature_image_key?: string | null
   bust_image_key?: string | null
+  enrollment_photo_key?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   guardian_account_id?: string | null
   created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionUncheckedCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUpdateInput = {
@@ -557,14 +634,24 @@ export type PlayerUpdateInput = {
   signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
   achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateInput = {
@@ -586,14 +673,24 @@ export type PlayerUncheckedUpdateInput = {
   signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   guardian_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUncheckedUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateManyInput = {
@@ -615,10 +712,13 @@ export type PlayerCreateManyInput = {
   signature_on_file?: boolean
   signature_image_key?: string | null
   bust_image_key?: string | null
+  enrollment_photo_key?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   guardian_account_id?: string | null
   created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
 }
 
 export type PlayerUpdateManyMutationInput = {
@@ -640,9 +740,12 @@ export type PlayerUpdateManyMutationInput = {
   signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PlayerUncheckedUpdateManyInput = {
@@ -664,10 +767,13 @@ export type PlayerUncheckedUpdateManyInput = {
   signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   guardian_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type PlayerCountOrderByAggregateInput = {
@@ -689,10 +795,13 @@ export type PlayerCountOrderByAggregateInput = {
   signature_on_file?: Prisma.SortOrder
   signature_image_key?: Prisma.SortOrder
   bust_image_key?: Prisma.SortOrder
+  enrollment_photo_key?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   guardian_account_id?: Prisma.SortOrder
   created_by?: Prisma.SortOrder
+  principles_acknowledged_at?: Prisma.SortOrder
+  principles_acknowledged_ip?: Prisma.SortOrder
 }
 
 export type PlayerAvgOrderByAggregateInput = {
@@ -718,10 +827,13 @@ export type PlayerMaxOrderByAggregateInput = {
   signature_on_file?: Prisma.SortOrder
   signature_image_key?: Prisma.SortOrder
   bust_image_key?: Prisma.SortOrder
+  enrollment_photo_key?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   guardian_account_id?: Prisma.SortOrder
   created_by?: Prisma.SortOrder
+  principles_acknowledged_at?: Prisma.SortOrder
+  principles_acknowledged_ip?: Prisma.SortOrder
 }
 
 export type PlayerMinOrderByAggregateInput = {
@@ -743,10 +855,13 @@ export type PlayerMinOrderByAggregateInput = {
   signature_on_file?: Prisma.SortOrder
   signature_image_key?: Prisma.SortOrder
   bust_image_key?: Prisma.SortOrder
+  enrollment_photo_key?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   updated_at?: Prisma.SortOrder
   guardian_account_id?: Prisma.SortOrder
   created_by?: Prisma.SortOrder
+  principles_acknowledged_at?: Prisma.SortOrder
+  principles_acknowledged_ip?: Prisma.SortOrder
 }
 
 export type PlayerSumOrderByAggregateInput = {
@@ -903,6 +1018,104 @@ export type PlayerUncheckedUpdateManyWithoutGuardianNestedInput = {
   deleteMany?: Prisma.PlayerScalarWhereInput | Prisma.PlayerScalarWhereInput[]
 }
 
+export type PlayerCreateNestedOneWithoutViolation_affected_recordsInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutViolation_affected_recordsInput, Prisma.PlayerUncheckedCreateWithoutViolation_affected_recordsInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutViolation_affected_recordsInput
+  connect?: Prisma.PlayerWhereUniqueInput
+}
+
+export type PlayerUpdateOneRequiredWithoutViolation_affected_recordsNestedInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutViolation_affected_recordsInput, Prisma.PlayerUncheckedCreateWithoutViolation_affected_recordsInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutViolation_affected_recordsInput
+  upsert?: Prisma.PlayerUpsertWithoutViolation_affected_recordsInput
+  connect?: Prisma.PlayerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlayerUpdateToOneWithWhereWithoutViolation_affected_recordsInput, Prisma.PlayerUpdateWithoutViolation_affected_recordsInput>, Prisma.PlayerUncheckedUpdateWithoutViolation_affected_recordsInput>
+}
+
+export type PlayerCreateNestedOneWithoutPlayer_guardiansInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutPlayer_guardiansInput, Prisma.PlayerUncheckedCreateWithoutPlayer_guardiansInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutPlayer_guardiansInput
+  connect?: Prisma.PlayerWhereUniqueInput
+}
+
+export type PlayerUpdateOneRequiredWithoutPlayer_guardiansNestedInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutPlayer_guardiansInput, Prisma.PlayerUncheckedCreateWithoutPlayer_guardiansInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutPlayer_guardiansInput
+  upsert?: Prisma.PlayerUpsertWithoutPlayer_guardiansInput
+  connect?: Prisma.PlayerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlayerUpdateToOneWithWhereWithoutPlayer_guardiansInput, Prisma.PlayerUpdateWithoutPlayer_guardiansInput>, Prisma.PlayerUncheckedUpdateWithoutPlayer_guardiansInput>
+}
+
+export type PlayerCreateNestedOneWithoutAccount_transitionsInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutAccount_transitionsInput, Prisma.PlayerUncheckedCreateWithoutAccount_transitionsInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutAccount_transitionsInput
+  connect?: Prisma.PlayerWhereUniqueInput
+}
+
+export type PlayerUpdateOneRequiredWithoutAccount_transitionsNestedInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutAccount_transitionsInput, Prisma.PlayerUncheckedCreateWithoutAccount_transitionsInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutAccount_transitionsInput
+  upsert?: Prisma.PlayerUpsertWithoutAccount_transitionsInput
+  connect?: Prisma.PlayerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlayerUpdateToOneWithWhereWithoutAccount_transitionsInput, Prisma.PlayerUpdateWithoutAccount_transitionsInput>, Prisma.PlayerUncheckedUpdateWithoutAccount_transitionsInput>
+}
+
+export type PlayerCreateNestedOneWithoutCorridor_access_grantsInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutCorridor_access_grantsInput, Prisma.PlayerUncheckedCreateWithoutCorridor_access_grantsInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutCorridor_access_grantsInput
+  connect?: Prisma.PlayerWhereUniqueInput
+}
+
+export type PlayerUpdateOneRequiredWithoutCorridor_access_grantsNestedInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutCorridor_access_grantsInput, Prisma.PlayerUncheckedCreateWithoutCorridor_access_grantsInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutCorridor_access_grantsInput
+  upsert?: Prisma.PlayerUpsertWithoutCorridor_access_grantsInput
+  connect?: Prisma.PlayerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlayerUpdateToOneWithWhereWithoutCorridor_access_grantsInput, Prisma.PlayerUpdateWithoutCorridor_access_grantsInput>, Prisma.PlayerUncheckedUpdateWithoutCorridor_access_grantsInput>
+}
+
+export type PlayerCreateNestedOneWithoutGuardian_action_logsInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutGuardian_action_logsInput, Prisma.PlayerUncheckedCreateWithoutGuardian_action_logsInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutGuardian_action_logsInput
+  connect?: Prisma.PlayerWhereUniqueInput
+}
+
+export type PlayerUpdateOneRequiredWithoutGuardian_action_logsNestedInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutGuardian_action_logsInput, Prisma.PlayerUncheckedCreateWithoutGuardian_action_logsInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutGuardian_action_logsInput
+  upsert?: Prisma.PlayerUpsertWithoutGuardian_action_logsInput
+  connect?: Prisma.PlayerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlayerUpdateToOneWithWhereWithoutGuardian_action_logsInput, Prisma.PlayerUpdateWithoutGuardian_action_logsInput>, Prisma.PlayerUncheckedUpdateWithoutGuardian_action_logsInput>
+}
+
+export type PlayerCreateNestedOneWithoutHall_of_fame_inducteeInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutHall_of_fame_inducteeInput, Prisma.PlayerUncheckedCreateWithoutHall_of_fame_inducteeInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutHall_of_fame_inducteeInput
+  connect?: Prisma.PlayerWhereUniqueInput
+}
+
+export type PlayerUpdateOneRequiredWithoutHall_of_fame_inducteeNestedInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutHall_of_fame_inducteeInput, Prisma.PlayerUncheckedCreateWithoutHall_of_fame_inducteeInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutHall_of_fame_inducteeInput
+  upsert?: Prisma.PlayerUpsertWithoutHall_of_fame_inducteeInput
+  connect?: Prisma.PlayerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlayerUpdateToOneWithWhereWithoutHall_of_fame_inducteeInput, Prisma.PlayerUpdateWithoutHall_of_fame_inducteeInput>, Prisma.PlayerUncheckedUpdateWithoutHall_of_fame_inducteeInput>
+}
+
+export type PlayerCreateNestedOneWithoutHall_of_fame_nominationsInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutHall_of_fame_nominationsInput, Prisma.PlayerUncheckedCreateWithoutHall_of_fame_nominationsInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutHall_of_fame_nominationsInput
+  connect?: Prisma.PlayerWhereUniqueInput
+}
+
+export type PlayerUpdateOneRequiredWithoutHall_of_fame_nominationsNestedInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutHall_of_fame_nominationsInput, Prisma.PlayerUncheckedCreateWithoutHall_of_fame_nominationsInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutHall_of_fame_nominationsInput
+  upsert?: Prisma.PlayerUpsertWithoutHall_of_fame_nominationsInput
+  connect?: Prisma.PlayerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlayerUpdateToOneWithWhereWithoutHall_of_fame_nominationsInput, Prisma.PlayerUpdateWithoutHall_of_fame_nominationsInput>, Prisma.PlayerUncheckedUpdateWithoutHall_of_fame_nominationsInput>
+}
+
 export type PlayerCreateWithoutAchievementsInput = {
   id?: string
   ppc_number: string
@@ -922,13 +1135,23 @@ export type PlayerCreateWithoutAchievementsInput = {
   signature_on_file?: boolean
   signature_image_key?: string | null
   bust_image_key?: string | null
+  enrollment_photo_key?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutAchievementsInput = {
@@ -950,13 +1173,23 @@ export type PlayerUncheckedCreateWithoutAchievementsInput = {
   signature_on_file?: boolean
   signature_image_key?: string | null
   bust_image_key?: string | null
+  enrollment_photo_key?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   guardian_account_id?: string | null
   created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionUncheckedCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutAchievementsInput = {
@@ -994,13 +1227,23 @@ export type PlayerUpdateWithoutAchievementsInput = {
   signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutAchievementsInput = {
@@ -1022,13 +1265,23 @@ export type PlayerUncheckedUpdateWithoutAchievementsInput = {
   signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   guardian_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUncheckedUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateWithoutGum_itemsInput = {
@@ -1050,13 +1303,23 @@ export type PlayerCreateWithoutGum_itemsInput = {
   signature_on_file?: boolean
   signature_image_key?: string | null
   bust_image_key?: string | null
+  enrollment_photo_key?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
   achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutGum_itemsInput = {
@@ -1078,13 +1341,23 @@ export type PlayerUncheckedCreateWithoutGum_itemsInput = {
   signature_on_file?: boolean
   signature_image_key?: string | null
   bust_image_key?: string | null
+  enrollment_photo_key?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   guardian_account_id?: string | null
   created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionUncheckedCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutGum_itemsInput = {
@@ -1122,13 +1395,23 @@ export type PlayerUpdateWithoutGum_itemsInput = {
   signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
   achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutGum_itemsInput = {
@@ -1150,13 +1433,23 @@ export type PlayerUncheckedUpdateWithoutGum_itemsInput = {
   signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   guardian_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUncheckedUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateWithoutOrg_affiliationsInput = {
@@ -1178,13 +1471,23 @@ export type PlayerCreateWithoutOrg_affiliationsInput = {
   signature_on_file?: boolean
   signature_image_key?: string | null
   bust_image_key?: string | null
+  enrollment_photo_key?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
   achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutOrg_affiliationsInput = {
@@ -1206,13 +1509,23 @@ export type PlayerUncheckedCreateWithoutOrg_affiliationsInput = {
   signature_on_file?: boolean
   signature_image_key?: string | null
   bust_image_key?: string | null
+  enrollment_photo_key?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   guardian_account_id?: string | null
   created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionUncheckedCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutOrg_affiliationsInput = {
@@ -1250,13 +1563,23 @@ export type PlayerUpdateWithoutOrg_affiliationsInput = {
   signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
   achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutOrg_affiliationsInput = {
@@ -1278,13 +1601,23 @@ export type PlayerUncheckedUpdateWithoutOrg_affiliationsInput = {
   signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   guardian_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUncheckedUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateWithoutEvent_participationInput = {
@@ -1306,13 +1639,23 @@ export type PlayerCreateWithoutEvent_participationInput = {
   signature_on_file?: boolean
   signature_image_key?: string | null
   bust_image_key?: string | null
+  enrollment_photo_key?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
   achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutEvent_participationInput = {
@@ -1334,13 +1677,23 @@ export type PlayerUncheckedCreateWithoutEvent_participationInput = {
   signature_on_file?: boolean
   signature_image_key?: string | null
   bust_image_key?: string | null
+  enrollment_photo_key?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   guardian_account_id?: string | null
   created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionUncheckedCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutEvent_participationInput = {
@@ -1378,13 +1731,23 @@ export type PlayerUpdateWithoutEvent_participationInput = {
   signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
   achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutEvent_participationInput = {
@@ -1406,13 +1769,23 @@ export type PlayerUncheckedUpdateWithoutEvent_participationInput = {
   signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   guardian_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUncheckedUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateWithoutGuardianInput = {
@@ -1434,13 +1807,23 @@ export type PlayerCreateWithoutGuardianInput = {
   signature_on_file?: boolean
   signature_image_key?: string | null
   bust_image_key?: string | null
+  enrollment_photo_key?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
   achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutGuardianInput = {
@@ -1462,13 +1845,23 @@ export type PlayerUncheckedCreateWithoutGuardianInput = {
   signature_on_file?: boolean
   signature_image_key?: string | null
   bust_image_key?: string | null
+  enrollment_photo_key?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionUncheckedCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutGuardianInput = {
@@ -1519,10 +1912,1189 @@ export type PlayerScalarWhereInput = {
   signature_on_file?: Prisma.BoolFilter<"Player"> | boolean
   signature_image_key?: Prisma.StringNullableFilter<"Player"> | string | null
   bust_image_key?: Prisma.StringNullableFilter<"Player"> | string | null
+  enrollment_photo_key?: Prisma.StringNullableFilter<"Player"> | string | null
   created_at?: Prisma.DateTimeFilter<"Player"> | Date | string
   updated_at?: Prisma.DateTimeFilter<"Player"> | Date | string
   guardian_account_id?: Prisma.StringNullableFilter<"Player"> | string | null
   created_by?: Prisma.StringNullableFilter<"Player"> | string | null
+  principles_acknowledged_at?: Prisma.DateTimeNullableFilter<"Player"> | Date | string | null
+  principles_acknowledged_ip?: Prisma.StringNullableFilter<"Player"> | string | null
+}
+
+export type PlayerCreateWithoutViolation_affected_recordsInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  enrollment_photo_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
+  guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+}
+
+export type PlayerUncheckedCreateWithoutViolation_affected_recordsInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  enrollment_photo_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  guardian_account_id?: string | null
+  created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionUncheckedCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+}
+
+export type PlayerCreateOrConnectWithoutViolation_affected_recordsInput = {
+  where: Prisma.PlayerWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutViolation_affected_recordsInput, Prisma.PlayerUncheckedCreateWithoutViolation_affected_recordsInput>
+}
+
+export type PlayerUpsertWithoutViolation_affected_recordsInput = {
+  update: Prisma.XOR<Prisma.PlayerUpdateWithoutViolation_affected_recordsInput, Prisma.PlayerUncheckedUpdateWithoutViolation_affected_recordsInput>
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutViolation_affected_recordsInput, Prisma.PlayerUncheckedCreateWithoutViolation_affected_recordsInput>
+  where?: Prisma.PlayerWhereInput
+}
+
+export type PlayerUpdateToOneWithWhereWithoutViolation_affected_recordsInput = {
+  where?: Prisma.PlayerWhereInput
+  data: Prisma.XOR<Prisma.PlayerUpdateWithoutViolation_affected_recordsInput, Prisma.PlayerUncheckedUpdateWithoutViolation_affected_recordsInput>
+}
+
+export type PlayerUpdateWithoutViolation_affected_recordsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+}
+
+export type PlayerUncheckedUpdateWithoutViolation_affected_recordsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  guardian_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUncheckedUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+}
+
+export type PlayerCreateWithoutPlayer_guardiansInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  enrollment_photo_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
+  guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+}
+
+export type PlayerUncheckedCreateWithoutPlayer_guardiansInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  enrollment_photo_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  guardian_account_id?: string | null
+  created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionUncheckedCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+}
+
+export type PlayerCreateOrConnectWithoutPlayer_guardiansInput = {
+  where: Prisma.PlayerWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutPlayer_guardiansInput, Prisma.PlayerUncheckedCreateWithoutPlayer_guardiansInput>
+}
+
+export type PlayerUpsertWithoutPlayer_guardiansInput = {
+  update: Prisma.XOR<Prisma.PlayerUpdateWithoutPlayer_guardiansInput, Prisma.PlayerUncheckedUpdateWithoutPlayer_guardiansInput>
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutPlayer_guardiansInput, Prisma.PlayerUncheckedCreateWithoutPlayer_guardiansInput>
+  where?: Prisma.PlayerWhereInput
+}
+
+export type PlayerUpdateToOneWithWhereWithoutPlayer_guardiansInput = {
+  where?: Prisma.PlayerWhereInput
+  data: Prisma.XOR<Prisma.PlayerUpdateWithoutPlayer_guardiansInput, Prisma.PlayerUncheckedUpdateWithoutPlayer_guardiansInput>
+}
+
+export type PlayerUpdateWithoutPlayer_guardiansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+}
+
+export type PlayerUncheckedUpdateWithoutPlayer_guardiansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  guardian_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUncheckedUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+}
+
+export type PlayerCreateWithoutAccount_transitionsInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  enrollment_photo_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
+  guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+}
+
+export type PlayerUncheckedCreateWithoutAccount_transitionsInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  enrollment_photo_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  guardian_account_id?: string | null
+  created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+}
+
+export type PlayerCreateOrConnectWithoutAccount_transitionsInput = {
+  where: Prisma.PlayerWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutAccount_transitionsInput, Prisma.PlayerUncheckedCreateWithoutAccount_transitionsInput>
+}
+
+export type PlayerUpsertWithoutAccount_transitionsInput = {
+  update: Prisma.XOR<Prisma.PlayerUpdateWithoutAccount_transitionsInput, Prisma.PlayerUncheckedUpdateWithoutAccount_transitionsInput>
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutAccount_transitionsInput, Prisma.PlayerUncheckedCreateWithoutAccount_transitionsInput>
+  where?: Prisma.PlayerWhereInput
+}
+
+export type PlayerUpdateToOneWithWhereWithoutAccount_transitionsInput = {
+  where?: Prisma.PlayerWhereInput
+  data: Prisma.XOR<Prisma.PlayerUpdateWithoutAccount_transitionsInput, Prisma.PlayerUncheckedUpdateWithoutAccount_transitionsInput>
+}
+
+export type PlayerUpdateWithoutAccount_transitionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+}
+
+export type PlayerUncheckedUpdateWithoutAccount_transitionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  guardian_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+}
+
+export type PlayerCreateWithoutCorridor_access_grantsInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  enrollment_photo_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
+  guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+}
+
+export type PlayerUncheckedCreateWithoutCorridor_access_grantsInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  enrollment_photo_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  guardian_account_id?: string | null
+  created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionUncheckedCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+}
+
+export type PlayerCreateOrConnectWithoutCorridor_access_grantsInput = {
+  where: Prisma.PlayerWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutCorridor_access_grantsInput, Prisma.PlayerUncheckedCreateWithoutCorridor_access_grantsInput>
+}
+
+export type PlayerUpsertWithoutCorridor_access_grantsInput = {
+  update: Prisma.XOR<Prisma.PlayerUpdateWithoutCorridor_access_grantsInput, Prisma.PlayerUncheckedUpdateWithoutCorridor_access_grantsInput>
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutCorridor_access_grantsInput, Prisma.PlayerUncheckedCreateWithoutCorridor_access_grantsInput>
+  where?: Prisma.PlayerWhereInput
+}
+
+export type PlayerUpdateToOneWithWhereWithoutCorridor_access_grantsInput = {
+  where?: Prisma.PlayerWhereInput
+  data: Prisma.XOR<Prisma.PlayerUpdateWithoutCorridor_access_grantsInput, Prisma.PlayerUncheckedUpdateWithoutCorridor_access_grantsInput>
+}
+
+export type PlayerUpdateWithoutCorridor_access_grantsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+}
+
+export type PlayerUncheckedUpdateWithoutCorridor_access_grantsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  guardian_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUncheckedUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+}
+
+export type PlayerCreateWithoutGuardian_action_logsInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  enrollment_photo_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
+  guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+}
+
+export type PlayerUncheckedCreateWithoutGuardian_action_logsInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  enrollment_photo_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  guardian_account_id?: string | null
+  created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionUncheckedCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+}
+
+export type PlayerCreateOrConnectWithoutGuardian_action_logsInput = {
+  where: Prisma.PlayerWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutGuardian_action_logsInput, Prisma.PlayerUncheckedCreateWithoutGuardian_action_logsInput>
+}
+
+export type PlayerUpsertWithoutGuardian_action_logsInput = {
+  update: Prisma.XOR<Prisma.PlayerUpdateWithoutGuardian_action_logsInput, Prisma.PlayerUncheckedUpdateWithoutGuardian_action_logsInput>
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutGuardian_action_logsInput, Prisma.PlayerUncheckedCreateWithoutGuardian_action_logsInput>
+  where?: Prisma.PlayerWhereInput
+}
+
+export type PlayerUpdateToOneWithWhereWithoutGuardian_action_logsInput = {
+  where?: Prisma.PlayerWhereInput
+  data: Prisma.XOR<Prisma.PlayerUpdateWithoutGuardian_action_logsInput, Prisma.PlayerUncheckedUpdateWithoutGuardian_action_logsInput>
+}
+
+export type PlayerUpdateWithoutGuardian_action_logsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+}
+
+export type PlayerUncheckedUpdateWithoutGuardian_action_logsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  guardian_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUncheckedUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+}
+
+export type PlayerCreateWithoutHall_of_fame_inducteeInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  enrollment_photo_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
+  guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+}
+
+export type PlayerUncheckedCreateWithoutHall_of_fame_inducteeInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  enrollment_photo_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  guardian_account_id?: string | null
+  created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionUncheckedCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+}
+
+export type PlayerCreateOrConnectWithoutHall_of_fame_inducteeInput = {
+  where: Prisma.PlayerWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutHall_of_fame_inducteeInput, Prisma.PlayerUncheckedCreateWithoutHall_of_fame_inducteeInput>
+}
+
+export type PlayerUpsertWithoutHall_of_fame_inducteeInput = {
+  update: Prisma.XOR<Prisma.PlayerUpdateWithoutHall_of_fame_inducteeInput, Prisma.PlayerUncheckedUpdateWithoutHall_of_fame_inducteeInput>
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutHall_of_fame_inducteeInput, Prisma.PlayerUncheckedCreateWithoutHall_of_fame_inducteeInput>
+  where?: Prisma.PlayerWhereInput
+}
+
+export type PlayerUpdateToOneWithWhereWithoutHall_of_fame_inducteeInput = {
+  where?: Prisma.PlayerWhereInput
+  data: Prisma.XOR<Prisma.PlayerUpdateWithoutHall_of_fame_inducteeInput, Prisma.PlayerUncheckedUpdateWithoutHall_of_fame_inducteeInput>
+}
+
+export type PlayerUpdateWithoutHall_of_fame_inducteeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+}
+
+export type PlayerUncheckedUpdateWithoutHall_of_fame_inducteeInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  guardian_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUncheckedUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+}
+
+export type PlayerCreateWithoutHall_of_fame_nominationsInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  enrollment_photo_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
+  guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
+}
+
+export type PlayerUncheckedCreateWithoutHall_of_fame_nominationsInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  enrollment_photo_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  guardian_account_id?: string | null
+  created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionUncheckedCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
+}
+
+export type PlayerCreateOrConnectWithoutHall_of_fame_nominationsInput = {
+  where: Prisma.PlayerWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutHall_of_fame_nominationsInput, Prisma.PlayerUncheckedCreateWithoutHall_of_fame_nominationsInput>
+}
+
+export type PlayerUpsertWithoutHall_of_fame_nominationsInput = {
+  update: Prisma.XOR<Prisma.PlayerUpdateWithoutHall_of_fame_nominationsInput, Prisma.PlayerUncheckedUpdateWithoutHall_of_fame_nominationsInput>
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutHall_of_fame_nominationsInput, Prisma.PlayerUncheckedCreateWithoutHall_of_fame_nominationsInput>
+  where?: Prisma.PlayerWhereInput
+}
+
+export type PlayerUpdateToOneWithWhereWithoutHall_of_fame_nominationsInput = {
+  where?: Prisma.PlayerWhereInput
+  data: Prisma.XOR<Prisma.PlayerUpdateWithoutHall_of_fame_nominationsInput, Prisma.PlayerUncheckedUpdateWithoutHall_of_fame_nominationsInput>
+}
+
+export type PlayerUpdateWithoutHall_of_fame_nominationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
+}
+
+export type PlayerUncheckedUpdateWithoutHall_of_fame_nominationsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  guardian_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUncheckedUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
 }
 
 export type PlayerCreateManyGuardianInput = {
@@ -1544,9 +3116,12 @@ export type PlayerCreateManyGuardianInput = {
   signature_on_file?: boolean
   signature_image_key?: string | null
   bust_image_key?: string | null
+  enrollment_photo_key?: string | null
   created_at?: Date | string
   updated_at?: Date | string
   created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
 }
 
 export type PlayerUpdateWithoutGuardianInput = {
@@ -1568,13 +3143,23 @@ export type PlayerUpdateWithoutGuardianInput = {
   signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
   achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutGuardianInput = {
@@ -1596,13 +3181,23 @@ export type PlayerUncheckedUpdateWithoutGuardianInput = {
   signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUncheckedUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateManyWithoutGuardianInput = {
@@ -1624,9 +3219,12 @@ export type PlayerUncheckedUpdateManyWithoutGuardianInput = {
   signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
   signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1639,6 +3237,12 @@ export type PlayerCountOutputType = {
   event_participation: number
   gum_items: number
   achievements: number
+  violation_affected_records: number
+  player_guardians: number
+  account_transitions: number
+  corridor_access_grants: number
+  guardian_action_logs: number
+  hall_of_fame_nominations: number
 }
 
 export type PlayerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1646,6 +3250,12 @@ export type PlayerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   event_participation?: boolean | PlayerCountOutputTypeCountEvent_participationArgs
   gum_items?: boolean | PlayerCountOutputTypeCountGum_itemsArgs
   achievements?: boolean | PlayerCountOutputTypeCountAchievementsArgs
+  violation_affected_records?: boolean | PlayerCountOutputTypeCountViolation_affected_recordsArgs
+  player_guardians?: boolean | PlayerCountOutputTypeCountPlayer_guardiansArgs
+  account_transitions?: boolean | PlayerCountOutputTypeCountAccount_transitionsArgs
+  corridor_access_grants?: boolean | PlayerCountOutputTypeCountCorridor_access_grantsArgs
+  guardian_action_logs?: boolean | PlayerCountOutputTypeCountGuardian_action_logsArgs
+  hall_of_fame_nominations?: boolean | PlayerCountOutputTypeCountHall_of_fame_nominationsArgs
 }
 
 /**
@@ -1686,6 +3296,48 @@ export type PlayerCountOutputTypeCountAchievementsArgs<ExtArgs extends runtime.T
   where?: Prisma.AchievementWhereInput
 }
 
+/**
+ * PlayerCountOutputType without action
+ */
+export type PlayerCountOutputTypeCountViolation_affected_recordsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ViolationAffectedRecordWhereInput
+}
+
+/**
+ * PlayerCountOutputType without action
+ */
+export type PlayerCountOutputTypeCountPlayer_guardiansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlayerGuardianWhereInput
+}
+
+/**
+ * PlayerCountOutputType without action
+ */
+export type PlayerCountOutputTypeCountAccount_transitionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AccountTransitionWhereInput
+}
+
+/**
+ * PlayerCountOutputType without action
+ */
+export type PlayerCountOutputTypeCountCorridor_access_grantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CorridorAccessGrantWhereInput
+}
+
+/**
+ * PlayerCountOutputType without action
+ */
+export type PlayerCountOutputTypeCountGuardian_action_logsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuardianActionLogWhereInput
+}
+
+/**
+ * PlayerCountOutputType without action
+ */
+export type PlayerCountOutputTypeCountHall_of_fame_nominationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.HallOfFameNominationWhereInput
+}
+
 
 export type PlayerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1706,15 +3358,25 @@ export type PlayerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   signature_on_file?: boolean
   signature_image_key?: boolean
   bust_image_key?: boolean
+  enrollment_photo_key?: boolean
   created_at?: boolean
   updated_at?: boolean
   guardian_account_id?: boolean
   created_by?: boolean
+  principles_acknowledged_at?: boolean
+  principles_acknowledged_ip?: boolean
   guardian?: boolean | Prisma.Player$guardianArgs<ExtArgs>
   org_affiliations?: boolean | Prisma.Player$org_affiliationsArgs<ExtArgs>
   event_participation?: boolean | Prisma.Player$event_participationArgs<ExtArgs>
   gum_items?: boolean | Prisma.Player$gum_itemsArgs<ExtArgs>
   achievements?: boolean | Prisma.Player$achievementsArgs<ExtArgs>
+  violation_affected_records?: boolean | Prisma.Player$violation_affected_recordsArgs<ExtArgs>
+  player_guardians?: boolean | Prisma.Player$player_guardiansArgs<ExtArgs>
+  account_transitions?: boolean | Prisma.Player$account_transitionsArgs<ExtArgs>
+  corridor_access_grants?: boolean | Prisma.Player$corridor_access_grantsArgs<ExtArgs>
+  guardian_action_logs?: boolean | Prisma.Player$guardian_action_logsArgs<ExtArgs>
+  hall_of_fame_inductee?: boolean | Prisma.Player$hall_of_fame_inducteeArgs<ExtArgs>
+  hall_of_fame_nominations?: boolean | Prisma.Player$hall_of_fame_nominationsArgs<ExtArgs>
   _count?: boolean | Prisma.PlayerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["player"]>
 
@@ -1737,10 +3399,13 @@ export type PlayerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   signature_on_file?: boolean
   signature_image_key?: boolean
   bust_image_key?: boolean
+  enrollment_photo_key?: boolean
   created_at?: boolean
   updated_at?: boolean
   guardian_account_id?: boolean
   created_by?: boolean
+  principles_acknowledged_at?: boolean
+  principles_acknowledged_ip?: boolean
   guardian?: boolean | Prisma.Player$guardianArgs<ExtArgs>
 }, ExtArgs["result"]["player"]>
 
@@ -1763,10 +3428,13 @@ export type PlayerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   signature_on_file?: boolean
   signature_image_key?: boolean
   bust_image_key?: boolean
+  enrollment_photo_key?: boolean
   created_at?: boolean
   updated_at?: boolean
   guardian_account_id?: boolean
   created_by?: boolean
+  principles_acknowledged_at?: boolean
+  principles_acknowledged_ip?: boolean
   guardian?: boolean | Prisma.Player$guardianArgs<ExtArgs>
 }, ExtArgs["result"]["player"]>
 
@@ -1789,19 +3457,29 @@ export type PlayerSelectScalar = {
   signature_on_file?: boolean
   signature_image_key?: boolean
   bust_image_key?: boolean
+  enrollment_photo_key?: boolean
   created_at?: boolean
   updated_at?: boolean
   guardian_account_id?: boolean
   created_by?: boolean
+  principles_acknowledged_at?: boolean
+  principles_acknowledged_ip?: boolean
 }
 
-export type PlayerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ppc_number" | "display_name" | "first_name" | "last_name" | "preferred_name" | "primary_sport" | "jersey_number" | "date_of_birth" | "is_minor" | "vault_level" | "strength_score" | "exhibit_status" | "bust_color" | "visibility" | "signature_on_file" | "signature_image_key" | "bust_image_key" | "created_at" | "updated_at" | "guardian_account_id" | "created_by", ExtArgs["result"]["player"]>
+export type PlayerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ppc_number" | "display_name" | "first_name" | "last_name" | "preferred_name" | "primary_sport" | "jersey_number" | "date_of_birth" | "is_minor" | "vault_level" | "strength_score" | "exhibit_status" | "bust_color" | "visibility" | "signature_on_file" | "signature_image_key" | "bust_image_key" | "enrollment_photo_key" | "created_at" | "updated_at" | "guardian_account_id" | "created_by" | "principles_acknowledged_at" | "principles_acknowledged_ip", ExtArgs["result"]["player"]>
 export type PlayerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   guardian?: boolean | Prisma.Player$guardianArgs<ExtArgs>
   org_affiliations?: boolean | Prisma.Player$org_affiliationsArgs<ExtArgs>
   event_participation?: boolean | Prisma.Player$event_participationArgs<ExtArgs>
   gum_items?: boolean | Prisma.Player$gum_itemsArgs<ExtArgs>
   achievements?: boolean | Prisma.Player$achievementsArgs<ExtArgs>
+  violation_affected_records?: boolean | Prisma.Player$violation_affected_recordsArgs<ExtArgs>
+  player_guardians?: boolean | Prisma.Player$player_guardiansArgs<ExtArgs>
+  account_transitions?: boolean | Prisma.Player$account_transitionsArgs<ExtArgs>
+  corridor_access_grants?: boolean | Prisma.Player$corridor_access_grantsArgs<ExtArgs>
+  guardian_action_logs?: boolean | Prisma.Player$guardian_action_logsArgs<ExtArgs>
+  hall_of_fame_inductee?: boolean | Prisma.Player$hall_of_fame_inducteeArgs<ExtArgs>
+  hall_of_fame_nominations?: boolean | Prisma.Player$hall_of_fame_nominationsArgs<ExtArgs>
   _count?: boolean | Prisma.PlayerCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PlayerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1819,6 +3497,13 @@ export type $PlayerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     event_participation: Prisma.$PlayerEventParticipationPayload<ExtArgs>[]
     gum_items: Prisma.$GumItemPayload<ExtArgs>[]
     achievements: Prisma.$AchievementPayload<ExtArgs>[]
+    violation_affected_records: Prisma.$ViolationAffectedRecordPayload<ExtArgs>[]
+    player_guardians: Prisma.$PlayerGuardianPayload<ExtArgs>[]
+    account_transitions: Prisma.$AccountTransitionPayload<ExtArgs>[]
+    corridor_access_grants: Prisma.$CorridorAccessGrantPayload<ExtArgs>[]
+    guardian_action_logs: Prisma.$GuardianActionLogPayload<ExtArgs>[]
+    hall_of_fame_inductee: Prisma.$HallOfFameInducteePayload<ExtArgs> | null
+    hall_of_fame_nominations: Prisma.$HallOfFameNominationPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1839,10 +3524,13 @@ export type $PlayerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     signature_on_file: boolean
     signature_image_key: string | null
     bust_image_key: string | null
+    enrollment_photo_key: string | null
     created_at: Date
     updated_at: Date
     guardian_account_id: string | null
     created_by: string | null
+    principles_acknowledged_at: Date | null
+    principles_acknowledged_ip: string | null
   }, ExtArgs["result"]["player"]>
   composites: {}
 }
@@ -2242,6 +3930,13 @@ export interface Prisma__PlayerClient<T, Null = never, ExtArgs extends runtime.T
   event_participation<T extends Prisma.Player$event_participationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$event_participationArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlayerEventParticipationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   gum_items<T extends Prisma.Player$gum_itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$gum_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GumItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   achievements<T extends Prisma.Player$achievementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$achievementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  violation_affected_records<T extends Prisma.Player$violation_affected_recordsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$violation_affected_recordsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ViolationAffectedRecordPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  player_guardians<T extends Prisma.Player$player_guardiansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$player_guardiansArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlayerGuardianPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  account_transitions<T extends Prisma.Player$account_transitionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$account_transitionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountTransitionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  corridor_access_grants<T extends Prisma.Player$corridor_access_grantsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$corridor_access_grantsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CorridorAccessGrantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  guardian_action_logs<T extends Prisma.Player$guardian_action_logsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$guardian_action_logsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuardianActionLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  hall_of_fame_inductee<T extends Prisma.Player$hall_of_fame_inducteeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$hall_of_fame_inducteeArgs<ExtArgs>>): Prisma.Prisma__HallOfFameInducteeClient<runtime.Types.Result.GetResult<Prisma.$HallOfFameInducteePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  hall_of_fame_nominations<T extends Prisma.Player$hall_of_fame_nominationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$hall_of_fame_nominationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HallOfFameNominationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2289,10 +3984,13 @@ export interface PlayerFieldRefs {
   readonly signature_on_file: Prisma.FieldRef<"Player", 'Boolean'>
   readonly signature_image_key: Prisma.FieldRef<"Player", 'String'>
   readonly bust_image_key: Prisma.FieldRef<"Player", 'String'>
+  readonly enrollment_photo_key: Prisma.FieldRef<"Player", 'String'>
   readonly created_at: Prisma.FieldRef<"Player", 'DateTime'>
   readonly updated_at: Prisma.FieldRef<"Player", 'DateTime'>
   readonly guardian_account_id: Prisma.FieldRef<"Player", 'String'>
   readonly created_by: Prisma.FieldRef<"Player", 'String'>
+  readonly principles_acknowledged_at: Prisma.FieldRef<"Player", 'DateTime'>
+  readonly principles_acknowledged_ip: Prisma.FieldRef<"Player", 'String'>
 }
     
 
@@ -2806,6 +4504,169 @@ export type Player$achievementsArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   distinct?: Prisma.AchievementScalarFieldEnum | Prisma.AchievementScalarFieldEnum[]
+}
+
+/**
+ * Player.violation_affected_records
+ */
+export type Player$violation_affected_recordsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ViolationAffectedRecord
+   */
+  select?: Prisma.ViolationAffectedRecordSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ViolationAffectedRecord
+   */
+  omit?: Prisma.ViolationAffectedRecordOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ViolationAffectedRecordInclude<ExtArgs> | null
+  where?: Prisma.ViolationAffectedRecordWhereInput
+  orderBy?: Prisma.ViolationAffectedRecordOrderByWithRelationInput | Prisma.ViolationAffectedRecordOrderByWithRelationInput[]
+  cursor?: Prisma.ViolationAffectedRecordWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ViolationAffectedRecordScalarFieldEnum | Prisma.ViolationAffectedRecordScalarFieldEnum[]
+}
+
+/**
+ * Player.player_guardians
+ */
+export type Player$player_guardiansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlayerGuardian
+   */
+  select?: Prisma.PlayerGuardianSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlayerGuardian
+   */
+  omit?: Prisma.PlayerGuardianOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlayerGuardianInclude<ExtArgs> | null
+  where?: Prisma.PlayerGuardianWhereInput
+  orderBy?: Prisma.PlayerGuardianOrderByWithRelationInput | Prisma.PlayerGuardianOrderByWithRelationInput[]
+  cursor?: Prisma.PlayerGuardianWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlayerGuardianScalarFieldEnum | Prisma.PlayerGuardianScalarFieldEnum[]
+}
+
+/**
+ * Player.account_transitions
+ */
+export type Player$account_transitionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AccountTransition
+   */
+  select?: Prisma.AccountTransitionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AccountTransition
+   */
+  omit?: Prisma.AccountTransitionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AccountTransitionInclude<ExtArgs> | null
+  where?: Prisma.AccountTransitionWhereInput
+  orderBy?: Prisma.AccountTransitionOrderByWithRelationInput | Prisma.AccountTransitionOrderByWithRelationInput[]
+  cursor?: Prisma.AccountTransitionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AccountTransitionScalarFieldEnum | Prisma.AccountTransitionScalarFieldEnum[]
+}
+
+/**
+ * Player.corridor_access_grants
+ */
+export type Player$corridor_access_grantsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CorridorAccessGrant
+   */
+  select?: Prisma.CorridorAccessGrantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CorridorAccessGrant
+   */
+  omit?: Prisma.CorridorAccessGrantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CorridorAccessGrantInclude<ExtArgs> | null
+  where?: Prisma.CorridorAccessGrantWhereInput
+  orderBy?: Prisma.CorridorAccessGrantOrderByWithRelationInput | Prisma.CorridorAccessGrantOrderByWithRelationInput[]
+  cursor?: Prisma.CorridorAccessGrantWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CorridorAccessGrantScalarFieldEnum | Prisma.CorridorAccessGrantScalarFieldEnum[]
+}
+
+/**
+ * Player.guardian_action_logs
+ */
+export type Player$guardian_action_logsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuardianActionLog
+   */
+  select?: Prisma.GuardianActionLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuardianActionLog
+   */
+  omit?: Prisma.GuardianActionLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuardianActionLogInclude<ExtArgs> | null
+  where?: Prisma.GuardianActionLogWhereInput
+  orderBy?: Prisma.GuardianActionLogOrderByWithRelationInput | Prisma.GuardianActionLogOrderByWithRelationInput[]
+  cursor?: Prisma.GuardianActionLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuardianActionLogScalarFieldEnum | Prisma.GuardianActionLogScalarFieldEnum[]
+}
+
+/**
+ * Player.hall_of_fame_inductee
+ */
+export type Player$hall_of_fame_inducteeArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the HallOfFameInductee
+   */
+  select?: Prisma.HallOfFameInducteeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the HallOfFameInductee
+   */
+  omit?: Prisma.HallOfFameInducteeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HallOfFameInducteeInclude<ExtArgs> | null
+  where?: Prisma.HallOfFameInducteeWhereInput
+}
+
+/**
+ * Player.hall_of_fame_nominations
+ */
+export type Player$hall_of_fame_nominationsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the HallOfFameNomination
+   */
+  select?: Prisma.HallOfFameNominationSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the HallOfFameNomination
+   */
+  omit?: Prisma.HallOfFameNominationOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.HallOfFameNominationInclude<ExtArgs> | null
+  where?: Prisma.HallOfFameNominationWhereInput
+  orderBy?: Prisma.HallOfFameNominationOrderByWithRelationInput | Prisma.HallOfFameNominationOrderByWithRelationInput[]
+  cursor?: Prisma.HallOfFameNominationWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.HallOfFameNominationScalarFieldEnum | Prisma.HallOfFameNominationScalarFieldEnum[]
 }
 
 /**

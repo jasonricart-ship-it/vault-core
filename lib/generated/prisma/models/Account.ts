@@ -20,8 +20,18 @@ export type AccountModel = runtime.Types.Result.DefaultSelection<Prisma.$Account
 
 export type AggregateAccount = {
   _count: AccountCountAggregateOutputType | null
+  _avg: AccountAvgAggregateOutputType | null
+  _sum: AccountSumAggregateOutputType | null
   _min: AccountMinAggregateOutputType | null
   _max: AccountMaxAggregateOutputType | null
+}
+
+export type AccountAvgAggregateOutputType = {
+  capture_count: number | null
+}
+
+export type AccountSumAggregateOutputType = {
+  capture_count: number | null
 }
 
 export type AccountMinAggregateOutputType = {
@@ -34,8 +44,11 @@ export type AccountMinAggregateOutputType = {
   linked_player_id: string | null
   linked_org_id: string | null
   linked_gov_id: string | null
+  linked_vrc_id: string | null
   created_at: Date | null
   last_login_at: Date | null
+  capture_count: number | null
+  capture_rank: string | null
 }
 
 export type AccountMaxAggregateOutputType = {
@@ -48,8 +61,11 @@ export type AccountMaxAggregateOutputType = {
   linked_player_id: string | null
   linked_org_id: string | null
   linked_gov_id: string | null
+  linked_vrc_id: string | null
   created_at: Date | null
   last_login_at: Date | null
+  capture_count: number | null
+  capture_rank: string | null
 }
 
 export type AccountCountAggregateOutputType = {
@@ -62,11 +78,22 @@ export type AccountCountAggregateOutputType = {
   linked_player_id: number
   linked_org_id: number
   linked_gov_id: number
+  linked_vrc_id: number
   created_at: number
   last_login_at: number
+  capture_count: number
+  capture_rank: number
   _all: number
 }
 
+
+export type AccountAvgAggregateInputType = {
+  capture_count?: true
+}
+
+export type AccountSumAggregateInputType = {
+  capture_count?: true
+}
 
 export type AccountMinAggregateInputType = {
   id?: true
@@ -78,8 +105,11 @@ export type AccountMinAggregateInputType = {
   linked_player_id?: true
   linked_org_id?: true
   linked_gov_id?: true
+  linked_vrc_id?: true
   created_at?: true
   last_login_at?: true
+  capture_count?: true
+  capture_rank?: true
 }
 
 export type AccountMaxAggregateInputType = {
@@ -92,8 +122,11 @@ export type AccountMaxAggregateInputType = {
   linked_player_id?: true
   linked_org_id?: true
   linked_gov_id?: true
+  linked_vrc_id?: true
   created_at?: true
   last_login_at?: true
+  capture_count?: true
+  capture_rank?: true
 }
 
 export type AccountCountAggregateInputType = {
@@ -106,8 +139,11 @@ export type AccountCountAggregateInputType = {
   linked_player_id?: true
   linked_org_id?: true
   linked_gov_id?: true
+  linked_vrc_id?: true
   created_at?: true
   last_login_at?: true
+  capture_count?: true
+  capture_rank?: true
   _all?: true
 }
 
@@ -149,6 +185,18 @@ export type AccountAggregateArgs<ExtArgs extends runtime.Types.Extensions.Intern
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: AccountAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: AccountSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: AccountMinAggregateInputType
@@ -179,6 +227,8 @@ export type AccountGroupByArgs<ExtArgs extends runtime.Types.Extensions.Internal
   take?: number
   skip?: number
   _count?: AccountCountAggregateInputType | true
+  _avg?: AccountAvgAggregateInputType
+  _sum?: AccountSumAggregateInputType
   _min?: AccountMinAggregateInputType
   _max?: AccountMaxAggregateInputType
 }
@@ -193,9 +243,14 @@ export type AccountGroupByOutputType = {
   linked_player_id: string | null
   linked_org_id: string | null
   linked_gov_id: string | null
+  linked_vrc_id: string | null
   created_at: Date
   last_login_at: Date | null
+  capture_count: number
+  capture_rank: string
   _count: AccountCountAggregateOutputType | null
+  _avg: AccountAvgAggregateOutputType | null
+  _sum: AccountSumAggregateOutputType | null
   _min: AccountMinAggregateOutputType | null
   _max: AccountMaxAggregateOutputType | null
 }
@@ -228,10 +283,20 @@ export type AccountWhereInput = {
   linked_player_id?: Prisma.StringNullableFilter<"Account"> | string | null
   linked_org_id?: Prisma.StringNullableFilter<"Account"> | string | null
   linked_gov_id?: Prisma.StringNullableFilter<"Account"> | string | null
+  linked_vrc_id?: Prisma.StringNullableFilter<"Account"> | string | null
   created_at?: Prisma.DateTimeFilter<"Account"> | Date | string
   last_login_at?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
+  capture_count?: Prisma.IntFilter<"Account"> | number
+  capture_rank?: Prisma.StringFilter<"Account"> | string
   guardian_players?: Prisma.PlayerListRelationFilter
   managed_orgs?: Prisma.OrganizationListRelationFilter
+  player_guardians?: Prisma.PlayerGuardianListRelationFilter
+  account_delegates?: Prisma.AccountDelegateListRelationFilter
+  delegate_of?: Prisma.AccountDelegateListRelationFilter
+  corridor_grants_given?: Prisma.CorridorAccessGrantListRelationFilter
+  corridor_grants_received?: Prisma.CorridorAccessGrantListRelationFilter
+  guardian_action_logs?: Prisma.GuardianActionLogListRelationFilter
+  vault_registry_collector?: Prisma.XOR<Prisma.VaultRegistryCollectorNullableScalarRelationFilter, Prisma.VaultRegistryCollectorWhereInput> | null
 }
 
 export type AccountOrderByWithRelationInput = {
@@ -244,10 +309,20 @@ export type AccountOrderByWithRelationInput = {
   linked_player_id?: Prisma.SortOrderInput | Prisma.SortOrder
   linked_org_id?: Prisma.SortOrderInput | Prisma.SortOrder
   linked_gov_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  linked_vrc_id?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   last_login_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  capture_count?: Prisma.SortOrder
+  capture_rank?: Prisma.SortOrder
   guardian_players?: Prisma.PlayerOrderByRelationAggregateInput
   managed_orgs?: Prisma.OrganizationOrderByRelationAggregateInput
+  player_guardians?: Prisma.PlayerGuardianOrderByRelationAggregateInput
+  account_delegates?: Prisma.AccountDelegateOrderByRelationAggregateInput
+  delegate_of?: Prisma.AccountDelegateOrderByRelationAggregateInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantOrderByRelationAggregateInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantOrderByRelationAggregateInput
+  guardian_action_logs?: Prisma.GuardianActionLogOrderByRelationAggregateInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorOrderByWithRelationInput
 }
 
 export type AccountWhereUniqueInput = Prisma.AtLeast<{
@@ -263,10 +338,20 @@ export type AccountWhereUniqueInput = Prisma.AtLeast<{
   linked_player_id?: Prisma.StringNullableFilter<"Account"> | string | null
   linked_org_id?: Prisma.StringNullableFilter<"Account"> | string | null
   linked_gov_id?: Prisma.StringNullableFilter<"Account"> | string | null
+  linked_vrc_id?: Prisma.StringNullableFilter<"Account"> | string | null
   created_at?: Prisma.DateTimeFilter<"Account"> | Date | string
   last_login_at?: Prisma.DateTimeNullableFilter<"Account"> | Date | string | null
+  capture_count?: Prisma.IntFilter<"Account"> | number
+  capture_rank?: Prisma.StringFilter<"Account"> | string
   guardian_players?: Prisma.PlayerListRelationFilter
   managed_orgs?: Prisma.OrganizationListRelationFilter
+  player_guardians?: Prisma.PlayerGuardianListRelationFilter
+  account_delegates?: Prisma.AccountDelegateListRelationFilter
+  delegate_of?: Prisma.AccountDelegateListRelationFilter
+  corridor_grants_given?: Prisma.CorridorAccessGrantListRelationFilter
+  corridor_grants_received?: Prisma.CorridorAccessGrantListRelationFilter
+  guardian_action_logs?: Prisma.GuardianActionLogListRelationFilter
+  vault_registry_collector?: Prisma.XOR<Prisma.VaultRegistryCollectorNullableScalarRelationFilter, Prisma.VaultRegistryCollectorWhereInput> | null
 }, "id" | "email">
 
 export type AccountOrderByWithAggregationInput = {
@@ -279,11 +364,16 @@ export type AccountOrderByWithAggregationInput = {
   linked_player_id?: Prisma.SortOrderInput | Prisma.SortOrder
   linked_org_id?: Prisma.SortOrderInput | Prisma.SortOrder
   linked_gov_id?: Prisma.SortOrderInput | Prisma.SortOrder
+  linked_vrc_id?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   last_login_at?: Prisma.SortOrderInput | Prisma.SortOrder
+  capture_count?: Prisma.SortOrder
+  capture_rank?: Prisma.SortOrder
   _count?: Prisma.AccountCountOrderByAggregateInput
+  _avg?: Prisma.AccountAvgOrderByAggregateInput
   _max?: Prisma.AccountMaxOrderByAggregateInput
   _min?: Prisma.AccountMinOrderByAggregateInput
+  _sum?: Prisma.AccountSumOrderByAggregateInput
 }
 
 export type AccountScalarWhereWithAggregatesInput = {
@@ -299,8 +389,11 @@ export type AccountScalarWhereWithAggregatesInput = {
   linked_player_id?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
   linked_org_id?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
   linked_gov_id?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
+  linked_vrc_id?: Prisma.StringNullableWithAggregatesFilter<"Account"> | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"Account"> | Date | string
   last_login_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Account"> | Date | string | null
+  capture_count?: Prisma.IntWithAggregatesFilter<"Account"> | number
+  capture_rank?: Prisma.StringWithAggregatesFilter<"Account"> | string
 }
 
 export type AccountCreateInput = {
@@ -313,10 +406,20 @@ export type AccountCreateInput = {
   linked_player_id?: string | null
   linked_org_id?: string | null
   linked_gov_id?: string | null
+  linked_vrc_id?: string | null
   created_at?: Date | string
   last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
   guardian_players?: Prisma.PlayerCreateNestedManyWithoutGuardianInput
   managed_orgs?: Prisma.OrganizationCreateNestedManyWithoutAdminInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutAccountInput
+  account_delegates?: Prisma.AccountDelegateCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateCreateNestedManyWithoutDelegateInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGrantorInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGranteeInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutAccountInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorCreateNestedOneWithoutAccountInput
 }
 
 export type AccountUncheckedCreateInput = {
@@ -329,10 +432,20 @@ export type AccountUncheckedCreateInput = {
   linked_player_id?: string | null
   linked_org_id?: string | null
   linked_gov_id?: string | null
+  linked_vrc_id?: string | null
   created_at?: Date | string
   last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
   guardian_players?: Prisma.PlayerUncheckedCreateNestedManyWithoutGuardianInput
   managed_orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutAdminInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutAccountInput
+  account_delegates?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutDelegateInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGrantorInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGranteeInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutAccountInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedCreateNestedOneWithoutAccountInput
 }
 
 export type AccountUpdateInput = {
@@ -345,10 +458,20 @@ export type AccountUpdateInput = {
   linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
   guardian_players?: Prisma.PlayerUpdateManyWithoutGuardianNestedInput
   managed_orgs?: Prisma.OrganizationUpdateManyWithoutAdminNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutAccountNestedInput
+  account_delegates?: Prisma.AccountDelegateUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUpdateManyWithoutDelegateNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUpdateManyWithoutGrantorNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUpdateManyWithoutGranteeNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutAccountNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUpdateOneWithoutAccountNestedInput
 }
 
 export type AccountUncheckedUpdateInput = {
@@ -361,10 +484,20 @@ export type AccountUncheckedUpdateInput = {
   linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
   guardian_players?: Prisma.PlayerUncheckedUpdateManyWithoutGuardianNestedInput
   managed_orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutAdminNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutAccountNestedInput
+  account_delegates?: Prisma.AccountDelegateUncheckedUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUncheckedUpdateManyWithoutDelegateNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGrantorNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGranteeNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutAccountNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedUpdateOneWithoutAccountNestedInput
 }
 
 export type AccountCreateManyInput = {
@@ -377,8 +510,11 @@ export type AccountCreateManyInput = {
   linked_player_id?: string | null
   linked_org_id?: string | null
   linked_gov_id?: string | null
+  linked_vrc_id?: string | null
   created_at?: Date | string
   last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
 }
 
 export type AccountUpdateManyMutationInput = {
@@ -391,8 +527,11 @@ export type AccountUpdateManyMutationInput = {
   linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type AccountUncheckedUpdateManyInput = {
@@ -405,8 +544,11 @@ export type AccountUncheckedUpdateManyInput = {
   linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type AccountNullableScalarRelationFilter = {
@@ -424,8 +566,15 @@ export type AccountCountOrderByAggregateInput = {
   linked_player_id?: Prisma.SortOrder
   linked_org_id?: Prisma.SortOrder
   linked_gov_id?: Prisma.SortOrder
+  linked_vrc_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   last_login_at?: Prisma.SortOrder
+  capture_count?: Prisma.SortOrder
+  capture_rank?: Prisma.SortOrder
+}
+
+export type AccountAvgOrderByAggregateInput = {
+  capture_count?: Prisma.SortOrder
 }
 
 export type AccountMaxOrderByAggregateInput = {
@@ -438,8 +587,11 @@ export type AccountMaxOrderByAggregateInput = {
   linked_player_id?: Prisma.SortOrder
   linked_org_id?: Prisma.SortOrder
   linked_gov_id?: Prisma.SortOrder
+  linked_vrc_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   last_login_at?: Prisma.SortOrder
+  capture_count?: Prisma.SortOrder
+  capture_rank?: Prisma.SortOrder
 }
 
 export type AccountMinOrderByAggregateInput = {
@@ -452,8 +604,20 @@ export type AccountMinOrderByAggregateInput = {
   linked_player_id?: Prisma.SortOrder
   linked_org_id?: Prisma.SortOrder
   linked_gov_id?: Prisma.SortOrder
+  linked_vrc_id?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
   last_login_at?: Prisma.SortOrder
+  capture_count?: Prisma.SortOrder
+  capture_rank?: Prisma.SortOrder
+}
+
+export type AccountSumOrderByAggregateInput = {
+  capture_count?: Prisma.SortOrder
+}
+
+export type AccountScalarRelationFilter = {
+  is?: Prisma.AccountWhereInput
+  isNot?: Prisma.AccountWhereInput
 }
 
 export type AccountCreateNestedOneWithoutGuardian_playersInput = {
@@ -488,6 +652,106 @@ export type AccountUpdateOneWithoutManaged_orgsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutManaged_orgsInput, Prisma.AccountUpdateWithoutManaged_orgsInput>, Prisma.AccountUncheckedUpdateWithoutManaged_orgsInput>
 }
 
+export type AccountCreateNestedOneWithoutPlayer_guardiansInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutPlayer_guardiansInput, Prisma.AccountUncheckedCreateWithoutPlayer_guardiansInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutPlayer_guardiansInput
+  connect?: Prisma.AccountWhereUniqueInput
+}
+
+export type AccountUpdateOneRequiredWithoutPlayer_guardiansNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutPlayer_guardiansInput, Prisma.AccountUncheckedCreateWithoutPlayer_guardiansInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutPlayer_guardiansInput
+  upsert?: Prisma.AccountUpsertWithoutPlayer_guardiansInput
+  connect?: Prisma.AccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutPlayer_guardiansInput, Prisma.AccountUpdateWithoutPlayer_guardiansInput>, Prisma.AccountUncheckedUpdateWithoutPlayer_guardiansInput>
+}
+
+export type AccountCreateNestedOneWithoutAccount_delegatesInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutAccount_delegatesInput, Prisma.AccountUncheckedCreateWithoutAccount_delegatesInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutAccount_delegatesInput
+  connect?: Prisma.AccountWhereUniqueInput
+}
+
+export type AccountCreateNestedOneWithoutDelegate_ofInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutDelegate_ofInput, Prisma.AccountUncheckedCreateWithoutDelegate_ofInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutDelegate_ofInput
+  connect?: Prisma.AccountWhereUniqueInput
+}
+
+export type AccountUpdateOneRequiredWithoutAccount_delegatesNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutAccount_delegatesInput, Prisma.AccountUncheckedCreateWithoutAccount_delegatesInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutAccount_delegatesInput
+  upsert?: Prisma.AccountUpsertWithoutAccount_delegatesInput
+  connect?: Prisma.AccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutAccount_delegatesInput, Prisma.AccountUpdateWithoutAccount_delegatesInput>, Prisma.AccountUncheckedUpdateWithoutAccount_delegatesInput>
+}
+
+export type AccountUpdateOneRequiredWithoutDelegate_ofNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutDelegate_ofInput, Prisma.AccountUncheckedCreateWithoutDelegate_ofInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutDelegate_ofInput
+  upsert?: Prisma.AccountUpsertWithoutDelegate_ofInput
+  connect?: Prisma.AccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutDelegate_ofInput, Prisma.AccountUpdateWithoutDelegate_ofInput>, Prisma.AccountUncheckedUpdateWithoutDelegate_ofInput>
+}
+
+export type AccountCreateNestedOneWithoutCorridor_grants_givenInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutCorridor_grants_givenInput, Prisma.AccountUncheckedCreateWithoutCorridor_grants_givenInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutCorridor_grants_givenInput
+  connect?: Prisma.AccountWhereUniqueInput
+}
+
+export type AccountCreateNestedOneWithoutCorridor_grants_receivedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutCorridor_grants_receivedInput, Prisma.AccountUncheckedCreateWithoutCorridor_grants_receivedInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutCorridor_grants_receivedInput
+  connect?: Prisma.AccountWhereUniqueInput
+}
+
+export type AccountUpdateOneRequiredWithoutCorridor_grants_givenNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutCorridor_grants_givenInput, Prisma.AccountUncheckedCreateWithoutCorridor_grants_givenInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutCorridor_grants_givenInput
+  upsert?: Prisma.AccountUpsertWithoutCorridor_grants_givenInput
+  connect?: Prisma.AccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutCorridor_grants_givenInput, Prisma.AccountUpdateWithoutCorridor_grants_givenInput>, Prisma.AccountUncheckedUpdateWithoutCorridor_grants_givenInput>
+}
+
+export type AccountUpdateOneRequiredWithoutCorridor_grants_receivedNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutCorridor_grants_receivedInput, Prisma.AccountUncheckedCreateWithoutCorridor_grants_receivedInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutCorridor_grants_receivedInput
+  upsert?: Prisma.AccountUpsertWithoutCorridor_grants_receivedInput
+  connect?: Prisma.AccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutCorridor_grants_receivedInput, Prisma.AccountUpdateWithoutCorridor_grants_receivedInput>, Prisma.AccountUncheckedUpdateWithoutCorridor_grants_receivedInput>
+}
+
+export type AccountCreateNestedOneWithoutGuardian_action_logsInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutGuardian_action_logsInput, Prisma.AccountUncheckedCreateWithoutGuardian_action_logsInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutGuardian_action_logsInput
+  connect?: Prisma.AccountWhereUniqueInput
+}
+
+export type AccountUpdateOneRequiredWithoutGuardian_action_logsNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutGuardian_action_logsInput, Prisma.AccountUncheckedCreateWithoutGuardian_action_logsInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutGuardian_action_logsInput
+  upsert?: Prisma.AccountUpsertWithoutGuardian_action_logsInput
+  connect?: Prisma.AccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutGuardian_action_logsInput, Prisma.AccountUpdateWithoutGuardian_action_logsInput>, Prisma.AccountUncheckedUpdateWithoutGuardian_action_logsInput>
+}
+
+export type AccountCreateNestedOneWithoutVault_registry_collectorInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutVault_registry_collectorInput, Prisma.AccountUncheckedCreateWithoutVault_registry_collectorInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutVault_registry_collectorInput
+  connect?: Prisma.AccountWhereUniqueInput
+}
+
+export type AccountUpdateOneWithoutVault_registry_collectorNestedInput = {
+  create?: Prisma.XOR<Prisma.AccountCreateWithoutVault_registry_collectorInput, Prisma.AccountUncheckedCreateWithoutVault_registry_collectorInput>
+  connectOrCreate?: Prisma.AccountCreateOrConnectWithoutVault_registry_collectorInput
+  upsert?: Prisma.AccountUpsertWithoutVault_registry_collectorInput
+  disconnect?: Prisma.AccountWhereInput | boolean
+  delete?: Prisma.AccountWhereInput | boolean
+  connect?: Prisma.AccountWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.AccountUpdateToOneWithWhereWithoutVault_registry_collectorInput, Prisma.AccountUpdateWithoutVault_registry_collectorInput>, Prisma.AccountUncheckedUpdateWithoutVault_registry_collectorInput>
+}
+
 export type AccountCreateWithoutGuardian_playersInput = {
   id?: string
   email: string
@@ -498,9 +762,19 @@ export type AccountCreateWithoutGuardian_playersInput = {
   linked_player_id?: string | null
   linked_org_id?: string | null
   linked_gov_id?: string | null
+  linked_vrc_id?: string | null
   created_at?: Date | string
   last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
   managed_orgs?: Prisma.OrganizationCreateNestedManyWithoutAdminInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutAccountInput
+  account_delegates?: Prisma.AccountDelegateCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateCreateNestedManyWithoutDelegateInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGrantorInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGranteeInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutAccountInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorCreateNestedOneWithoutAccountInput
 }
 
 export type AccountUncheckedCreateWithoutGuardian_playersInput = {
@@ -513,9 +787,19 @@ export type AccountUncheckedCreateWithoutGuardian_playersInput = {
   linked_player_id?: string | null
   linked_org_id?: string | null
   linked_gov_id?: string | null
+  linked_vrc_id?: string | null
   created_at?: Date | string
   last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
   managed_orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutAdminInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutAccountInput
+  account_delegates?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutDelegateInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGrantorInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGranteeInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutAccountInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedCreateNestedOneWithoutAccountInput
 }
 
 export type AccountCreateOrConnectWithoutGuardian_playersInput = {
@@ -544,9 +828,19 @@ export type AccountUpdateWithoutGuardian_playersInput = {
   linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
   managed_orgs?: Prisma.OrganizationUpdateManyWithoutAdminNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutAccountNestedInput
+  account_delegates?: Prisma.AccountDelegateUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUpdateManyWithoutDelegateNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUpdateManyWithoutGrantorNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUpdateManyWithoutGranteeNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutAccountNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUpdateOneWithoutAccountNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutGuardian_playersInput = {
@@ -559,9 +853,19 @@ export type AccountUncheckedUpdateWithoutGuardian_playersInput = {
   linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
   managed_orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutAdminNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutAccountNestedInput
+  account_delegates?: Prisma.AccountDelegateUncheckedUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUncheckedUpdateManyWithoutDelegateNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGrantorNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGranteeNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutAccountNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedUpdateOneWithoutAccountNestedInput
 }
 
 export type AccountCreateWithoutManaged_orgsInput = {
@@ -574,9 +878,19 @@ export type AccountCreateWithoutManaged_orgsInput = {
   linked_player_id?: string | null
   linked_org_id?: string | null
   linked_gov_id?: string | null
+  linked_vrc_id?: string | null
   created_at?: Date | string
   last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
   guardian_players?: Prisma.PlayerCreateNestedManyWithoutGuardianInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutAccountInput
+  account_delegates?: Prisma.AccountDelegateCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateCreateNestedManyWithoutDelegateInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGrantorInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGranteeInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutAccountInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorCreateNestedOneWithoutAccountInput
 }
 
 export type AccountUncheckedCreateWithoutManaged_orgsInput = {
@@ -589,9 +903,19 @@ export type AccountUncheckedCreateWithoutManaged_orgsInput = {
   linked_player_id?: string | null
   linked_org_id?: string | null
   linked_gov_id?: string | null
+  linked_vrc_id?: string | null
   created_at?: Date | string
   last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
   guardian_players?: Prisma.PlayerUncheckedCreateNestedManyWithoutGuardianInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutAccountInput
+  account_delegates?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutDelegateInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGrantorInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGranteeInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutAccountInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedCreateNestedOneWithoutAccountInput
 }
 
 export type AccountCreateOrConnectWithoutManaged_orgsInput = {
@@ -620,9 +944,19 @@ export type AccountUpdateWithoutManaged_orgsInput = {
   linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
   guardian_players?: Prisma.PlayerUpdateManyWithoutGuardianNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutAccountNestedInput
+  account_delegates?: Prisma.AccountDelegateUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUpdateManyWithoutDelegateNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUpdateManyWithoutGrantorNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUpdateManyWithoutGranteeNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutAccountNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUpdateOneWithoutAccountNestedInput
 }
 
 export type AccountUncheckedUpdateWithoutManaged_orgsInput = {
@@ -635,9 +969,831 @@ export type AccountUncheckedUpdateWithoutManaged_orgsInput = {
   linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
   guardian_players?: Prisma.PlayerUncheckedUpdateManyWithoutGuardianNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutAccountNestedInput
+  account_delegates?: Prisma.AccountDelegateUncheckedUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUncheckedUpdateManyWithoutDelegateNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGrantorNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGranteeNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutAccountNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedUpdateOneWithoutAccountNestedInput
+}
+
+export type AccountCreateWithoutPlayer_guardiansInput = {
+  id?: string
+  email: string
+  password_hash: string
+  role: string
+  display_name?: string | null
+  is_verified?: boolean
+  linked_player_id?: string | null
+  linked_org_id?: string | null
+  linked_gov_id?: string | null
+  linked_vrc_id?: string | null
+  created_at?: Date | string
+  last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
+  guardian_players?: Prisma.PlayerCreateNestedManyWithoutGuardianInput
+  managed_orgs?: Prisma.OrganizationCreateNestedManyWithoutAdminInput
+  account_delegates?: Prisma.AccountDelegateCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateCreateNestedManyWithoutDelegateInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGrantorInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGranteeInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutAccountInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorCreateNestedOneWithoutAccountInput
+}
+
+export type AccountUncheckedCreateWithoutPlayer_guardiansInput = {
+  id?: string
+  email: string
+  password_hash: string
+  role: string
+  display_name?: string | null
+  is_verified?: boolean
+  linked_player_id?: string | null
+  linked_org_id?: string | null
+  linked_gov_id?: string | null
+  linked_vrc_id?: string | null
+  created_at?: Date | string
+  last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
+  guardian_players?: Prisma.PlayerUncheckedCreateNestedManyWithoutGuardianInput
+  managed_orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutAdminInput
+  account_delegates?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutDelegateInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGrantorInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGranteeInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutAccountInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedCreateNestedOneWithoutAccountInput
+}
+
+export type AccountCreateOrConnectWithoutPlayer_guardiansInput = {
+  where: Prisma.AccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountCreateWithoutPlayer_guardiansInput, Prisma.AccountUncheckedCreateWithoutPlayer_guardiansInput>
+}
+
+export type AccountUpsertWithoutPlayer_guardiansInput = {
+  update: Prisma.XOR<Prisma.AccountUpdateWithoutPlayer_guardiansInput, Prisma.AccountUncheckedUpdateWithoutPlayer_guardiansInput>
+  create: Prisma.XOR<Prisma.AccountCreateWithoutPlayer_guardiansInput, Prisma.AccountUncheckedCreateWithoutPlayer_guardiansInput>
+  where?: Prisma.AccountWhereInput
+}
+
+export type AccountUpdateToOneWithWhereWithoutPlayer_guardiansInput = {
+  where?: Prisma.AccountWhereInput
+  data: Prisma.XOR<Prisma.AccountUpdateWithoutPlayer_guardiansInput, Prisma.AccountUncheckedUpdateWithoutPlayer_guardiansInput>
+}
+
+export type AccountUpdateWithoutPlayer_guardiansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
+  guardian_players?: Prisma.PlayerUpdateManyWithoutGuardianNestedInput
+  managed_orgs?: Prisma.OrganizationUpdateManyWithoutAdminNestedInput
+  account_delegates?: Prisma.AccountDelegateUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUpdateManyWithoutDelegateNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUpdateManyWithoutGrantorNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUpdateManyWithoutGranteeNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutAccountNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUpdateOneWithoutAccountNestedInput
+}
+
+export type AccountUncheckedUpdateWithoutPlayer_guardiansInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
+  guardian_players?: Prisma.PlayerUncheckedUpdateManyWithoutGuardianNestedInput
+  managed_orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutAdminNestedInput
+  account_delegates?: Prisma.AccountDelegateUncheckedUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUncheckedUpdateManyWithoutDelegateNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGrantorNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGranteeNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutAccountNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedUpdateOneWithoutAccountNestedInput
+}
+
+export type AccountCreateWithoutAccount_delegatesInput = {
+  id?: string
+  email: string
+  password_hash: string
+  role: string
+  display_name?: string | null
+  is_verified?: boolean
+  linked_player_id?: string | null
+  linked_org_id?: string | null
+  linked_gov_id?: string | null
+  linked_vrc_id?: string | null
+  created_at?: Date | string
+  last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
+  guardian_players?: Prisma.PlayerCreateNestedManyWithoutGuardianInput
+  managed_orgs?: Prisma.OrganizationCreateNestedManyWithoutAdminInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateCreateNestedManyWithoutDelegateInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGrantorInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGranteeInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutAccountInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorCreateNestedOneWithoutAccountInput
+}
+
+export type AccountUncheckedCreateWithoutAccount_delegatesInput = {
+  id?: string
+  email: string
+  password_hash: string
+  role: string
+  display_name?: string | null
+  is_verified?: boolean
+  linked_player_id?: string | null
+  linked_org_id?: string | null
+  linked_gov_id?: string | null
+  linked_vrc_id?: string | null
+  created_at?: Date | string
+  last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
+  guardian_players?: Prisma.PlayerUncheckedCreateNestedManyWithoutGuardianInput
+  managed_orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutAdminInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutDelegateInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGrantorInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGranteeInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutAccountInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedCreateNestedOneWithoutAccountInput
+}
+
+export type AccountCreateOrConnectWithoutAccount_delegatesInput = {
+  where: Prisma.AccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountCreateWithoutAccount_delegatesInput, Prisma.AccountUncheckedCreateWithoutAccount_delegatesInput>
+}
+
+export type AccountCreateWithoutDelegate_ofInput = {
+  id?: string
+  email: string
+  password_hash: string
+  role: string
+  display_name?: string | null
+  is_verified?: boolean
+  linked_player_id?: string | null
+  linked_org_id?: string | null
+  linked_gov_id?: string | null
+  linked_vrc_id?: string | null
+  created_at?: Date | string
+  last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
+  guardian_players?: Prisma.PlayerCreateNestedManyWithoutGuardianInput
+  managed_orgs?: Prisma.OrganizationCreateNestedManyWithoutAdminInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutAccountInput
+  account_delegates?: Prisma.AccountDelegateCreateNestedManyWithoutAccountInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGrantorInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGranteeInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutAccountInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorCreateNestedOneWithoutAccountInput
+}
+
+export type AccountUncheckedCreateWithoutDelegate_ofInput = {
+  id?: string
+  email: string
+  password_hash: string
+  role: string
+  display_name?: string | null
+  is_verified?: boolean
+  linked_player_id?: string | null
+  linked_org_id?: string | null
+  linked_gov_id?: string | null
+  linked_vrc_id?: string | null
+  created_at?: Date | string
+  last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
+  guardian_players?: Prisma.PlayerUncheckedCreateNestedManyWithoutGuardianInput
+  managed_orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutAdminInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutAccountInput
+  account_delegates?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutAccountInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGrantorInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGranteeInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutAccountInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedCreateNestedOneWithoutAccountInput
+}
+
+export type AccountCreateOrConnectWithoutDelegate_ofInput = {
+  where: Prisma.AccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountCreateWithoutDelegate_ofInput, Prisma.AccountUncheckedCreateWithoutDelegate_ofInput>
+}
+
+export type AccountUpsertWithoutAccount_delegatesInput = {
+  update: Prisma.XOR<Prisma.AccountUpdateWithoutAccount_delegatesInput, Prisma.AccountUncheckedUpdateWithoutAccount_delegatesInput>
+  create: Prisma.XOR<Prisma.AccountCreateWithoutAccount_delegatesInput, Prisma.AccountUncheckedCreateWithoutAccount_delegatesInput>
+  where?: Prisma.AccountWhereInput
+}
+
+export type AccountUpdateToOneWithWhereWithoutAccount_delegatesInput = {
+  where?: Prisma.AccountWhereInput
+  data: Prisma.XOR<Prisma.AccountUpdateWithoutAccount_delegatesInput, Prisma.AccountUncheckedUpdateWithoutAccount_delegatesInput>
+}
+
+export type AccountUpdateWithoutAccount_delegatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
+  guardian_players?: Prisma.PlayerUpdateManyWithoutGuardianNestedInput
+  managed_orgs?: Prisma.OrganizationUpdateManyWithoutAdminNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUpdateManyWithoutDelegateNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUpdateManyWithoutGrantorNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUpdateManyWithoutGranteeNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutAccountNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUpdateOneWithoutAccountNestedInput
+}
+
+export type AccountUncheckedUpdateWithoutAccount_delegatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
+  guardian_players?: Prisma.PlayerUncheckedUpdateManyWithoutGuardianNestedInput
+  managed_orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutAdminNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUncheckedUpdateManyWithoutDelegateNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGrantorNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGranteeNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutAccountNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedUpdateOneWithoutAccountNestedInput
+}
+
+export type AccountUpsertWithoutDelegate_ofInput = {
+  update: Prisma.XOR<Prisma.AccountUpdateWithoutDelegate_ofInput, Prisma.AccountUncheckedUpdateWithoutDelegate_ofInput>
+  create: Prisma.XOR<Prisma.AccountCreateWithoutDelegate_ofInput, Prisma.AccountUncheckedCreateWithoutDelegate_ofInput>
+  where?: Prisma.AccountWhereInput
+}
+
+export type AccountUpdateToOneWithWhereWithoutDelegate_ofInput = {
+  where?: Prisma.AccountWhereInput
+  data: Prisma.XOR<Prisma.AccountUpdateWithoutDelegate_ofInput, Prisma.AccountUncheckedUpdateWithoutDelegate_ofInput>
+}
+
+export type AccountUpdateWithoutDelegate_ofInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
+  guardian_players?: Prisma.PlayerUpdateManyWithoutGuardianNestedInput
+  managed_orgs?: Prisma.OrganizationUpdateManyWithoutAdminNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutAccountNestedInput
+  account_delegates?: Prisma.AccountDelegateUpdateManyWithoutAccountNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUpdateManyWithoutGrantorNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUpdateManyWithoutGranteeNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutAccountNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUpdateOneWithoutAccountNestedInput
+}
+
+export type AccountUncheckedUpdateWithoutDelegate_ofInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
+  guardian_players?: Prisma.PlayerUncheckedUpdateManyWithoutGuardianNestedInput
+  managed_orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutAdminNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutAccountNestedInput
+  account_delegates?: Prisma.AccountDelegateUncheckedUpdateManyWithoutAccountNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGrantorNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGranteeNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutAccountNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedUpdateOneWithoutAccountNestedInput
+}
+
+export type AccountCreateWithoutCorridor_grants_givenInput = {
+  id?: string
+  email: string
+  password_hash: string
+  role: string
+  display_name?: string | null
+  is_verified?: boolean
+  linked_player_id?: string | null
+  linked_org_id?: string | null
+  linked_gov_id?: string | null
+  linked_vrc_id?: string | null
+  created_at?: Date | string
+  last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
+  guardian_players?: Prisma.PlayerCreateNestedManyWithoutGuardianInput
+  managed_orgs?: Prisma.OrganizationCreateNestedManyWithoutAdminInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutAccountInput
+  account_delegates?: Prisma.AccountDelegateCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateCreateNestedManyWithoutDelegateInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGranteeInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutAccountInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorCreateNestedOneWithoutAccountInput
+}
+
+export type AccountUncheckedCreateWithoutCorridor_grants_givenInput = {
+  id?: string
+  email: string
+  password_hash: string
+  role: string
+  display_name?: string | null
+  is_verified?: boolean
+  linked_player_id?: string | null
+  linked_org_id?: string | null
+  linked_gov_id?: string | null
+  linked_vrc_id?: string | null
+  created_at?: Date | string
+  last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
+  guardian_players?: Prisma.PlayerUncheckedCreateNestedManyWithoutGuardianInput
+  managed_orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutAdminInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutAccountInput
+  account_delegates?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutDelegateInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGranteeInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutAccountInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedCreateNestedOneWithoutAccountInput
+}
+
+export type AccountCreateOrConnectWithoutCorridor_grants_givenInput = {
+  where: Prisma.AccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountCreateWithoutCorridor_grants_givenInput, Prisma.AccountUncheckedCreateWithoutCorridor_grants_givenInput>
+}
+
+export type AccountCreateWithoutCorridor_grants_receivedInput = {
+  id?: string
+  email: string
+  password_hash: string
+  role: string
+  display_name?: string | null
+  is_verified?: boolean
+  linked_player_id?: string | null
+  linked_org_id?: string | null
+  linked_gov_id?: string | null
+  linked_vrc_id?: string | null
+  created_at?: Date | string
+  last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
+  guardian_players?: Prisma.PlayerCreateNestedManyWithoutGuardianInput
+  managed_orgs?: Prisma.OrganizationCreateNestedManyWithoutAdminInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutAccountInput
+  account_delegates?: Prisma.AccountDelegateCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateCreateNestedManyWithoutDelegateInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGrantorInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutAccountInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorCreateNestedOneWithoutAccountInput
+}
+
+export type AccountUncheckedCreateWithoutCorridor_grants_receivedInput = {
+  id?: string
+  email: string
+  password_hash: string
+  role: string
+  display_name?: string | null
+  is_verified?: boolean
+  linked_player_id?: string | null
+  linked_org_id?: string | null
+  linked_gov_id?: string | null
+  linked_vrc_id?: string | null
+  created_at?: Date | string
+  last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
+  guardian_players?: Prisma.PlayerUncheckedCreateNestedManyWithoutGuardianInput
+  managed_orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutAdminInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutAccountInput
+  account_delegates?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutDelegateInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGrantorInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutAccountInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedCreateNestedOneWithoutAccountInput
+}
+
+export type AccountCreateOrConnectWithoutCorridor_grants_receivedInput = {
+  where: Prisma.AccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountCreateWithoutCorridor_grants_receivedInput, Prisma.AccountUncheckedCreateWithoutCorridor_grants_receivedInput>
+}
+
+export type AccountUpsertWithoutCorridor_grants_givenInput = {
+  update: Prisma.XOR<Prisma.AccountUpdateWithoutCorridor_grants_givenInput, Prisma.AccountUncheckedUpdateWithoutCorridor_grants_givenInput>
+  create: Prisma.XOR<Prisma.AccountCreateWithoutCorridor_grants_givenInput, Prisma.AccountUncheckedCreateWithoutCorridor_grants_givenInput>
+  where?: Prisma.AccountWhereInput
+}
+
+export type AccountUpdateToOneWithWhereWithoutCorridor_grants_givenInput = {
+  where?: Prisma.AccountWhereInput
+  data: Prisma.XOR<Prisma.AccountUpdateWithoutCorridor_grants_givenInput, Prisma.AccountUncheckedUpdateWithoutCorridor_grants_givenInput>
+}
+
+export type AccountUpdateWithoutCorridor_grants_givenInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
+  guardian_players?: Prisma.PlayerUpdateManyWithoutGuardianNestedInput
+  managed_orgs?: Prisma.OrganizationUpdateManyWithoutAdminNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutAccountNestedInput
+  account_delegates?: Prisma.AccountDelegateUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUpdateManyWithoutDelegateNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUpdateManyWithoutGranteeNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutAccountNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUpdateOneWithoutAccountNestedInput
+}
+
+export type AccountUncheckedUpdateWithoutCorridor_grants_givenInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
+  guardian_players?: Prisma.PlayerUncheckedUpdateManyWithoutGuardianNestedInput
+  managed_orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutAdminNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutAccountNestedInput
+  account_delegates?: Prisma.AccountDelegateUncheckedUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUncheckedUpdateManyWithoutDelegateNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGranteeNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutAccountNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedUpdateOneWithoutAccountNestedInput
+}
+
+export type AccountUpsertWithoutCorridor_grants_receivedInput = {
+  update: Prisma.XOR<Prisma.AccountUpdateWithoutCorridor_grants_receivedInput, Prisma.AccountUncheckedUpdateWithoutCorridor_grants_receivedInput>
+  create: Prisma.XOR<Prisma.AccountCreateWithoutCorridor_grants_receivedInput, Prisma.AccountUncheckedCreateWithoutCorridor_grants_receivedInput>
+  where?: Prisma.AccountWhereInput
+}
+
+export type AccountUpdateToOneWithWhereWithoutCorridor_grants_receivedInput = {
+  where?: Prisma.AccountWhereInput
+  data: Prisma.XOR<Prisma.AccountUpdateWithoutCorridor_grants_receivedInput, Prisma.AccountUncheckedUpdateWithoutCorridor_grants_receivedInput>
+}
+
+export type AccountUpdateWithoutCorridor_grants_receivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
+  guardian_players?: Prisma.PlayerUpdateManyWithoutGuardianNestedInput
+  managed_orgs?: Prisma.OrganizationUpdateManyWithoutAdminNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutAccountNestedInput
+  account_delegates?: Prisma.AccountDelegateUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUpdateManyWithoutDelegateNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUpdateManyWithoutGrantorNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutAccountNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUpdateOneWithoutAccountNestedInput
+}
+
+export type AccountUncheckedUpdateWithoutCorridor_grants_receivedInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
+  guardian_players?: Prisma.PlayerUncheckedUpdateManyWithoutGuardianNestedInput
+  managed_orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutAdminNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutAccountNestedInput
+  account_delegates?: Prisma.AccountDelegateUncheckedUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUncheckedUpdateManyWithoutDelegateNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGrantorNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutAccountNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedUpdateOneWithoutAccountNestedInput
+}
+
+export type AccountCreateWithoutGuardian_action_logsInput = {
+  id?: string
+  email: string
+  password_hash: string
+  role: string
+  display_name?: string | null
+  is_verified?: boolean
+  linked_player_id?: string | null
+  linked_org_id?: string | null
+  linked_gov_id?: string | null
+  linked_vrc_id?: string | null
+  created_at?: Date | string
+  last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
+  guardian_players?: Prisma.PlayerCreateNestedManyWithoutGuardianInput
+  managed_orgs?: Prisma.OrganizationCreateNestedManyWithoutAdminInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutAccountInput
+  account_delegates?: Prisma.AccountDelegateCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateCreateNestedManyWithoutDelegateInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGrantorInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGranteeInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorCreateNestedOneWithoutAccountInput
+}
+
+export type AccountUncheckedCreateWithoutGuardian_action_logsInput = {
+  id?: string
+  email: string
+  password_hash: string
+  role: string
+  display_name?: string | null
+  is_verified?: boolean
+  linked_player_id?: string | null
+  linked_org_id?: string | null
+  linked_gov_id?: string | null
+  linked_vrc_id?: string | null
+  created_at?: Date | string
+  last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
+  guardian_players?: Prisma.PlayerUncheckedCreateNestedManyWithoutGuardianInput
+  managed_orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutAdminInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutAccountInput
+  account_delegates?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutDelegateInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGrantorInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGranteeInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedCreateNestedOneWithoutAccountInput
+}
+
+export type AccountCreateOrConnectWithoutGuardian_action_logsInput = {
+  where: Prisma.AccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountCreateWithoutGuardian_action_logsInput, Prisma.AccountUncheckedCreateWithoutGuardian_action_logsInput>
+}
+
+export type AccountUpsertWithoutGuardian_action_logsInput = {
+  update: Prisma.XOR<Prisma.AccountUpdateWithoutGuardian_action_logsInput, Prisma.AccountUncheckedUpdateWithoutGuardian_action_logsInput>
+  create: Prisma.XOR<Prisma.AccountCreateWithoutGuardian_action_logsInput, Prisma.AccountUncheckedCreateWithoutGuardian_action_logsInput>
+  where?: Prisma.AccountWhereInput
+}
+
+export type AccountUpdateToOneWithWhereWithoutGuardian_action_logsInput = {
+  where?: Prisma.AccountWhereInput
+  data: Prisma.XOR<Prisma.AccountUpdateWithoutGuardian_action_logsInput, Prisma.AccountUncheckedUpdateWithoutGuardian_action_logsInput>
+}
+
+export type AccountUpdateWithoutGuardian_action_logsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
+  guardian_players?: Prisma.PlayerUpdateManyWithoutGuardianNestedInput
+  managed_orgs?: Prisma.OrganizationUpdateManyWithoutAdminNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutAccountNestedInput
+  account_delegates?: Prisma.AccountDelegateUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUpdateManyWithoutDelegateNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUpdateManyWithoutGrantorNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUpdateManyWithoutGranteeNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUpdateOneWithoutAccountNestedInput
+}
+
+export type AccountUncheckedUpdateWithoutGuardian_action_logsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
+  guardian_players?: Prisma.PlayerUncheckedUpdateManyWithoutGuardianNestedInput
+  managed_orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutAdminNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutAccountNestedInput
+  account_delegates?: Prisma.AccountDelegateUncheckedUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUncheckedUpdateManyWithoutDelegateNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGrantorNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGranteeNestedInput
+  vault_registry_collector?: Prisma.VaultRegistryCollectorUncheckedUpdateOneWithoutAccountNestedInput
+}
+
+export type AccountCreateWithoutVault_registry_collectorInput = {
+  id?: string
+  email: string
+  password_hash: string
+  role: string
+  display_name?: string | null
+  is_verified?: boolean
+  linked_player_id?: string | null
+  linked_org_id?: string | null
+  linked_gov_id?: string | null
+  linked_vrc_id?: string | null
+  created_at?: Date | string
+  last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
+  guardian_players?: Prisma.PlayerCreateNestedManyWithoutGuardianInput
+  managed_orgs?: Prisma.OrganizationCreateNestedManyWithoutAdminInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutAccountInput
+  account_delegates?: Prisma.AccountDelegateCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateCreateNestedManyWithoutDelegateInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGrantorInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantCreateNestedManyWithoutGranteeInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutAccountInput
+}
+
+export type AccountUncheckedCreateWithoutVault_registry_collectorInput = {
+  id?: string
+  email: string
+  password_hash: string
+  role: string
+  display_name?: string | null
+  is_verified?: boolean
+  linked_player_id?: string | null
+  linked_org_id?: string | null
+  linked_gov_id?: string | null
+  linked_vrc_id?: string | null
+  created_at?: Date | string
+  last_login_at?: Date | string | null
+  capture_count?: number
+  capture_rank?: string
+  guardian_players?: Prisma.PlayerUncheckedCreateNestedManyWithoutGuardianInput
+  managed_orgs?: Prisma.OrganizationUncheckedCreateNestedManyWithoutAdminInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutAccountInput
+  account_delegates?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutAccountInput
+  delegate_of?: Prisma.AccountDelegateUncheckedCreateNestedManyWithoutDelegateInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGrantorInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutGranteeInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutAccountInput
+}
+
+export type AccountCreateOrConnectWithoutVault_registry_collectorInput = {
+  where: Prisma.AccountWhereUniqueInput
+  create: Prisma.XOR<Prisma.AccountCreateWithoutVault_registry_collectorInput, Prisma.AccountUncheckedCreateWithoutVault_registry_collectorInput>
+}
+
+export type AccountUpsertWithoutVault_registry_collectorInput = {
+  update: Prisma.XOR<Prisma.AccountUpdateWithoutVault_registry_collectorInput, Prisma.AccountUncheckedUpdateWithoutVault_registry_collectorInput>
+  create: Prisma.XOR<Prisma.AccountCreateWithoutVault_registry_collectorInput, Prisma.AccountUncheckedCreateWithoutVault_registry_collectorInput>
+  where?: Prisma.AccountWhereInput
+}
+
+export type AccountUpdateToOneWithWhereWithoutVault_registry_collectorInput = {
+  where?: Prisma.AccountWhereInput
+  data: Prisma.XOR<Prisma.AccountUpdateWithoutVault_registry_collectorInput, Prisma.AccountUncheckedUpdateWithoutVault_registry_collectorInput>
+}
+
+export type AccountUpdateWithoutVault_registry_collectorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
+  guardian_players?: Prisma.PlayerUpdateManyWithoutGuardianNestedInput
+  managed_orgs?: Prisma.OrganizationUpdateManyWithoutAdminNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutAccountNestedInput
+  account_delegates?: Prisma.AccountDelegateUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUpdateManyWithoutDelegateNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUpdateManyWithoutGrantorNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUpdateManyWithoutGranteeNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutAccountNestedInput
+}
+
+export type AccountUncheckedUpdateWithoutVault_registry_collectorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password_hash?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  linked_player_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_org_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  linked_vrc_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  last_login_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  capture_count?: Prisma.IntFieldUpdateOperationsInput | number
+  capture_rank?: Prisma.StringFieldUpdateOperationsInput | string
+  guardian_players?: Prisma.PlayerUncheckedUpdateManyWithoutGuardianNestedInput
+  managed_orgs?: Prisma.OrganizationUncheckedUpdateManyWithoutAdminNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutAccountNestedInput
+  account_delegates?: Prisma.AccountDelegateUncheckedUpdateManyWithoutAccountNestedInput
+  delegate_of?: Prisma.AccountDelegateUncheckedUpdateManyWithoutDelegateNestedInput
+  corridor_grants_given?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGrantorNestedInput
+  corridor_grants_received?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutGranteeNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutAccountNestedInput
 }
 
 
@@ -648,11 +1804,23 @@ export type AccountUncheckedUpdateWithoutManaged_orgsInput = {
 export type AccountCountOutputType = {
   guardian_players: number
   managed_orgs: number
+  player_guardians: number
+  account_delegates: number
+  delegate_of: number
+  corridor_grants_given: number
+  corridor_grants_received: number
+  guardian_action_logs: number
 }
 
 export type AccountCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   guardian_players?: boolean | AccountCountOutputTypeCountGuardian_playersArgs
   managed_orgs?: boolean | AccountCountOutputTypeCountManaged_orgsArgs
+  player_guardians?: boolean | AccountCountOutputTypeCountPlayer_guardiansArgs
+  account_delegates?: boolean | AccountCountOutputTypeCountAccount_delegatesArgs
+  delegate_of?: boolean | AccountCountOutputTypeCountDelegate_ofArgs
+  corridor_grants_given?: boolean | AccountCountOutputTypeCountCorridor_grants_givenArgs
+  corridor_grants_received?: boolean | AccountCountOutputTypeCountCorridor_grants_receivedArgs
+  guardian_action_logs?: boolean | AccountCountOutputTypeCountGuardian_action_logsArgs
 }
 
 /**
@@ -679,6 +1847,48 @@ export type AccountCountOutputTypeCountManaged_orgsArgs<ExtArgs extends runtime.
   where?: Prisma.OrganizationWhereInput
 }
 
+/**
+ * AccountCountOutputType without action
+ */
+export type AccountCountOutputTypeCountPlayer_guardiansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlayerGuardianWhereInput
+}
+
+/**
+ * AccountCountOutputType without action
+ */
+export type AccountCountOutputTypeCountAccount_delegatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AccountDelegateWhereInput
+}
+
+/**
+ * AccountCountOutputType without action
+ */
+export type AccountCountOutputTypeCountDelegate_ofArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AccountDelegateWhereInput
+}
+
+/**
+ * AccountCountOutputType without action
+ */
+export type AccountCountOutputTypeCountCorridor_grants_givenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CorridorAccessGrantWhereInput
+}
+
+/**
+ * AccountCountOutputType without action
+ */
+export type AccountCountOutputTypeCountCorridor_grants_receivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.CorridorAccessGrantWhereInput
+}
+
+/**
+ * AccountCountOutputType without action
+ */
+export type AccountCountOutputTypeCountGuardian_action_logsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GuardianActionLogWhereInput
+}
+
 
 export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -690,10 +1900,20 @@ export type AccountSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   linked_player_id?: boolean
   linked_org_id?: boolean
   linked_gov_id?: boolean
+  linked_vrc_id?: boolean
   created_at?: boolean
   last_login_at?: boolean
+  capture_count?: boolean
+  capture_rank?: boolean
   guardian_players?: boolean | Prisma.Account$guardian_playersArgs<ExtArgs>
   managed_orgs?: boolean | Prisma.Account$managed_orgsArgs<ExtArgs>
+  player_guardians?: boolean | Prisma.Account$player_guardiansArgs<ExtArgs>
+  account_delegates?: boolean | Prisma.Account$account_delegatesArgs<ExtArgs>
+  delegate_of?: boolean | Prisma.Account$delegate_ofArgs<ExtArgs>
+  corridor_grants_given?: boolean | Prisma.Account$corridor_grants_givenArgs<ExtArgs>
+  corridor_grants_received?: boolean | Prisma.Account$corridor_grants_receivedArgs<ExtArgs>
+  guardian_action_logs?: boolean | Prisma.Account$guardian_action_logsArgs<ExtArgs>
+  vault_registry_collector?: boolean | Prisma.Account$vault_registry_collectorArgs<ExtArgs>
   _count?: boolean | Prisma.AccountCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["account"]>
 
@@ -707,8 +1927,11 @@ export type AccountSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   linked_player_id?: boolean
   linked_org_id?: boolean
   linked_gov_id?: boolean
+  linked_vrc_id?: boolean
   created_at?: boolean
   last_login_at?: boolean
+  capture_count?: boolean
+  capture_rank?: boolean
 }, ExtArgs["result"]["account"]>
 
 export type AccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -721,8 +1944,11 @@ export type AccountSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   linked_player_id?: boolean
   linked_org_id?: boolean
   linked_gov_id?: boolean
+  linked_vrc_id?: boolean
   created_at?: boolean
   last_login_at?: boolean
+  capture_count?: boolean
+  capture_rank?: boolean
 }, ExtArgs["result"]["account"]>
 
 export type AccountSelectScalar = {
@@ -735,14 +1961,24 @@ export type AccountSelectScalar = {
   linked_player_id?: boolean
   linked_org_id?: boolean
   linked_gov_id?: boolean
+  linked_vrc_id?: boolean
   created_at?: boolean
   last_login_at?: boolean
+  capture_count?: boolean
+  capture_rank?: boolean
 }
 
-export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password_hash" | "role" | "display_name" | "is_verified" | "linked_player_id" | "linked_org_id" | "linked_gov_id" | "created_at" | "last_login_at", ExtArgs["result"]["account"]>
+export type AccountOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "password_hash" | "role" | "display_name" | "is_verified" | "linked_player_id" | "linked_org_id" | "linked_gov_id" | "linked_vrc_id" | "created_at" | "last_login_at" | "capture_count" | "capture_rank", ExtArgs["result"]["account"]>
 export type AccountInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   guardian_players?: boolean | Prisma.Account$guardian_playersArgs<ExtArgs>
   managed_orgs?: boolean | Prisma.Account$managed_orgsArgs<ExtArgs>
+  player_guardians?: boolean | Prisma.Account$player_guardiansArgs<ExtArgs>
+  account_delegates?: boolean | Prisma.Account$account_delegatesArgs<ExtArgs>
+  delegate_of?: boolean | Prisma.Account$delegate_ofArgs<ExtArgs>
+  corridor_grants_given?: boolean | Prisma.Account$corridor_grants_givenArgs<ExtArgs>
+  corridor_grants_received?: boolean | Prisma.Account$corridor_grants_receivedArgs<ExtArgs>
+  guardian_action_logs?: boolean | Prisma.Account$guardian_action_logsArgs<ExtArgs>
+  vault_registry_collector?: boolean | Prisma.Account$vault_registry_collectorArgs<ExtArgs>
   _count?: boolean | Prisma.AccountCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type AccountIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -753,6 +1989,13 @@ export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
   objects: {
     guardian_players: Prisma.$PlayerPayload<ExtArgs>[]
     managed_orgs: Prisma.$OrganizationPayload<ExtArgs>[]
+    player_guardians: Prisma.$PlayerGuardianPayload<ExtArgs>[]
+    account_delegates: Prisma.$AccountDelegatePayload<ExtArgs>[]
+    delegate_of: Prisma.$AccountDelegatePayload<ExtArgs>[]
+    corridor_grants_given: Prisma.$CorridorAccessGrantPayload<ExtArgs>[]
+    corridor_grants_received: Prisma.$CorridorAccessGrantPayload<ExtArgs>[]
+    guardian_action_logs: Prisma.$GuardianActionLogPayload<ExtArgs>[]
+    vault_registry_collector: Prisma.$VaultRegistryCollectorPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -764,8 +2007,11 @@ export type $AccountPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     linked_player_id: string | null
     linked_org_id: string | null
     linked_gov_id: string | null
+    linked_vrc_id: string | null
     created_at: Date
     last_login_at: Date | null
+    capture_count: number
+    capture_rank: string
   }, ExtArgs["result"]["account"]>
   composites: {}
 }
@@ -1162,6 +2408,13 @@ export interface Prisma__AccountClient<T, Null = never, ExtArgs extends runtime.
   readonly [Symbol.toStringTag]: "PrismaPromise"
   guardian_players<T extends Prisma.Account$guardian_playersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$guardian_playersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlayerPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   managed_orgs<T extends Prisma.Account$managed_orgsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$managed_orgsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  player_guardians<T extends Prisma.Account$player_guardiansArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$player_guardiansArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlayerGuardianPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  account_delegates<T extends Prisma.Account$account_delegatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$account_delegatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountDelegatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  delegate_of<T extends Prisma.Account$delegate_ofArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$delegate_ofArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AccountDelegatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  corridor_grants_given<T extends Prisma.Account$corridor_grants_givenArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$corridor_grants_givenArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CorridorAccessGrantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  corridor_grants_received<T extends Prisma.Account$corridor_grants_receivedArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$corridor_grants_receivedArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CorridorAccessGrantPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  guardian_action_logs<T extends Prisma.Account$guardian_action_logsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$guardian_action_logsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuardianActionLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  vault_registry_collector<T extends Prisma.Account$vault_registry_collectorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Account$vault_registry_collectorArgs<ExtArgs>>): Prisma.Prisma__VaultRegistryCollectorClient<runtime.Types.Result.GetResult<Prisma.$VaultRegistryCollectorPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1200,8 +2453,11 @@ export interface AccountFieldRefs {
   readonly linked_player_id: Prisma.FieldRef<"Account", 'String'>
   readonly linked_org_id: Prisma.FieldRef<"Account", 'String'>
   readonly linked_gov_id: Prisma.FieldRef<"Account", 'String'>
+  readonly linked_vrc_id: Prisma.FieldRef<"Account", 'String'>
   readonly created_at: Prisma.FieldRef<"Account", 'DateTime'>
   readonly last_login_at: Prisma.FieldRef<"Account", 'DateTime'>
+  readonly capture_count: Prisma.FieldRef<"Account", 'Int'>
+  readonly capture_rank: Prisma.FieldRef<"Account", 'String'>
 }
     
 
@@ -1640,6 +2896,169 @@ export type Account$managed_orgsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.OrganizationScalarFieldEnum | Prisma.OrganizationScalarFieldEnum[]
+}
+
+/**
+ * Account.player_guardians
+ */
+export type Account$player_guardiansArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlayerGuardian
+   */
+  select?: Prisma.PlayerGuardianSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlayerGuardian
+   */
+  omit?: Prisma.PlayerGuardianOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlayerGuardianInclude<ExtArgs> | null
+  where?: Prisma.PlayerGuardianWhereInput
+  orderBy?: Prisma.PlayerGuardianOrderByWithRelationInput | Prisma.PlayerGuardianOrderByWithRelationInput[]
+  cursor?: Prisma.PlayerGuardianWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlayerGuardianScalarFieldEnum | Prisma.PlayerGuardianScalarFieldEnum[]
+}
+
+/**
+ * Account.account_delegates
+ */
+export type Account$account_delegatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AccountDelegate
+   */
+  select?: Prisma.AccountDelegateSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AccountDelegate
+   */
+  omit?: Prisma.AccountDelegateOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AccountDelegateInclude<ExtArgs> | null
+  where?: Prisma.AccountDelegateWhereInput
+  orderBy?: Prisma.AccountDelegateOrderByWithRelationInput | Prisma.AccountDelegateOrderByWithRelationInput[]
+  cursor?: Prisma.AccountDelegateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AccountDelegateScalarFieldEnum | Prisma.AccountDelegateScalarFieldEnum[]
+}
+
+/**
+ * Account.delegate_of
+ */
+export type Account$delegate_ofArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the AccountDelegate
+   */
+  select?: Prisma.AccountDelegateSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the AccountDelegate
+   */
+  omit?: Prisma.AccountDelegateOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AccountDelegateInclude<ExtArgs> | null
+  where?: Prisma.AccountDelegateWhereInput
+  orderBy?: Prisma.AccountDelegateOrderByWithRelationInput | Prisma.AccountDelegateOrderByWithRelationInput[]
+  cursor?: Prisma.AccountDelegateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AccountDelegateScalarFieldEnum | Prisma.AccountDelegateScalarFieldEnum[]
+}
+
+/**
+ * Account.corridor_grants_given
+ */
+export type Account$corridor_grants_givenArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CorridorAccessGrant
+   */
+  select?: Prisma.CorridorAccessGrantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CorridorAccessGrant
+   */
+  omit?: Prisma.CorridorAccessGrantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CorridorAccessGrantInclude<ExtArgs> | null
+  where?: Prisma.CorridorAccessGrantWhereInput
+  orderBy?: Prisma.CorridorAccessGrantOrderByWithRelationInput | Prisma.CorridorAccessGrantOrderByWithRelationInput[]
+  cursor?: Prisma.CorridorAccessGrantWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CorridorAccessGrantScalarFieldEnum | Prisma.CorridorAccessGrantScalarFieldEnum[]
+}
+
+/**
+ * Account.corridor_grants_received
+ */
+export type Account$corridor_grants_receivedArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the CorridorAccessGrant
+   */
+  select?: Prisma.CorridorAccessGrantSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the CorridorAccessGrant
+   */
+  omit?: Prisma.CorridorAccessGrantOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CorridorAccessGrantInclude<ExtArgs> | null
+  where?: Prisma.CorridorAccessGrantWhereInput
+  orderBy?: Prisma.CorridorAccessGrantOrderByWithRelationInput | Prisma.CorridorAccessGrantOrderByWithRelationInput[]
+  cursor?: Prisma.CorridorAccessGrantWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.CorridorAccessGrantScalarFieldEnum | Prisma.CorridorAccessGrantScalarFieldEnum[]
+}
+
+/**
+ * Account.guardian_action_logs
+ */
+export type Account$guardian_action_logsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GuardianActionLog
+   */
+  select?: Prisma.GuardianActionLogSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GuardianActionLog
+   */
+  omit?: Prisma.GuardianActionLogOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GuardianActionLogInclude<ExtArgs> | null
+  where?: Prisma.GuardianActionLogWhereInput
+  orderBy?: Prisma.GuardianActionLogOrderByWithRelationInput | Prisma.GuardianActionLogOrderByWithRelationInput[]
+  cursor?: Prisma.GuardianActionLogWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GuardianActionLogScalarFieldEnum | Prisma.GuardianActionLogScalarFieldEnum[]
+}
+
+/**
+ * Account.vault_registry_collector
+ */
+export type Account$vault_registry_collectorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the VaultRegistryCollector
+   */
+  select?: Prisma.VaultRegistryCollectorSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the VaultRegistryCollector
+   */
+  omit?: Prisma.VaultRegistryCollectorOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.VaultRegistryCollectorInclude<ExtArgs> | null
+  where?: Prisma.VaultRegistryCollectorWhereInput
 }
 
 /**
