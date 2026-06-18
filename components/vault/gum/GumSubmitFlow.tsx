@@ -39,6 +39,43 @@ const STEPS = [
   { id: 3, label: "Review & Submit" },
 ] as const;
 
+type Step1Field = "playerId" | "itemType" | "itemDescription" | "ownerStatement";
+
+type Step1Validation = {
+  ok: boolean;
+  errors: { field: Step1Field; message: string }[];
+};
+
+function validateStep1Fields(values: {
+  playerId: string;
+  itemType: string;
+  itemDescription: string;
+  ownerStatement: string;
+  requiresPlayerSelection: boolean;
+}): Step1Validation {
+  const errors: Step1Validation["errors"] = [];
+
+  if (values.requiresPlayerSelection && !values.playerId) {
+    errors.push({ field: "playerId", message: "Select a player." });
+  }
+  if (!values.itemType) {
+    errors.push({ field: "itemType", message: "Select an item type." });
+  }
+  if (!values.itemDescription.trim()) {
+    errors.push({ field: "itemDescription", message: "Enter an item description." });
+  }
+  if (!values.ownerStatement.trim()) {
+    errors.push({ field: "ownerStatement", message: "Owner statement is required." });
+  } else if (values.ownerStatement.length > 200) {
+    errors.push({
+      field: "ownerStatement",
+      message: "Owner statement must be 200 characters or fewer.",
+    });
+  }
+
+  return { ok: errors.length === 0, errors };
+}
+
 const fieldWrap: React.CSSProperties = {
   background: STONE,
   border: "0.5px solid #B8972A22",
@@ -70,6 +107,27 @@ const inputStyle: React.CSSProperties = {
   padding: 0,
 };
 
+function fieldErrorStyle(hasError: boolean): React.CSSProperties {
+  return hasError
+    ? { ...fieldWrap, border: "0.5px solid #C47A6A", boxShadow: "0 0 0 1px #C47A6A33" }
+    : fieldWrap;
+}
+
+function fieldErrorMessage(message: string) {
+  return (
+    <p
+      style={{
+        margin: "8px 0 0",
+        fontSize: 11,
+        color: "#C47A6A",
+        fontFamily: SERIF,
+      }}
+    >
+      {message}
+    </p>
+  );
+}
+
 export type { GumSubmitContextPlayer };
 
 type GumSubmitFlowProps = {
@@ -94,9 +152,10 @@ export function GumSubmitFlow({
   players,
   showPlayerSelector = false,
 }: GumSubmitFlowProps) {
+  const requiresPlayerSelection = showPlayerSelector && players.length > 1;
   const [step, setStep] = useState(1);
   const [playerId, setPlayerId] = useState(
-    showPlayerSelector ? "" : (players[0]?.id ?? ""),
+    requiresPlayerSelection ? "" : (players[0]?.id ?? ""),
   );
   const [itemType, setItemType] = useState("");
   const [itemDescription, setItemDescription] = useState("");
@@ -107,6 +166,7 @@ export function GumSubmitFlow({
   const [evidence, setEvidence] = useState<EvidenceEntry[]>([]);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [step1Errors, setStep1Errors] = useState<Step1Validation["errors"]>([]);
   const [success, setSuccess] = useState<{ gum_code: string } | null>(null);
 
   const selectedPlayer = useMemo(
@@ -175,38 +235,70 @@ export function GumSubmitFlow({
     setEvidence((current) => current.filter((_, i) => i !== index));
   };
 
-  const validateStep1 = () => {
-    if (!playerId) return "Select a player.";
-    if (!itemType) return "Select an item type.";
-    if (!itemDescription.trim()) return "Enter an item description.";
-    if (!ownerStatement.trim()) return "Owner statement is required.";
-    if (ownerStatement.length > 200) {
-      return "Owner statement must be 200 characters or fewer.";
-    }
-    return null;
-  };
+  const validateStep1 = useCallback(() => {
+    return validateStep1Fields({
+      playerId,
+      itemType,
+      itemDescription,
+      ownerStatement,
+      requiresPlayerSelection,
+    });
+  }, [
+    playerId,
+    itemType,
+    itemDescription,
+    ownerStatement,
+    requiresPlayerSelection,
+  ]);
+
+  const step1ErrorFor = useCallback(
+    (field: Step1Field) =>
+      step1Errors.find((entry) => entry.field === field)?.message ?? null,
+    [step1Errors],
+  );
 
   const handleNext = () => {
     setError(null);
     if (step === 1) {
-      const message = validateStep1();
-      if (message) {
-        setError(message);
+      const validation = validateStep1();
+
+      if (!validation.ok) {
+        console.log("[GumSubmit] Continue blocked — step 1 validation:", {
+          values: { playerId, itemType, itemDescription, ownerStatement },
+          requiresPlayerSelection,
+          errors: validation.errors,
+        });
+        setStep1Errors(validation.errors);
+        setError(
+          validation.errors.length === 1
+            ? validation.errors[0].message
+            : `Complete required fields: ${validation.errors.map((entry) => entry.message).join(" ")}`,
+        );
         return;
       }
+
+      console.log("[GumSubmit] Step 1 validation passed, advancing to step 2");
+      setStep1Errors([]);
     }
     setStep((current) => Math.min(3, current + 1));
   };
 
   const handleBack = () => {
     setError(null);
+    setStep1Errors([]);
     setStep((current) => Math.max(1, current - 1));
   };
 
   const handleSubmit = async () => {
-    const message = validateStep1();
-    if (message) {
-      setError(message);
+    const validation = validateStep1();
+    if (!validation.ok) {
+      console.log("[GumSubmit] Submit blocked — step 1 validation:", validation);
+      setStep1Errors(validation.errors);
+      setError(
+        validation.errors.length === 1
+          ? validation.errors[0].message
+          : `Complete required fields: ${validation.errors.map((entry) => entry.message).join(" ")}`,
+      );
       setStep(1);
       return;
     }
@@ -393,8 +485,8 @@ export function GumSubmitFlow({
 
       {step === 1 && (
         <section>
-          {(showPlayerSelector || players.length > 1) && (
-            <div style={fieldWrap}>
+          {(requiresPlayerSelection || players.length > 1) && (
+            <div style={fieldErrorStyle(Boolean(step1ErrorFor("playerId")))}>
               <label style={labelStyle} htmlFor="gum-player">
                 Player
               </label>
@@ -406,27 +498,36 @@ export function GumSubmitFlow({
                   setEvtId("");
                   setOrgId("");
                   setOrgManual(false);
+                  setStep1Errors((current) =>
+                    current.filter((entry) => entry.field !== "playerId"),
+                  );
                 }}
                 style={{ ...inputStyle, cursor: "pointer" }}
               >
-                {showPlayerSelector && <option value="">Select player…</option>}
+                {requiresPlayerSelection && <option value="">Select player…</option>}
                 {players.map((player) => (
                   <option key={player.id} value={player.id}>
                     {player.display_name} ({player.ppc_number})
                   </option>
                 ))}
               </select>
+              {step1ErrorFor("playerId") && fieldErrorMessage(step1ErrorFor("playerId")!)}
             </div>
           )}
 
-          <div style={fieldWrap}>
+          <div style={fieldErrorStyle(Boolean(step1ErrorFor("itemType")))}>
             <label style={labelStyle} htmlFor="gum-item-type">
               Item Type
             </label>
             <select
               id="gum-item-type"
               value={itemType}
-              onChange={(e) => setItemType(e.target.value)}
+              onChange={(e) => {
+                setItemType(e.target.value);
+                setStep1Errors((current) =>
+                  current.filter((entry) => entry.field !== "itemType"),
+                );
+              }}
               style={{ ...inputStyle, cursor: "pointer" }}
             >
               <option value="">Select type…</option>
@@ -436,9 +537,10 @@ export function GumSubmitFlow({
                 </option>
               ))}
             </select>
+            {step1ErrorFor("itemType") && fieldErrorMessage(step1ErrorFor("itemType")!)}
           </div>
 
-          <div style={fieldWrap}>
+          <div style={fieldErrorStyle(Boolean(step1ErrorFor("itemDescription")))}>
             <label style={labelStyle} htmlFor="gum-description">
               Item Description
             </label>
@@ -446,13 +548,20 @@ export function GumSubmitFlow({
               id="gum-description"
               type="text"
               value={itemDescription}
-              onChange={(e) => setItemDescription(e.target.value)}
+              onChange={(e) => {
+                setItemDescription(e.target.value);
+                setStep1Errors((current) =>
+                  current.filter((entry) => entry.field !== "itemDescription"),
+                );
+              }}
               placeholder="Describe the artifact"
               style={inputStyle}
             />
+            {step1ErrorFor("itemDescription") &&
+              fieldErrorMessage(step1ErrorFor("itemDescription")!)}
           </div>
 
-          <div style={fieldWrap}>
+          <div style={fieldErrorStyle(Boolean(step1ErrorFor("ownerStatement")))}>
             <label style={labelStyle} htmlFor="gum-owner-statement">
               Owner Statement
             </label>
@@ -462,7 +571,12 @@ export function GumSubmitFlow({
               maxLength={200}
               rows={4}
               value={ownerStatement}
-              onChange={(e) => setOwnerStatement(e.target.value)}
+              onChange={(e) => {
+                setOwnerStatement(e.target.value);
+                setStep1Errors((current) =>
+                  current.filter((entry) => entry.field !== "ownerStatement"),
+                );
+              }}
               placeholder="Your statement of ownership and provenance"
               style={{
                 ...inputStyle,
@@ -481,6 +595,8 @@ export function GumSubmitFlow({
             >
               {ownerCharsLeft} characters remaining
             </p>
+            {step1ErrorFor("ownerStatement") &&
+              fieldErrorMessage(step1ErrorFor("ownerStatement")!)}
           </div>
 
           <div style={fieldWrap}>
@@ -758,6 +874,47 @@ export function GumSubmitFlow({
             )}
           </div>
         </section>
+      )}
+
+      {step === 1 && step1Errors.length > 0 && (
+        <div
+          role="alert"
+          style={{
+            background: "#2A1410",
+            border: "0.5px solid #C47A6A",
+            borderRadius: 2,
+            padding: "12px 14px",
+            marginTop: 8,
+            marginBottom: 4,
+          }}
+        >
+          <p
+            style={{
+              margin: "0 0 8px",
+              fontSize: 10,
+              color: "#C47A6A",
+              letterSpacing: "0.14em",
+              textTransform: "uppercase",
+              fontFamily: SERIF,
+            }}
+          >
+            Cannot continue — fix required fields
+          </p>
+          <ul
+            style={{
+              margin: 0,
+              paddingLeft: 18,
+              fontSize: 12,
+              color: "#E8B4A8",
+              fontFamily: SERIF,
+              lineHeight: 1.6,
+            }}
+          >
+            {step1Errors.map((entry) => (
+              <li key={entry.field}>{entry.message}</li>
+            ))}
+          </ul>
+        </div>
       )}
 
       <div

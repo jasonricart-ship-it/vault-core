@@ -343,11 +343,11 @@ function PulsingLight({ position, active }: { position: [number, number, number]
   const ref = useRef<THREE.PointLight>(null);
   useFrame(({ clock }) => {
     if (ref.current && active) {
-      ref.current.intensity = 3 + Math.sin(clock.elapsedTime * 3) * 1;
+      ref.current.intensity = 5 + Math.sin(clock.elapsedTime * 3) * 1.5;
     }
   });
   if (!active) return null;
-  return <pointLight ref={ref} position={position} color="#D4A832" intensity={4} distance={10} />;
+  return <pointLight ref={ref} position={position} color="#D4A832" intensity={6} distance={12} />;
 }
 
 function HammerChisel({
@@ -425,7 +425,7 @@ function HammerChisel({
       </mesh>
 
       {half && !full && (
-        <pointLight position={[-0.3 * scale, hammerHeadY + 0.2, centerZ]} color="#D4A832" intensity={2} distance={6} />
+        <pointLight position={[-0.3 * scale, hammerHeadY + 0.2, centerZ]} color="#D4A832" intensity={3.5} distance={8} />
       )}
       <PulsingLight position={[-0.3 * scale, hammerHeadY + 0.2, centerZ]} active={full} />
       <PulsingLight position={[0.3 * scale, chiselBladeY + 0.2, centerZ]} active={full} />
@@ -790,7 +790,7 @@ function AffiliationsOctagon({
                     <boxGeometry args={[0.15, 7, 0.02]} />
                     <meshBasicMaterial color={GOLD} />
                   </mesh>
-                  <pointLight position={[0, 4, 0.5]} color="#D4A832" intensity={1.5} distance={8} />
+                  <pointLight position={[0, 4, 0.5]} color="#D4A832" intensity={3} distance={10} />
                 </>
               )}
               {show && (
@@ -858,7 +858,7 @@ function ProvenanceCorridor({ player, cameraZ }: { player: PlayerData; cameraZ: 
       </mesh>
 
       {[-19, -23].map((z) => (
-        <pointLight key={z} position={[0, 4, z]} color="#D4A832" intensity={1.5} distance={10} />
+        <pointLight key={z} position={[0, 4, z]} color="#D4A832" intensity={3} distance={12} />
       ))}
 
       {govN && (
@@ -1000,13 +1000,13 @@ function AchievementsHexagon({ player, cameraZ }: { player: PlayerData; cameraZ:
       })}
 
       {slots[0]?.filled && (
-        <pointLight position={[-4, 3, -32]} color="#D4A832" intensity={3} distance={8} />
+        <pointLight position={[-4, 3, -32]} color="#D4A832" intensity={5} distance={10} />
       )}
       {slots[1]?.filled && (
-        <pointLight position={[4, 3, -36]} color="#D4A832" intensity={3} distance={8} />
+        <pointLight position={[4, 3, -36]} color="#D4A832" intensity={5} distance={10} />
       )}
       {slots[2]?.filled && (
-        <pointLight position={[-4, 3, -40]} color="#D4A832" intensity={3} distance={8} />
+        <pointLight position={[-4, 3, -40]} color="#D4A832" intensity={5} distance={10} />
       )}
 
       <HammerChisel
@@ -1217,7 +1217,8 @@ function CorridorWorld({
   return (
     <>
       <color attach="background" args={[BG]} />
-      <ambientLight intensity={0.2} />
+      <ambientLight intensity={0.58} />
+      <hemisphereLight args={["#F5F0E6", "#1A1208", 0.42]} />
 
       <EntryPlaza player={player} cameraZ={cameraZ} />
       <StoneSteps specs={stepsDown1} showTrim={false} />
@@ -1338,6 +1339,9 @@ export function CorridorScene({ player }: { player: PlayerData }) {
         camera={{ fov: 65, near: 0.1, far: 250, position: [0, CAM_Y, CAM_START_Z] }}
         style={{ width: "100%", height: "100%" }}
         gl={{ antialias: true }}
+        onCreated={({ gl }) => {
+          gl.toneMappingExposure = 1.55;
+        }}
       >
         <CorridorExperience player={player} onZoneChange={onZoneChange} />
       </Canvas>

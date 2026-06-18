@@ -97,81 +97,144 @@ function GumDisplayCase({
   const glassX = wall === "left" ? -5.2 : 5.2;
   const sign = wall === "left" ? 1 : -1;
 
+  const recessColor =
+    visual === "empty"
+      ? "#16120E"
+      : visual === "pending"
+        ? "#1C160C"
+        : "#141210";
+
+  const frameColor = "#6B5C48";
+  const frameOpacity = visual === "empty" ? 0.95 : 0.65;
+
   const glassColor =
     visual === "pending"
-      ? "#E8D4A8"
+      ? "#F5D080"
       : visual === "authenticated-e1"
-        ? "#8BC4D8"
+        ? "#FFF0C8"
         : visual === "authenticated-standard"
-          ? "#B8C8D8"
-          : "#8BC4D8";
+          ? "#FFF8F0"
+          : "#D8E8F0";
 
   const glassOpacity =
-    visual === "empty"
-      ? 0
-      : visual === "pending"
-        ? 0.3
-        : visual === "authenticated-e1"
-          ? 0.07
-          : 0.11;
+    visual === "pending"
+      ? 0.52
+      : visual === "authenticated-e1"
+        ? 0.38
+        : visual === "authenticated-standard"
+          ? 0.42
+          : 0;
 
-  const lightColor =
+  const innerGlowColor =
     visual === "pending"
       ? "#FFB84A"
       : visual === "authenticated-e1"
         ? GOLD
-        : "#E8E0D0";
+        : "#FFF5E6";
 
-  const lightIntensity =
+  const innerGlowOpacity =
     visual === "pending"
-      ? 1.8
+      ? 0.48
       : visual === "authenticated-e1"
-        ? 3.2
+        ? 0.55
         : visual === "authenticated-standard"
-          ? 1.4
+          ? 0.42
           : 0;
+
+  const haloOpacity = visual === "authenticated-e1" ? 0.22 : 0;
+
+  const lights: { color: string; intensity: number; y: number; zOffset: number }[] =
+    visual === "pending"
+      ? [
+          { color: "#FFB84A", intensity: 8, y: 1.8, zOffset: 0.15 },
+          { color: "#FFD090", intensity: 4, y: -0.8, zOffset: 0.2 },
+        ]
+      : visual === "authenticated-e1"
+        ? [
+            { color: GOLD, intensity: 12, y: 1.6, zOffset: 0.15 },
+            { color: "#FFE8A0", intensity: 6, y: 0, zOffset: 0.25 },
+            { color: GOLD, intensity: 4, y: -1.2, zOffset: 0.15 },
+          ]
+        : visual === "authenticated-standard"
+          ? [
+              { color: "#FFF8F0", intensity: 7, y: 1.5, zOffset: 0.15 },
+              { color: "#FFE8D0", intensity: 3.5, y: -0.6, zOffset: 0.2 },
+            ]
+          : [];
 
   return (
     <group>
       <mesh position={[caseX, 0, z]}>
         <boxGeometry args={[2.5, 4.5, 1.2]} />
-        <meshBasicMaterial color={visual === "empty" ? "#080604" : "#0A0806"} />
+        <meshBasicMaterial color={recessColor} />
+      </mesh>
+
+      {/* Stone frame — always visible; strongest on empty cases */}
+      <mesh position={[glassX, 0, z + sign * 0.04]}>
+        <boxGeometry args={[2.58, 4.58, 0.1]} />
+        <meshBasicMaterial
+          color={frameColor}
+          transparent
+          opacity={frameOpacity}
+          depthWrite={false}
+        />
       </mesh>
 
       {visual === "empty" && (
-        <mesh position={[glassX + sign * 0.02, 0, z]}>
-          <boxGeometry args={[2.52, 4.52, 1.22]} />
-          <meshBasicMaterial color="#2A1E10" wireframe transparent opacity={0.35} />
+        <mesh position={[glassX, 0, z + sign * 0.06]}>
+          <boxGeometry args={[2.42, 4.42, 0.06]} />
+          <meshBasicMaterial color="#0E0C0A" transparent opacity={0.85} depthWrite={false} />
         </mesh>
       )}
 
       {visual !== "empty" && (
-        <mesh position={[glassX, 0, z]}>
-          <boxGeometry args={[2.5, 4.5, 0.08]} />
-          <meshBasicMaterial
-            color={glassColor}
-            transparent
-            opacity={glassOpacity}
-            depthWrite={false}
-          />
-        </mesh>
+        <>
+          {innerGlowOpacity > 0 && (
+            <mesh position={[caseX, 0, z + sign * 0.08]}>
+              <boxGeometry args={[2.05, 3.85, 0.12]} />
+              <meshBasicMaterial
+                color={innerGlowColor}
+                transparent
+                opacity={innerGlowOpacity}
+                depthWrite={false}
+              />
+            </mesh>
+          )}
+
+          {haloOpacity > 0 && (
+            <mesh position={[caseX, 0, z + sign * 0.05]}>
+              <boxGeometry args={[2.35, 4.2, 0.85]} />
+              <meshBasicMaterial
+                color={GOLD}
+                transparent
+                opacity={haloOpacity}
+                depthWrite={false}
+              />
+            </mesh>
+          )}
+
+          <mesh position={[glassX, 0, z + sign * 0.1]}>
+            <boxGeometry args={[2.48, 4.48, 0.06]} />
+            <meshBasicMaterial
+              color={glassColor}
+              transparent
+              opacity={glassOpacity}
+              depthWrite={false}
+            />
+          </mesh>
+        </>
       )}
 
-      {visual === "authenticated-e1" && (
-        <mesh position={[caseX, 0, z]}>
-          <boxGeometry args={[2.1, 4.0, 0.9]} />
-          <meshBasicMaterial color={GOLD} transparent opacity={0.08} depthWrite={false} />
-        </mesh>
-      )}
-
-      {visual !== "empty" && lightIntensity > 0 && (
+      {lights.map((light, index) => (
         <pointLight
-          position={[caseX, 2, z]}
-          color={lightColor}
-          intensity={lightIntensity}
-          distance={4}
+          key={index}
+          position={[caseX, light.y, z + sign * light.zOffset]}
+          color={light.color}
+          intensity={light.intensity}
+          distance={6}
+          decay={1.5}
         />
-      )}
+      ))}
     </group>
   );
 }
@@ -202,8 +265,8 @@ function GumPlacard({
           width: 148,
           textAlign: "left",
           padding: "6px 8px",
-          background: "rgba(10, 9, 8, 0.82)",
-          border: "0.5px solid #B8972A33",
+          background: "rgba(18, 14, 10, 0.92)",
+          border: "0.5px solid #B8972A66",
         }}
       >
         {item ? (
@@ -278,10 +341,10 @@ function GumPlacard({
           </>
         ) : (
           <>
-            <p style={{ fontSize: 8, color: "#B8972A22", margin: 0 }}>
+            <p style={{ fontSize: 8, color: "#B8972A88", margin: 0 }}>
               DISPLAY CASE {slotNumber}
             </p>
-            <p style={{ fontSize: 7, color: "#B8972A33", margin: "3px 0 0" }}>
+            <p style={{ fontSize: 7, color: "#B8972A99", margin: "3px 0 0" }}>
               Awaiting item
             </p>
           </>
@@ -339,33 +402,40 @@ export function GumGallery({
 
   return (
     <group>
+      {/* Gallery ceiling wash — museum track lighting */}
+      <pointLight position={[0, 4.5, -65]} color="#FFF5E8" intensity={5} distance={24} decay={1.2} />
+      <pointLight position={[-5, 4, -62]} color="#FFF0DC" intensity={3.5} distance={16} decay={1.2} />
+      <pointLight position={[5, 4, -62]} color="#FFF0DC" intensity={3.5} distance={16} decay={1.2} />
+      <pointLight position={[-5, 4, -68]} color="#FFF0DC" intensity={3.5} distance={16} decay={1.2} />
+      <pointLight position={[5, 4, -68]} color="#FFF0DC" intensity={3.5} distance={16} decay={1.2} />
+
       <mesh position={[-7, 0, -65]}>
         <boxGeometry args={[0.4, 8, 20]} />
-        <meshBasicMaterial color="#2A1E10" />
+        <meshBasicMaterial color="#3A2E20" />
       </mesh>
       <mesh position={[7, 0, -65]}>
         <boxGeometry args={[0.4, 8, 20]} />
-        <meshBasicMaterial color="#2A1E10" />
+        <meshBasicMaterial color="#3A2E20" />
       </mesh>
       <mesh position={[0, 4.15, -65]}>
         <boxGeometry args={[14, 0.3, 20]} />
-        <meshBasicMaterial color="#0F0C08" />
+        <meshBasicMaterial color="#1E1810" />
       </mesh>
       <mesh position={[0, -3.8, -65]}>
         <boxGeometry args={[14, 0.3, 20]} />
-        <meshBasicMaterial color="#1E1610" />
+        <meshBasicMaterial color="#2A2218" />
       </mesh>
 
       {SLAB_Z.map((z, i) => (
         <mesh key={z} position={[0, -3.78, z]}>
           <boxGeometry args={[12, 0.05, 1.8]} />
-          <meshBasicMaterial color={i % 2 === 0 ? "#1E1610" : "#1A1208"} />
+          <meshBasicMaterial color={i % 2 === 0 ? "#2A2218" : "#241C14"} />
         </mesh>
       ))}
 
       <mesh position={[0, -3.78, -56]}>
         <boxGeometry args={[4, 0.05, 0.8]} />
-        <meshBasicMaterial color="#2A1E10" />
+        <meshBasicMaterial color="#3A2E20" />
       </mesh>
 
       {CASE_Z.map((z, rowIndex) => {
