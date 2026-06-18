@@ -139,6 +139,7 @@ export type PlayerData = {
   strength_score: number;
   vault_level: string;
   bust_color: string;
+  corridor_breakthrough_at?: string | null;
   exhibit_status: string;
   org_affiliations: OrgAffiliationDetail[];
   gov_affiliations: GovAffiliationDetail[];
@@ -178,4 +179,5 @@ export type CorridorPlayerSummary = {
   preferred_name: string | null;
   primary_sport: string | null;
   vault_level: string;
+  strength_score?: number;
 };

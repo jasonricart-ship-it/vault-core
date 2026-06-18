@@ -38,6 +38,7 @@ model Player {
   created_by          String?
   principles_acknowledged_at DateTime?
   principles_acknowledged_ip   String?
+  corridor_breakthrough_at     DateTime?
 
   guardian            Account?  @relation("GuardianPlayers", fields: [guardian_account_id], references: [id])
   org_affiliations    PlayerOrgAffiliation[]

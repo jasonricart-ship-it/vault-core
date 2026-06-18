@@ -10,7 +10,13 @@ import type { CorridorPlayerSummary } from "@/components/vault/corridor/types";
 
 export const dynamic = "force-dynamic";
 
-function PlayerCard({ player }: { player: CorridorPlayerSummary }) {
+function PlayerCard({
+  player,
+  rank,
+}: {
+  player: CorridorPlayerSummary;
+  rank: number;
+}) {
   const colors = vaultTierColors(player.vault_level);
   const initials = getInitials({
     ...player,
@@ -84,8 +90,20 @@ function PlayerCard({ player }: { player: CorridorPlayerSummary }) {
         </p>
         <p style={{ fontSize: 12, color: "#F5F2EC66", margin: "4px 0 0", fontFamily: CORRIDOR.serif }}>
           {player.primary_sport ?? "—"} · {vaultTierLabel(player.vault_level)}
+          {player.strength_score != null ? ` · Strength ${player.strength_score}` : ""}
         </p>
       </div>
+      <span
+        style={{
+          fontSize: 11,
+          letterSpacing: "0.1em",
+          color: CORRIDOR.gold,
+          fontFamily: CORRIDOR.serif,
+          flexShrink: 0,
+        }}
+      >
+        #{rank}
+      </span>
     </Link>
   );
 }
@@ -136,8 +154,8 @@ export default async function PpcCorridorBrowserPage() {
         </p>
 
         <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {players.map((player) => (
-            <PlayerCard key={player.ppc_number} player={player} />
+          {players.map((player, index) => (
+            <PlayerCard key={player.ppc_number} player={player} rank={index + 1} />
           ))}
         </div>
       </div>

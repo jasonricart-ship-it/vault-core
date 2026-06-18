@@ -4,7 +4,12 @@ import "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import gsap from "gsap";
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { Group } from "three";
+import type { Group, PointLight } from "three";
+import { useFrame } from "@react-three/fiber";
+import {
+  GUM_OCTAGON_PANELS,
+  isGumOctagonComplete,
+} from "@/lib/gum-breakthrough";
 import type { CorridorGumItem, CorridorGumResponse, PlayerData } from "./types";
 
 const GOLD = "#B8972A";
@@ -12,6 +17,413 @@ const PARCHMENT = "#F5F2EC";
 const SERIF = "Georgia, 'Times New Roman', serif";
 export const CORRIDOR_GUM_MAX = 12;
 const GUM_MAX = CORRIDOR_GUM_MAX;
+const OCTAGON_CENTER_Z = -73;
+const END_WALL_Z = -76.2;
+const PLINTH_Z = -70;
+
+function polygonEdges(sides: number, circumR: number, centerZ: number, y = 0) {
+  const apothem = circumR * Math.cos(Math.PI / sides);
+  return Array.from({ length: sides }, (_, i) => {
+    const angle = ((i + 0.5) / sides) * Math.PI * 2;
+    return {
+      position: [apothem * Math.sin(angle), y, centerZ + apothem * Math.cos(angle)] as [
+        number,
+        number,
+        number,
+      ],
+      rotationY: angle + Math.PI,
+    };
+  });
+}
+
+function buildOctagonPanelSlots(
+  items: CorridorGumItem[],
+  segment: number,
+): (CorridorGumItem | null)[] {
+  return Array.from({ length: GUM_OCTAGON_PANELS }, (_, index) => {
+    const position = index + 1;
+    return (
+      items.find(
+        (item) =>
+          item.corridor_segment === segment &&
+          item.display_position === position &&
+          item.status === "authenticated",
+      ) ?? null
+    );
+  });
+}
+
+function OctagonPulsingLight({
+  position,
+  active,
+}: {
+  position: [number, number, number];
+  active: boolean;
+}) {
+  const ref = useRef<PointLight>(null);
+  useFrame(({ clock }) => {
+    if (ref.current && active) {
+      ref.current.intensity = 5 + Math.sin(clock.elapsedTime * 3) * 1.5;
+    }
+  });
+  if (!active) return null;
+  return <pointLight ref={ref} position={position} color="#D4A832" intensity={6} distance={10} />;
+}
+
+function BreakthroughFloorSeal({
+  show,
+  centerZ,
+  sealedAt,
+}: {
+  show: boolean;
+  centerZ: number;
+  sealedAt: string | null;
+}) {
+  if (!show || !sealedAt) return null;
+  const date = new Date(sealedAt).toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  return (
+    <Html position={[0, -3.7, centerZ + 1.5]} center transform={false} distanceFactor={11}>
+      <div style={{ ...HTML, fontFamily: SERIF, textAlign: "center" }}>
+        <p
+          style={{
+            fontSize: 10,
+            color: GOLD,
+            letterSpacing: "0.2em",
+            margin: 0,
+            textTransform: "uppercase",
+          }}
+        >
+          BREAKTHROUGH
+        </p>
+        <p style={{ fontSize: 9, color: "#B8972A99", margin: "4px 0 0", letterSpacing: "0.12em" }}>
+          {date}
+        </p>
+      </div>
+    </Html>
+  );
+}
+
+function GumOctagonBreakthrough({
+  show,
+  player,
+  items,
+  segment,
+  breakthroughAt,
+  onBreakthroughComplete,
+}: {
+  show: boolean;
+  player: PlayerData;
+  items: CorridorGumItem[];
+  segment: number;
+  breakthroughAt: string | null;
+  onBreakthroughComplete?: (result?: {
+    breakthrough_at?: string;
+    strength_score?: number;
+    vault_level?: string;
+    bust_color?: string;
+    ranking_position?: number;
+  }) => void;
+}) {
+  const panels = useMemo(() => polygonEdges(GUM_OCTAGON_PANELS, 7.2, OCTAGON_CENTER_Z, 0), []);
+  const octagonSlots = useMemo(
+    () => buildOctagonPanelSlots(items, segment),
+    [items, segment],
+  );
+  const octagonFilled = octagonSlots.filter(Boolean).length;
+  const octagonFull = useMemo(
+    () => isGumOctagonComplete(items, segment),
+    [items, segment],
+  );
+
+  const hammerRef = useRef<Group>(null);
+  const chiselRef = useRef<Group>(null);
+  const wallRef = useRef<Group>(null);
+  const fragmentRefs = useRef<Group[]>([]);
+
+  const [wallOpen, setWallOpen] = useState(Boolean(breakthroughAt));
+  const [cracking, setCracking] = useState(false);
+  const [animating, setAnimating] = useState(false);
+  const [sealedAt, setSealedAt] = useState<string | null>(breakthroughAt);
+
+  useEffect(() => {
+    setWallOpen(Boolean(breakthroughAt));
+    setSealedAt(breakthroughAt);
+  }, [breakthroughAt]);
+
+  useFrame(({ clock }) => {
+    if (!octagonFull || wallOpen || animating) return;
+    const pulse = 1 + Math.sin(clock.elapsedTime * 4) * 0.1;
+    if (hammerRef.current) hammerRef.current.scale.setScalar(pulse);
+    if (chiselRef.current) chiselRef.current.scale.setScalar(pulse);
+  });
+
+  const runBreakthrough = async () => {
+    if (animating || !octagonFull || wallOpen) return;
+    setAnimating(true);
+    setCracking(true);
+
+    const hammer = hammerRef.current;
+    const chisel = chiselRef.current;
+    const wall = wallRef.current;
+
+    if (hammer) {
+      await gsap.to(hammer.rotation, {
+        z: -1.4,
+        duration: 0.35,
+        ease: "power2.inOut",
+        yoyo: true,
+        repeat: 1,
+      });
+    }
+    if (chisel) {
+      await gsap.to(chisel.position, {
+        y: chisel.position.y - 0.25,
+        duration: 0.12,
+        yoyo: true,
+        repeat: 1,
+        ease: "power1.in",
+      });
+    }
+
+    if (wall) {
+      await gsap.to(wall.scale, {
+        x: 0.05,
+        duration: 0.9,
+        ease: "power3.in",
+      });
+      await gsap.to(wall.position, {
+        y: -2,
+        duration: 0.6,
+        ease: "power2.in",
+      });
+    }
+
+    for (const [index, fragment] of fragmentRefs.current.entries()) {
+      if (!fragment) continue;
+      gsap.to(fragment.position, {
+        y: -5 - index * 0.2,
+        x: fragment.position.x + (index % 2 === 0 ? -0.6 : 0.6),
+        z: fragment.position.z + 0.4,
+        duration: 1.2 + index * 0.08,
+        ease: "power2.in",
+      });
+      gsap.to(fragment.rotation, {
+        x: Math.PI * (index + 1),
+        z: Math.PI * 0.5,
+        duration: 1.2,
+      });
+    }
+
+    setWallOpen(true);
+
+    let breakthroughResult:
+      | {
+          breakthrough_at?: string;
+          strength_score?: number;
+          vault_level?: string;
+          bust_color?: string;
+          ranking_position?: number;
+        }
+      | undefined;
+
+    try {
+      const response = await fetch(
+        `/api/ppc/${encodeURIComponent(player.ppc_number)}/strength`,
+        {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ breakthrough: "gum_octagon" }),
+        },
+      );
+      if (response.ok) {
+        breakthroughResult = (await response.json()) as typeof breakthroughResult;
+        if (breakthroughResult?.breakthrough_at) {
+          setSealedAt(breakthroughResult.breakthrough_at);
+        }
+      }
+    } catch {
+      // Visual breakthrough still plays; strength sync can retry later.
+    }
+
+    setAnimating(false);
+    onBreakthroughComplete?.(breakthroughResult);
+  };
+
+  if (!show) return null;
+
+  const showOctagon = segment === 1;
+
+  return (
+    <group>
+      {showOctagon && (
+        <>
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -3.8, OCTAGON_CENTER_Z]}>
+        <circleGeometry args={[8.5, GUM_OCTAGON_PANELS]} />
+        <meshBasicMaterial color="#1A1008" />
+      </mesh>
+
+      {panels.map((panel, index) => {
+        const item = octagonSlots[index];
+        const filled = Boolean(item);
+        return (
+          <group key={index} position={panel.position} rotation={[0, panel.rotationY, 0]}>
+            <mesh>
+              <boxGeometry args={[3.8, 5.5, 0.12]} />
+              <meshBasicMaterial color={filled ? "#3D2810" : "#1E1208"} />
+            </mesh>
+            {filled && (
+              <>
+                <mesh position={[-1.75, 0, 0.07]}>
+                  <boxGeometry args={[0.12, 5.5, 0.02]} />
+                  <meshBasicMaterial color={GOLD} />
+                </mesh>
+                <pointLight position={[0, 2.5, 0.4]} color="#D4A832" intensity={2.5} distance={6} />
+              </>
+            )}
+            {show && (
+              <Html position={[0, 0, 0.12]} center transform={false} distanceFactor={9}>
+                <div style={{ ...HTML, fontFamily: SERIF, width: 110, textAlign: "center", color: PARCHMENT }}>
+                  {filled && item ? (
+                    <>
+                      <p style={{ fontSize: 8, color: GOLD, margin: 0 }}>{item.gum_code}</p>
+                      <p style={{ fontSize: 8, margin: "4px 0 0", textTransform: "capitalize" }}>
+                        {item.item_type}
+                      </p>
+                    </>
+                  ) : (
+                    <p style={{ fontSize: 8, color: "#B8972A55", margin: 0 }}>
+                      PANEL {index + 1}
+                    </p>
+                  )}
+                </div>
+              </Html>
+            )}
+          </group>
+        );
+      })}
+
+      {!wallOpen && (
+        <group ref={wallRef} position={[0, 0, END_WALL_Z]}>
+          <mesh>
+            <boxGeometry args={[11, 7.5, 0.45]} />
+            <meshBasicMaterial color={cracking ? "#4A3828" : CORRIDOR_STONE} />
+          </mesh>
+          {cracking &&
+            [-2, 0, 2].map((x, i) => (
+              <mesh key={i} position={[x, 0.5 - i * 0.3, 0.24]}>
+                <boxGeometry args={[0.08, 5 - i, 0.05]} />
+                <meshBasicMaterial color="#B8972A66" />
+              </mesh>
+            ))}
+          {cracking &&
+            Array.from({ length: 6 }, (_, i) => (
+              <group
+                key={i}
+                ref={(node) => {
+                  if (node) fragmentRefs.current[i] = node;
+                }}
+                position={[(i - 2.5) * 1.4, 1.5 - (i % 3), 0.3]}
+              >
+                <mesh>
+                  <boxGeometry args={[0.5, 0.35, 0.25]} />
+                  <meshBasicMaterial color="#3A2E20" />
+                </mesh>
+              </group>
+            ))}
+        </group>
+      )}
+
+      <mesh
+        position={[0, -3.5, PLINTH_Z]}
+        onClick={(event) => {
+          if (octagonFull && !wallOpen && !animating) {
+            event.stopPropagation();
+            void runBreakthrough();
+          }
+        }}
+      >
+        <cylinderGeometry args={[1.4, 1.7, 0.3, 24]} />
+        <meshBasicMaterial color="#2A1E10" />
+      </mesh>
+      <mesh position={[0, -3.2, PLINTH_Z]}>
+        <cylinderGeometry args={[1.0, 1.2, 1.4, 24]} />
+        <meshBasicMaterial color="#1E1610" />
+      </mesh>
+
+      <group ref={hammerRef} position={[-0.35, -2.2, PLINTH_Z]} rotation={[0, 0, 0.3]}>
+        <mesh position={[0, 0.6, 0]}>
+          <boxGeometry args={[0.15, 1.2, 0.15]} />
+          <meshBasicMaterial color={octagonFull ? GOLD : "#3D2810"} />
+        </mesh>
+        <mesh position={[0, 1.25, 0]}>
+          <boxGeometry args={[0.4, 0.25, 0.25]} />
+          <meshBasicMaterial color={octagonFull ? "#D4A92A" : "#888780"} />
+        </mesh>
+      </group>
+
+      <group ref={chiselRef} position={[0.35, -2.35, PLINTH_Z]} rotation={[0, 0, -0.2]}>
+        <mesh position={[0, 0.5, 0]}>
+          <boxGeometry args={[0.12, 1.0, 0.12]} />
+          <meshBasicMaterial color={octagonFull ? GOLD : "#3D2810"} />
+        </mesh>
+        <mesh position={[0, 1.05, 0]}>
+          <boxGeometry args={[0.2, 0.15, 0.3]} />
+          <meshBasicMaterial color={octagonFull ? "#D4A92A" : "#888780"} />
+        </mesh>
+      </group>
+
+      {octagonFull && !wallOpen && (
+        <>
+          <OctagonPulsingLight position={[-0.35, -1.0, PLINTH_Z]} active />
+          <OctagonPulsingLight position={[0.35, -1.1, PLINTH_Z]} active />
+          <Html position={[0, -2.4, PLINTH_Z + 1.6]} center transform={false} distanceFactor={10}>
+            <p style={{ ...HTML, fontSize: 10, color: GOLD, letterSpacing: "0.12em", fontFamily: SERIF, margin: 0 }}>
+              CLAIM YOUR BREAKTHROUGH
+            </p>
+          </Html>
+        </>
+      )}
+
+      <Html position={[0, -3.15, PLINTH_Z + 1.2]} center transform={false} distanceFactor={12}>
+        <p style={{ ...HTML, fontSize: 9, color: "#B8972A88", letterSpacing: "0.14em", fontFamily: SERIF, margin: 0 }}>
+          OCTAGON {octagonFilled}/{GUM_OCTAGON_PANELS}
+        </p>
+      </Html>
+        </>
+      )}
+
+      {(wallOpen || breakthroughAt) && (
+        <group position={[0, 0, END_WALL_Z - 2]}>
+          <mesh>
+            <boxGeometry args={[9, 7, 0.2]} />
+            <meshBasicMaterial color="#2A2418" />
+          </mesh>
+          <pointLight position={[0, 2, 1]} color="#FFF0D0" intensity={6} distance={14} />
+          {showOctagon && (
+            <Html position={[0, 1.2, 0.6]} center transform={false} distanceFactor={12}>
+              <p style={{ ...HTML, fontFamily: SERIF, fontSize: 9, color: GOLD, letterSpacing: "0.18em", margin: 0 }}>
+                SEGMENT II REVEALED
+              </p>
+            </Html>
+          )}
+        </group>
+      )}
+
+      <BreakthroughFloorSeal
+        show={show}
+        centerZ={PLINTH_Z}
+        sealedAt={sealedAt ?? breakthroughAt}
+      />
+    </group>
+  );
+}
+
+const CORRIDOR_STONE = "#1A1208";
 const GALLERY_CENTER_Z = -65;
 const PLINTH_FLOOR_Y = -3.15;
 
@@ -531,12 +943,22 @@ export function GumGallery({
   segment = 1,
   onFilledChange,
   onSegmentAdvance,
+  onBreakthroughComplete,
+  breakthroughAt = null,
 }: {
   player: PlayerData;
   cameraZ: number;
   segment?: number;
   onFilledChange?: (filled: number) => void;
   onSegmentAdvance?: () => void;
+  onBreakthroughComplete?: (result?: {
+    breakthrough_at?: string;
+    strength_score?: number;
+    vault_level?: string;
+    bust_color?: string;
+    ranking_position?: number;
+  }) => void;
+  breakthroughAt?: string | null;
 }) {
   const show = cameraZ <= -56 && cameraZ >= -74;
   const [gumItems, setGumItems] = useState<CorridorGumItem[]>([]);
@@ -564,7 +986,7 @@ export function GumGallery({
     return () => {
       cancelled = true;
     };
-  }, [player.ppc_number]);
+  }, [player.ppc_number, breakthroughAt]);
 
   const segmentItems = useMemo(
     () => itemsForSegment(gumItems, segment),
@@ -683,6 +1105,15 @@ export function GumGallery({
         show={show && keyDropActive}
         centerZ={GALLERY_CENTER_Z}
         onClick={handleKeyClick}
+      />
+
+      <GumOctagonBreakthrough
+        show={show}
+        player={player}
+        items={gumItems}
+        segment={segment}
+        breakthroughAt={breakthroughAt}
+        onBreakthroughComplete={onBreakthroughComplete}
       />
     </group>
   );

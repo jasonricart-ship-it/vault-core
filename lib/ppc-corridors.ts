@@ -13,7 +13,7 @@ export async function fetchActivePublicPlayers(): Promise<CorridorPlayerSummary[
       display_name: { not: "Reserved" },
       visibility: { in: ["public", "member"] },
     },
-    orderBy: { ppc_number: "asc" },
+    orderBy: [{ strength_score: "desc" }, { ppc_number: "asc" }],
     select: {
       ppc_number: true,
       display_name: true,
@@ -22,6 +22,7 @@ export async function fetchActivePublicPlayers(): Promise<CorridorPlayerSummary[
       preferred_name: true,
       primary_sport: true,
       vault_level: true,
+      strength_score: true,
     },
   });
 }

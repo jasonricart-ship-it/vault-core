@@ -122,7 +122,8 @@ export const PlayerScalarFieldEnum = {
   guardian_account_id: 'guardian_account_id',
   created_by: 'created_by',
   principles_acknowledged_at: 'principles_acknowledged_at',
-  principles_acknowledged_ip: 'principles_acknowledged_ip'
+  principles_acknowledged_ip: 'principles_acknowledged_ip',
+  corridor_breakthrough_at: 'corridor_breakthrough_at'
 } as const
 
 export type PlayerScalarFieldEnum = (typeof PlayerScalarFieldEnum)[keyof typeof PlayerScalarFieldEnum]

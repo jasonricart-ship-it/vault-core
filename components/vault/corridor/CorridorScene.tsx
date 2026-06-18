@@ -1073,15 +1073,48 @@ function GumGalleryZone({
   cameraZ,
   segment,
   onAdvanceSegment,
+  onBreakthroughStrength,
 }: {
   player: PlayerData;
   cameraZ: number;
   segment: number;
   onAdvanceSegment: () => void;
+  onBreakthroughStrength?: (patch: Partial<PlayerData>) => void;
 }) {
   const show = cameraZ <= -56 && cameraZ >= -74;
   const centerZ = -65;
   const [gumFilled, setGumFilled] = useState(0);
+  const [breakthroughAt, setBreakthroughAt] = useState<string | null>(
+    player.corridor_breakthrough_at ?? null,
+  );
+
+  useEffect(() => {
+    setBreakthroughAt(player.corridor_breakthrough_at ?? null);
+  }, [player.corridor_breakthrough_at]);
+
+  const handleBreakthroughComplete = useCallback(
+    (result?: {
+      breakthrough_at?: string;
+      strength_score?: number;
+      vault_level?: string;
+      bust_color?: string;
+      ranking_position?: number;
+    }) => {
+      if (result?.breakthrough_at) {
+        setBreakthroughAt(result.breakthrough_at);
+      }
+      if (result?.strength_score != null) {
+        onBreakthroughStrength?.({
+          strength_score: result.strength_score,
+          vault_level: result.vault_level ?? player.vault_level,
+          bust_color: result.bust_color ?? player.bust_color,
+          corridor_breakthrough_at: result.breakthrough_at ?? null,
+        });
+      }
+      onAdvanceSegment();
+    },
+    [onAdvanceSegment, onBreakthroughStrength, player.vault_level],
+  );
 
   return (
     <group>
@@ -1089,8 +1122,10 @@ function GumGalleryZone({
         player={player}
         cameraZ={cameraZ}
         segment={segment}
+        breakthroughAt={breakthroughAt}
         onFilledChange={setGumFilled}
         onSegmentAdvance={onAdvanceSegment}
+        onBreakthroughComplete={handleBreakthroughComplete}
       />
       <HammerChisel
         centerZ={centerZ}
@@ -1180,6 +1215,7 @@ function CorridorWorld({
   onBreakthrough,
   onGumSegmentAdvance,
   onReturn,
+  onPlayerUpdate,
 }: {
   player: PlayerData;
   cameraZ: number;
@@ -1187,6 +1223,7 @@ function CorridorWorld({
   onBreakthrough: () => void;
   onGumSegmentAdvance: () => void;
   onReturn: () => void;
+  onPlayerUpdate?: (patch: Partial<PlayerData>) => void;
 }) {
   const stepsDown1 = [
     { z: 4.5, y: -2.2 },
@@ -1246,6 +1283,7 @@ function CorridorWorld({
         cameraZ={cameraZ}
         segment={gumSegment}
         onAdvanceSegment={onGumSegmentAdvance}
+        onBreakthroughStrength={onPlayerUpdate}
       />
       <StoneSteps specs={stepsUp3} />
       <FinalCorridor cameraZ={cameraZ} />
@@ -1257,16 +1295,20 @@ function CorridorWorld({
 function CorridorExperience({
   player,
   onZoneChange,
+  onPlayerUpdate,
 }: {
   player: PlayerData;
   onZoneChange: (zone: string) => void;
+  onPlayerUpdate?: (patch: Partial<PlayerData>) => void;
 }) {
   const router = useRouter();
   const { camera } = useThree();
   const [cameraZ, setCameraZ] = useState(CAM_START_Z);
   const targetZRef = useRef(CAM_START_Z);
 
-  const [gumSegment, setGumSegment] = useState(1);
+  const [gumSegment, setGumSegment] = useState(
+    player.corridor_breakthrough_at ? 2 : 1,
+  );
 
   const onBreakthrough = useCallback(() => {
     gsap.to(camera.position, { z: camera.position.z - 8, duration: 1.2, ease: "power2.inOut" });
@@ -1299,6 +1341,7 @@ function CorridorExperience({
         onBreakthrough={onBreakthrough}
         onGumSegmentAdvance={onGumSegmentAdvance}
         onReturn={onReturn}
+        onPlayerUpdate={onPlayerUpdate}
       />
     </>
   );
@@ -1360,11 +1403,15 @@ function BottomHud({ zone }: { zone: string }) {
 
 export function CorridorScene({ player }: { player: PlayerData }) {
   const [zone, setZone] = useState("ENTRANCE");
+  const [livePlayer, setLivePlayer] = useState(player);
   const onZoneChange = useCallback((z: string) => setZone(z), []);
+  const onPlayerUpdate = useCallback((patch: Partial<PlayerData>) => {
+    setLivePlayer((current) => ({ ...current, ...patch }));
+  }, []);
 
   return (
     <div style={{ width: "100vw", height: "100vh", background: BG, overflow: "hidden" }}>
-      <TopHud player={player} />
+      <TopHud player={livePlayer} />
       <BottomHud zone={zone} />
       <Canvas
         camera={{ fov: 65, near: 0.1, far: 250, position: [0, CAM_Y, CAM_START_Z] }}
@@ -1374,7 +1421,11 @@ export function CorridorScene({ player }: { player: PlayerData }) {
           gl.toneMappingExposure = 1.55;
         }}
       >
-        <CorridorExperience player={player} onZoneChange={onZoneChange} />
+        <CorridorExperience
+          player={livePlayer}
+          onZoneChange={onZoneChange}
+          onPlayerUpdate={onPlayerUpdate}
+        />
       </Canvas>
     </div>
   );

@@ -60,6 +60,7 @@ export type PlayerMinAggregateOutputType = {
   created_by: string | null
   principles_acknowledged_at: Date | null
   principles_acknowledged_ip: string | null
+  corridor_breakthrough_at: Date | null
 }
 
 export type PlayerMaxAggregateOutputType = {
@@ -88,6 +89,7 @@ export type PlayerMaxAggregateOutputType = {
   created_by: string | null
   principles_acknowledged_at: Date | null
   principles_acknowledged_ip: string | null
+  corridor_breakthrough_at: Date | null
 }
 
 export type PlayerCountAggregateOutputType = {
@@ -116,6 +118,7 @@ export type PlayerCountAggregateOutputType = {
   created_by: number
   principles_acknowledged_at: number
   principles_acknowledged_ip: number
+  corridor_breakthrough_at: number
   _all: number
 }
 
@@ -154,6 +157,7 @@ export type PlayerMinAggregateInputType = {
   created_by?: true
   principles_acknowledged_at?: true
   principles_acknowledged_ip?: true
+  corridor_breakthrough_at?: true
 }
 
 export type PlayerMaxAggregateInputType = {
@@ -182,6 +186,7 @@ export type PlayerMaxAggregateInputType = {
   created_by?: true
   principles_acknowledged_at?: true
   principles_acknowledged_ip?: true
+  corridor_breakthrough_at?: true
 }
 
 export type PlayerCountAggregateInputType = {
@@ -210,6 +215,7 @@ export type PlayerCountAggregateInputType = {
   created_by?: true
   principles_acknowledged_at?: true
   principles_acknowledged_ip?: true
+  corridor_breakthrough_at?: true
   _all?: true
 }
 
@@ -325,6 +331,7 @@ export type PlayerGroupByOutputType = {
   created_by: string | null
   principles_acknowledged_at: Date | null
   principles_acknowledged_ip: string | null
+  corridor_breakthrough_at: Date | null
   _count: PlayerCountAggregateOutputType | null
   _avg: PlayerAvgAggregateOutputType | null
   _sum: PlayerSumAggregateOutputType | null
@@ -376,6 +383,7 @@ export type PlayerWhereInput = {
   created_by?: Prisma.StringNullableFilter<"Player"> | string | null
   principles_acknowledged_at?: Prisma.DateTimeNullableFilter<"Player"> | Date | string | null
   principles_acknowledged_ip?: Prisma.StringNullableFilter<"Player"> | string | null
+  corridor_breakthrough_at?: Prisma.DateTimeNullableFilter<"Player"> | Date | string | null
   guardian?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
   org_affiliations?: Prisma.PlayerOrgAffiliationListRelationFilter
   event_participation?: Prisma.PlayerEventParticipationListRelationFilter
@@ -417,6 +425,7 @@ export type PlayerOrderByWithRelationInput = {
   created_by?: Prisma.SortOrderInput | Prisma.SortOrder
   principles_acknowledged_at?: Prisma.SortOrderInput | Prisma.SortOrder
   principles_acknowledged_ip?: Prisma.SortOrderInput | Prisma.SortOrder
+  corridor_breakthrough_at?: Prisma.SortOrderInput | Prisma.SortOrder
   guardian?: Prisma.AccountOrderByWithRelationInput
   org_affiliations?: Prisma.PlayerOrgAffiliationOrderByRelationAggregateInput
   event_participation?: Prisma.PlayerEventParticipationOrderByRelationAggregateInput
@@ -461,6 +470,7 @@ export type PlayerWhereUniqueInput = Prisma.AtLeast<{
   created_by?: Prisma.StringNullableFilter<"Player"> | string | null
   principles_acknowledged_at?: Prisma.DateTimeNullableFilter<"Player"> | Date | string | null
   principles_acknowledged_ip?: Prisma.StringNullableFilter<"Player"> | string | null
+  corridor_breakthrough_at?: Prisma.DateTimeNullableFilter<"Player"> | Date | string | null
   guardian?: Prisma.XOR<Prisma.AccountNullableScalarRelationFilter, Prisma.AccountWhereInput> | null
   org_affiliations?: Prisma.PlayerOrgAffiliationListRelationFilter
   event_participation?: Prisma.PlayerEventParticipationListRelationFilter
@@ -502,6 +512,7 @@ export type PlayerOrderByWithAggregationInput = {
   created_by?: Prisma.SortOrderInput | Prisma.SortOrder
   principles_acknowledged_at?: Prisma.SortOrderInput | Prisma.SortOrder
   principles_acknowledged_ip?: Prisma.SortOrderInput | Prisma.SortOrder
+  corridor_breakthrough_at?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.PlayerCountOrderByAggregateInput
   _avg?: Prisma.PlayerAvgOrderByAggregateInput
   _max?: Prisma.PlayerMaxOrderByAggregateInput
@@ -538,6 +549,7 @@ export type PlayerScalarWhereWithAggregatesInput = {
   created_by?: Prisma.StringNullableWithAggregatesFilter<"Player"> | string | null
   principles_acknowledged_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Player"> | Date | string | null
   principles_acknowledged_ip?: Prisma.StringNullableWithAggregatesFilter<"Player"> | string | null
+  corridor_breakthrough_at?: Prisma.DateTimeNullableWithAggregatesFilter<"Player"> | Date | string | null
 }
 
 export type PlayerCreateInput = {
@@ -565,6 +577,7 @@ export type PlayerCreateInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
@@ -606,6 +619,7 @@ export type PlayerUncheckedCreateInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
@@ -645,6 +659,7 @@ export type PlayerUpdateInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
@@ -686,6 +701,7 @@ export type PlayerUncheckedUpdateInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
@@ -726,6 +742,7 @@ export type PlayerCreateManyInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
 }
 
 export type PlayerUpdateManyMutationInput = {
@@ -753,6 +770,7 @@ export type PlayerUpdateManyMutationInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PlayerUncheckedUpdateManyInput = {
@@ -781,6 +799,7 @@ export type PlayerUncheckedUpdateManyInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type PlayerCountOrderByAggregateInput = {
@@ -809,6 +828,7 @@ export type PlayerCountOrderByAggregateInput = {
   created_by?: Prisma.SortOrder
   principles_acknowledged_at?: Prisma.SortOrder
   principles_acknowledged_ip?: Prisma.SortOrder
+  corridor_breakthrough_at?: Prisma.SortOrder
 }
 
 export type PlayerAvgOrderByAggregateInput = {
@@ -841,6 +861,7 @@ export type PlayerMaxOrderByAggregateInput = {
   created_by?: Prisma.SortOrder
   principles_acknowledged_at?: Prisma.SortOrder
   principles_acknowledged_ip?: Prisma.SortOrder
+  corridor_breakthrough_at?: Prisma.SortOrder
 }
 
 export type PlayerMinOrderByAggregateInput = {
@@ -869,6 +890,7 @@ export type PlayerMinOrderByAggregateInput = {
   created_by?: Prisma.SortOrder
   principles_acknowledged_at?: Prisma.SortOrder
   principles_acknowledged_ip?: Prisma.SortOrder
+  corridor_breakthrough_at?: Prisma.SortOrder
 }
 
 export type PlayerSumOrderByAggregateInput = {
@@ -1164,6 +1186,7 @@ export type PlayerCreateWithoutAchievementsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
@@ -1204,6 +1227,7 @@ export type PlayerUncheckedCreateWithoutAchievementsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
@@ -1258,6 +1282,7 @@ export type PlayerUpdateWithoutAchievementsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
@@ -1298,6 +1323,7 @@ export type PlayerUncheckedUpdateWithoutAchievementsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
@@ -1336,6 +1362,7 @@ export type PlayerCreateWithoutGum_itemsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
@@ -1376,6 +1403,7 @@ export type PlayerUncheckedCreateWithoutGum_itemsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
@@ -1430,6 +1458,7 @@ export type PlayerUpdateWithoutGum_itemsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
@@ -1470,6 +1499,7 @@ export type PlayerUncheckedUpdateWithoutGum_itemsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
@@ -1508,6 +1538,7 @@ export type PlayerCreateWithoutOrg_affiliationsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
@@ -1548,6 +1579,7 @@ export type PlayerUncheckedCreateWithoutOrg_affiliationsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
@@ -1602,6 +1634,7 @@ export type PlayerUpdateWithoutOrg_affiliationsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
@@ -1642,6 +1675,7 @@ export type PlayerUncheckedUpdateWithoutOrg_affiliationsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
@@ -1680,6 +1714,7 @@ export type PlayerCreateWithoutEvent_participationInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
@@ -1720,6 +1755,7 @@ export type PlayerUncheckedCreateWithoutEvent_participationInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
@@ -1774,6 +1810,7 @@ export type PlayerUpdateWithoutEvent_participationInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
@@ -1814,6 +1851,7 @@ export type PlayerUncheckedUpdateWithoutEvent_participationInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
@@ -1852,6 +1890,7 @@ export type PlayerCreateWithoutGuardianInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
@@ -1891,6 +1930,7 @@ export type PlayerUncheckedCreateWithoutGuardianInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
@@ -1960,6 +2000,7 @@ export type PlayerScalarWhereInput = {
   created_by?: Prisma.StringNullableFilter<"Player"> | string | null
   principles_acknowledged_at?: Prisma.DateTimeNullableFilter<"Player"> | Date | string | null
   principles_acknowledged_ip?: Prisma.StringNullableFilter<"Player"> | string | null
+  corridor_breakthrough_at?: Prisma.DateTimeNullableFilter<"Player"> | Date | string | null
 }
 
 export type PlayerCreateWithoutViolation_affected_recordsInput = {
@@ -1987,6 +2028,7 @@ export type PlayerCreateWithoutViolation_affected_recordsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
@@ -2027,6 +2069,7 @@ export type PlayerUncheckedCreateWithoutViolation_affected_recordsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
@@ -2081,6 +2124,7 @@ export type PlayerUpdateWithoutViolation_affected_recordsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
@@ -2121,6 +2165,7 @@ export type PlayerUncheckedUpdateWithoutViolation_affected_recordsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
@@ -2159,6 +2204,7 @@ export type PlayerCreateWithoutPlayer_guardiansInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
@@ -2199,6 +2245,7 @@ export type PlayerUncheckedCreateWithoutPlayer_guardiansInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
@@ -2253,6 +2300,7 @@ export type PlayerUpdateWithoutPlayer_guardiansInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
@@ -2293,6 +2341,7 @@ export type PlayerUncheckedUpdateWithoutPlayer_guardiansInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
@@ -2331,6 +2380,7 @@ export type PlayerCreateWithoutAccount_transitionsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
@@ -2371,6 +2421,7 @@ export type PlayerUncheckedCreateWithoutAccount_transitionsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
@@ -2425,6 +2476,7 @@ export type PlayerUpdateWithoutAccount_transitionsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
@@ -2465,6 +2517,7 @@ export type PlayerUncheckedUpdateWithoutAccount_transitionsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
@@ -2503,6 +2556,7 @@ export type PlayerCreateWithoutCorridor_access_grantsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
@@ -2543,6 +2597,7 @@ export type PlayerUncheckedCreateWithoutCorridor_access_grantsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
@@ -2597,6 +2652,7 @@ export type PlayerUpdateWithoutCorridor_access_grantsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
@@ -2637,6 +2693,7 @@ export type PlayerUncheckedUpdateWithoutCorridor_access_grantsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
@@ -2675,6 +2732,7 @@ export type PlayerCreateWithoutGuardian_action_logsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
@@ -2715,6 +2773,7 @@ export type PlayerUncheckedCreateWithoutGuardian_action_logsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
@@ -2769,6 +2828,7 @@ export type PlayerUpdateWithoutGuardian_action_logsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
@@ -2809,6 +2869,7 @@ export type PlayerUncheckedUpdateWithoutGuardian_action_logsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
@@ -2847,6 +2908,7 @@ export type PlayerCreateWithoutHall_of_fame_inducteeInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
@@ -2887,6 +2949,7 @@ export type PlayerUncheckedCreateWithoutHall_of_fame_inducteeInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
@@ -2941,6 +3004,7 @@ export type PlayerUpdateWithoutHall_of_fame_inducteeInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
@@ -2981,6 +3045,7 @@ export type PlayerUncheckedUpdateWithoutHall_of_fame_inducteeInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
@@ -3019,6 +3084,7 @@ export type PlayerCreateWithoutHall_of_fame_nominationsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
@@ -3059,6 +3125,7 @@ export type PlayerUncheckedCreateWithoutHall_of_fame_nominationsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
@@ -3113,6 +3180,7 @@ export type PlayerUpdateWithoutHall_of_fame_nominationsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
@@ -3153,6 +3221,7 @@ export type PlayerUncheckedUpdateWithoutHall_of_fame_nominationsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
@@ -3191,6 +3260,7 @@ export type PlayerCreateWithoutEvt_capture_requestsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
   org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
@@ -3231,6 +3301,7 @@ export type PlayerUncheckedCreateWithoutEvt_capture_requestsInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
@@ -3285,6 +3356,7 @@ export type PlayerUpdateWithoutEvt_capture_requestsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
@@ -3325,6 +3397,7 @@ export type PlayerUncheckedUpdateWithoutEvt_capture_requestsInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
@@ -3363,6 +3436,7 @@ export type PlayerCreateManyGuardianInput = {
   created_by?: string | null
   principles_acknowledged_at?: Date | string | null
   principles_acknowledged_ip?: string | null
+  corridor_breakthrough_at?: Date | string | null
 }
 
 export type PlayerUpdateWithoutGuardianInput = {
@@ -3390,6 +3464,7 @@ export type PlayerUpdateWithoutGuardianInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
@@ -3429,6 +3504,7 @@ export type PlayerUncheckedUpdateWithoutGuardianInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
   event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
@@ -3468,6 +3544,7 @@ export type PlayerUncheckedUpdateManyWithoutGuardianInput = {
   created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  corridor_breakthrough_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -3617,6 +3694,7 @@ export type PlayerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   created_by?: boolean
   principles_acknowledged_at?: boolean
   principles_acknowledged_ip?: boolean
+  corridor_breakthrough_at?: boolean
   guardian?: boolean | Prisma.Player$guardianArgs<ExtArgs>
   org_affiliations?: boolean | Prisma.Player$org_affiliationsArgs<ExtArgs>
   event_participation?: boolean | Prisma.Player$event_participationArgs<ExtArgs>
@@ -3659,6 +3737,7 @@ export type PlayerSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   created_by?: boolean
   principles_acknowledged_at?: boolean
   principles_acknowledged_ip?: boolean
+  corridor_breakthrough_at?: boolean
   guardian?: boolean | Prisma.Player$guardianArgs<ExtArgs>
 }, ExtArgs["result"]["player"]>
 
@@ -3688,6 +3767,7 @@ export type PlayerSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   created_by?: boolean
   principles_acknowledged_at?: boolean
   principles_acknowledged_ip?: boolean
+  corridor_breakthrough_at?: boolean
   guardian?: boolean | Prisma.Player$guardianArgs<ExtArgs>
 }, ExtArgs["result"]["player"]>
 
@@ -3717,9 +3797,10 @@ export type PlayerSelectScalar = {
   created_by?: boolean
   principles_acknowledged_at?: boolean
   principles_acknowledged_ip?: boolean
+  corridor_breakthrough_at?: boolean
 }
 
-export type PlayerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ppc_number" | "display_name" | "first_name" | "last_name" | "preferred_name" | "primary_sport" | "jersey_number" | "date_of_birth" | "is_minor" | "vault_level" | "strength_score" | "exhibit_status" | "bust_color" | "visibility" | "signature_on_file" | "signature_image_key" | "bust_image_key" | "enrollment_photo_key" | "created_at" | "updated_at" | "guardian_account_id" | "created_by" | "principles_acknowledged_at" | "principles_acknowledged_ip", ExtArgs["result"]["player"]>
+export type PlayerOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "ppc_number" | "display_name" | "first_name" | "last_name" | "preferred_name" | "primary_sport" | "jersey_number" | "date_of_birth" | "is_minor" | "vault_level" | "strength_score" | "exhibit_status" | "bust_color" | "visibility" | "signature_on_file" | "signature_image_key" | "bust_image_key" | "enrollment_photo_key" | "created_at" | "updated_at" | "guardian_account_id" | "created_by" | "principles_acknowledged_at" | "principles_acknowledged_ip" | "corridor_breakthrough_at", ExtArgs["result"]["player"]>
 export type PlayerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   guardian?: boolean | Prisma.Player$guardianArgs<ExtArgs>
   org_affiliations?: boolean | Prisma.Player$org_affiliationsArgs<ExtArgs>
@@ -3786,6 +3867,7 @@ export type $PlayerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     created_by: string | null
     principles_acknowledged_at: Date | null
     principles_acknowledged_ip: string | null
+    corridor_breakthrough_at: Date | null
   }, ExtArgs["result"]["player"]>
   composites: {}
 }
@@ -4247,6 +4329,7 @@ export interface PlayerFieldRefs {
   readonly created_by: Prisma.FieldRef<"Player", 'String'>
   readonly principles_acknowledged_at: Prisma.FieldRef<"Player", 'DateTime'>
   readonly principles_acknowledged_ip: Prisma.FieldRef<"Player", 'String'>
+  readonly corridor_breakthrough_at: Prisma.FieldRef<"Player", 'DateTime'>
 }
     
 
