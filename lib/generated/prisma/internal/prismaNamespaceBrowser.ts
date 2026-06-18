@@ -76,7 +76,9 @@ export const ModelName = {
   RepresentativeContact: 'RepresentativeContact',
   HallOfFameInductee: 'HallOfFameInductee',
   HallOfFameNomination: 'HallOfFameNomination',
-  VaultRegistryCollector: 'VaultRegistryCollector'
+  VaultRegistryCollector: 'VaultRegistryCollector',
+  OrgCaptureDesignee: 'OrgCaptureDesignee',
+  EvtCaptureRequest: 'EvtCaptureRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -264,7 +266,15 @@ export const GumItemScalarFieldEnum = {
   is_frozen: 'is_frozen',
   frozen_reason: 'frozen_reason',
   frozen_at: 'frozen_at',
-  frozen_by: 'frozen_by'
+  frozen_by: 'frozen_by',
+  owner_statement: 'owner_statement',
+  status: 'status',
+  evaluator_notes: 'evaluator_notes',
+  primary_evidence_class: 'primary_evidence_class',
+  display_position: 'display_position',
+  corridor_segment: 'corridor_segment',
+  capturer_credit: 'capturer_credit',
+  admitted_at: 'admitted_at'
 } as const
 
 export type GumItemScalarFieldEnum = (typeof GumItemScalarFieldEnum)[keyof typeof GumItemScalarFieldEnum]
@@ -327,7 +337,8 @@ export const SharedCaptureScalarFieldEnum = {
   admitted_at: 'admitted_at',
   admitted_by: 'admitted_by',
   capture_credit: 'capture_credit',
-  secondary_witnesses: 'secondary_witnesses'
+  secondary_witnesses: 'secondary_witnesses',
+  visibility: 'visibility'
 } as const
 
 export type SharedCaptureScalarFieldEnum = (typeof SharedCaptureScalarFieldEnum)[keyof typeof SharedCaptureScalarFieldEnum]
@@ -637,6 +648,34 @@ export const VaultRegistryCollectorScalarFieldEnum = {
 } as const
 
 export type VaultRegistryCollectorScalarFieldEnum = (typeof VaultRegistryCollectorScalarFieldEnum)[keyof typeof VaultRegistryCollectorScalarFieldEnum]
+
+
+export const OrgCaptureDesigneeScalarFieldEnum = {
+  id: 'id',
+  org_id: 'org_id',
+  account_id: 'account_id',
+  designated_by: 'designated_by',
+  designated_at: 'designated_at',
+  is_active: 'is_active'
+} as const
+
+export type OrgCaptureDesigneeScalarFieldEnum = (typeof OrgCaptureDesigneeScalarFieldEnum)[keyof typeof OrgCaptureDesigneeScalarFieldEnum]
+
+
+export const EvtCaptureRequestScalarFieldEnum = {
+  id: 'id',
+  evt_id: 'evt_id',
+  requested_by_account: 'requested_by_account',
+  target_player_id: 'target_player_id',
+  request_text: 'request_text',
+  status: 'status',
+  created_at: 'created_at',
+  expires_at: 'expires_at',
+  fulfilled_at: 'fulfilled_at',
+  fulfilled_by_capture_id: 'fulfilled_by_capture_id'
+} as const
+
+export type EvtCaptureRequestScalarFieldEnum = (typeof EvtCaptureRequestScalarFieldEnum)[keyof typeof EvtCaptureRequestScalarFieldEnum]
 
 
 export const SortOrder = {

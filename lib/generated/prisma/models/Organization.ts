@@ -327,6 +327,7 @@ export type OrganizationWhereInput = {
   achievements?: Prisma.AchievementListRelationFilter
   schedule_entries?: Prisma.ScheduleEntryListRelationFilter
   gum_items?: Prisma.GumItemListRelationFilter
+  capture_designees?: Prisma.OrgCaptureDesigneeListRelationFilter
 }
 
 export type OrganizationOrderByWithRelationInput = {
@@ -355,6 +356,7 @@ export type OrganizationOrderByWithRelationInput = {
   achievements?: Prisma.AchievementOrderByRelationAggregateInput
   schedule_entries?: Prisma.ScheduleEntryOrderByRelationAggregateInput
   gum_items?: Prisma.GumItemOrderByRelationAggregateInput
+  capture_designees?: Prisma.OrgCaptureDesigneeOrderByRelationAggregateInput
 }
 
 export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -386,6 +388,7 @@ export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
   achievements?: Prisma.AchievementListRelationFilter
   schedule_entries?: Prisma.ScheduleEntryListRelationFilter
   gum_items?: Prisma.GumItemListRelationFilter
+  capture_designees?: Prisma.OrgCaptureDesigneeListRelationFilter
 }, "id" | "org_code">
 
 export type OrganizationOrderByWithAggregationInput = {
@@ -463,6 +466,7 @@ export type OrganizationCreateInput = {
   achievements?: Prisma.AchievementCreateNestedManyWithoutOrgInput
   schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutOrgInput
+  capture_designees?: Prisma.OrgCaptureDesigneeCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateInput = {
@@ -490,6 +494,7 @@ export type OrganizationUncheckedCreateInput = {
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutOrgInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutOrgInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUpdateInput = {
@@ -517,6 +522,7 @@ export type OrganizationUpdateInput = {
   achievements?: Prisma.AchievementUpdateManyWithoutOrgNestedInput
   schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutOrgNestedInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateInput = {
@@ -544,6 +550,7 @@ export type OrganizationUncheckedUpdateInput = {
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutOrgNestedInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutOrgNestedInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationCreateManyInput = {
@@ -829,6 +836,20 @@ export type OrganizationUncheckedUpdateManyWithoutAdminNestedInput = {
   deleteMany?: Prisma.OrganizationScalarWhereInput | Prisma.OrganizationScalarWhereInput[]
 }
 
+export type OrganizationCreateNestedOneWithoutCapture_designeesInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutCapture_designeesInput, Prisma.OrganizationUncheckedCreateWithoutCapture_designeesInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutCapture_designeesInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneRequiredWithoutCapture_designeesNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutCapture_designeesInput, Prisma.OrganizationUncheckedCreateWithoutCapture_designeesInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutCapture_designeesInput
+  upsert?: Prisma.OrganizationUpsertWithoutCapture_designeesInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutCapture_designeesInput, Prisma.OrganizationUpdateWithoutCapture_designeesInput>, Prisma.OrganizationUncheckedUpdateWithoutCapture_designeesInput>
+}
+
 export type OrganizationCreateWithoutEventsInput = {
   id?: string
   org_code: string
@@ -853,6 +874,7 @@ export type OrganizationCreateWithoutEventsInput = {
   achievements?: Prisma.AchievementCreateNestedManyWithoutOrgInput
   schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutOrgInput
+  capture_designees?: Prisma.OrgCaptureDesigneeCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutEventsInput = {
@@ -879,6 +901,7 @@ export type OrganizationUncheckedCreateWithoutEventsInput = {
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutOrgInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutOrgInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutEventsInput = {
@@ -921,6 +944,7 @@ export type OrganizationUpdateWithoutEventsInput = {
   achievements?: Prisma.AchievementUpdateManyWithoutOrgNestedInput
   schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutOrgNestedInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutEventsInput = {
@@ -947,6 +971,7 @@ export type OrganizationUncheckedUpdateWithoutEventsInput = {
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutOrgNestedInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutOrgNestedInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationCreateWithoutAchievementsInput = {
@@ -973,6 +998,7 @@ export type OrganizationCreateWithoutAchievementsInput = {
   events?: Prisma.EventCreateNestedManyWithoutOrgInput
   schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutOrgInput
+  capture_designees?: Prisma.OrgCaptureDesigneeCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutAchievementsInput = {
@@ -999,6 +1025,7 @@ export type OrganizationUncheckedCreateWithoutAchievementsInput = {
   events?: Prisma.EventUncheckedCreateNestedManyWithoutOrgInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutOrgInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutAchievementsInput = {
@@ -1041,6 +1068,7 @@ export type OrganizationUpdateWithoutAchievementsInput = {
   events?: Prisma.EventUpdateManyWithoutOrgNestedInput
   schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutOrgNestedInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutAchievementsInput = {
@@ -1067,6 +1095,7 @@ export type OrganizationUncheckedUpdateWithoutAchievementsInput = {
   events?: Prisma.EventUncheckedUpdateManyWithoutOrgNestedInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutOrgNestedInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationCreateWithoutSchedule_entriesInput = {
@@ -1093,6 +1122,7 @@ export type OrganizationCreateWithoutSchedule_entriesInput = {
   events?: Prisma.EventCreateNestedManyWithoutOrgInput
   achievements?: Prisma.AchievementCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutOrgInput
+  capture_designees?: Prisma.OrgCaptureDesigneeCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutSchedule_entriesInput = {
@@ -1119,6 +1149,7 @@ export type OrganizationUncheckedCreateWithoutSchedule_entriesInput = {
   events?: Prisma.EventUncheckedCreateNestedManyWithoutOrgInput
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutOrgInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutSchedule_entriesInput = {
@@ -1161,6 +1192,7 @@ export type OrganizationUpdateWithoutSchedule_entriesInput = {
   events?: Prisma.EventUpdateManyWithoutOrgNestedInput
   achievements?: Prisma.AchievementUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutOrgNestedInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutSchedule_entriesInput = {
@@ -1187,6 +1219,7 @@ export type OrganizationUncheckedUpdateWithoutSchedule_entriesInput = {
   events?: Prisma.EventUncheckedUpdateManyWithoutOrgNestedInput
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutOrgNestedInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationCreateWithoutGum_itemsInput = {
@@ -1213,6 +1246,7 @@ export type OrganizationCreateWithoutGum_itemsInput = {
   events?: Prisma.EventCreateNestedManyWithoutOrgInput
   achievements?: Prisma.AchievementCreateNestedManyWithoutOrgInput
   schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutOrgInput
+  capture_designees?: Prisma.OrgCaptureDesigneeCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutGum_itemsInput = {
@@ -1239,6 +1273,7 @@ export type OrganizationUncheckedCreateWithoutGum_itemsInput = {
   events?: Prisma.EventUncheckedCreateNestedManyWithoutOrgInput
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutOrgInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutOrgInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutGum_itemsInput = {
@@ -1281,6 +1316,7 @@ export type OrganizationUpdateWithoutGum_itemsInput = {
   events?: Prisma.EventUpdateManyWithoutOrgNestedInput
   achievements?: Prisma.AchievementUpdateManyWithoutOrgNestedInput
   schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutOrgNestedInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutGum_itemsInput = {
@@ -1307,6 +1343,7 @@ export type OrganizationUncheckedUpdateWithoutGum_itemsInput = {
   events?: Prisma.EventUncheckedUpdateManyWithoutOrgNestedInput
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutOrgNestedInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutOrgNestedInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationCreateWithoutPlayer_affiliationsInput = {
@@ -1333,6 +1370,7 @@ export type OrganizationCreateWithoutPlayer_affiliationsInput = {
   achievements?: Prisma.AchievementCreateNestedManyWithoutOrgInput
   schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutOrgInput
+  capture_designees?: Prisma.OrgCaptureDesigneeCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutPlayer_affiliationsInput = {
@@ -1359,6 +1397,7 @@ export type OrganizationUncheckedCreateWithoutPlayer_affiliationsInput = {
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutOrgInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutOrgInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutPlayer_affiliationsInput = {
@@ -1401,6 +1440,7 @@ export type OrganizationUpdateWithoutPlayer_affiliationsInput = {
   achievements?: Prisma.AchievementUpdateManyWithoutOrgNestedInput
   schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutOrgNestedInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutPlayer_affiliationsInput = {
@@ -1427,6 +1467,7 @@ export type OrganizationUncheckedUpdateWithoutPlayer_affiliationsInput = {
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutOrgNestedInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutOrgNestedInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationCreateWithoutGov_affiliationsInput = {
@@ -1453,6 +1494,7 @@ export type OrganizationCreateWithoutGov_affiliationsInput = {
   achievements?: Prisma.AchievementCreateNestedManyWithoutOrgInput
   schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutOrgInput
+  capture_designees?: Prisma.OrgCaptureDesigneeCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutGov_affiliationsInput = {
@@ -1479,6 +1521,7 @@ export type OrganizationUncheckedCreateWithoutGov_affiliationsInput = {
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutOrgInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutOrgInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutGov_affiliationsInput = {
@@ -1521,6 +1564,7 @@ export type OrganizationUpdateWithoutGov_affiliationsInput = {
   achievements?: Prisma.AchievementUpdateManyWithoutOrgNestedInput
   schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutOrgNestedInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutGov_affiliationsInput = {
@@ -1547,6 +1591,7 @@ export type OrganizationUncheckedUpdateWithoutGov_affiliationsInput = {
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutOrgNestedInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutOrgNestedInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationCreateWithoutAdminInput = {
@@ -1573,6 +1618,7 @@ export type OrganizationCreateWithoutAdminInput = {
   achievements?: Prisma.AchievementCreateNestedManyWithoutOrgInput
   schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutOrgInput
+  capture_designees?: Prisma.OrgCaptureDesigneeCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationUncheckedCreateWithoutAdminInput = {
@@ -1599,6 +1645,7 @@ export type OrganizationUncheckedCreateWithoutAdminInput = {
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutOrgInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutOrgInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutOrgInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUncheckedCreateNestedManyWithoutOrgInput
 }
 
 export type OrganizationCreateOrConnectWithoutAdminInput = {
@@ -1651,6 +1698,130 @@ export type OrganizationScalarWhereInput = {
   updated_at?: Prisma.DateTimeFilter<"Organization"> | Date | string
 }
 
+export type OrganizationCreateWithoutCapture_designeesInput = {
+  id?: string
+  org_code: string
+  name: string
+  short_name?: string | null
+  sport?: string | null
+  org_type: string
+  state?: string | null
+  city?: string | null
+  vault_level?: string
+  strength_score?: number
+  registration_status?: string
+  is_verified?: boolean
+  authorization_granted?: boolean
+  annual_renewal_due?: Date | string | null
+  last_renewed_at?: Date | string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  admin?: Prisma.AccountCreateNestedOneWithoutManaged_orgsInput
+  gov_affiliations?: Prisma.OrgGovAffiliationCreateNestedManyWithoutOrgInput
+  player_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutOrgInput
+  events?: Prisma.EventCreateNestedManyWithoutOrgInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutOrgInput
+  schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutOrgInput
+  gum_items?: Prisma.GumItemCreateNestedManyWithoutOrgInput
+}
+
+export type OrganizationUncheckedCreateWithoutCapture_designeesInput = {
+  id?: string
+  org_code: string
+  name: string
+  short_name?: string | null
+  sport?: string | null
+  org_type: string
+  state?: string | null
+  city?: string | null
+  vault_level?: string
+  strength_score?: number
+  registration_status?: string
+  is_verified?: boolean
+  authorization_granted?: boolean
+  annual_renewal_due?: Date | string | null
+  last_renewed_at?: Date | string | null
+  admin_account_id?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  gov_affiliations?: Prisma.OrgGovAffiliationUncheckedCreateNestedManyWithoutOrgInput
+  player_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutOrgInput
+  events?: Prisma.EventUncheckedCreateNestedManyWithoutOrgInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutOrgInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutOrgInput
+  gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutOrgInput
+}
+
+export type OrganizationCreateOrConnectWithoutCapture_designeesInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutCapture_designeesInput, Prisma.OrganizationUncheckedCreateWithoutCapture_designeesInput>
+}
+
+export type OrganizationUpsertWithoutCapture_designeesInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutCapture_designeesInput, Prisma.OrganizationUncheckedUpdateWithoutCapture_designeesInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutCapture_designeesInput, Prisma.OrganizationUncheckedCreateWithoutCapture_designeesInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutCapture_designeesInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutCapture_designeesInput, Prisma.OrganizationUncheckedUpdateWithoutCapture_designeesInput>
+}
+
+export type OrganizationUpdateWithoutCapture_designeesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  org_code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  short_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  org_type?: Prisma.StringFieldUpdateOperationsInput | string
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  authorization_granted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  annual_renewal_due?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_renewed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  admin?: Prisma.AccountUpdateOneWithoutManaged_orgsNestedInput
+  gov_affiliations?: Prisma.OrgGovAffiliationUpdateManyWithoutOrgNestedInput
+  player_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutOrgNestedInput
+  events?: Prisma.EventUpdateManyWithoutOrgNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutOrgNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutOrgNestedInput
+  gum_items?: Prisma.GumItemUpdateManyWithoutOrgNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutCapture_designeesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  org_code?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  short_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  org_type?: Prisma.StringFieldUpdateOperationsInput | string
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
+  is_verified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  authorization_granted?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  annual_renewal_due?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  last_renewed_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  admin_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  gov_affiliations?: Prisma.OrgGovAffiliationUncheckedUpdateManyWithoutOrgNestedInput
+  player_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutOrgNestedInput
+  events?: Prisma.EventUncheckedUpdateManyWithoutOrgNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutOrgNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutOrgNestedInput
+  gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutOrgNestedInput
+}
+
 export type OrganizationCreateManyAdminInput = {
   id?: string
   org_code: string
@@ -1695,6 +1866,7 @@ export type OrganizationUpdateWithoutAdminInput = {
   achievements?: Prisma.AchievementUpdateManyWithoutOrgNestedInput
   schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutOrgNestedInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutAdminInput = {
@@ -1721,6 +1893,7 @@ export type OrganizationUncheckedUpdateWithoutAdminInput = {
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutOrgNestedInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutOrgNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutOrgNestedInput
+  capture_designees?: Prisma.OrgCaptureDesigneeUncheckedUpdateManyWithoutOrgNestedInput
 }
 
 export type OrganizationUncheckedUpdateManyWithoutAdminInput = {
@@ -1755,6 +1928,7 @@ export type OrganizationCountOutputType = {
   achievements: number
   schedule_entries: number
   gum_items: number
+  capture_designees: number
 }
 
 export type OrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1764,6 +1938,7 @@ export type OrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Exte
   achievements?: boolean | OrganizationCountOutputTypeCountAchievementsArgs
   schedule_entries?: boolean | OrganizationCountOutputTypeCountSchedule_entriesArgs
   gum_items?: boolean | OrganizationCountOutputTypeCountGum_itemsArgs
+  capture_designees?: boolean | OrganizationCountOutputTypeCountCapture_designeesArgs
 }
 
 /**
@@ -1818,6 +1993,13 @@ export type OrganizationCountOutputTypeCountGum_itemsArgs<ExtArgs extends runtim
   where?: Prisma.GumItemWhereInput
 }
 
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountCapture_designeesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrgCaptureDesigneeWhereInput
+}
+
 
 export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1845,6 +2027,7 @@ export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   achievements?: boolean | Prisma.Organization$achievementsArgs<ExtArgs>
   schedule_entries?: boolean | Prisma.Organization$schedule_entriesArgs<ExtArgs>
   gum_items?: boolean | Prisma.Organization$gum_itemsArgs<ExtArgs>
+  capture_designees?: boolean | Prisma.Organization$capture_designeesArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["organization"]>
 
@@ -1922,6 +2105,7 @@ export type OrganizationInclude<ExtArgs extends runtime.Types.Extensions.Interna
   achievements?: boolean | Prisma.Organization$achievementsArgs<ExtArgs>
   schedule_entries?: boolean | Prisma.Organization$schedule_entriesArgs<ExtArgs>
   gum_items?: boolean | Prisma.Organization$gum_itemsArgs<ExtArgs>
+  capture_designees?: boolean | Prisma.Organization$capture_designeesArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1941,6 +2125,7 @@ export type $OrganizationPayload<ExtArgs extends runtime.Types.Extensions.Intern
     achievements: Prisma.$AchievementPayload<ExtArgs>[]
     schedule_entries: Prisma.$ScheduleEntryPayload<ExtArgs>[]
     gum_items: Prisma.$GumItemPayload<ExtArgs>[]
+    capture_designees: Prisma.$OrgCaptureDesigneePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2362,6 +2547,7 @@ export interface Prisma__OrganizationClient<T, Null = never, ExtArgs extends run
   achievements<T extends Prisma.Organization$achievementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$achievementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AchievementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   schedule_entries<T extends Prisma.Organization$schedule_entriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$schedule_entriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ScheduleEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   gum_items<T extends Prisma.Organization$gum_itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$gum_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GumItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  capture_designees<T extends Prisma.Organization$capture_designeesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$capture_designeesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrgCaptureDesigneePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2970,6 +3156,30 @@ export type Organization$gum_itemsArgs<ExtArgs extends runtime.Types.Extensions.
   take?: number
   skip?: number
   distinct?: Prisma.GumItemScalarFieldEnum | Prisma.GumItemScalarFieldEnum[]
+}
+
+/**
+ * Organization.capture_designees
+ */
+export type Organization$capture_designeesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the OrgCaptureDesignee
+   */
+  select?: Prisma.OrgCaptureDesigneeSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the OrgCaptureDesignee
+   */
+  omit?: Prisma.OrgCaptureDesigneeOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrgCaptureDesigneeInclude<ExtArgs> | null
+  where?: Prisma.OrgCaptureDesigneeWhereInput
+  orderBy?: Prisma.OrgCaptureDesigneeOrderByWithRelationInput | Prisma.OrgCaptureDesigneeOrderByWithRelationInput[]
+  cursor?: Prisma.OrgCaptureDesigneeWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrgCaptureDesigneeScalarFieldEnum | Prisma.OrgCaptureDesigneeScalarFieldEnum[]
 }
 
 /**

@@ -30,12 +30,16 @@ export type GumItemAvgAggregateOutputType = {
   season_year: number | null
   strength_score: number | null
   edition_size: number | null
+  display_position: number | null
+  corridor_segment: number | null
 }
 
 export type GumItemSumAggregateOutputType = {
   season_year: number | null
   strength_score: number | null
   edition_size: number | null
+  display_position: number | null
+  corridor_segment: number | null
 }
 
 export type GumItemMinAggregateOutputType = {
@@ -72,6 +76,14 @@ export type GumItemMinAggregateOutputType = {
   frozen_reason: string | null
   frozen_at: Date | null
   frozen_by: string | null
+  owner_statement: string | null
+  status: string | null
+  evaluator_notes: string | null
+  primary_evidence_class: string | null
+  display_position: number | null
+  corridor_segment: number | null
+  capturer_credit: string | null
+  admitted_at: Date | null
 }
 
 export type GumItemMaxAggregateOutputType = {
@@ -108,6 +120,14 @@ export type GumItemMaxAggregateOutputType = {
   frozen_reason: string | null
   frozen_at: Date | null
   frozen_by: string | null
+  owner_statement: string | null
+  status: string | null
+  evaluator_notes: string | null
+  primary_evidence_class: string | null
+  display_position: number | null
+  corridor_segment: number | null
+  capturer_credit: string | null
+  admitted_at: Date | null
 }
 
 export type GumItemCountAggregateOutputType = {
@@ -144,6 +164,14 @@ export type GumItemCountAggregateOutputType = {
   frozen_reason: number
   frozen_at: number
   frozen_by: number
+  owner_statement: number
+  status: number
+  evaluator_notes: number
+  primary_evidence_class: number
+  display_position: number
+  corridor_segment: number
+  capturer_credit: number
+  admitted_at: number
   _all: number
 }
 
@@ -152,12 +180,16 @@ export type GumItemAvgAggregateInputType = {
   season_year?: true
   strength_score?: true
   edition_size?: true
+  display_position?: true
+  corridor_segment?: true
 }
 
 export type GumItemSumAggregateInputType = {
   season_year?: true
   strength_score?: true
   edition_size?: true
+  display_position?: true
+  corridor_segment?: true
 }
 
 export type GumItemMinAggregateInputType = {
@@ -194,6 +226,14 @@ export type GumItemMinAggregateInputType = {
   frozen_reason?: true
   frozen_at?: true
   frozen_by?: true
+  owner_statement?: true
+  status?: true
+  evaluator_notes?: true
+  primary_evidence_class?: true
+  display_position?: true
+  corridor_segment?: true
+  capturer_credit?: true
+  admitted_at?: true
 }
 
 export type GumItemMaxAggregateInputType = {
@@ -230,6 +270,14 @@ export type GumItemMaxAggregateInputType = {
   frozen_reason?: true
   frozen_at?: true
   frozen_by?: true
+  owner_statement?: true
+  status?: true
+  evaluator_notes?: true
+  primary_evidence_class?: true
+  display_position?: true
+  corridor_segment?: true
+  capturer_credit?: true
+  admitted_at?: true
 }
 
 export type GumItemCountAggregateInputType = {
@@ -266,6 +314,14 @@ export type GumItemCountAggregateInputType = {
   frozen_reason?: true
   frozen_at?: true
   frozen_by?: true
+  owner_statement?: true
+  status?: true
+  evaluator_notes?: true
+  primary_evidence_class?: true
+  display_position?: true
+  corridor_segment?: true
+  capturer_credit?: true
+  admitted_at?: true
   _all?: true
 }
 
@@ -389,6 +445,14 @@ export type GumItemGroupByOutputType = {
   frozen_reason: string | null
   frozen_at: Date | null
   frozen_by: string | null
+  owner_statement: string | null
+  status: string
+  evaluator_notes: string | null
+  primary_evidence_class: string | null
+  display_position: number | null
+  corridor_segment: number
+  capturer_credit: string | null
+  admitted_at: Date | null
   _count: GumItemCountAggregateOutputType | null
   _avg: GumItemAvgAggregateOutputType | null
   _sum: GumItemSumAggregateOutputType | null
@@ -448,6 +512,14 @@ export type GumItemWhereInput = {
   frozen_reason?: Prisma.StringNullableFilter<"GumItem"> | string | null
   frozen_at?: Prisma.DateTimeNullableFilter<"GumItem"> | Date | string | null
   frozen_by?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  owner_statement?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  status?: Prisma.StringFilter<"GumItem"> | string
+  evaluator_notes?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  primary_evidence_class?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  display_position?: Prisma.IntNullableFilter<"GumItem"> | number | null
+  corridor_segment?: Prisma.IntFilter<"GumItem"> | number
+  capturer_credit?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  admitted_at?: Prisma.DateTimeNullableFilter<"GumItem"> | Date | string | null
   player?: Prisma.XOR<Prisma.PlayerNullableScalarRelationFilter, Prisma.PlayerWhereInput> | null
   org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
   event?: Prisma.XOR<Prisma.EventNullableScalarRelationFilter, Prisma.EventWhereInput> | null
@@ -487,6 +559,14 @@ export type GumItemOrderByWithRelationInput = {
   frozen_reason?: Prisma.SortOrderInput | Prisma.SortOrder
   frozen_at?: Prisma.SortOrderInput | Prisma.SortOrder
   frozen_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  owner_statement?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  evaluator_notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  primary_evidence_class?: Prisma.SortOrderInput | Prisma.SortOrder
+  display_position?: Prisma.SortOrderInput | Prisma.SortOrder
+  corridor_segment?: Prisma.SortOrder
+  capturer_credit?: Prisma.SortOrderInput | Prisma.SortOrder
+  admitted_at?: Prisma.SortOrderInput | Prisma.SortOrder
   player?: Prisma.PlayerOrderByWithRelationInput
   org?: Prisma.OrganizationOrderByWithRelationInput
   event?: Prisma.EventOrderByWithRelationInput
@@ -529,6 +609,14 @@ export type GumItemWhereUniqueInput = Prisma.AtLeast<{
   frozen_reason?: Prisma.StringNullableFilter<"GumItem"> | string | null
   frozen_at?: Prisma.DateTimeNullableFilter<"GumItem"> | Date | string | null
   frozen_by?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  owner_statement?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  status?: Prisma.StringFilter<"GumItem"> | string
+  evaluator_notes?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  primary_evidence_class?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  display_position?: Prisma.IntNullableFilter<"GumItem"> | number | null
+  corridor_segment?: Prisma.IntFilter<"GumItem"> | number
+  capturer_credit?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  admitted_at?: Prisma.DateTimeNullableFilter<"GumItem"> | Date | string | null
   player?: Prisma.XOR<Prisma.PlayerNullableScalarRelationFilter, Prisma.PlayerWhereInput> | null
   org?: Prisma.XOR<Prisma.OrganizationNullableScalarRelationFilter, Prisma.OrganizationWhereInput> | null
   event?: Prisma.XOR<Prisma.EventNullableScalarRelationFilter, Prisma.EventWhereInput> | null
@@ -568,6 +656,14 @@ export type GumItemOrderByWithAggregationInput = {
   frozen_reason?: Prisma.SortOrderInput | Prisma.SortOrder
   frozen_at?: Prisma.SortOrderInput | Prisma.SortOrder
   frozen_by?: Prisma.SortOrderInput | Prisma.SortOrder
+  owner_statement?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  evaluator_notes?: Prisma.SortOrderInput | Prisma.SortOrder
+  primary_evidence_class?: Prisma.SortOrderInput | Prisma.SortOrder
+  display_position?: Prisma.SortOrderInput | Prisma.SortOrder
+  corridor_segment?: Prisma.SortOrder
+  capturer_credit?: Prisma.SortOrderInput | Prisma.SortOrder
+  admitted_at?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.GumItemCountOrderByAggregateInput
   _avg?: Prisma.GumItemAvgOrderByAggregateInput
   _max?: Prisma.GumItemMaxOrderByAggregateInput
@@ -612,6 +708,14 @@ export type GumItemScalarWhereWithAggregatesInput = {
   frozen_reason?: Prisma.StringNullableWithAggregatesFilter<"GumItem"> | string | null
   frozen_at?: Prisma.DateTimeNullableWithAggregatesFilter<"GumItem"> | Date | string | null
   frozen_by?: Prisma.StringNullableWithAggregatesFilter<"GumItem"> | string | null
+  owner_statement?: Prisma.StringNullableWithAggregatesFilter<"GumItem"> | string | null
+  status?: Prisma.StringWithAggregatesFilter<"GumItem"> | string
+  evaluator_notes?: Prisma.StringNullableWithAggregatesFilter<"GumItem"> | string | null
+  primary_evidence_class?: Prisma.StringNullableWithAggregatesFilter<"GumItem"> | string | null
+  display_position?: Prisma.IntNullableWithAggregatesFilter<"GumItem"> | number | null
+  corridor_segment?: Prisma.IntWithAggregatesFilter<"GumItem"> | number
+  capturer_credit?: Prisma.StringNullableWithAggregatesFilter<"GumItem"> | string | null
+  admitted_at?: Prisma.DateTimeNullableWithAggregatesFilter<"GumItem"> | Date | string | null
 }
 
 export type GumItemCreateInput = {
@@ -645,6 +749,14 @@ export type GumItemCreateInput = {
   frozen_reason?: string | null
   frozen_at?: Date | string | null
   frozen_by?: string | null
+  owner_statement?: string | null
+  status?: string
+  evaluator_notes?: string | null
+  primary_evidence_class?: string | null
+  display_position?: number | null
+  corridor_segment?: number
+  capturer_credit?: string | null
+  admitted_at?: Date | string | null
   player?: Prisma.PlayerCreateNestedOneWithoutGum_itemsInput
   org?: Prisma.OrganizationCreateNestedOneWithoutGum_itemsInput
   event?: Prisma.EventCreateNestedOneWithoutGum_itemsInput
@@ -684,6 +796,14 @@ export type GumItemUncheckedCreateInput = {
   frozen_reason?: string | null
   frozen_at?: Date | string | null
   frozen_by?: string | null
+  owner_statement?: string | null
+  status?: string
+  evaluator_notes?: string | null
+  primary_evidence_class?: string | null
+  display_position?: number | null
+  corridor_segment?: number
+  capturer_credit?: string | null
+  admitted_at?: Date | string | null
 }
 
 export type GumItemUpdateInput = {
@@ -717,6 +837,14 @@ export type GumItemUpdateInput = {
   frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner_statement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  evaluator_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_evidence_class?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  display_position?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  corridor_segment?: Prisma.IntFieldUpdateOperationsInput | number
+  capturer_credit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admitted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   player?: Prisma.PlayerUpdateOneWithoutGum_itemsNestedInput
   org?: Prisma.OrganizationUpdateOneWithoutGum_itemsNestedInput
   event?: Prisma.EventUpdateOneWithoutGum_itemsNestedInput
@@ -756,6 +884,14 @@ export type GumItemUncheckedUpdateInput = {
   frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner_statement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  evaluator_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_evidence_class?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  display_position?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  corridor_segment?: Prisma.IntFieldUpdateOperationsInput | number
+  capturer_credit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admitted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type GumItemCreateManyInput = {
@@ -792,6 +928,14 @@ export type GumItemCreateManyInput = {
   frozen_reason?: string | null
   frozen_at?: Date | string | null
   frozen_by?: string | null
+  owner_statement?: string | null
+  status?: string
+  evaluator_notes?: string | null
+  primary_evidence_class?: string | null
+  display_position?: number | null
+  corridor_segment?: number
+  capturer_credit?: string | null
+  admitted_at?: Date | string | null
 }
 
 export type GumItemUpdateManyMutationInput = {
@@ -825,6 +969,14 @@ export type GumItemUpdateManyMutationInput = {
   frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner_statement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  evaluator_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_evidence_class?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  display_position?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  corridor_segment?: Prisma.IntFieldUpdateOperationsInput | number
+  capturer_credit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admitted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type GumItemUncheckedUpdateManyInput = {
@@ -861,6 +1013,14 @@ export type GumItemUncheckedUpdateManyInput = {
   frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner_statement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  evaluator_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_evidence_class?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  display_position?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  corridor_segment?: Prisma.IntFieldUpdateOperationsInput | number
+  capturer_credit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admitted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type GumItemListRelationFilter = {
@@ -907,12 +1067,22 @@ export type GumItemCountOrderByAggregateInput = {
   frozen_reason?: Prisma.SortOrder
   frozen_at?: Prisma.SortOrder
   frozen_by?: Prisma.SortOrder
+  owner_statement?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  evaluator_notes?: Prisma.SortOrder
+  primary_evidence_class?: Prisma.SortOrder
+  display_position?: Prisma.SortOrder
+  corridor_segment?: Prisma.SortOrder
+  capturer_credit?: Prisma.SortOrder
+  admitted_at?: Prisma.SortOrder
 }
 
 export type GumItemAvgOrderByAggregateInput = {
   season_year?: Prisma.SortOrder
   strength_score?: Prisma.SortOrder
   edition_size?: Prisma.SortOrder
+  display_position?: Prisma.SortOrder
+  corridor_segment?: Prisma.SortOrder
 }
 
 export type GumItemMaxOrderByAggregateInput = {
@@ -949,6 +1119,14 @@ export type GumItemMaxOrderByAggregateInput = {
   frozen_reason?: Prisma.SortOrder
   frozen_at?: Prisma.SortOrder
   frozen_by?: Prisma.SortOrder
+  owner_statement?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  evaluator_notes?: Prisma.SortOrder
+  primary_evidence_class?: Prisma.SortOrder
+  display_position?: Prisma.SortOrder
+  corridor_segment?: Prisma.SortOrder
+  capturer_credit?: Prisma.SortOrder
+  admitted_at?: Prisma.SortOrder
 }
 
 export type GumItemMinOrderByAggregateInput = {
@@ -985,12 +1163,22 @@ export type GumItemMinOrderByAggregateInput = {
   frozen_reason?: Prisma.SortOrder
   frozen_at?: Prisma.SortOrder
   frozen_by?: Prisma.SortOrder
+  owner_statement?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  evaluator_notes?: Prisma.SortOrder
+  primary_evidence_class?: Prisma.SortOrder
+  display_position?: Prisma.SortOrder
+  corridor_segment?: Prisma.SortOrder
+  capturer_credit?: Prisma.SortOrder
+  admitted_at?: Prisma.SortOrder
 }
 
 export type GumItemSumOrderByAggregateInput = {
   season_year?: Prisma.SortOrder
   strength_score?: Prisma.SortOrder
   edition_size?: Prisma.SortOrder
+  display_position?: Prisma.SortOrder
+  corridor_segment?: Prisma.SortOrder
 }
 
 export type GumItemCreateNestedManyWithoutPlayerInput = {
@@ -1150,6 +1338,14 @@ export type GumItemCreateWithoutPlayerInput = {
   frozen_reason?: string | null
   frozen_at?: Date | string | null
   frozen_by?: string | null
+  owner_statement?: string | null
+  status?: string
+  evaluator_notes?: string | null
+  primary_evidence_class?: string | null
+  display_position?: number | null
+  corridor_segment?: number
+  capturer_credit?: string | null
+  admitted_at?: Date | string | null
   org?: Prisma.OrganizationCreateNestedOneWithoutGum_itemsInput
   event?: Prisma.EventCreateNestedOneWithoutGum_itemsInput
 }
@@ -1187,6 +1383,14 @@ export type GumItemUncheckedCreateWithoutPlayerInput = {
   frozen_reason?: string | null
   frozen_at?: Date | string | null
   frozen_by?: string | null
+  owner_statement?: string | null
+  status?: string
+  evaluator_notes?: string | null
+  primary_evidence_class?: string | null
+  display_position?: number | null
+  corridor_segment?: number
+  capturer_credit?: string | null
+  admitted_at?: Date | string | null
 }
 
 export type GumItemCreateOrConnectWithoutPlayerInput = {
@@ -1252,6 +1456,14 @@ export type GumItemScalarWhereInput = {
   frozen_reason?: Prisma.StringNullableFilter<"GumItem"> | string | null
   frozen_at?: Prisma.DateTimeNullableFilter<"GumItem"> | Date | string | null
   frozen_by?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  owner_statement?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  status?: Prisma.StringFilter<"GumItem"> | string
+  evaluator_notes?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  primary_evidence_class?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  display_position?: Prisma.IntNullableFilter<"GumItem"> | number | null
+  corridor_segment?: Prisma.IntFilter<"GumItem"> | number
+  capturer_credit?: Prisma.StringNullableFilter<"GumItem"> | string | null
+  admitted_at?: Prisma.DateTimeNullableFilter<"GumItem"> | Date | string | null
 }
 
 export type GumItemCreateWithoutOrgInput = {
@@ -1285,6 +1497,14 @@ export type GumItemCreateWithoutOrgInput = {
   frozen_reason?: string | null
   frozen_at?: Date | string | null
   frozen_by?: string | null
+  owner_statement?: string | null
+  status?: string
+  evaluator_notes?: string | null
+  primary_evidence_class?: string | null
+  display_position?: number | null
+  corridor_segment?: number
+  capturer_credit?: string | null
+  admitted_at?: Date | string | null
   player?: Prisma.PlayerCreateNestedOneWithoutGum_itemsInput
   event?: Prisma.EventCreateNestedOneWithoutGum_itemsInput
 }
@@ -1322,6 +1542,14 @@ export type GumItemUncheckedCreateWithoutOrgInput = {
   frozen_reason?: string | null
   frozen_at?: Date | string | null
   frozen_by?: string | null
+  owner_statement?: string | null
+  status?: string
+  evaluator_notes?: string | null
+  primary_evidence_class?: string | null
+  display_position?: number | null
+  corridor_segment?: number
+  capturer_credit?: string | null
+  admitted_at?: Date | string | null
 }
 
 export type GumItemCreateOrConnectWithoutOrgInput = {
@@ -1381,6 +1609,14 @@ export type GumItemCreateWithoutEventInput = {
   frozen_reason?: string | null
   frozen_at?: Date | string | null
   frozen_by?: string | null
+  owner_statement?: string | null
+  status?: string
+  evaluator_notes?: string | null
+  primary_evidence_class?: string | null
+  display_position?: number | null
+  corridor_segment?: number
+  capturer_credit?: string | null
+  admitted_at?: Date | string | null
   player?: Prisma.PlayerCreateNestedOneWithoutGum_itemsInput
   org?: Prisma.OrganizationCreateNestedOneWithoutGum_itemsInput
 }
@@ -1418,6 +1654,14 @@ export type GumItemUncheckedCreateWithoutEventInput = {
   frozen_reason?: string | null
   frozen_at?: Date | string | null
   frozen_by?: string | null
+  owner_statement?: string | null
+  status?: string
+  evaluator_notes?: string | null
+  primary_evidence_class?: string | null
+  display_position?: number | null
+  corridor_segment?: number
+  capturer_credit?: string | null
+  admitted_at?: Date | string | null
 }
 
 export type GumItemCreateOrConnectWithoutEventInput = {
@@ -1479,6 +1723,14 @@ export type GumItemCreateManyPlayerInput = {
   frozen_reason?: string | null
   frozen_at?: Date | string | null
   frozen_by?: string | null
+  owner_statement?: string | null
+  status?: string
+  evaluator_notes?: string | null
+  primary_evidence_class?: string | null
+  display_position?: number | null
+  corridor_segment?: number
+  capturer_credit?: string | null
+  admitted_at?: Date | string | null
 }
 
 export type GumItemUpdateWithoutPlayerInput = {
@@ -1512,6 +1764,14 @@ export type GumItemUpdateWithoutPlayerInput = {
   frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner_statement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  evaluator_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_evidence_class?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  display_position?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  corridor_segment?: Prisma.IntFieldUpdateOperationsInput | number
+  capturer_credit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admitted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   org?: Prisma.OrganizationUpdateOneWithoutGum_itemsNestedInput
   event?: Prisma.EventUpdateOneWithoutGum_itemsNestedInput
 }
@@ -1549,6 +1809,14 @@ export type GumItemUncheckedUpdateWithoutPlayerInput = {
   frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner_statement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  evaluator_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_evidence_class?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  display_position?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  corridor_segment?: Prisma.IntFieldUpdateOperationsInput | number
+  capturer_credit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admitted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type GumItemUncheckedUpdateManyWithoutPlayerInput = {
@@ -1584,6 +1852,14 @@ export type GumItemUncheckedUpdateManyWithoutPlayerInput = {
   frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner_statement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  evaluator_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_evidence_class?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  display_position?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  corridor_segment?: Prisma.IntFieldUpdateOperationsInput | number
+  capturer_credit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admitted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type GumItemCreateManyOrgInput = {
@@ -1619,6 +1895,14 @@ export type GumItemCreateManyOrgInput = {
   frozen_reason?: string | null
   frozen_at?: Date | string | null
   frozen_by?: string | null
+  owner_statement?: string | null
+  status?: string
+  evaluator_notes?: string | null
+  primary_evidence_class?: string | null
+  display_position?: number | null
+  corridor_segment?: number
+  capturer_credit?: string | null
+  admitted_at?: Date | string | null
 }
 
 export type GumItemUpdateWithoutOrgInput = {
@@ -1652,6 +1936,14 @@ export type GumItemUpdateWithoutOrgInput = {
   frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner_statement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  evaluator_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_evidence_class?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  display_position?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  corridor_segment?: Prisma.IntFieldUpdateOperationsInput | number
+  capturer_credit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admitted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   player?: Prisma.PlayerUpdateOneWithoutGum_itemsNestedInput
   event?: Prisma.EventUpdateOneWithoutGum_itemsNestedInput
 }
@@ -1689,6 +1981,14 @@ export type GumItemUncheckedUpdateWithoutOrgInput = {
   frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner_statement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  evaluator_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_evidence_class?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  display_position?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  corridor_segment?: Prisma.IntFieldUpdateOperationsInput | number
+  capturer_credit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admitted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type GumItemUncheckedUpdateManyWithoutOrgInput = {
@@ -1724,6 +2024,14 @@ export type GumItemUncheckedUpdateManyWithoutOrgInput = {
   frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner_statement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  evaluator_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_evidence_class?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  display_position?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  corridor_segment?: Prisma.IntFieldUpdateOperationsInput | number
+  capturer_credit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admitted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type GumItemCreateManyEventInput = {
@@ -1759,6 +2067,14 @@ export type GumItemCreateManyEventInput = {
   frozen_reason?: string | null
   frozen_at?: Date | string | null
   frozen_by?: string | null
+  owner_statement?: string | null
+  status?: string
+  evaluator_notes?: string | null
+  primary_evidence_class?: string | null
+  display_position?: number | null
+  corridor_segment?: number
+  capturer_credit?: string | null
+  admitted_at?: Date | string | null
 }
 
 export type GumItemUpdateWithoutEventInput = {
@@ -1792,6 +2108,14 @@ export type GumItemUpdateWithoutEventInput = {
   frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner_statement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  evaluator_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_evidence_class?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  display_position?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  corridor_segment?: Prisma.IntFieldUpdateOperationsInput | number
+  capturer_credit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admitted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   player?: Prisma.PlayerUpdateOneWithoutGum_itemsNestedInput
   org?: Prisma.OrganizationUpdateOneWithoutGum_itemsNestedInput
 }
@@ -1829,6 +2153,14 @@ export type GumItemUncheckedUpdateWithoutEventInput = {
   frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner_statement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  evaluator_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_evidence_class?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  display_position?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  corridor_segment?: Prisma.IntFieldUpdateOperationsInput | number
+  capturer_credit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admitted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 export type GumItemUncheckedUpdateManyWithoutEventInput = {
@@ -1864,6 +2196,14 @@ export type GumItemUncheckedUpdateManyWithoutEventInput = {
   frozen_reason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   frozen_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   frozen_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  owner_statement?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.StringFieldUpdateOperationsInput | string
+  evaluator_notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_evidence_class?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  display_position?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  corridor_segment?: Prisma.IntFieldUpdateOperationsInput | number
+  capturer_credit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  admitted_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
 }
 
 
@@ -1902,6 +2242,14 @@ export type GumItemSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   frozen_reason?: boolean
   frozen_at?: boolean
   frozen_by?: boolean
+  owner_statement?: boolean
+  status?: boolean
+  evaluator_notes?: boolean
+  primary_evidence_class?: boolean
+  display_position?: boolean
+  corridor_segment?: boolean
+  capturer_credit?: boolean
+  admitted_at?: boolean
   player?: boolean | Prisma.GumItem$playerArgs<ExtArgs>
   org?: boolean | Prisma.GumItem$orgArgs<ExtArgs>
   event?: boolean | Prisma.GumItem$eventArgs<ExtArgs>
@@ -1941,6 +2289,14 @@ export type GumItemSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   frozen_reason?: boolean
   frozen_at?: boolean
   frozen_by?: boolean
+  owner_statement?: boolean
+  status?: boolean
+  evaluator_notes?: boolean
+  primary_evidence_class?: boolean
+  display_position?: boolean
+  corridor_segment?: boolean
+  capturer_credit?: boolean
+  admitted_at?: boolean
   player?: boolean | Prisma.GumItem$playerArgs<ExtArgs>
   org?: boolean | Prisma.GumItem$orgArgs<ExtArgs>
   event?: boolean | Prisma.GumItem$eventArgs<ExtArgs>
@@ -1980,6 +2336,14 @@ export type GumItemSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   frozen_reason?: boolean
   frozen_at?: boolean
   frozen_by?: boolean
+  owner_statement?: boolean
+  status?: boolean
+  evaluator_notes?: boolean
+  primary_evidence_class?: boolean
+  display_position?: boolean
+  corridor_segment?: boolean
+  capturer_credit?: boolean
+  admitted_at?: boolean
   player?: boolean | Prisma.GumItem$playerArgs<ExtArgs>
   org?: boolean | Prisma.GumItem$orgArgs<ExtArgs>
   event?: boolean | Prisma.GumItem$eventArgs<ExtArgs>
@@ -2019,9 +2383,17 @@ export type GumItemSelectScalar = {
   frozen_reason?: boolean
   frozen_at?: boolean
   frozen_by?: boolean
+  owner_statement?: boolean
+  status?: boolean
+  evaluator_notes?: boolean
+  primary_evidence_class?: boolean
+  display_position?: boolean
+  corridor_segment?: boolean
+  capturer_credit?: boolean
+  admitted_at?: boolean
 }
 
-export type GumItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "gum_code" | "player_id" | "org_id" | "event_id" | "item_type" | "item_description" | "sport" | "season_year" | "jersey_number" | "gum_classification" | "is_authenticated" | "authenticated_at" | "vault_level" | "strength_score" | "plate_tier" | "serial_number" | "edition_size" | "has_swatch" | "swatch_image_key" | "visibility" | "revealed_by_owner" | "created_at" | "updated_at" | "submitted_by" | "authority_account_id" | "authority_type" | "authority_since" | "authority_notes" | "is_frozen" | "frozen_reason" | "frozen_at" | "frozen_by", ExtArgs["result"]["gumItem"]>
+export type GumItemOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "gum_code" | "player_id" | "org_id" | "event_id" | "item_type" | "item_description" | "sport" | "season_year" | "jersey_number" | "gum_classification" | "is_authenticated" | "authenticated_at" | "vault_level" | "strength_score" | "plate_tier" | "serial_number" | "edition_size" | "has_swatch" | "swatch_image_key" | "visibility" | "revealed_by_owner" | "created_at" | "updated_at" | "submitted_by" | "authority_account_id" | "authority_type" | "authority_since" | "authority_notes" | "is_frozen" | "frozen_reason" | "frozen_at" | "frozen_by" | "owner_statement" | "status" | "evaluator_notes" | "primary_evidence_class" | "display_position" | "corridor_segment" | "capturer_credit" | "admitted_at", ExtArgs["result"]["gumItem"]>
 export type GumItemInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   player?: boolean | Prisma.GumItem$playerArgs<ExtArgs>
   org?: boolean | Prisma.GumItem$orgArgs<ExtArgs>
@@ -2079,6 +2451,14 @@ export type $GumItemPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     frozen_reason: string | null
     frozen_at: Date | null
     frozen_by: string | null
+    owner_statement: string | null
+    status: string
+    evaluator_notes: string | null
+    primary_evidence_class: string | null
+    display_position: number | null
+    corridor_segment: number
+    capturer_credit: string | null
+    admitted_at: Date | null
   }, ExtArgs["result"]["gumItem"]>
   composites: {}
 }
@@ -2538,6 +2918,14 @@ export interface GumItemFieldRefs {
   readonly frozen_reason: Prisma.FieldRef<"GumItem", 'String'>
   readonly frozen_at: Prisma.FieldRef<"GumItem", 'DateTime'>
   readonly frozen_by: Prisma.FieldRef<"GumItem", 'String'>
+  readonly owner_statement: Prisma.FieldRef<"GumItem", 'String'>
+  readonly status: Prisma.FieldRef<"GumItem", 'String'>
+  readonly evaluator_notes: Prisma.FieldRef<"GumItem", 'String'>
+  readonly primary_evidence_class: Prisma.FieldRef<"GumItem", 'String'>
+  readonly display_position: Prisma.FieldRef<"GumItem", 'Int'>
+  readonly corridor_segment: Prisma.FieldRef<"GumItem", 'Int'>
+  readonly capturer_credit: Prisma.FieldRef<"GumItem", 'String'>
+  readonly admitted_at: Prisma.FieldRef<"GumItem", 'DateTime'>
 }
     
 

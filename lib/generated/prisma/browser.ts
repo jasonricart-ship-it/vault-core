@@ -147,3 +147,13 @@ export type HallOfFameNomination = Prisma.HallOfFameNominationModel
  * 
  */
 export type VaultRegistryCollector = Prisma.VaultRegistryCollectorModel
+/**
+ * Model OrgCaptureDesignee
+ * 
+ */
+export type OrgCaptureDesignee = Prisma.OrgCaptureDesigneeModel
+/**
+ * Model EvtCaptureRequest
+ * 
+ */
+export type EvtCaptureRequest = Prisma.EvtCaptureRequestModel

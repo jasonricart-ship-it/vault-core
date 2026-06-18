@@ -409,7 +409,9 @@ export const ModelName = {
   RepresentativeContact: 'RepresentativeContact',
   HallOfFameInductee: 'HallOfFameInductee',
   HallOfFameNomination: 'HallOfFameNomination',
-  VaultRegistryCollector: 'VaultRegistryCollector'
+  VaultRegistryCollector: 'VaultRegistryCollector',
+  OrgCaptureDesignee: 'OrgCaptureDesignee',
+  EvtCaptureRequest: 'EvtCaptureRequest'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -425,7 +427,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "player" | "governingBody" | "organization" | "event" | "achievement" | "scheduleEntry" | "gumItem" | "itemAuthorityLog" | "evidenceFile" | "sharedCapture" | "playerOrgAffiliation" | "orgGovAffiliation" | "playerEventParticipation" | "account" | "vaultViolation" | "violationAffectedRecord" | "reinstatementApplication" | "playerGuardian" | "accountTransition" | "accountDelegate" | "corridorAccessGrant" | "guardianActionLog" | "representativeContact" | "hallOfFameInductee" | "hallOfFameNomination" | "vaultRegistryCollector"
+    modelProps: "player" | "governingBody" | "organization" | "event" | "achievement" | "scheduleEntry" | "gumItem" | "itemAuthorityLog" | "evidenceFile" | "sharedCapture" | "playerOrgAffiliation" | "orgGovAffiliation" | "playerEventParticipation" | "account" | "vaultViolation" | "violationAffectedRecord" | "reinstatementApplication" | "playerGuardian" | "accountTransition" | "accountDelegate" | "corridorAccessGrant" | "guardianActionLog" | "representativeContact" | "hallOfFameInductee" | "hallOfFameNomination" | "vaultRegistryCollector" | "orgCaptureDesignee" | "evtCaptureRequest"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2353,6 +2355,154 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    OrgCaptureDesignee: {
+      payload: Prisma.$OrgCaptureDesigneePayload<ExtArgs>
+      fields: Prisma.OrgCaptureDesigneeFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.OrgCaptureDesigneeFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgCaptureDesigneePayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.OrgCaptureDesigneeFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgCaptureDesigneePayload>
+        }
+        findFirst: {
+          args: Prisma.OrgCaptureDesigneeFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgCaptureDesigneePayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.OrgCaptureDesigneeFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgCaptureDesigneePayload>
+        }
+        findMany: {
+          args: Prisma.OrgCaptureDesigneeFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgCaptureDesigneePayload>[]
+        }
+        create: {
+          args: Prisma.OrgCaptureDesigneeCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgCaptureDesigneePayload>
+        }
+        createMany: {
+          args: Prisma.OrgCaptureDesigneeCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.OrgCaptureDesigneeCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgCaptureDesigneePayload>[]
+        }
+        delete: {
+          args: Prisma.OrgCaptureDesigneeDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgCaptureDesigneePayload>
+        }
+        update: {
+          args: Prisma.OrgCaptureDesigneeUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgCaptureDesigneePayload>
+        }
+        deleteMany: {
+          args: Prisma.OrgCaptureDesigneeDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.OrgCaptureDesigneeUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.OrgCaptureDesigneeUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgCaptureDesigneePayload>[]
+        }
+        upsert: {
+          args: Prisma.OrgCaptureDesigneeUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$OrgCaptureDesigneePayload>
+        }
+        aggregate: {
+          args: Prisma.OrgCaptureDesigneeAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateOrgCaptureDesignee>
+        }
+        groupBy: {
+          args: Prisma.OrgCaptureDesigneeGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OrgCaptureDesigneeGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.OrgCaptureDesigneeCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.OrgCaptureDesigneeCountAggregateOutputType> | number
+        }
+      }
+    }
+    EvtCaptureRequest: {
+      payload: Prisma.$EvtCaptureRequestPayload<ExtArgs>
+      fields: Prisma.EvtCaptureRequestFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EvtCaptureRequestFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EvtCaptureRequestPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EvtCaptureRequestFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EvtCaptureRequestPayload>
+        }
+        findFirst: {
+          args: Prisma.EvtCaptureRequestFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EvtCaptureRequestPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EvtCaptureRequestFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EvtCaptureRequestPayload>
+        }
+        findMany: {
+          args: Prisma.EvtCaptureRequestFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EvtCaptureRequestPayload>[]
+        }
+        create: {
+          args: Prisma.EvtCaptureRequestCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EvtCaptureRequestPayload>
+        }
+        createMany: {
+          args: Prisma.EvtCaptureRequestCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EvtCaptureRequestCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EvtCaptureRequestPayload>[]
+        }
+        delete: {
+          args: Prisma.EvtCaptureRequestDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EvtCaptureRequestPayload>
+        }
+        update: {
+          args: Prisma.EvtCaptureRequestUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EvtCaptureRequestPayload>
+        }
+        deleteMany: {
+          args: Prisma.EvtCaptureRequestDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EvtCaptureRequestUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EvtCaptureRequestUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EvtCaptureRequestPayload>[]
+        }
+        upsert: {
+          args: Prisma.EvtCaptureRequestUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EvtCaptureRequestPayload>
+        }
+        aggregate: {
+          args: Prisma.EvtCaptureRequestAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEvtCaptureRequest>
+        }
+        groupBy: {
+          args: Prisma.EvtCaptureRequestGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EvtCaptureRequestGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EvtCaptureRequestCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EvtCaptureRequestCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2561,7 +2711,15 @@ export const GumItemScalarFieldEnum = {
   is_frozen: 'is_frozen',
   frozen_reason: 'frozen_reason',
   frozen_at: 'frozen_at',
-  frozen_by: 'frozen_by'
+  frozen_by: 'frozen_by',
+  owner_statement: 'owner_statement',
+  status: 'status',
+  evaluator_notes: 'evaluator_notes',
+  primary_evidence_class: 'primary_evidence_class',
+  display_position: 'display_position',
+  corridor_segment: 'corridor_segment',
+  capturer_credit: 'capturer_credit',
+  admitted_at: 'admitted_at'
 } as const
 
 export type GumItemScalarFieldEnum = (typeof GumItemScalarFieldEnum)[keyof typeof GumItemScalarFieldEnum]
@@ -2624,7 +2782,8 @@ export const SharedCaptureScalarFieldEnum = {
   admitted_at: 'admitted_at',
   admitted_by: 'admitted_by',
   capture_credit: 'capture_credit',
-  secondary_witnesses: 'secondary_witnesses'
+  secondary_witnesses: 'secondary_witnesses',
+  visibility: 'visibility'
 } as const
 
 export type SharedCaptureScalarFieldEnum = (typeof SharedCaptureScalarFieldEnum)[keyof typeof SharedCaptureScalarFieldEnum]
@@ -2936,6 +3095,34 @@ export const VaultRegistryCollectorScalarFieldEnum = {
 export type VaultRegistryCollectorScalarFieldEnum = (typeof VaultRegistryCollectorScalarFieldEnum)[keyof typeof VaultRegistryCollectorScalarFieldEnum]
 
 
+export const OrgCaptureDesigneeScalarFieldEnum = {
+  id: 'id',
+  org_id: 'org_id',
+  account_id: 'account_id',
+  designated_by: 'designated_by',
+  designated_at: 'designated_at',
+  is_active: 'is_active'
+} as const
+
+export type OrgCaptureDesigneeScalarFieldEnum = (typeof OrgCaptureDesigneeScalarFieldEnum)[keyof typeof OrgCaptureDesigneeScalarFieldEnum]
+
+
+export const EvtCaptureRequestScalarFieldEnum = {
+  id: 'id',
+  evt_id: 'evt_id',
+  requested_by_account: 'requested_by_account',
+  target_player_id: 'target_player_id',
+  request_text: 'request_text',
+  status: 'status',
+  created_at: 'created_at',
+  expires_at: 'expires_at',
+  fulfilled_at: 'fulfilled_at',
+  fulfilled_by_capture_id: 'fulfilled_by_capture_id'
+} as const
+
+export type EvtCaptureRequestScalarFieldEnum = (typeof EvtCaptureRequestScalarFieldEnum)[keyof typeof EvtCaptureRequestScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -3209,6 +3396,8 @@ export type GlobalOmitConfig = {
   hallOfFameInductee?: Prisma.HallOfFameInducteeOmit
   hallOfFameNomination?: Prisma.HallOfFameNominationOmit
   vaultRegistryCollector?: Prisma.VaultRegistryCollectorOmit
+  orgCaptureDesignee?: Prisma.OrgCaptureDesigneeOmit
+  evtCaptureRequest?: Prisma.EvtCaptureRequestOmit
 }
 
 /* Types for Logging */

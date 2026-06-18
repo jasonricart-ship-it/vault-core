@@ -51,6 +51,7 @@ model Player {
   guardian_action_logs GuardianActionLog[]
   hall_of_fame_inductee HallOfFameInductee?
   hall_of_fame_nominations HallOfFameNomination[]
+  evt_capture_requests EvtCaptureRequest[]
 
   @@map("players")
 }
@@ -109,6 +110,7 @@ model Organization {
   achievements          Achievement[]
   schedule_entries      ScheduleEntry[]
   gum_items             GumItem[]
+  capture_designees     OrgCaptureDesignee[]
 
   @@map("organizations")
 }
@@ -133,6 +135,7 @@ model Event {
   schedule_entries     ScheduleEntry[]
   player_participation PlayerEventParticipation[]
   gum_items            GumItem[]
+  capture_requests     EvtCaptureRequest[]
 
   @@map("events")
 }
@@ -214,6 +217,14 @@ model GumItem {
   frozen_reason        String?
   frozen_at            DateTime?
   frozen_by            String?
+  owner_statement      String?   @db.VarChar(200)
+  status               String    @default("pending")
+  evaluator_notes      String?
+  primary_evidence_class String?
+  display_position     Int?
+  corridor_segment     Int       @default(1)
+  capturer_credit      String?
+  admitted_at          DateTime?
 
   player              Player?       @relation(fields: [player_id], references: [id])
   org                 Organization? @relation(fields: [org_id], references: [id])
@@ -278,6 +289,7 @@ model SharedCapture {
   admitted_by         String?
   capture_credit      String?
   secondary_witnesses Json?
+  visibility          String    @default("member")
 
   @@map("shared_captures")
 }
@@ -364,6 +376,9 @@ model Account {
   corridor_grants_received CorridorAccessGrant[] @relation("GranteeAccount")
   guardian_action_logs GuardianActionLog[]
   vault_registry_collector VaultRegistryCollector?
+  capture_designations OrgCaptureDesignee[] @relation("DesignatedCapturer")
+  designations_granted OrgCaptureDesignee[] @relation("DesignatedBy")
+  capture_requests     EvtCaptureRequest[]  @relation("CaptureRequester")
 
   @@map("accounts")
 }
@@ -617,4 +632,39 @@ model VaultRegistryCollector {
   account         Account? @relation(fields: [account_id], references: [id])
 
   @@map("vault_registry_collectors")
+}
+
+model OrgCaptureDesignee {
+  id            String   @id @default(uuid())
+  org_id        String
+  account_id    String
+  designated_by String
+  designated_at DateTime @default(now())
+  is_active     Boolean  @default(true)
+
+  org           Organization @relation(fields: [org_id], references: [id])
+  account       Account      @relation("DesignatedCapturer", fields: [account_id], references: [id])
+  designator    Account      @relation("DesignatedBy", fields: [designated_by], references: [id])
+
+  @@unique([org_id, account_id])
+  @@map("org_capture_designees")
+}
+
+model EvtCaptureRequest {
+  id                      String    @id @default(uuid())
+  evt_id                  String
+  requested_by_account    String
+  target_player_id        String?
+  request_text            String    @db.VarChar(200)
+  status                  String    @default("open")
+  created_at              DateTime  @default(now())
+  expires_at              DateTime
+  fulfilled_at            DateTime?
+  fulfilled_by_capture_id String?
+
+  event     Event    @relation(fields: [evt_id], references: [id])
+  requester Account  @relation("CaptureRequester", fields: [requested_by_account], references: [id])
+  player    Player?  @relation(fields: [target_player_id], references: [id])
+
+  @@map("evt_capture_requests")
 }

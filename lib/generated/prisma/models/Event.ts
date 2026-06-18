@@ -285,6 +285,7 @@ export type EventWhereInput = {
   schedule_entries?: Prisma.ScheduleEntryListRelationFilter
   player_participation?: Prisma.PlayerEventParticipationListRelationFilter
   gum_items?: Prisma.GumItemListRelationFilter
+  capture_requests?: Prisma.EvtCaptureRequestListRelationFilter
 }
 
 export type EventOrderByWithRelationInput = {
@@ -306,6 +307,7 @@ export type EventOrderByWithRelationInput = {
   schedule_entries?: Prisma.ScheduleEntryOrderByRelationAggregateInput
   player_participation?: Prisma.PlayerEventParticipationOrderByRelationAggregateInput
   gum_items?: Prisma.GumItemOrderByRelationAggregateInput
+  capture_requests?: Prisma.EvtCaptureRequestOrderByRelationAggregateInput
 }
 
 export type EventWhereUniqueInput = Prisma.AtLeast<{
@@ -330,6 +332,7 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   schedule_entries?: Prisma.ScheduleEntryListRelationFilter
   player_participation?: Prisma.PlayerEventParticipationListRelationFilter
   gum_items?: Prisma.GumItemListRelationFilter
+  capture_requests?: Prisma.EvtCaptureRequestListRelationFilter
 }, "id" | "evt_code">
 
 export type EventOrderByWithAggregationInput = {
@@ -390,6 +393,7 @@ export type EventCreateInput = {
   schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutEventInput
+  capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateInput = {
@@ -410,6 +414,7 @@ export type EventUncheckedCreateInput = {
   schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutEventInput
+  capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventUpdateInput = {
@@ -430,6 +435,7 @@ export type EventUpdateInput = {
   schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutEventNestedInput
   player_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutEventNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutEventNestedInput
+  capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateInput = {
@@ -450,6 +456,7 @@ export type EventUncheckedUpdateInput = {
   schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutEventNestedInput
   player_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutEventNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutEventNestedInput
+  capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateManyInput = {
@@ -679,6 +686,20 @@ export type EventUpdateOneRequiredWithoutPlayer_participationNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.EventUpdateToOneWithWhereWithoutPlayer_participationInput, Prisma.EventUpdateWithoutPlayer_participationInput>, Prisma.EventUncheckedUpdateWithoutPlayer_participationInput>
 }
 
+export type EventCreateNestedOneWithoutCapture_requestsInput = {
+  create?: Prisma.XOR<Prisma.EventCreateWithoutCapture_requestsInput, Prisma.EventUncheckedCreateWithoutCapture_requestsInput>
+  connectOrCreate?: Prisma.EventCreateOrConnectWithoutCapture_requestsInput
+  connect?: Prisma.EventWhereUniqueInput
+}
+
+export type EventUpdateOneRequiredWithoutCapture_requestsNestedInput = {
+  create?: Prisma.XOR<Prisma.EventCreateWithoutCapture_requestsInput, Prisma.EventUncheckedCreateWithoutCapture_requestsInput>
+  connectOrCreate?: Prisma.EventCreateOrConnectWithoutCapture_requestsInput
+  upsert?: Prisma.EventUpsertWithoutCapture_requestsInput
+  connect?: Prisma.EventWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EventUpdateToOneWithWhereWithoutCapture_requestsInput, Prisma.EventUpdateWithoutCapture_requestsInput>, Prisma.EventUncheckedUpdateWithoutCapture_requestsInput>
+}
+
 export type EventCreateWithoutOrgInput = {
   id?: string
   evt_code: string
@@ -696,6 +717,7 @@ export type EventCreateWithoutOrgInput = {
   schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutEventInput
+  capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutOrgInput = {
@@ -715,6 +737,7 @@ export type EventUncheckedCreateWithoutOrgInput = {
   schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutEventInput
+  capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutOrgInput = {
@@ -779,6 +802,7 @@ export type EventCreateWithoutAchievementsInput = {
   schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutEventInput
+  capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutAchievementsInput = {
@@ -798,6 +822,7 @@ export type EventUncheckedCreateWithoutAchievementsInput = {
   schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutEventInput
+  capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutAchievementsInput = {
@@ -833,6 +858,7 @@ export type EventUpdateWithoutAchievementsInput = {
   schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutEventNestedInput
   player_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutEventNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutEventNestedInput
+  capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutAchievementsInput = {
@@ -852,6 +878,7 @@ export type EventUncheckedUpdateWithoutAchievementsInput = {
   schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutEventNestedInput
   player_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutEventNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutEventNestedInput
+  capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateWithoutSchedule_entriesInput = {
@@ -871,6 +898,7 @@ export type EventCreateWithoutSchedule_entriesInput = {
   achievements?: Prisma.AchievementCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutEventInput
+  capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutSchedule_entriesInput = {
@@ -890,6 +918,7 @@ export type EventUncheckedCreateWithoutSchedule_entriesInput = {
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutEventInput
+  capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutSchedule_entriesInput = {
@@ -925,6 +954,7 @@ export type EventUpdateWithoutSchedule_entriesInput = {
   achievements?: Prisma.AchievementUpdateManyWithoutEventNestedInput
   player_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutEventNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutEventNestedInput
+  capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutSchedule_entriesInput = {
@@ -944,6 +974,7 @@ export type EventUncheckedUpdateWithoutSchedule_entriesInput = {
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutEventNestedInput
   player_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutEventNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutEventNestedInput
+  capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateWithoutGum_itemsInput = {
@@ -963,6 +994,7 @@ export type EventCreateWithoutGum_itemsInput = {
   achievements?: Prisma.AchievementCreateNestedManyWithoutEventInput
   schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutEventInput
+  capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutGum_itemsInput = {
@@ -982,6 +1014,7 @@ export type EventUncheckedCreateWithoutGum_itemsInput = {
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutEventInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutEventInput
   player_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutEventInput
+  capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutGum_itemsInput = {
@@ -1017,6 +1050,7 @@ export type EventUpdateWithoutGum_itemsInput = {
   achievements?: Prisma.AchievementUpdateManyWithoutEventNestedInput
   schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutEventNestedInput
   player_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutEventNestedInput
+  capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutGum_itemsInput = {
@@ -1036,6 +1070,7 @@ export type EventUncheckedUpdateWithoutGum_itemsInput = {
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutEventNestedInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutEventNestedInput
   player_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutEventNestedInput
+  capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventCreateWithoutPlayer_participationInput = {
@@ -1055,6 +1090,7 @@ export type EventCreateWithoutPlayer_participationInput = {
   achievements?: Prisma.AchievementCreateNestedManyWithoutEventInput
   schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemCreateNestedManyWithoutEventInput
+  capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutEventInput
 }
 
 export type EventUncheckedCreateWithoutPlayer_participationInput = {
@@ -1074,6 +1110,7 @@ export type EventUncheckedCreateWithoutPlayer_participationInput = {
   achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutEventInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutEventInput
   gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutEventInput
+  capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutEventInput
 }
 
 export type EventCreateOrConnectWithoutPlayer_participationInput = {
@@ -1109,6 +1146,7 @@ export type EventUpdateWithoutPlayer_participationInput = {
   achievements?: Prisma.AchievementUpdateManyWithoutEventNestedInput
   schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutEventNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutEventNestedInput
+  capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutPlayer_participationInput = {
@@ -1127,6 +1165,103 @@ export type EventUncheckedUpdateWithoutPlayer_participationInput = {
   updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   achievements?: Prisma.AchievementUncheckedUpdateManyWithoutEventNestedInput
   schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutEventNestedInput
+  gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutEventNestedInput
+  capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutEventNestedInput
+}
+
+export type EventCreateWithoutCapture_requestsInput = {
+  id?: string
+  evt_code: string
+  gov_id?: string | null
+  name: string
+  season_year: number
+  event_date?: Date | string | null
+  location?: string | null
+  city?: string | null
+  state?: string | null
+  registration_status?: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  org: Prisma.OrganizationCreateNestedOneWithoutEventsInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutEventInput
+  schedule_entries?: Prisma.ScheduleEntryCreateNestedManyWithoutEventInput
+  player_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutEventInput
+  gum_items?: Prisma.GumItemCreateNestedManyWithoutEventInput
+}
+
+export type EventUncheckedCreateWithoutCapture_requestsInput = {
+  id?: string
+  evt_code: string
+  org_id: string
+  gov_id?: string | null
+  name: string
+  season_year: number
+  event_date?: Date | string | null
+  location?: string | null
+  city?: string | null
+  state?: string | null
+  registration_status?: string
+  created_at?: Date | string
+  updated_at?: Date | string
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutEventInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedCreateNestedManyWithoutEventInput
+  player_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutEventInput
+  gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutEventInput
+}
+
+export type EventCreateOrConnectWithoutCapture_requestsInput = {
+  where: Prisma.EventWhereUniqueInput
+  create: Prisma.XOR<Prisma.EventCreateWithoutCapture_requestsInput, Prisma.EventUncheckedCreateWithoutCapture_requestsInput>
+}
+
+export type EventUpsertWithoutCapture_requestsInput = {
+  update: Prisma.XOR<Prisma.EventUpdateWithoutCapture_requestsInput, Prisma.EventUncheckedUpdateWithoutCapture_requestsInput>
+  create: Prisma.XOR<Prisma.EventCreateWithoutCapture_requestsInput, Prisma.EventUncheckedCreateWithoutCapture_requestsInput>
+  where?: Prisma.EventWhereInput
+}
+
+export type EventUpdateToOneWithWhereWithoutCapture_requestsInput = {
+  where?: Prisma.EventWhereInput
+  data: Prisma.XOR<Prisma.EventUpdateWithoutCapture_requestsInput, Prisma.EventUncheckedUpdateWithoutCapture_requestsInput>
+}
+
+export type EventUpdateWithoutCapture_requestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  evt_code?: Prisma.StringFieldUpdateOperationsInput | string
+  gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  season_year?: Prisma.IntFieldUpdateOperationsInput | number
+  event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  org?: Prisma.OrganizationUpdateOneRequiredWithoutEventsNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutEventNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutEventNestedInput
+  player_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutEventNestedInput
+  gum_items?: Prisma.GumItemUpdateManyWithoutEventNestedInput
+}
+
+export type EventUncheckedUpdateWithoutCapture_requestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  evt_code?: Prisma.StringFieldUpdateOperationsInput | string
+  org_id?: Prisma.StringFieldUpdateOperationsInput | string
+  gov_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  season_year?: Prisma.IntFieldUpdateOperationsInput | number
+  event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  registration_status?: Prisma.StringFieldUpdateOperationsInput | string
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutEventNestedInput
+  schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutEventNestedInput
+  player_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutEventNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutEventNestedInput
 }
 
@@ -1162,6 +1297,7 @@ export type EventUpdateWithoutOrgInput = {
   schedule_entries?: Prisma.ScheduleEntryUpdateManyWithoutEventNestedInput
   player_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutEventNestedInput
   gum_items?: Prisma.GumItemUpdateManyWithoutEventNestedInput
+  capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateWithoutOrgInput = {
@@ -1181,6 +1317,7 @@ export type EventUncheckedUpdateWithoutOrgInput = {
   schedule_entries?: Prisma.ScheduleEntryUncheckedUpdateManyWithoutEventNestedInput
   player_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutEventNestedInput
   gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutEventNestedInput
+  capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutEventNestedInput
 }
 
 export type EventUncheckedUpdateManyWithoutOrgInput = {
@@ -1208,6 +1345,7 @@ export type EventCountOutputType = {
   schedule_entries: number
   player_participation: number
   gum_items: number
+  capture_requests: number
 }
 
 export type EventCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1215,6 +1353,7 @@ export type EventCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.
   schedule_entries?: boolean | EventCountOutputTypeCountSchedule_entriesArgs
   player_participation?: boolean | EventCountOutputTypeCountPlayer_participationArgs
   gum_items?: boolean | EventCountOutputTypeCountGum_itemsArgs
+  capture_requests?: boolean | EventCountOutputTypeCountCapture_requestsArgs
 }
 
 /**
@@ -1255,6 +1394,13 @@ export type EventCountOutputTypeCountGum_itemsArgs<ExtArgs extends runtime.Types
   where?: Prisma.GumItemWhereInput
 }
 
+/**
+ * EventCountOutputType without action
+ */
+export type EventCountOutputTypeCountCapture_requestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EvtCaptureRequestWhereInput
+}
+
 
 export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1275,6 +1421,7 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   schedule_entries?: boolean | Prisma.Event$schedule_entriesArgs<ExtArgs>
   player_participation?: boolean | Prisma.Event$player_participationArgs<ExtArgs>
   gum_items?: boolean | Prisma.Event$gum_itemsArgs<ExtArgs>
+  capture_requests?: boolean | Prisma.Event$capture_requestsArgs<ExtArgs>
   _count?: boolean | Prisma.EventCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["event"]>
 
@@ -1335,6 +1482,7 @@ export type EventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   schedule_entries?: boolean | Prisma.Event$schedule_entriesArgs<ExtArgs>
   player_participation?: boolean | Prisma.Event$player_participationArgs<ExtArgs>
   gum_items?: boolean | Prisma.Event$gum_itemsArgs<ExtArgs>
+  capture_requests?: boolean | Prisma.Event$capture_requestsArgs<ExtArgs>
   _count?: boolean | Prisma.EventCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type EventIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1352,6 +1500,7 @@ export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     schedule_entries: Prisma.$ScheduleEntryPayload<ExtArgs>[]
     player_participation: Prisma.$PlayerEventParticipationPayload<ExtArgs>[]
     gum_items: Prisma.$GumItemPayload<ExtArgs>[]
+    capture_requests: Prisma.$EvtCaptureRequestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1766,6 +1915,7 @@ export interface Prisma__EventClient<T, Null = never, ExtArgs extends runtime.Ty
   schedule_entries<T extends Prisma.Event$schedule_entriesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$schedule_entriesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ScheduleEntryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   player_participation<T extends Prisma.Event$player_participationArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$player_participationArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlayerEventParticipationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   gum_items<T extends Prisma.Event$gum_itemsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$gum_itemsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GumItemPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  capture_requests<T extends Prisma.Event$capture_requestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Event$capture_requestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EvtCaptureRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2302,6 +2452,30 @@ export type Event$gum_itemsArgs<ExtArgs extends runtime.Types.Extensions.Interna
   take?: number
   skip?: number
   distinct?: Prisma.GumItemScalarFieldEnum | Prisma.GumItemScalarFieldEnum[]
+}
+
+/**
+ * Event.capture_requests
+ */
+export type Event$capture_requestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EvtCaptureRequest
+   */
+  select?: Prisma.EvtCaptureRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EvtCaptureRequest
+   */
+  omit?: Prisma.EvtCaptureRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EvtCaptureRequestInclude<ExtArgs> | null
+  where?: Prisma.EvtCaptureRequestWhereInput
+  orderBy?: Prisma.EvtCaptureRequestOrderByWithRelationInput | Prisma.EvtCaptureRequestOrderByWithRelationInput[]
+  cursor?: Prisma.EvtCaptureRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EvtCaptureRequestScalarFieldEnum | Prisma.EvtCaptureRequestScalarFieldEnum[]
 }
 
 /**

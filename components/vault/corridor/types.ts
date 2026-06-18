@@ -38,6 +38,30 @@ export type GumItemRecord = {
   revealed_by_owner: boolean;
 };
 
+export type CorridorGumItem = {
+  id: string;
+  gum_code: string;
+  item_type: string;
+  status: string;
+  evidence_class: string | null;
+  visibility: string;
+  display_position: number | null;
+  corridor_segment: number;
+  owner_statement: string | null;
+  capturer_credit: string | null;
+  admitted_at: string | null;
+  org_name: string | null;
+  event_name: string | null;
+  athlete_name: string | null;
+  ppc_number: string;
+  authentication_checkmark_type: "gold" | "silver" | "dim";
+};
+
+export type CorridorGumResponse = {
+  ppc_number: string;
+  gum_items: CorridorGumItem[];
+};
+
 export type AchievementRecord = {
   achievement_type: string;
   achievement_scope: string;

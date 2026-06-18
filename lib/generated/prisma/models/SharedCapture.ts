@@ -37,6 +37,7 @@ export type SharedCaptureMinAggregateOutputType = {
   admitted_at: Date | null
   admitted_by: string | null
   capture_credit: string | null
+  visibility: string | null
 }
 
 export type SharedCaptureMaxAggregateOutputType = {
@@ -52,6 +53,7 @@ export type SharedCaptureMaxAggregateOutputType = {
   admitted_at: Date | null
   admitted_by: string | null
   capture_credit: string | null
+  visibility: string | null
 }
 
 export type SharedCaptureCountAggregateOutputType = {
@@ -68,6 +70,7 @@ export type SharedCaptureCountAggregateOutputType = {
   admitted_by: number
   capture_credit: number
   secondary_witnesses: number
+  visibility: number
   _all: number
 }
 
@@ -85,6 +88,7 @@ export type SharedCaptureMinAggregateInputType = {
   admitted_at?: true
   admitted_by?: true
   capture_credit?: true
+  visibility?: true
 }
 
 export type SharedCaptureMaxAggregateInputType = {
@@ -100,6 +104,7 @@ export type SharedCaptureMaxAggregateInputType = {
   admitted_at?: true
   admitted_by?: true
   capture_credit?: true
+  visibility?: true
 }
 
 export type SharedCaptureCountAggregateInputType = {
@@ -116,6 +121,7 @@ export type SharedCaptureCountAggregateInputType = {
   admitted_by?: true
   capture_credit?: true
   secondary_witnesses?: true
+  visibility?: true
   _all?: true
 }
 
@@ -205,6 +211,7 @@ export type SharedCaptureGroupByOutputType = {
   admitted_by: string | null
   capture_credit: string | null
   secondary_witnesses: runtime.JsonValue | null
+  visibility: string
   _count: SharedCaptureCountAggregateOutputType | null
   _min: SharedCaptureMinAggregateOutputType | null
   _max: SharedCaptureMaxAggregateOutputType | null
@@ -242,6 +249,7 @@ export type SharedCaptureWhereInput = {
   admitted_by?: Prisma.StringNullableFilter<"SharedCapture"> | string | null
   capture_credit?: Prisma.StringNullableFilter<"SharedCapture"> | string | null
   secondary_witnesses?: Prisma.JsonNullableFilter<"SharedCapture">
+  visibility?: Prisma.StringFilter<"SharedCapture"> | string
 }
 
 export type SharedCaptureOrderByWithRelationInput = {
@@ -258,6 +266,7 @@ export type SharedCaptureOrderByWithRelationInput = {
   admitted_by?: Prisma.SortOrderInput | Prisma.SortOrder
   capture_credit?: Prisma.SortOrderInput | Prisma.SortOrder
   secondary_witnesses?: Prisma.SortOrderInput | Prisma.SortOrder
+  visibility?: Prisma.SortOrder
 }
 
 export type SharedCaptureWhereUniqueInput = Prisma.AtLeast<{
@@ -277,6 +286,7 @@ export type SharedCaptureWhereUniqueInput = Prisma.AtLeast<{
   admitted_by?: Prisma.StringNullableFilter<"SharedCapture"> | string | null
   capture_credit?: Prisma.StringNullableFilter<"SharedCapture"> | string | null
   secondary_witnesses?: Prisma.JsonNullableFilter<"SharedCapture">
+  visibility?: Prisma.StringFilter<"SharedCapture"> | string
 }, "id">
 
 export type SharedCaptureOrderByWithAggregationInput = {
@@ -293,6 +303,7 @@ export type SharedCaptureOrderByWithAggregationInput = {
   admitted_by?: Prisma.SortOrderInput | Prisma.SortOrder
   capture_credit?: Prisma.SortOrderInput | Prisma.SortOrder
   secondary_witnesses?: Prisma.SortOrderInput | Prisma.SortOrder
+  visibility?: Prisma.SortOrder
   _count?: Prisma.SharedCaptureCountOrderByAggregateInput
   _max?: Prisma.SharedCaptureMaxOrderByAggregateInput
   _min?: Prisma.SharedCaptureMinOrderByAggregateInput
@@ -315,6 +326,7 @@ export type SharedCaptureScalarWhereWithAggregatesInput = {
   admitted_by?: Prisma.StringNullableWithAggregatesFilter<"SharedCapture"> | string | null
   capture_credit?: Prisma.StringNullableWithAggregatesFilter<"SharedCapture"> | string | null
   secondary_witnesses?: Prisma.JsonNullableWithAggregatesFilter<"SharedCapture">
+  visibility?: Prisma.StringWithAggregatesFilter<"SharedCapture"> | string
 }
 
 export type SharedCaptureCreateInput = {
@@ -331,6 +343,7 @@ export type SharedCaptureCreateInput = {
   admitted_by?: string | null
   capture_credit?: string | null
   secondary_witnesses?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  visibility?: string
 }
 
 export type SharedCaptureUncheckedCreateInput = {
@@ -347,6 +360,7 @@ export type SharedCaptureUncheckedCreateInput = {
   admitted_by?: string | null
   capture_credit?: string | null
   secondary_witnesses?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  visibility?: string
 }
 
 export type SharedCaptureUpdateInput = {
@@ -363,6 +377,7 @@ export type SharedCaptureUpdateInput = {
   admitted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capture_credit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   secondary_witnesses?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type SharedCaptureUncheckedUpdateInput = {
@@ -379,6 +394,7 @@ export type SharedCaptureUncheckedUpdateInput = {
   admitted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capture_credit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   secondary_witnesses?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type SharedCaptureCreateManyInput = {
@@ -395,6 +411,7 @@ export type SharedCaptureCreateManyInput = {
   admitted_by?: string | null
   capture_credit?: string | null
   secondary_witnesses?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  visibility?: string
 }
 
 export type SharedCaptureUpdateManyMutationInput = {
@@ -411,6 +428,7 @@ export type SharedCaptureUpdateManyMutationInput = {
   admitted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capture_credit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   secondary_witnesses?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type SharedCaptureUncheckedUpdateManyInput = {
@@ -427,6 +445,7 @@ export type SharedCaptureUncheckedUpdateManyInput = {
   admitted_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   capture_credit?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   secondary_witnesses?: Prisma.NullableJsonNullValueInput | runtime.InputJsonValue
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type SharedCaptureCountOrderByAggregateInput = {
@@ -443,6 +462,7 @@ export type SharedCaptureCountOrderByAggregateInput = {
   admitted_by?: Prisma.SortOrder
   capture_credit?: Prisma.SortOrder
   secondary_witnesses?: Prisma.SortOrder
+  visibility?: Prisma.SortOrder
 }
 
 export type SharedCaptureMaxOrderByAggregateInput = {
@@ -458,6 +478,7 @@ export type SharedCaptureMaxOrderByAggregateInput = {
   admitted_at?: Prisma.SortOrder
   admitted_by?: Prisma.SortOrder
   capture_credit?: Prisma.SortOrder
+  visibility?: Prisma.SortOrder
 }
 
 export type SharedCaptureMinOrderByAggregateInput = {
@@ -473,6 +494,7 @@ export type SharedCaptureMinOrderByAggregateInput = {
   admitted_at?: Prisma.SortOrder
   admitted_by?: Prisma.SortOrder
   capture_credit?: Prisma.SortOrder
+  visibility?: Prisma.SortOrder
 }
 
 
@@ -491,6 +513,7 @@ export type SharedCaptureSelect<ExtArgs extends runtime.Types.Extensions.Interna
   admitted_by?: boolean
   capture_credit?: boolean
   secondary_witnesses?: boolean
+  visibility?: boolean
 }, ExtArgs["result"]["sharedCapture"]>
 
 export type SharedCaptureSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -507,6 +530,7 @@ export type SharedCaptureSelectCreateManyAndReturn<ExtArgs extends runtime.Types
   admitted_by?: boolean
   capture_credit?: boolean
   secondary_witnesses?: boolean
+  visibility?: boolean
 }, ExtArgs["result"]["sharedCapture"]>
 
 export type SharedCaptureSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -523,6 +547,7 @@ export type SharedCaptureSelectUpdateManyAndReturn<ExtArgs extends runtime.Types
   admitted_by?: boolean
   capture_credit?: boolean
   secondary_witnesses?: boolean
+  visibility?: boolean
 }, ExtArgs["result"]["sharedCapture"]>
 
 export type SharedCaptureSelectScalar = {
@@ -539,9 +564,10 @@ export type SharedCaptureSelectScalar = {
   admitted_by?: boolean
   capture_credit?: boolean
   secondary_witnesses?: boolean
+  visibility?: boolean
 }
 
-export type SharedCaptureOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "evidence_file_id" | "captured_by_account" | "shared_to_player_id" | "capture_mode" | "metadata_verified" | "evidence_class" | "shared_at" | "admitted" | "admitted_at" | "admitted_by" | "capture_credit" | "secondary_witnesses", ExtArgs["result"]["sharedCapture"]>
+export type SharedCaptureOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "evidence_file_id" | "captured_by_account" | "shared_to_player_id" | "capture_mode" | "metadata_verified" | "evidence_class" | "shared_at" | "admitted" | "admitted_at" | "admitted_by" | "capture_credit" | "secondary_witnesses" | "visibility", ExtArgs["result"]["sharedCapture"]>
 
 export type $SharedCapturePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "SharedCapture"
@@ -560,6 +586,7 @@ export type $SharedCapturePayload<ExtArgs extends runtime.Types.Extensions.Inter
     admitted_by: string | null
     capture_credit: string | null
     secondary_witnesses: runtime.JsonValue | null
+    visibility: string
   }, ExtArgs["result"]["sharedCapture"]>
   composites: {}
 }
@@ -996,6 +1023,7 @@ export interface SharedCaptureFieldRefs {
   readonly admitted_by: Prisma.FieldRef<"SharedCapture", 'String'>
   readonly capture_credit: Prisma.FieldRef<"SharedCapture", 'String'>
   readonly secondary_witnesses: Prisma.FieldRef<"SharedCapture", 'Json'>
+  readonly visibility: Prisma.FieldRef<"SharedCapture", 'String'>
 }
     
 

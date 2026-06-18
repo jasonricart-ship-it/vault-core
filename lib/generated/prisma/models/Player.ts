@@ -388,6 +388,7 @@ export type PlayerWhereInput = {
   guardian_action_logs?: Prisma.GuardianActionLogListRelationFilter
   hall_of_fame_inductee?: Prisma.XOR<Prisma.HallOfFameInducteeNullableScalarRelationFilter, Prisma.HallOfFameInducteeWhereInput> | null
   hall_of_fame_nominations?: Prisma.HallOfFameNominationListRelationFilter
+  evt_capture_requests?: Prisma.EvtCaptureRequestListRelationFilter
 }
 
 export type PlayerOrderByWithRelationInput = {
@@ -428,6 +429,7 @@ export type PlayerOrderByWithRelationInput = {
   guardian_action_logs?: Prisma.GuardianActionLogOrderByRelationAggregateInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeOrderByWithRelationInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationOrderByRelationAggregateInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestOrderByRelationAggregateInput
 }
 
 export type PlayerWhereUniqueInput = Prisma.AtLeast<{
@@ -471,6 +473,7 @@ export type PlayerWhereUniqueInput = Prisma.AtLeast<{
   guardian_action_logs?: Prisma.GuardianActionLogListRelationFilter
   hall_of_fame_inductee?: Prisma.XOR<Prisma.HallOfFameInducteeNullableScalarRelationFilter, Prisma.HallOfFameInducteeWhereInput> | null
   hall_of_fame_nominations?: Prisma.HallOfFameNominationListRelationFilter
+  evt_capture_requests?: Prisma.EvtCaptureRequestListRelationFilter
 }, "id" | "ppc_number">
 
 export type PlayerOrderByWithAggregationInput = {
@@ -574,6 +577,7 @@ export type PlayerCreateInput = {
   guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateInput = {
@@ -613,6 +617,7 @@ export type PlayerUncheckedCreateInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUpdateInput = {
@@ -652,6 +657,7 @@ export type PlayerUpdateInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateInput = {
@@ -691,6 +697,7 @@ export type PlayerUncheckedUpdateInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateManyInput = {
@@ -1116,6 +1123,22 @@ export type PlayerUpdateOneRequiredWithoutHall_of_fame_nominationsNestedInput = 
   update?: Prisma.XOR<Prisma.XOR<Prisma.PlayerUpdateToOneWithWhereWithoutHall_of_fame_nominationsInput, Prisma.PlayerUpdateWithoutHall_of_fame_nominationsInput>, Prisma.PlayerUncheckedUpdateWithoutHall_of_fame_nominationsInput>
 }
 
+export type PlayerCreateNestedOneWithoutEvt_capture_requestsInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutEvt_capture_requestsInput, Prisma.PlayerUncheckedCreateWithoutEvt_capture_requestsInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutEvt_capture_requestsInput
+  connect?: Prisma.PlayerWhereUniqueInput
+}
+
+export type PlayerUpdateOneWithoutEvt_capture_requestsNestedInput = {
+  create?: Prisma.XOR<Prisma.PlayerCreateWithoutEvt_capture_requestsInput, Prisma.PlayerUncheckedCreateWithoutEvt_capture_requestsInput>
+  connectOrCreate?: Prisma.PlayerCreateOrConnectWithoutEvt_capture_requestsInput
+  upsert?: Prisma.PlayerUpsertWithoutEvt_capture_requestsInput
+  disconnect?: Prisma.PlayerWhereInput | boolean
+  delete?: Prisma.PlayerWhereInput | boolean
+  connect?: Prisma.PlayerWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.PlayerUpdateToOneWithWhereWithoutEvt_capture_requestsInput, Prisma.PlayerUpdateWithoutEvt_capture_requestsInput>, Prisma.PlayerUncheckedUpdateWithoutEvt_capture_requestsInput>
+}
+
 export type PlayerCreateWithoutAchievementsInput = {
   id?: string
   ppc_number: string
@@ -1152,6 +1175,7 @@ export type PlayerCreateWithoutAchievementsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutAchievementsInput = {
@@ -1190,6 +1214,7 @@ export type PlayerUncheckedCreateWithoutAchievementsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutAchievementsInput = {
@@ -1244,6 +1269,7 @@ export type PlayerUpdateWithoutAchievementsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutAchievementsInput = {
@@ -1282,6 +1308,7 @@ export type PlayerUncheckedUpdateWithoutAchievementsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateWithoutGum_itemsInput = {
@@ -1320,6 +1347,7 @@ export type PlayerCreateWithoutGum_itemsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutGum_itemsInput = {
@@ -1358,6 +1386,7 @@ export type PlayerUncheckedCreateWithoutGum_itemsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutGum_itemsInput = {
@@ -1412,6 +1441,7 @@ export type PlayerUpdateWithoutGum_itemsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutGum_itemsInput = {
@@ -1450,6 +1480,7 @@ export type PlayerUncheckedUpdateWithoutGum_itemsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateWithoutOrg_affiliationsInput = {
@@ -1488,6 +1519,7 @@ export type PlayerCreateWithoutOrg_affiliationsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutOrg_affiliationsInput = {
@@ -1526,6 +1558,7 @@ export type PlayerUncheckedCreateWithoutOrg_affiliationsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutOrg_affiliationsInput = {
@@ -1580,6 +1613,7 @@ export type PlayerUpdateWithoutOrg_affiliationsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutOrg_affiliationsInput = {
@@ -1618,6 +1652,7 @@ export type PlayerUncheckedUpdateWithoutOrg_affiliationsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateWithoutEvent_participationInput = {
@@ -1656,6 +1691,7 @@ export type PlayerCreateWithoutEvent_participationInput = {
   guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutEvent_participationInput = {
@@ -1694,6 +1730,7 @@ export type PlayerUncheckedCreateWithoutEvent_participationInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutEvent_participationInput = {
@@ -1748,6 +1785,7 @@ export type PlayerUpdateWithoutEvent_participationInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutEvent_participationInput = {
@@ -1786,6 +1824,7 @@ export type PlayerUncheckedUpdateWithoutEvent_participationInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateWithoutGuardianInput = {
@@ -1824,6 +1863,7 @@ export type PlayerCreateWithoutGuardianInput = {
   guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutGuardianInput = {
@@ -1862,6 +1902,7 @@ export type PlayerUncheckedCreateWithoutGuardianInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutGuardianInput = {
@@ -1957,6 +1998,7 @@ export type PlayerCreateWithoutViolation_affected_recordsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutViolation_affected_recordsInput = {
@@ -1995,6 +2037,7 @@ export type PlayerUncheckedCreateWithoutViolation_affected_recordsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutViolation_affected_recordsInput = {
@@ -2049,6 +2092,7 @@ export type PlayerUpdateWithoutViolation_affected_recordsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutViolation_affected_recordsInput = {
@@ -2087,6 +2131,7 @@ export type PlayerUncheckedUpdateWithoutViolation_affected_recordsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateWithoutPlayer_guardiansInput = {
@@ -2125,6 +2170,7 @@ export type PlayerCreateWithoutPlayer_guardiansInput = {
   guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutPlayer_guardiansInput = {
@@ -2163,6 +2209,7 @@ export type PlayerUncheckedCreateWithoutPlayer_guardiansInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutPlayer_guardiansInput = {
@@ -2217,6 +2264,7 @@ export type PlayerUpdateWithoutPlayer_guardiansInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutPlayer_guardiansInput = {
@@ -2255,6 +2303,7 @@ export type PlayerUncheckedUpdateWithoutPlayer_guardiansInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateWithoutAccount_transitionsInput = {
@@ -2293,6 +2342,7 @@ export type PlayerCreateWithoutAccount_transitionsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutAccount_transitionsInput = {
@@ -2331,6 +2381,7 @@ export type PlayerUncheckedCreateWithoutAccount_transitionsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutAccount_transitionsInput = {
@@ -2385,6 +2436,7 @@ export type PlayerUpdateWithoutAccount_transitionsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutAccount_transitionsInput = {
@@ -2423,6 +2475,7 @@ export type PlayerUncheckedUpdateWithoutAccount_transitionsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateWithoutCorridor_access_grantsInput = {
@@ -2461,6 +2514,7 @@ export type PlayerCreateWithoutCorridor_access_grantsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutCorridor_access_grantsInput = {
@@ -2499,6 +2553,7 @@ export type PlayerUncheckedCreateWithoutCorridor_access_grantsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutCorridor_access_grantsInput = {
@@ -2553,6 +2608,7 @@ export type PlayerUpdateWithoutCorridor_access_grantsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutCorridor_access_grantsInput = {
@@ -2591,6 +2647,7 @@ export type PlayerUncheckedUpdateWithoutCorridor_access_grantsInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateWithoutGuardian_action_logsInput = {
@@ -2629,6 +2686,7 @@ export type PlayerCreateWithoutGuardian_action_logsInput = {
   corridor_access_grants?: Prisma.CorridorAccessGrantCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutGuardian_action_logsInput = {
@@ -2667,6 +2725,7 @@ export type PlayerUncheckedCreateWithoutGuardian_action_logsInput = {
   corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutGuardian_action_logsInput = {
@@ -2721,6 +2780,7 @@ export type PlayerUpdateWithoutGuardian_action_logsInput = {
   corridor_access_grants?: Prisma.CorridorAccessGrantUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutGuardian_action_logsInput = {
@@ -2759,6 +2819,7 @@ export type PlayerUncheckedUpdateWithoutGuardian_action_logsInput = {
   corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateWithoutHall_of_fame_inducteeInput = {
@@ -2797,6 +2858,7 @@ export type PlayerCreateWithoutHall_of_fame_inducteeInput = {
   corridor_access_grants?: Prisma.CorridorAccessGrantCreateNestedManyWithoutPlayerInput
   guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutHall_of_fame_inducteeInput = {
@@ -2835,6 +2897,7 @@ export type PlayerUncheckedCreateWithoutHall_of_fame_inducteeInput = {
   corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutPlayerInput
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutHall_of_fame_inducteeInput = {
@@ -2889,6 +2952,7 @@ export type PlayerUpdateWithoutHall_of_fame_inducteeInput = {
   corridor_access_grants?: Prisma.CorridorAccessGrantUpdateManyWithoutPlayerNestedInput
   guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutHall_of_fame_inducteeInput = {
@@ -2927,6 +2991,7 @@ export type PlayerUncheckedUpdateWithoutHall_of_fame_inducteeInput = {
   corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutPlayerNestedInput
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateWithoutHall_of_fame_nominationsInput = {
@@ -2965,6 +3030,7 @@ export type PlayerCreateWithoutHall_of_fame_nominationsInput = {
   corridor_access_grants?: Prisma.CorridorAccessGrantCreateNestedManyWithoutPlayerInput
   guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerUncheckedCreateWithoutHall_of_fame_nominationsInput = {
@@ -3003,6 +3069,7 @@ export type PlayerUncheckedCreateWithoutHall_of_fame_nominationsInput = {
   corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutPlayerInput
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedCreateNestedManyWithoutPlayerInput
 }
 
 export type PlayerCreateOrConnectWithoutHall_of_fame_nominationsInput = {
@@ -3057,6 +3124,7 @@ export type PlayerUpdateWithoutHall_of_fame_nominationsInput = {
   corridor_access_grants?: Prisma.CorridorAccessGrantUpdateManyWithoutPlayerNestedInput
   guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutHall_of_fame_nominationsInput = {
@@ -3095,6 +3163,179 @@ export type PlayerUncheckedUpdateWithoutHall_of_fame_nominationsInput = {
   corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutPlayerNestedInput
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutPlayerNestedInput
+}
+
+export type PlayerCreateWithoutEvt_capture_requestsInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  enrollment_photo_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
+  guardian?: Prisma.AccountCreateNestedOneWithoutGuardian_playersInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationCreateNestedManyWithoutPlayerInput
+}
+
+export type PlayerUncheckedCreateWithoutEvt_capture_requestsInput = {
+  id?: string
+  ppc_number: string
+  display_name: string
+  first_name: string
+  last_name: string
+  preferred_name?: string | null
+  primary_sport?: string | null
+  jersey_number?: string | null
+  date_of_birth?: Date | string | null
+  is_minor?: boolean
+  vault_level?: string
+  strength_score?: number
+  exhibit_status?: string
+  bust_color?: string
+  visibility?: string
+  signature_on_file?: boolean
+  signature_image_key?: string | null
+  bust_image_key?: string | null
+  enrollment_photo_key?: string | null
+  created_at?: Date | string
+  updated_at?: Date | string
+  guardian_account_id?: string | null
+  created_by?: string | null
+  principles_acknowledged_at?: Date | string | null
+  principles_acknowledged_ip?: string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedCreateNestedManyWithoutPlayerInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedCreateNestedManyWithoutPlayerInput
+  gum_items?: Prisma.GumItemUncheckedCreateNestedManyWithoutPlayerInput
+  achievements?: Prisma.AchievementUncheckedCreateNestedManyWithoutPlayerInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedCreateNestedManyWithoutPlayerInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedCreateNestedManyWithoutPlayerInput
+  account_transitions?: Prisma.AccountTransitionUncheckedCreateNestedManyWithoutPlayerInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedCreateNestedManyWithoutPlayerInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedCreateNestedManyWithoutPlayerInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedCreateNestedOneWithoutPlayerInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedCreateNestedManyWithoutPlayerInput
+}
+
+export type PlayerCreateOrConnectWithoutEvt_capture_requestsInput = {
+  where: Prisma.PlayerWhereUniqueInput
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutEvt_capture_requestsInput, Prisma.PlayerUncheckedCreateWithoutEvt_capture_requestsInput>
+}
+
+export type PlayerUpsertWithoutEvt_capture_requestsInput = {
+  update: Prisma.XOR<Prisma.PlayerUpdateWithoutEvt_capture_requestsInput, Prisma.PlayerUncheckedUpdateWithoutEvt_capture_requestsInput>
+  create: Prisma.XOR<Prisma.PlayerCreateWithoutEvt_capture_requestsInput, Prisma.PlayerUncheckedCreateWithoutEvt_capture_requestsInput>
+  where?: Prisma.PlayerWhereInput
+}
+
+export type PlayerUpdateToOneWithWhereWithoutEvt_capture_requestsInput = {
+  where?: Prisma.PlayerWhereInput
+  data: Prisma.XOR<Prisma.PlayerUpdateWithoutEvt_capture_requestsInput, Prisma.PlayerUncheckedUpdateWithoutEvt_capture_requestsInput>
+}
+
+export type PlayerUpdateWithoutEvt_capture_requestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  guardian?: Prisma.AccountUpdateOneWithoutGuardian_playersNestedInput
+  org_affiliations?: Prisma.PlayerOrgAffiliationUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+}
+
+export type PlayerUncheckedUpdateWithoutEvt_capture_requestsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  ppc_number?: Prisma.StringFieldUpdateOperationsInput | string
+  display_name?: Prisma.StringFieldUpdateOperationsInput | string
+  first_name?: Prisma.StringFieldUpdateOperationsInput | string
+  last_name?: Prisma.StringFieldUpdateOperationsInput | string
+  preferred_name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  primary_sport?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  jersey_number?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  date_of_birth?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  is_minor?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  vault_level?: Prisma.StringFieldUpdateOperationsInput | string
+  strength_score?: Prisma.IntFieldUpdateOperationsInput | number
+  exhibit_status?: Prisma.StringFieldUpdateOperationsInput | string
+  bust_color?: Prisma.StringFieldUpdateOperationsInput | string
+  visibility?: Prisma.StringFieldUpdateOperationsInput | string
+  signature_on_file?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  signature_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bust_image_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  enrollment_photo_key?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updated_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  guardian_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  created_by?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  principles_acknowledged_at?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  principles_acknowledged_ip?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  org_affiliations?: Prisma.PlayerOrgAffiliationUncheckedUpdateManyWithoutPlayerNestedInput
+  event_participation?: Prisma.PlayerEventParticipationUncheckedUpdateManyWithoutPlayerNestedInput
+  gum_items?: Prisma.GumItemUncheckedUpdateManyWithoutPlayerNestedInput
+  achievements?: Prisma.AchievementUncheckedUpdateManyWithoutPlayerNestedInput
+  violation_affected_records?: Prisma.ViolationAffectedRecordUncheckedUpdateManyWithoutPlayerNestedInput
+  player_guardians?: Prisma.PlayerGuardianUncheckedUpdateManyWithoutPlayerNestedInput
+  account_transitions?: Prisma.AccountTransitionUncheckedUpdateManyWithoutPlayerNestedInput
+  corridor_access_grants?: Prisma.CorridorAccessGrantUncheckedUpdateManyWithoutPlayerNestedInput
+  guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
+  hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
+  hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerCreateManyGuardianInput = {
@@ -3160,6 +3401,7 @@ export type PlayerUpdateWithoutGuardianInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateWithoutGuardianInput = {
@@ -3198,6 +3440,7 @@ export type PlayerUncheckedUpdateWithoutGuardianInput = {
   guardian_action_logs?: Prisma.GuardianActionLogUncheckedUpdateManyWithoutPlayerNestedInput
   hall_of_fame_inductee?: Prisma.HallOfFameInducteeUncheckedUpdateOneWithoutPlayerNestedInput
   hall_of_fame_nominations?: Prisma.HallOfFameNominationUncheckedUpdateManyWithoutPlayerNestedInput
+  evt_capture_requests?: Prisma.EvtCaptureRequestUncheckedUpdateManyWithoutPlayerNestedInput
 }
 
 export type PlayerUncheckedUpdateManyWithoutGuardianInput = {
@@ -3243,6 +3486,7 @@ export type PlayerCountOutputType = {
   corridor_access_grants: number
   guardian_action_logs: number
   hall_of_fame_nominations: number
+  evt_capture_requests: number
 }
 
 export type PlayerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3256,6 +3500,7 @@ export type PlayerCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions
   corridor_access_grants?: boolean | PlayerCountOutputTypeCountCorridor_access_grantsArgs
   guardian_action_logs?: boolean | PlayerCountOutputTypeCountGuardian_action_logsArgs
   hall_of_fame_nominations?: boolean | PlayerCountOutputTypeCountHall_of_fame_nominationsArgs
+  evt_capture_requests?: boolean | PlayerCountOutputTypeCountEvt_capture_requestsArgs
 }
 
 /**
@@ -3338,6 +3583,13 @@ export type PlayerCountOutputTypeCountHall_of_fame_nominationsArgs<ExtArgs exten
   where?: Prisma.HallOfFameNominationWhereInput
 }
 
+/**
+ * PlayerCountOutputType without action
+ */
+export type PlayerCountOutputTypeCountEvt_capture_requestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EvtCaptureRequestWhereInput
+}
+
 
 export type PlayerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -3377,6 +3629,7 @@ export type PlayerSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   guardian_action_logs?: boolean | Prisma.Player$guardian_action_logsArgs<ExtArgs>
   hall_of_fame_inductee?: boolean | Prisma.Player$hall_of_fame_inducteeArgs<ExtArgs>
   hall_of_fame_nominations?: boolean | Prisma.Player$hall_of_fame_nominationsArgs<ExtArgs>
+  evt_capture_requests?: boolean | Prisma.Player$evt_capture_requestsArgs<ExtArgs>
   _count?: boolean | Prisma.PlayerCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["player"]>
 
@@ -3480,6 +3733,7 @@ export type PlayerInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   guardian_action_logs?: boolean | Prisma.Player$guardian_action_logsArgs<ExtArgs>
   hall_of_fame_inductee?: boolean | Prisma.Player$hall_of_fame_inducteeArgs<ExtArgs>
   hall_of_fame_nominations?: boolean | Prisma.Player$hall_of_fame_nominationsArgs<ExtArgs>
+  evt_capture_requests?: boolean | Prisma.Player$evt_capture_requestsArgs<ExtArgs>
   _count?: boolean | Prisma.PlayerCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type PlayerIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -3504,6 +3758,7 @@ export type $PlayerPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs
     guardian_action_logs: Prisma.$GuardianActionLogPayload<ExtArgs>[]
     hall_of_fame_inductee: Prisma.$HallOfFameInducteePayload<ExtArgs> | null
     hall_of_fame_nominations: Prisma.$HallOfFameNominationPayload<ExtArgs>[]
+    evt_capture_requests: Prisma.$EvtCaptureRequestPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3937,6 +4192,7 @@ export interface Prisma__PlayerClient<T, Null = never, ExtArgs extends runtime.T
   guardian_action_logs<T extends Prisma.Player$guardian_action_logsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$guardian_action_logsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GuardianActionLogPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   hall_of_fame_inductee<T extends Prisma.Player$hall_of_fame_inducteeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$hall_of_fame_inducteeArgs<ExtArgs>>): Prisma.Prisma__HallOfFameInducteeClient<runtime.Types.Result.GetResult<Prisma.$HallOfFameInducteePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   hall_of_fame_nominations<T extends Prisma.Player$hall_of_fame_nominationsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$hall_of_fame_nominationsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$HallOfFameNominationPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  evt_capture_requests<T extends Prisma.Player$evt_capture_requestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Player$evt_capture_requestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EvtCaptureRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4667,6 +4923,30 @@ export type Player$hall_of_fame_nominationsArgs<ExtArgs extends runtime.Types.Ex
   take?: number
   skip?: number
   distinct?: Prisma.HallOfFameNominationScalarFieldEnum | Prisma.HallOfFameNominationScalarFieldEnum[]
+}
+
+/**
+ * Player.evt_capture_requests
+ */
+export type Player$evt_capture_requestsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the EvtCaptureRequest
+   */
+  select?: Prisma.EvtCaptureRequestSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the EvtCaptureRequest
+   */
+  omit?: Prisma.EvtCaptureRequestOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.EvtCaptureRequestInclude<ExtArgs> | null
+  where?: Prisma.EvtCaptureRequestWhereInput
+  orderBy?: Prisma.EvtCaptureRequestOrderByWithRelationInput | Prisma.EvtCaptureRequestOrderByWithRelationInput[]
+  cursor?: Prisma.EvtCaptureRequestWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EvtCaptureRequestScalarFieldEnum | Prisma.EvtCaptureRequestScalarFieldEnum[]
 }
 
 /**

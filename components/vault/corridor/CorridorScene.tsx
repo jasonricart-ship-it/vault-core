@@ -3,6 +3,7 @@
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Html } from "@react-three/drei";
 import gsap from "gsap";
+import nextDynamic from "next/dynamic";
 import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import * as THREE from "three";
@@ -18,6 +19,11 @@ import {
   vaultTierColors,
   vaultTierLabel,
 } from "./utils";
+
+const GumGallery = nextDynamic(
+  () => import("./GumGallery").then((m) => ({ default: m.GumGallery })),
+  { ssr: false },
+);
 
 const GOLD = CORRIDOR.gold;
 const PARCHMENT = CORRIDOR.parchment;
@@ -1061,111 +1067,24 @@ function TransitionCorridor({ cameraZ }: { player: PlayerData; cameraZ: number }
   );
 }
 
-function GumGallery({ player, cameraZ }: { player: PlayerData; cameraZ: number }) {
+function GumGalleryZone({
+  player,
+  cameraZ,
+}: {
+  player: PlayerData;
+  cameraZ: number;
+}) {
   const show = cameraZ <= -56 && cameraZ >= -74;
   const centerZ = -65;
-  const caseZ = [-58, -61, -64, -67, -70];
-  const slabZ = [-57, -58.5, -60, -61.5, -63, -64.5, -66, -67.5, -69, -70.5, -72, -73];
-  const items = player.gum_items;
-  const gumFilled = Math.min(items.length, GUM_MAX);
+  const [gumFilled, setGumFilled] = useState(0);
 
   return (
     <group>
-      <mesh position={[-7, 0, -65]}>
-        <boxGeometry args={[0.4, 8, 20]} />
-        <meshBasicMaterial color="#2A1E10" />
-      </mesh>
-      <mesh position={[7, 0, -65]}>
-        <boxGeometry args={[0.4, 8, 20]} />
-        <meshBasicMaterial color="#2A1E10" />
-      </mesh>
-      <mesh position={[0, 4.15, -65]}>
-        <boxGeometry args={[14, 0.3, 20]} />
-        <meshBasicMaterial color="#0F0C08" />
-      </mesh>
-      <mesh position={[0, -3.8, -65]}>
-        <boxGeometry args={[14, 0.3, 20]} />
-        <meshBasicMaterial color="#1E1610" />
-      </mesh>
-
-      {slabZ.map((z, i) => (
-        <mesh key={z} position={[0, -3.78, z]}>
-          <boxGeometry args={[12, 0.05, 1.8]} />
-          <meshBasicMaterial color={i % 2 === 0 ? "#1E1610" : "#1A1208"} />
-        </mesh>
-      ))}
-
-      <mesh position={[0, -3.78, -56]}>
-        <boxGeometry args={[4, 0.05, 0.8]} />
-        <meshBasicMaterial color="#2A1E10" />
-      </mesh>
-
-      {caseZ.map((z, i) => (
-        <group key={`l-${z}`}>
-          <mesh position={[-6.5, 0, z]}>
-            <boxGeometry args={[2.5, 4.5, 1.2]} />
-            <meshBasicMaterial color="#0A0806" />
-          </mesh>
-          <mesh position={[-5.2, 0, z]}>
-            <boxGeometry args={[2.5, 4.5, 0.08]} />
-            <meshBasicMaterial color="#8BC4D8" transparent opacity={0.12} depthWrite={false} />
-          </mesh>
-          {items[i] && (
-            <pointLight position={[-6.5, 2, z]} color="#D4A92A" intensity={2} distance={4} />
-          )}
-          {show && (
-            <Html position={[-5.2, -2.5, z + 0.2]} center transform={false} distanceFactor={9}>
-              <div style={{ ...HTML, fontFamily: SERIF, width: 100, textAlign: "center" }}>
-                {items[i] ? (
-                  <>
-                    <p style={{ fontSize: 8, color: GOLD, margin: 0 }}>{items[i].gum_code}</p>
-                    <p style={{ fontSize: 8, color: PARCHMENT, margin: "2px 0 0" }}>{items[i].item_description}</p>
-                  </>
-                ) : (
-                  <>
-                    <p style={{ fontSize: 8, color: "#B8972A22", margin: 0 }}>DISPLAY CASE {i + 1}</p>
-                    <p style={{ fontSize: 7, color: "#B8972A33", margin: "2px 0 0" }}>Awaiting item</p>
-                  </>
-                )}
-              </div>
-            </Html>
-          )}
-        </group>
-      ))}
-
-      {caseZ.map((z, i) => (
-        <group key={`r-${z}`}>
-          <mesh position={[6.5, 0, z]}>
-            <boxGeometry args={[2.5, 4.5, 1.2]} />
-            <meshBasicMaterial color="#0A0806" />
-          </mesh>
-          <mesh position={[5.2, 0, z]}>
-            <boxGeometry args={[2.5, 4.5, 0.08]} />
-            <meshBasicMaterial color="#8BC4D8" transparent opacity={0.12} depthWrite={false} />
-          </mesh>
-          {items[i + 5] && (
-            <pointLight position={[6.5, 2, z]} color="#D4A92A" intensity={2} distance={4} />
-          )}
-          {show && (
-            <Html position={[5.2, -2.5, z + 0.2]} center transform={false} distanceFactor={9}>
-              <div style={{ ...HTML, fontFamily: SERIF, width: 100, textAlign: "center" }}>
-                {items[i + 5] ? (
-                  <>
-                    <p style={{ fontSize: 8, color: GOLD, margin: 0 }}>{items[i + 5].gum_code}</p>
-                    <p style={{ fontSize: 8, color: PARCHMENT, margin: "2px 0 0" }}>{items[i + 5].item_description}</p>
-                  </>
-                ) : (
-                  <>
-                    <p style={{ fontSize: 8, color: "#B8972A22", margin: 0 }}>DISPLAY CASE {i + 6}</p>
-                    <p style={{ fontSize: 7, color: "#B8972A33", margin: "2px 0 0" }}>Awaiting item</p>
-                  </>
-                )}
-              </div>
-            </Html>
-          )}
-        </group>
-      ))}
-
+      <GumGallery
+        player={player}
+        cameraZ={cameraZ}
+        onFilledChange={setGumFilled}
+      />
       <HammerChisel
         centerZ={centerZ}
         plinthY={-3.0}
@@ -1175,8 +1094,13 @@ function GumGallery({ player, cameraZ }: { player: PlayerData; cameraZ: number }
         halfThreshold={5}
         showBreakthrough={show && gumFilled >= GUM_MAX}
       />
-
-      <ZoneFloorLabel show={show} centerZ={centerZ} label="THE COLLECTION" filled={gumFilled} max={GUM_MAX} />
+      <ZoneFloorLabel
+        show={show}
+        centerZ={centerZ}
+        label="THE COLLECTION"
+        filled={gumFilled}
+        max={GUM_MAX}
+      />
     </group>
   );
 }
@@ -1305,7 +1229,7 @@ function CorridorWorld({
       <StoneSteps specs={stepsUp2} />
       <TransitionCorridor cameraZ={cameraZ} player={player} />
       <StoneSteps specs={stepsDown3} />
-      <GumGallery player={player} cameraZ={cameraZ} />
+      <GumGalleryZone player={player} cameraZ={cameraZ} />
       <StoneSteps specs={stepsUp3} />
       <FinalCorridor cameraZ={cameraZ} />
       <EndWall cameraZ={cameraZ} onReturn={onReturn} />
