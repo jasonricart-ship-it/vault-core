@@ -310,6 +310,8 @@ model PlayerOrgAffiliation {
   verified_by_org  Boolean  @default(false)
   start_date       DateTime?
   end_date         DateTime?
+  last_renewed_at  DateTime?
+  annual_renewal_due DateTime?
   created_at       DateTime @default(now())
 
   player           Player       @relation(fields: [player_id], references: [id])
