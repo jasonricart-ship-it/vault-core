@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
 import * as THREE from "three";
 import type { PlayerData } from "./types";
+import { CORRIDOR_GUM_MAX } from "./GumGallery";
 import {
   achievementTypeLabel,
   buildCorridorEvents,
@@ -45,7 +46,7 @@ const HTML = { pointerEvents: "none" as const, userSelect: "none" as const };
 
 const AFF_MAX = 8;
 const ACH_MAX = 6;
-const GUM_MAX = 10;
+const GUM_MAX = CORRIDOR_GUM_MAX;
 
 function bustFill(player: PlayerData) {
   const c = vaultTierColors(player.vault_level);
@@ -1070,9 +1071,13 @@ function TransitionCorridor({ cameraZ }: { player: PlayerData; cameraZ: number }
 function GumGalleryZone({
   player,
   cameraZ,
+  segment,
+  onAdvanceSegment,
 }: {
   player: PlayerData;
   cameraZ: number;
+  segment: number;
+  onAdvanceSegment: () => void;
 }) {
   const show = cameraZ <= -56 && cameraZ >= -74;
   const centerZ = -65;
@@ -1083,7 +1088,9 @@ function GumGalleryZone({
       <GumGallery
         player={player}
         cameraZ={cameraZ}
+        segment={segment}
         onFilledChange={setGumFilled}
+        onSegmentAdvance={onAdvanceSegment}
       />
       <HammerChisel
         centerZ={centerZ}
@@ -1091,7 +1098,7 @@ function GumGalleryZone({
         scale={1}
         filled={gumFilled}
         max={GUM_MAX}
-        halfThreshold={5}
+        halfThreshold={6}
         showBreakthrough={show && gumFilled >= GUM_MAX}
       />
       <ZoneFloorLabel
@@ -1169,12 +1176,16 @@ function EndWall({ cameraZ, onReturn }: { cameraZ: number; onReturn: () => void 
 function CorridorWorld({
   player,
   cameraZ,
+  gumSegment,
   onBreakthrough,
+  onGumSegmentAdvance,
   onReturn,
 }: {
   player: PlayerData;
   cameraZ: number;
+  gumSegment: number;
   onBreakthrough: () => void;
+  onGumSegmentAdvance: () => void;
   onReturn: () => void;
 }) {
   const stepsDown1 = [
@@ -1230,7 +1241,12 @@ function CorridorWorld({
       <StoneSteps specs={stepsUp2} />
       <TransitionCorridor cameraZ={cameraZ} player={player} />
       <StoneSteps specs={stepsDown3} />
-      <GumGalleryZone player={player} cameraZ={cameraZ} />
+      <GumGalleryZone
+        player={player}
+        cameraZ={cameraZ}
+        segment={gumSegment}
+        onAdvanceSegment={onGumSegmentAdvance}
+      />
       <StoneSteps specs={stepsUp3} />
       <FinalCorridor cameraZ={cameraZ} />
       <EndWall cameraZ={cameraZ} onReturn={onReturn} />
@@ -1250,9 +1266,22 @@ function CorridorExperience({
   const [cameraZ, setCameraZ] = useState(CAM_START_Z);
   const targetZRef = useRef(CAM_START_Z);
 
+  const [gumSegment, setGumSegment] = useState(1);
+
   const onBreakthrough = useCallback(() => {
     gsap.to(camera.position, { z: camera.position.z - 8, duration: 1.2, ease: "power2.inOut" });
     targetZRef.current = clampZ(camera.position.z - 8);
+  }, [camera]);
+
+  const onGumSegmentAdvance = useCallback(() => {
+    setGumSegment((current) => current + 1);
+    const nextZ = clampZ(camera.position.z - 10);
+    gsap.to(camera.position, {
+      z: nextZ,
+      duration: 1.4,
+      ease: "power2.inOut",
+    });
+    targetZRef.current = nextZ;
   }, [camera]);
 
   const onReturn = useCallback(() => {
@@ -1266,7 +1295,9 @@ function CorridorExperience({
       <CorridorWorld
         player={player}
         cameraZ={cameraZ}
+        gumSegment={gumSegment}
         onBreakthrough={onBreakthrough}
+        onGumSegmentAdvance={onGumSegmentAdvance}
         onReturn={onReturn}
       />
     </>

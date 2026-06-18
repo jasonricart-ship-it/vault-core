@@ -2,22 +2,31 @@
 
 import "@react-three/fiber";
 import { Html } from "@react-three/drei";
-import { useEffect, useMemo, useState } from "react";
+import gsap from "gsap";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { Group } from "three";
 import type { CorridorGumItem, CorridorGumResponse, PlayerData } from "./types";
 
 const GOLD = "#B8972A";
 const PARCHMENT = "#F5F2EC";
 const SERIF = "Georgia, 'Times New Roman', serif";
-const GUM_MAX = 10;
+export const CORRIDOR_GUM_MAX = 12;
+const GUM_MAX = CORRIDOR_GUM_MAX;
+const GALLERY_CENTER_Z = -65;
+const PLINTH_FLOOR_Y = -3.15;
 
 const HTML = { pointerEvents: "none" as const, userSelect: "none" as const };
 
-const CASE_Z = [-58, -61, -64, -67, -70] as const;
+const CASE_Z = [-58, -61, -64, -67, -70, -73] as const;
 const SLAB_Z = [
-  -57, -58.5, -60, -61.5, -63, -64.5, -66, -67.5, -69, -70.5, -72, -73,
+  -57, -58.5, -60, -61.5, -63, -64.5, -66, -67.5, -69, -70.5, -72, -73, -74.5,
 ] as const;
 
 type CaseVisual = "empty" | "pending" | "authenticated-e1" | "authenticated-standard";
+
+function itemsForSegment(items: CorridorGumItem[], segment: number) {
+  return items.filter((item) => item.corridor_segment === segment);
+}
 
 function buildGumSlots(items: CorridorGumItem[]): (CorridorGumItem | null)[] {
   const slots: (CorridorGumItem | null)[] = Array.from(
@@ -49,6 +58,32 @@ function buildGumSlots(items: CorridorGumItem[]): (CorridorGumItem | null)[] {
   }
 
   return slots;
+}
+
+function countAuthenticatedAtPositions(
+  items: CorridorGumItem[],
+  segment: number,
+): number {
+  let count = 0;
+  for (let position = 1; position <= GUM_MAX; position += 1) {
+    const item = items.find(
+      (entry) =>
+        entry.corridor_segment === segment && entry.display_position === position,
+    );
+    if (item?.status === "authenticated") count += 1;
+  }
+  return count;
+}
+
+function isSegmentKeyReady(items: CorridorGumItem[], segment: number): boolean {
+  for (let position = 1; position <= GUM_MAX; position += 1) {
+    const item = items.find(
+      (entry) =>
+        entry.corridor_segment === segment && entry.display_position === position,
+    );
+    if (!item || item.status !== "authenticated") return false;
+  }
+  return true;
 }
 
 function caseVisualForItem(item: CorridorGumItem | null): CaseVisual {
@@ -354,16 +389,154 @@ function GumPlacard({
   );
 }
 
-export const CORRIDOR_GUM_MAX = GUM_MAX;
+function FloorSlotCounter({
+  show,
+  filled,
+  centerZ,
+}: {
+  show: boolean;
+  filled: number;
+  centerZ: number;
+}) {
+  if (!show) return null;
+
+  return (
+    <Html position={[0, -3.72, centerZ + 2.2]} center transform={false} distanceFactor={12}>
+      <p
+        style={{
+          ...HTML,
+          fontFamily: SERIF,
+          fontSize: 18,
+          fontWeight: 700,
+          color: GOLD,
+          letterSpacing: "0.2em",
+          margin: 0,
+          textShadow: "0 2px 4px rgba(0,0,0,0.9)",
+          opacity: 0.9,
+        }}
+      >
+        {filled} / {GUM_MAX}
+      </p>
+    </Html>
+  );
+}
+
+function GumKeyDrop({
+  show,
+  centerZ,
+  onClick,
+}: {
+  show: boolean;
+  centerZ: number;
+  onClick: () => void;
+}) {
+  const groupRef = useRef<Group>(null);
+  const [landed, setLanded] = useState(false);
+  const [hovered, setHovered] = useState(false);
+
+  useEffect(() => {
+    if (!show) {
+      setLanded(false);
+      return;
+    }
+
+    const group = groupRef.current;
+    if (!group) return;
+
+    group.position.set(0, 4.4, centerZ);
+    group.rotation.set(0, 0, 0);
+    setLanded(false);
+
+    const fall = gsap.to(group.position, {
+      y: PLINTH_FLOOR_Y + 0.35,
+      duration: 2.4,
+      ease: "bounce.out",
+      onComplete: () => setLanded(true),
+    });
+    const spin = gsap.to(group.rotation, {
+      y: Math.PI * 3,
+      duration: 2.4,
+      ease: "power2.inOut",
+    });
+
+    return () => {
+      fall.kill();
+      spin.kill();
+    };
+  }, [show, centerZ]);
+
+  if (!show) return null;
+
+  return (
+    <group ref={groupRef} position={[0, 4.4, centerZ]}>
+      <group
+        onClick={(event) => {
+          event.stopPropagation();
+          if (landed) onClick();
+        }}
+        onPointerOver={(event) => {
+          event.stopPropagation();
+          if (landed) setHovered(true);
+        }}
+        onPointerOut={() => setHovered(false)}
+      >
+        <mesh position={[0, 0.18, 0]}>
+          <torusGeometry args={[0.14, 0.035, 10, 24]} />
+          <meshBasicMaterial color={hovered ? "#FFE8A0" : GOLD} />
+        </mesh>
+        <mesh position={[0, -0.08, 0]}>
+          <boxGeometry args={[0.06, 0.34, 0.04]} />
+          <meshBasicMaterial color={hovered ? "#FFE8A0" : GOLD} />
+        </mesh>
+        <mesh position={[0.1, -0.22, 0]}>
+          <boxGeometry args={[0.16, 0.08, 0.04]} />
+          <meshBasicMaterial color={hovered ? "#FFE8A0" : GOLD} />
+        </mesh>
+      </group>
+
+      {landed && (
+        <>
+          <pointLight position={[0, 0.1, 0]} color={GOLD} intensity={8} distance={5} decay={1.5} />
+          <mesh position={[0, -0.35, 0]} rotation={[-Math.PI / 2, 0, 0]}>
+            <circleGeometry args={[0.55, 24]} />
+            <meshBasicMaterial color={GOLD} transparent opacity={0.22} depthWrite={false} />
+          </mesh>
+          <Html position={[0, 0.9, 0]} center transform={false} distanceFactor={11}>
+            <p
+              style={{
+                fontFamily: SERIF,
+                fontSize: 11,
+                color: GOLD,
+                letterSpacing: "0.22em",
+                textTransform: "uppercase",
+                margin: 0,
+                textAlign: "center",
+                pointerEvents: "none",
+                userSelect: "none",
+                textShadow: "0 0 12px rgba(184,151,42,0.6)",
+              }}
+            >
+              A NEW ROOM AWAITS
+            </p>
+          </Html>
+        </>
+      )}
+    </group>
+  );
+}
 
 export function GumGallery({
   player,
   cameraZ,
+  segment = 1,
   onFilledChange,
+  onSegmentAdvance,
 }: {
   player: PlayerData;
   cameraZ: number;
+  segment?: number;
   onFilledChange?: (filled: number) => void;
+  onSegmentAdvance?: () => void;
 }) {
   const show = cameraZ <= -56 && cameraZ >= -74;
   const [gumItems, setGumItems] = useState<CorridorGumItem[]>([]);
@@ -393,12 +566,39 @@ export function GumGallery({
     };
   }, [player.ppc_number]);
 
-  const slots = useMemo(() => buildGumSlots(gumItems), [gumItems]);
-  const gumFilled = gumItems.length;
+  const segmentItems = useMemo(
+    () => itemsForSegment(gumItems, segment),
+    [gumItems, segment],
+  );
+  const slots = useMemo(() => buildGumSlots(segmentItems), [segmentItems]);
+  const authenticatedFilled = useMemo(
+    () => countAuthenticatedAtPositions(gumItems, segment),
+    [gumItems, segment],
+  );
+  const keyReady = useMemo(
+    () => isSegmentKeyReady(gumItems, segment),
+    [gumItems, segment],
+  );
+  const [keyDropActive, setKeyDropActive] = useState(false);
 
   useEffect(() => {
-    onFilledChange?.(gumFilled);
-  }, [gumFilled, onFilledChange]);
+    onFilledChange?.(authenticatedFilled);
+  }, [authenticatedFilled, onFilledChange]);
+
+  useEffect(() => {
+    setKeyDropActive(false);
+  }, [segment]);
+
+  useEffect(() => {
+    if (keyReady) {
+      setKeyDropActive(true);
+    }
+  }, [keyReady]);
+
+  const handleKeyClick = () => {
+    setKeyDropActive(false);
+    onSegmentAdvance?.();
+  };
 
   return (
     <group>
@@ -440,7 +640,7 @@ export function GumGallery({
 
       {CASE_Z.map((z, rowIndex) => {
         const leftSlot = slots[rowIndex] ?? null;
-        const rightSlot = slots[rowIndex + 5] ?? null;
+        const rightSlot = slots[rowIndex + 6] ?? null;
 
         return (
           <group key={z}>
@@ -464,7 +664,7 @@ export function GumGallery({
             />
             <GumPlacard
               item={rightSlot}
-              slotNumber={rowIndex + 6}
+              slotNumber={rowIndex + 7}
               show={show}
               wall="right"
               z={z}
@@ -472,6 +672,18 @@ export function GumGallery({
           </group>
         );
       })}
+
+      <FloorSlotCounter
+        show={show}
+        filled={authenticatedFilled}
+        centerZ={GALLERY_CENTER_Z}
+      />
+
+      <GumKeyDrop
+        show={show && keyDropActive}
+        centerZ={GALLERY_CENTER_Z}
+        onClick={handleKeyClick}
+      />
     </group>
   );
 }

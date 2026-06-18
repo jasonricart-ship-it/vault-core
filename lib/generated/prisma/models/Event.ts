@@ -42,6 +42,8 @@ export type EventMinAggregateOutputType = {
   name: string | null
   season_year: number | null
   event_date: Date | null
+  start_date: Date | null
+  end_date: Date | null
   location: string | null
   city: string | null
   state: string | null
@@ -58,6 +60,8 @@ export type EventMaxAggregateOutputType = {
   name: string | null
   season_year: number | null
   event_date: Date | null
+  start_date: Date | null
+  end_date: Date | null
   location: string | null
   city: string | null
   state: string | null
@@ -74,6 +78,8 @@ export type EventCountAggregateOutputType = {
   name: number
   season_year: number
   event_date: number
+  start_date: number
+  end_date: number
   location: number
   city: number
   state: number
@@ -100,6 +106,8 @@ export type EventMinAggregateInputType = {
   name?: true
   season_year?: true
   event_date?: true
+  start_date?: true
+  end_date?: true
   location?: true
   city?: true
   state?: true
@@ -116,6 +124,8 @@ export type EventMaxAggregateInputType = {
   name?: true
   season_year?: true
   event_date?: true
+  start_date?: true
+  end_date?: true
   location?: true
   city?: true
   state?: true
@@ -132,6 +142,8 @@ export type EventCountAggregateInputType = {
   name?: true
   season_year?: true
   event_date?: true
+  start_date?: true
+  end_date?: true
   location?: true
   city?: true
   state?: true
@@ -235,6 +247,8 @@ export type EventGroupByOutputType = {
   name: string
   season_year: number
   event_date: Date | null
+  start_date: Date | null
+  end_date: Date | null
   location: string | null
   city: string | null
   state: string | null
@@ -274,6 +288,8 @@ export type EventWhereInput = {
   name?: Prisma.StringFilter<"Event"> | string
   season_year?: Prisma.IntFilter<"Event"> | number
   event_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
+  start_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
+  end_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
   location?: Prisma.StringNullableFilter<"Event"> | string | null
   city?: Prisma.StringNullableFilter<"Event"> | string | null
   state?: Prisma.StringNullableFilter<"Event"> | string | null
@@ -296,6 +312,8 @@ export type EventOrderByWithRelationInput = {
   name?: Prisma.SortOrder
   season_year?: Prisma.SortOrder
   event_date?: Prisma.SortOrderInput | Prisma.SortOrder
+  start_date?: Prisma.SortOrderInput | Prisma.SortOrder
+  end_date?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   city?: Prisma.SortOrderInput | Prisma.SortOrder
   state?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -321,6 +339,8 @@ export type EventWhereUniqueInput = Prisma.AtLeast<{
   name?: Prisma.StringFilter<"Event"> | string
   season_year?: Prisma.IntFilter<"Event"> | number
   event_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
+  start_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
+  end_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
   location?: Prisma.StringNullableFilter<"Event"> | string | null
   city?: Prisma.StringNullableFilter<"Event"> | string | null
   state?: Prisma.StringNullableFilter<"Event"> | string | null
@@ -343,6 +363,8 @@ export type EventOrderByWithAggregationInput = {
   name?: Prisma.SortOrder
   season_year?: Prisma.SortOrder
   event_date?: Prisma.SortOrderInput | Prisma.SortOrder
+  start_date?: Prisma.SortOrderInput | Prisma.SortOrder
+  end_date?: Prisma.SortOrderInput | Prisma.SortOrder
   location?: Prisma.SortOrderInput | Prisma.SortOrder
   city?: Prisma.SortOrderInput | Prisma.SortOrder
   state?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -367,6 +389,8 @@ export type EventScalarWhereWithAggregatesInput = {
   name?: Prisma.StringWithAggregatesFilter<"Event"> | string
   season_year?: Prisma.IntWithAggregatesFilter<"Event"> | number
   event_date?: Prisma.DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
+  start_date?: Prisma.DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
+  end_date?: Prisma.DateTimeNullableWithAggregatesFilter<"Event"> | Date | string | null
   location?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   city?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
   state?: Prisma.StringNullableWithAggregatesFilter<"Event"> | string | null
@@ -382,6 +406,8 @@ export type EventCreateInput = {
   name: string
   season_year: number
   event_date?: Date | string | null
+  start_date?: Date | string | null
+  end_date?: Date | string | null
   location?: string | null
   city?: string | null
   state?: string | null
@@ -404,6 +430,8 @@ export type EventUncheckedCreateInput = {
   name: string
   season_year: number
   event_date?: Date | string | null
+  start_date?: Date | string | null
+  end_date?: Date | string | null
   location?: string | null
   city?: string | null
   state?: string | null
@@ -424,6 +452,8 @@ export type EventUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
   event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -446,6 +476,8 @@ export type EventUncheckedUpdateInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
   event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -467,6 +499,8 @@ export type EventCreateManyInput = {
   name: string
   season_year: number
   event_date?: Date | string | null
+  start_date?: Date | string | null
+  end_date?: Date | string | null
   location?: string | null
   city?: string | null
   state?: string | null
@@ -482,6 +516,8 @@ export type EventUpdateManyMutationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
   event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -498,6 +534,8 @@ export type EventUncheckedUpdateManyInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
   event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -524,6 +562,8 @@ export type EventCountOrderByAggregateInput = {
   name?: Prisma.SortOrder
   season_year?: Prisma.SortOrder
   event_date?: Prisma.SortOrder
+  start_date?: Prisma.SortOrder
+  end_date?: Prisma.SortOrder
   location?: Prisma.SortOrder
   city?: Prisma.SortOrder
   state?: Prisma.SortOrder
@@ -544,6 +584,8 @@ export type EventMaxOrderByAggregateInput = {
   name?: Prisma.SortOrder
   season_year?: Prisma.SortOrder
   event_date?: Prisma.SortOrder
+  start_date?: Prisma.SortOrder
+  end_date?: Prisma.SortOrder
   location?: Prisma.SortOrder
   city?: Prisma.SortOrder
   state?: Prisma.SortOrder
@@ -560,6 +602,8 @@ export type EventMinOrderByAggregateInput = {
   name?: Prisma.SortOrder
   season_year?: Prisma.SortOrder
   event_date?: Prisma.SortOrder
+  start_date?: Prisma.SortOrder
+  end_date?: Prisma.SortOrder
   location?: Prisma.SortOrder
   city?: Prisma.SortOrder
   state?: Prisma.SortOrder
@@ -707,6 +751,8 @@ export type EventCreateWithoutOrgInput = {
   name: string
   season_year: number
   event_date?: Date | string | null
+  start_date?: Date | string | null
+  end_date?: Date | string | null
   location?: string | null
   city?: string | null
   state?: string | null
@@ -727,6 +773,8 @@ export type EventUncheckedCreateWithoutOrgInput = {
   name: string
   season_year: number
   event_date?: Date | string | null
+  start_date?: Date | string | null
+  end_date?: Date | string | null
   location?: string | null
   city?: string | null
   state?: string | null
@@ -777,6 +825,8 @@ export type EventScalarWhereInput = {
   name?: Prisma.StringFilter<"Event"> | string
   season_year?: Prisma.IntFilter<"Event"> | number
   event_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
+  start_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
+  end_date?: Prisma.DateTimeNullableFilter<"Event"> | Date | string | null
   location?: Prisma.StringNullableFilter<"Event"> | string | null
   city?: Prisma.StringNullableFilter<"Event"> | string | null
   state?: Prisma.StringNullableFilter<"Event"> | string | null
@@ -792,6 +842,8 @@ export type EventCreateWithoutAchievementsInput = {
   name: string
   season_year: number
   event_date?: Date | string | null
+  start_date?: Date | string | null
+  end_date?: Date | string | null
   location?: string | null
   city?: string | null
   state?: string | null
@@ -813,6 +865,8 @@ export type EventUncheckedCreateWithoutAchievementsInput = {
   name: string
   season_year: number
   event_date?: Date | string | null
+  start_date?: Date | string | null
+  end_date?: Date | string | null
   location?: string | null
   city?: string | null
   state?: string | null
@@ -848,6 +902,8 @@ export type EventUpdateWithoutAchievementsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
   event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -869,6 +925,8 @@ export type EventUncheckedUpdateWithoutAchievementsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
   event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -888,6 +946,8 @@ export type EventCreateWithoutSchedule_entriesInput = {
   name: string
   season_year: number
   event_date?: Date | string | null
+  start_date?: Date | string | null
+  end_date?: Date | string | null
   location?: string | null
   city?: string | null
   state?: string | null
@@ -909,6 +969,8 @@ export type EventUncheckedCreateWithoutSchedule_entriesInput = {
   name: string
   season_year: number
   event_date?: Date | string | null
+  start_date?: Date | string | null
+  end_date?: Date | string | null
   location?: string | null
   city?: string | null
   state?: string | null
@@ -944,6 +1006,8 @@ export type EventUpdateWithoutSchedule_entriesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
   event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -965,6 +1029,8 @@ export type EventUncheckedUpdateWithoutSchedule_entriesInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
   event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -984,6 +1050,8 @@ export type EventCreateWithoutGum_itemsInput = {
   name: string
   season_year: number
   event_date?: Date | string | null
+  start_date?: Date | string | null
+  end_date?: Date | string | null
   location?: string | null
   city?: string | null
   state?: string | null
@@ -1005,6 +1073,8 @@ export type EventUncheckedCreateWithoutGum_itemsInput = {
   name: string
   season_year: number
   event_date?: Date | string | null
+  start_date?: Date | string | null
+  end_date?: Date | string | null
   location?: string | null
   city?: string | null
   state?: string | null
@@ -1040,6 +1110,8 @@ export type EventUpdateWithoutGum_itemsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
   event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1061,6 +1133,8 @@ export type EventUncheckedUpdateWithoutGum_itemsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
   event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1080,6 +1154,8 @@ export type EventCreateWithoutPlayer_participationInput = {
   name: string
   season_year: number
   event_date?: Date | string | null
+  start_date?: Date | string | null
+  end_date?: Date | string | null
   location?: string | null
   city?: string | null
   state?: string | null
@@ -1101,6 +1177,8 @@ export type EventUncheckedCreateWithoutPlayer_participationInput = {
   name: string
   season_year: number
   event_date?: Date | string | null
+  start_date?: Date | string | null
+  end_date?: Date | string | null
   location?: string | null
   city?: string | null
   state?: string | null
@@ -1136,6 +1214,8 @@ export type EventUpdateWithoutPlayer_participationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
   event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1157,6 +1237,8 @@ export type EventUncheckedUpdateWithoutPlayer_participationInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
   event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1176,6 +1258,8 @@ export type EventCreateWithoutCapture_requestsInput = {
   name: string
   season_year: number
   event_date?: Date | string | null
+  start_date?: Date | string | null
+  end_date?: Date | string | null
   location?: string | null
   city?: string | null
   state?: string | null
@@ -1197,6 +1281,8 @@ export type EventUncheckedCreateWithoutCapture_requestsInput = {
   name: string
   season_year: number
   event_date?: Date | string | null
+  start_date?: Date | string | null
+  end_date?: Date | string | null
   location?: string | null
   city?: string | null
   state?: string | null
@@ -1232,6 +1318,8 @@ export type EventUpdateWithoutCapture_requestsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
   event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1253,6 +1341,8 @@ export type EventUncheckedUpdateWithoutCapture_requestsInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
   event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1272,6 +1362,8 @@ export type EventCreateManyOrgInput = {
   name: string
   season_year: number
   event_date?: Date | string | null
+  start_date?: Date | string | null
+  end_date?: Date | string | null
   location?: string | null
   city?: string | null
   state?: string | null
@@ -1287,6 +1379,8 @@ export type EventUpdateWithoutOrgInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
   event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1307,6 +1401,8 @@ export type EventUncheckedUpdateWithoutOrgInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
   event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1327,6 +1423,8 @@ export type EventUncheckedUpdateManyWithoutOrgInput = {
   name?: Prisma.StringFieldUpdateOperationsInput | string
   season_year?: Prisma.IntFieldUpdateOperationsInput | number
   event_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  start_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  end_date?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   location?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   state?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1410,6 +1508,8 @@ export type EventSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   name?: boolean
   season_year?: boolean
   event_date?: boolean
+  start_date?: boolean
+  end_date?: boolean
   location?: boolean
   city?: boolean
   state?: boolean
@@ -1433,6 +1533,8 @@ export type EventSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   name?: boolean
   season_year?: boolean
   event_date?: boolean
+  start_date?: boolean
+  end_date?: boolean
   location?: boolean
   city?: boolean
   state?: boolean
@@ -1450,6 +1552,8 @@ export type EventSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   name?: boolean
   season_year?: boolean
   event_date?: boolean
+  start_date?: boolean
+  end_date?: boolean
   location?: boolean
   city?: boolean
   state?: boolean
@@ -1467,6 +1571,8 @@ export type EventSelectScalar = {
   name?: boolean
   season_year?: boolean
   event_date?: boolean
+  start_date?: boolean
+  end_date?: boolean
   location?: boolean
   city?: boolean
   state?: boolean
@@ -1475,7 +1581,7 @@ export type EventSelectScalar = {
   updated_at?: boolean
 }
 
-export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "evt_code" | "org_id" | "gov_id" | "name" | "season_year" | "event_date" | "location" | "city" | "state" | "registration_status" | "created_at" | "updated_at", ExtArgs["result"]["event"]>
+export type EventOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "evt_code" | "org_id" | "gov_id" | "name" | "season_year" | "event_date" | "start_date" | "end_date" | "location" | "city" | "state" | "registration_status" | "created_at" | "updated_at", ExtArgs["result"]["event"]>
 export type EventInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   org?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   achievements?: boolean | Prisma.Event$achievementsArgs<ExtArgs>
@@ -1510,6 +1616,8 @@ export type $EventPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     name: string
     season_year: number
     event_date: Date | null
+    start_date: Date | null
+    end_date: Date | null
     location: string | null
     city: string | null
     state: string | null
@@ -1952,6 +2060,8 @@ export interface EventFieldRefs {
   readonly name: Prisma.FieldRef<"Event", 'String'>
   readonly season_year: Prisma.FieldRef<"Event", 'Int'>
   readonly event_date: Prisma.FieldRef<"Event", 'DateTime'>
+  readonly start_date: Prisma.FieldRef<"Event", 'DateTime'>
+  readonly end_date: Prisma.FieldRef<"Event", 'DateTime'>
   readonly location: Prisma.FieldRef<"Event", 'String'>
   readonly city: Prisma.FieldRef<"Event", 'String'>
   readonly state: Prisma.FieldRef<"Event", 'String'>

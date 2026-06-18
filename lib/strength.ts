@@ -46,6 +46,33 @@ function countQualifyingGovNChains(orgAffiliations: any[]): string[] {
   return qualifyingChains;
 }
 
+function orgHasGovNAffiliation(org: any): boolean {
+  const orgGovAffs =
+    org?.gov_affiliations ?? org?.org_gov_affiliations ?? org?.govAffiliations ?? [];
+
+  for (const govAff of orgGovAffs) {
+    if (govAff.status !== "active") continue;
+
+    let gov = govAff.gov ?? govAff.governing_body ?? govAff.governingBody;
+    while (gov) {
+      if (gov.gov_tier === "GOV-N" && gov.is_verified) {
+        return true;
+      }
+      gov = gov.parent_gov ?? gov.parentGov ?? gov.parent;
+    }
+  }
+
+  return false;
+}
+
+function participationEventOrg(participation: any) {
+  return (
+    participation?.event?.org ??
+    participation?.event?.organization ??
+    null
+  );
+}
+
 export function calculateStrength(player: any): StrengthResult {
   let score = 0;
   const breakdown: Record<string, number> = {};
@@ -139,13 +166,24 @@ export function calculateStrength(player: any): StrengthResult {
   const events = player?.event_participation ?? [];
   const hasEvent = events.length > 0;
   const hasVerifiedEvent = events.some((e: any) => e.verified === true);
-  const hasGovNEvent = events.some(
-    (e: any) => e.event?.authority_level === "GOV-N",
-  );
+  const hasGovNEvent = events.some((participation: any) => {
+    const org = participationEventOrg(participation);
+    return org != null && orgHasGovNAffiliation(org);
+  });
 
   if (hasEvent) add("evt_documented", 5);
   if (hasVerifiedEvent) add("evt_verified", 10);
   if (hasGovNEvent) add("evt_gov_n_bonus", 5);
+
+  let roleExpressionBonus = 0;
+  for (const participation of events) {
+    if (!participation.verified) continue;
+    if (participation.is_champion) roleExpressionBonus += 10;
+    if (participation.is_mvp) roleExpressionBonus += 8;
+    if (participation.is_all_star) roleExpressionBonus += 5;
+  }
+  roleExpressionBonus = Math.min(roleExpressionBonus, 20);
+  if (roleExpressionBonus > 0) add("evt_role_expression", roleExpressionBonus);
 
   // ── Cap ────────────────────────────────────────────────────────────────
   score = Math.min(score, 100);

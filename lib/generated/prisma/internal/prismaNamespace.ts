@@ -2629,6 +2629,8 @@ export const EventScalarFieldEnum = {
   name: 'name',
   season_year: 'season_year',
   event_date: 'event_date',
+  start_date: 'start_date',
+  end_date: 'end_date',
   location: 'location',
   city: 'city',
   state: 'state',

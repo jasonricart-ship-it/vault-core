@@ -123,6 +123,8 @@ model Event {
   name                String
   season_year         Int
   event_date          DateTime?
+  start_date          DateTime?
+  end_date            DateTime?
   location            String?
   city                String?
   state               String?

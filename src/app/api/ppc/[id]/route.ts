@@ -47,7 +47,23 @@ export async function GET(
       },
       event_participation: {
         include: {
-          event: true,
+          event: {
+            include: {
+              org: {
+                include: {
+                  gov_affiliations: {
+                    include: {
+                      gov: {
+                        include: {
+                          parent: true,
+                        },
+                      },
+                    },
+                  },
+                },
+              },
+            },
+          },
         },
         orderBy: {
           created_at: "desc",
@@ -80,6 +96,7 @@ export async function GET(
     org_affiliations: player.org_affiliations,
     gov_affiliations,
     gum_items_count: player.gum_items.length,
+    event_participation: player.event_participation,
   });
 
   const gumItemIds = player.gum_items.map((g) => g.id);
