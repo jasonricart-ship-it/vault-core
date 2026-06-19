@@ -67,7 +67,7 @@ const STATE_CODE_MAP: Record<string, string> = {
   Wyoming: "WY",
 };
 
-function sportCodeFor(sport: string): string {
+export function sportCodeFor(sport: string): string {
   const trimmed = sport.trim();
   if (SPORT_CODE_MAP[trimmed]) return SPORT_CODE_MAP[trimmed];
   const letters = trimmed.replace(/[^a-zA-Z]/g, "").toUpperCase();

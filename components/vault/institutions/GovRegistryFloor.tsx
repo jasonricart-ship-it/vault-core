@@ -3,7 +3,13 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useCallback, useMemo, useState, type CSSProperties, type FormEvent } from "react";
-import { ORG_TYPES, type OrgRegistryEntry } from "@/lib/org-registry";
+import {
+  GOV_TIERS,
+  GOV_TIER_LABELS,
+  type GovRegistryEntry,
+  type GovRegistryOption,
+  type GovTier,
+} from "@/lib/gov-registry";
 
 const GOLD = "#B8972A";
 const PARCHMENT = "#F5F2EC";
@@ -28,26 +34,24 @@ type RegisterForm = {
   name: string;
   shortName: string;
   sport: string;
-  orgType: string;
-  state: string;
-  city: string;
-  adminEmail: string;
+  govTier: GovTier;
+  jurisdiction: string;
+  parentGovId: string;
 };
 
 const EMPTY_FORM: RegisterForm = {
   name: "",
   shortName: "",
   sport: "",
-  orgType: "club",
-  state: "",
-  city: "",
-  adminEmail: "",
+  govTier: "GOV-N",
+  jurisdiction: "",
+  parentGovId: "",
 };
 
 function StatusMark({ verified }: { verified: boolean }) {
   if (verified) {
     return (
-      <span style={verifiedMarkStyle} title="Verified organization">
+      <span style={verifiedMarkStyle} title="Verified governing body">
         ✓
       </span>
     );
@@ -63,7 +67,15 @@ function formatOrgType(value: string) {
   return value.replace(/_/g, " ").toUpperCase();
 }
 
-export function OrgRegistryFloor({ organizations }: { organizations: OrgRegistryEntry[] }) {
+export function GovRegistryFloor({
+  governingBodies,
+  govOptions,
+  canRegister,
+}: {
+  governingBodies: GovRegistryEntry[];
+  govOptions: GovRegistryOption[];
+  canRegister: boolean;
+}) {
   const router = useRouter();
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [showForm, setShowForm] = useState(false);
@@ -72,14 +84,29 @@ export function OrgRegistryFloor({ organizations }: { organizations: OrgRegistry
   const [formError, setFormError] = useState<string | null>(null);
   const [successCode, setSuccessCode] = useState<string | null>(null);
 
-  const sortedOrgs = useMemo(
-    () =>
-      [...organizations].sort((a, b) => {
+  const groupedByTier = useMemo(() => {
+    const groups: Record<GovTier, GovRegistryEntry[]> = {
+      "GOV-N": [],
+      "GOV-R": [],
+      "GOV-L": [],
+    };
+
+    for (const gov of governingBodies) {
+      const tier = GOV_TIERS.includes(gov.gov_tier as GovTier)
+        ? (gov.gov_tier as GovTier)
+        : "GOV-L";
+      groups[tier].push(gov);
+    }
+
+    for (const tier of GOV_TIERS) {
+      groups[tier].sort((a, b) => {
         if (a.is_verified !== b.is_verified) return a.is_verified ? -1 : 1;
         return a.name.localeCompare(b.name);
-      }),
-    [organizations],
-  );
+      });
+    }
+
+    return groups;
+  }, [governingBodies]);
 
   const updateField = useCallback(
     <K extends keyof RegisterForm>(key: K, value: RegisterForm[K]) => {
@@ -95,31 +122,29 @@ export function OrgRegistryFloor({ organizations }: { organizations: OrgRegistry
     setSuccessCode(null);
 
     try {
-      const response = await fetch("/api/org/register", {
+      const response = await fetch("/api/gov/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name: form.name,
           short_name: form.shortName,
           sport: form.sport,
-          org_type: form.orgType,
-          state: form.state,
-          city: form.city,
-          admin_email: form.adminEmail,
+          gov_tier: form.govTier,
+          jurisdiction: form.jurisdiction,
+          parent_gov_id: form.parentGovId || null,
         }),
       });
 
       const data = (await response.json()) as {
-        org_code?: string;
+        gov_code?: string;
         error?: string;
-        message?: string;
       };
 
       if (!response.ok) {
         throw new Error(data.error ?? "Registration failed");
       }
 
-      setSuccessCode(data.org_code ?? null);
+      setSuccessCode(data.gov_code ?? null);
       setForm(EMPTY_FORM);
       router.refresh();
     } catch (error) {
@@ -132,108 +157,152 @@ export function OrgRegistryFloor({ organizations }: { organizations: OrgRegistry
   return (
     <div style={pageStyle}>
       <header style={headerStyle}>
-        <Link href="/vault/institutions/registry/gov" style={upLinkStyle}>
-          ↑ Governing Bodies
+        <Link href="/vault/institutions/registry" style={upLinkStyle}>
+          ↓ Organizations
         </Link>
-        <p style={eyebrowStyle}>Institutional Registry · Ground Floor</p>
-        <h1 style={titleStyle}>ORG Registration</h1>
+        <p style={eyebrowStyle}>Institutional Registry · Upper Floor</p>
+        <h1 style={titleStyle}>GOV Registration</h1>
         <p style={subtitleStyle}>
-          Registered organizations on file. Verified institutions carry the gold checkmark.
+          Governing bodies on file, grouped by tier. Verified bodies carry the gold checkmark.
         </p>
-        <button type="button" onClick={() => setShowForm(true)} style={registerButtonStyle}>
-          Register Your Organization
-        </button>
+        {canRegister && (
+          <button type="button" onClick={() => setShowForm(true)} style={registerButtonStyle}>
+            Register Your Governing Body
+          </button>
+        )}
       </header>
 
       <main style={listStyle}>
-        {sortedOrgs.length === 0 ? (
+        {governingBodies.length === 0 ? (
           <div style={emptyStyle}>
-            <p style={bodyStyle}>No organizations registered yet.</p>
+            <p style={bodyStyle}>No governing bodies registered yet.</p>
           </div>
         ) : (
-          sortedOrgs.map((org) => {
-            const expanded = expandedId === org.id;
+          GOV_TIERS.map((tier) => {
+            const entries = groupedByTier[tier];
+            if (entries.length === 0) return null;
+
             return (
-              <article key={org.id} style={cardStyle}>
-                <button
-                  type="button"
-                  onClick={() => setExpandedId(expanded ? null : org.id)}
-                  style={cardHeaderButtonStyle}
-                >
-                  <div style={cardHeaderRowStyle}>
-                    <StatusMark verified={org.is_verified} />
-                    <div style={{ flex: 1, textAlign: "left" }}>
-                      <p style={orgCodeStyle}>{org.org_code}</p>
-                      <h2 style={orgNameStyle}>{org.name}</h2>
-                    </div>
-                    <span style={chevronStyle}>{expanded ? "▴" : "▾"}</span>
-                  </div>
-                  <div style={metaRowStyle}>
-                    <span>{org.sport ?? "—"}</span>
-                    <span>·</span>
-                    <span>{formatOrgType(org.org_type)}</span>
-                    <span>·</span>
-                    <span>{org.state ?? "—"}</span>
-                    <span>·</span>
-                    <span style={{ color: org.is_verified ? GOLD : "#F5F2EC77" }}>
-                      {org.registration_status}
-                    </span>
-                  </div>
-                </button>
+              <section key={tier} style={tierSectionStyle}>
+                <h2 style={tierHeadingStyle}>
+                  {tier}
+                  <span style={tierLabelStyle}> · {GOV_TIER_LABELS[tier]}</span>
+                </h2>
+                <div style={tierListStyle}>
+                  {entries.map((gov) => {
+                    const expanded = expandedId === gov.id;
+                    return (
+                      <article key={gov.id} style={cardStyle}>
+                        <button
+                          type="button"
+                          onClick={() => setExpandedId(expanded ? null : gov.id)}
+                          style={cardHeaderButtonStyle}
+                        >
+                          <div style={cardHeaderRowStyle}>
+                            <StatusMark verified={gov.is_verified} />
+                            <div style={{ flex: 1, textAlign: "left" }}>
+                              <p style={govCodeStyle}>{gov.gov_code}</p>
+                              <h3 style={govNameStyle}>{gov.name}</h3>
+                            </div>
+                            <span style={chevronStyle}>{expanded ? "▴" : "▾"}</span>
+                          </div>
+                          <div style={metaRowStyle}>
+                            <span>{gov.sport ?? "—"}</span>
+                            <span>·</span>
+                            <span>{gov.jurisdiction ?? "—"}</span>
+                            <span>·</span>
+                            <span>
+                              {gov.child_org_count} org{gov.child_org_count === 1 ? "" : "s"}
+                            </span>
+                          </div>
+                        </button>
 
-                {expanded && (
-                  <div style={detailPanelStyle}>
-                    <dl style={detailGridStyle}>
-                      <div>
-                        <dt style={labelStyle}>Short name</dt>
-                        <dd style={valueStyle}>{org.short_name ?? "—"}</dd>
-                      </div>
-                      <div>
-                        <dt style={labelStyle}>City</dt>
-                        <dd style={valueStyle}>{org.city ?? "—"}</dd>
-                      </div>
-                      <div>
-                        <dt style={labelStyle}>Vault level</dt>
-                        <dd style={valueStyle}>{org.vault_level}</dd>
-                      </div>
-                      <div>
-                        <dt style={labelStyle}>Strength score</dt>
-                        <dd style={valueStyle}>{org.strength_score}</dd>
-                      </div>
-                      <div>
-                        <dt style={labelStyle}>Player affiliations</dt>
-                        <dd style={valueStyle}>{org.player_count}</dd>
-                      </div>
-                      <div>
-                        <dt style={labelStyle}>Verification</dt>
-                        <dd style={valueStyle}>
-                          {org.is_verified ? "Verified" : "Pending review"}
-                        </dd>
-                      </div>
-                    </dl>
+                        {expanded && (
+                          <div style={detailPanelStyle}>
+                            <dl style={detailGridStyle}>
+                              <div>
+                                <dt style={labelStyle}>Short name</dt>
+                                <dd style={valueStyle}>{gov.short_name ?? "—"}</dd>
+                              </div>
+                              <div>
+                                <dt style={labelStyle}>Vault level</dt>
+                                <dd style={valueStyle}>{gov.vault_level}</dd>
+                              </div>
+                              <div>
+                                <dt style={labelStyle}>Strength score</dt>
+                                <dd style={valueStyle}>{gov.strength_score}</dd>
+                              </div>
+                              <div>
+                                <dt style={labelStyle}>Verification</dt>
+                                <dd style={valueStyle}>
+                                  {gov.is_verified ? "Verified" : "Pending review"}
+                                </dd>
+                              </div>
+                            </dl>
 
-                    <div>
-                      <p style={sectionLabelStyle}>GOV affiliations</p>
-                      {org.gov_affiliations.length === 0 ? (
-                        <p style={hintStyle}>No governing body affiliations on file.</p>
-                      ) : (
-                        <ul style={affiliationListStyle}>
-                          {org.gov_affiliations.map((affiliation) => (
-                            <li key={`${org.id}-${affiliation.gov_code}`} style={affiliationItemStyle}>
-                              <span style={{ color: GOLD }}>{affiliation.gov_code}</span>
-                              {" · "}
-                              {affiliation.name}
-                              {" · "}
-                              {affiliation.gov_tier}
-                              {affiliation.verified ? " · verified" : " · unverified"}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </div>
-                  </div>
-                )}
-              </article>
+                            <div style={detailBlockStyle}>
+                              <p style={sectionLabelStyle}>Parent governing body</p>
+                              {!gov.parent ? (
+                                <p style={hintStyle}>No parent on file.</p>
+                              ) : (
+                                <p style={affiliationItemStyle}>
+                                  <span style={{ color: GOLD }}>{gov.parent.gov_code}</span>
+                                  {" · "}
+                                  {gov.parent.name}
+                                  {" · "}
+                                  {gov.parent.gov_tier}
+                                </p>
+                              )}
+                            </div>
+
+                            <div style={detailBlockStyle}>
+                              <p style={sectionLabelStyle}>Child governing bodies</p>
+                              {gov.children.length === 0 ? (
+                                <p style={hintStyle}>No child governing bodies on file.</p>
+                              ) : (
+                                <ul style={affiliationListStyle}>
+                                  {gov.children.map((child) => (
+                                    <li key={child.id} style={affiliationItemStyle}>
+                                      <span style={{ color: GOLD }}>{child.gov_code}</span>
+                                      {" · "}
+                                      {child.name}
+                                      {" · "}
+                                      {child.gov_tier}
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+
+                            <div style={detailBlockStyle}>
+                              <p style={sectionLabelStyle}>Affiliated organizations</p>
+                              {gov.org_affiliations.length === 0 ? (
+                                <p style={hintStyle}>No affiliated organizations on file.</p>
+                              ) : (
+                                <ul style={affiliationListStyle}>
+                                  {gov.org_affiliations.map((affiliation) => (
+                                    <li
+                                      key={`${gov.id}-${affiliation.org_code}`}
+                                      style={affiliationItemStyle}
+                                    >
+                                      <span style={{ color: GOLD }}>{affiliation.org_code}</span>
+                                      {" · "}
+                                      {affiliation.name}
+                                      {" · "}
+                                      {formatOrgType(affiliation.org_type)}
+                                      {affiliation.verified ? " · verified" : " · unverified"}
+                                    </li>
+                                  ))}
+                                </ul>
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </article>
+                    );
+                  })}
+                </div>
+              </section>
             );
           })
         )}
@@ -245,26 +314,26 @@ export function OrgRegistryFloor({ organizations }: { organizations: OrgRegistry
         </Link>
       </footer>
 
-      {showForm && (
+      {showForm && canRegister && (
         <div style={modalOverlayStyle} role="presentation" onClick={() => setShowForm(false)}>
           <div
             style={modalPanelStyle}
             role="dialog"
             aria-modal="true"
-            aria-labelledby="org-register-title"
+            aria-labelledby="gov-register-title"
             onClick={(event) => event.stopPropagation()}
           >
-            <p style={eyebrowStyle}>New institution</p>
-            <h2 id="org-register-title" style={{ ...titleStyle, fontSize: 20, marginBottom: 16 }}>
-              Register Organization
+            <p style={eyebrowStyle}>Vault authority admission</p>
+            <h2 id="gov-register-title" style={{ ...titleStyle, fontSize: 20, marginBottom: 16 }}>
+              Register Governing Body
             </h2>
 
             {successCode ? (
               <div style={successBoxStyle}>
                 <p style={{ ...bodyStyle, color: PARCHMENT }}>
-                  Organization submitted for review.
+                  Governing body admitted to the registry.
                 </p>
-                <p style={{ ...orgCodeStyle, marginTop: 12 }}>{successCode}</p>
+                <p style={{ ...govCodeStyle, marginTop: 12 }}>{successCode}</p>
                 <button
                   type="button"
                   onClick={() => {
@@ -279,7 +348,7 @@ export function OrgRegistryFloor({ organizations }: { organizations: OrgRegistry
             ) : (
               <form onSubmit={(event) => void handleSubmit(event)} style={formStyle}>
                 <label style={fieldStyle}>
-                  <span style={labelStyle}>Organization name *</span>
+                  <span style={labelStyle}>Governing body name *</span>
                   <input
                     required
                     value={form.name}
@@ -312,49 +381,46 @@ export function OrgRegistryFloor({ organizations }: { organizations: OrgRegistry
                   </select>
                 </label>
                 <label style={fieldStyle}>
-                  <span style={labelStyle}>Organization type *</span>
+                  <span style={labelStyle}>Gov tier *</span>
                   <select
                     required
-                    value={form.orgType}
-                    onChange={(event) => updateField("orgType", event.target.value)}
+                    value={form.govTier}
+                    onChange={(event) =>
+                      updateField("govTier", event.target.value as GovTier)
+                    }
                     style={inputStyle}
                   >
-                    {ORG_TYPES.map((type) => (
-                      <option key={type} value={type}>
-                        {formatOrgType(type)}
+                    {GOV_TIERS.map((tier) => (
+                      <option key={tier} value={tier}>
+                        {tier} — {GOV_TIER_LABELS[tier]}
                       </option>
                     ))}
                   </select>
                 </label>
-                <div style={twoColStyle}>
-                  <label style={fieldStyle}>
-                    <span style={labelStyle}>State *</span>
-                    <input
-                      required
-                      placeholder="OH or Ohio"
-                      value={form.state}
-                      onChange={(event) => updateField("state", event.target.value)}
-                      style={inputStyle}
-                    />
-                  </label>
-                  <label style={fieldStyle}>
-                    <span style={labelStyle}>City</span>
-                    <input
-                      value={form.city}
-                      onChange={(event) => updateField("city", event.target.value)}
-                      style={inputStyle}
-                    />
-                  </label>
-                </div>
                 <label style={fieldStyle}>
-                  <span style={labelStyle}>Admin email *</span>
+                  <span style={labelStyle}>Jurisdiction *</span>
                   <input
                     required
-                    type="email"
-                    value={form.adminEmail}
-                    onChange={(event) => updateField("adminEmail", event.target.value)}
+                    placeholder="United States, Ohio, Midwest…"
+                    value={form.jurisdiction}
+                    onChange={(event) => updateField("jurisdiction", event.target.value)}
                     style={inputStyle}
                   />
+                </label>
+                <label style={fieldStyle}>
+                  <span style={labelStyle}>Parent governing body</span>
+                  <select
+                    value={form.parentGovId}
+                    onChange={(event) => updateField("parentGovId", event.target.value)}
+                    style={inputStyle}
+                  >
+                    <option value="">None</option>
+                    {govOptions.map((option) => (
+                      <option key={option.id} value={option.id}>
+                        {option.gov_code} · {option.name} ({option.gov_tier})
+                      </option>
+                    ))}
+                  </select>
                 </label>
 
                 {formError && <p style={errorStyle}>{formError}</p>}
@@ -456,6 +522,34 @@ const listStyle: CSSProperties = {
   padding: "20px 16px 32px",
   display: "flex",
   flexDirection: "column",
+  gap: 24,
+};
+
+const tierSectionStyle: CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  gap: 12,
+};
+
+const tierHeadingStyle: CSSProperties = {
+  fontSize: 13,
+  fontWeight: 500,
+  color: GOLD,
+  letterSpacing: "0.14em",
+  textTransform: "uppercase",
+  margin: 0,
+  paddingBottom: 8,
+  borderBottom: "1px solid #B8972A33",
+};
+
+const tierLabelStyle: CSSProperties = {
+  color: "#F5F2EC66",
+  fontWeight: 400,
+};
+
+const tierListStyle: CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
   gap: 12,
 };
 
@@ -524,7 +618,7 @@ const pendingMarkStyle: CSSProperties = {
   flexShrink: 0,
 };
 
-const orgCodeStyle: CSSProperties = {
+const govCodeStyle: CSSProperties = {
   fontSize: 10,
   color: GOLD,
   letterSpacing: "0.14em",
@@ -532,7 +626,7 @@ const orgCodeStyle: CSSProperties = {
   margin: 0,
 };
 
-const orgNameStyle: CSSProperties = {
+const govNameStyle: CSSProperties = {
   fontSize: 18,
   fontWeight: 500,
   margin: "4px 0 0",
@@ -566,6 +660,10 @@ const detailGridStyle: CSSProperties = {
   gridTemplateColumns: "repeat(2, minmax(0, 1fr))",
   gap: 14,
   margin: "16px 0",
+};
+
+const detailBlockStyle: CSSProperties = {
+  marginBottom: 16,
 };
 
 const labelStyle: CSSProperties = {
@@ -609,6 +707,7 @@ const affiliationItemStyle: CSSProperties = {
   borderRadius: 6,
   border: "1px solid #B8972A22",
   background: "#0A0908",
+  margin: 0,
 };
 
 const footerStyle: CSSProperties = {
@@ -669,12 +768,6 @@ const inputStyle: CSSProperties = {
   color: PARCHMENT,
   fontFamily: SERIF,
   fontSize: 14,
-};
-
-const twoColStyle: CSSProperties = {
-  display: "grid",
-  gridTemplateColumns: "1fr 1fr",
-  gap: 12,
 };
 
 const formActionsStyle: CSSProperties = {
