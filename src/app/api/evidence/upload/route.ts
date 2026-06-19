@@ -7,10 +7,11 @@ import {
   extensionFromFile,
   extractImageMetadata,
   parseBooleanField,
+  parseClientCaptureMetadata,
   uploadEvidenceToS3,
 } from "@/lib/evidence";
 
-const ALLOWED_ROLES = new Set(["guardian", "authority", "evaluator"]);
+const ALLOWED_ROLES = new Set(["guardian", "authority", "evaluator", "super_admin"]);
 
 export const runtime = "nodejs";
 
@@ -57,7 +58,10 @@ export async function POST(request: Request) {
 
     await uploadEvidenceToS3(fileKey, buffer, file.type);
 
-    const metadata = await extractImageMetadata(buffer);
+    const clientMetadata = parseClientCaptureMetadata(formData, isNativeCapture);
+    const metadata =
+      clientMetadata ?? (await extractImageMetadata(buffer));
+    const captureDeviceId = String(formData.get("capture_device_id") ?? "").trim() || null;
     const evidenceClass =
       declaredClass ??
       assignEvidenceClass(isNativeCapture, metadata.metadataVerified);
@@ -75,6 +79,7 @@ export async function POST(request: Request) {
         capture_lat: metadata.captureLat,
         capture_lng: metadata.captureLng,
         capture_timestamp: metadata.captureTimestamp,
+        capture_device_id: captureDeviceId,
         metadata_verified: metadata.metadataVerified,
         metadata_verified_at: metadata.metadataVerified ? new Date() : null,
       },

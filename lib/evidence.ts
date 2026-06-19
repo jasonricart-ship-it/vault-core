@@ -113,3 +113,31 @@ export function parseBooleanField(value: FormDataEntryValue | null): boolean {
   const normalized = String(value).trim().toLowerCase();
   return normalized === "true" || normalized === "1" || normalized === "yes";
 }
+
+export function parseClientCaptureMetadata(
+  formData: FormData,
+  isNativeCapture: boolean,
+): ExtractedMetadata | null {
+  if (!isNativeCapture) return null;
+
+  const latRaw = String(formData.get("capture_lat") ?? "").trim();
+  const lngRaw = String(formData.get("capture_lng") ?? "").trim();
+  const timestampRaw = String(formData.get("capture_timestamp") ?? "").trim();
+
+  if (!latRaw || !lngRaw || !timestampRaw) return null;
+
+  const lat = Number(latRaw);
+  const lng = Number(lngRaw);
+  const timestamp = new Date(timestampRaw);
+
+  if (!Number.isFinite(lat) || !Number.isFinite(lng) || Number.isNaN(timestamp.getTime())) {
+    return null;
+  }
+
+  return {
+    captureLat: lat,
+    captureLng: lng,
+    captureTimestamp: timestamp,
+    metadataVerified: true,
+  };
+}

@@ -297,6 +297,20 @@ model SharedCapture {
   @@map("shared_captures")
 }
 
+model GuardianNotification {
+  id                String   @id @default(uuid())
+  account_id        String
+  notification_type String
+  reference_id      String
+  message           String
+  is_read           Boolean  @default(false)
+  created_at        DateTime @default(now())
+
+  account           Account  @relation(fields: [account_id], references: [id])
+
+  @@map("guardian_notifications")
+}
+
 model PlayerOrgAffiliation {
   id               String   @id @default(uuid())
   player_id        String
@@ -384,6 +398,7 @@ model Account {
   capture_designations OrgCaptureDesignee[] @relation("DesignatedCapturer")
   designations_granted OrgCaptureDesignee[] @relation("DesignatedBy")
   capture_requests     EvtCaptureRequest[]  @relation("CaptureRequester")
+  guardian_notifications GuardianNotification[]
 
   @@map("accounts")
 }
