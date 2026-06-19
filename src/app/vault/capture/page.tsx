@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
 import { getServerSession } from "next-auth";
-import { LiveCaptureScreen } from "@/components/vault/capture/LiveCaptureScreen";
+import { CapturePageClient } from "@/components/vault/capture/CapturePageClient";
 import { loadGumSubmitContext } from "@/lib/gum-submit-context";
 import { prisma } from "@/lib/db";
 import { authOptions } from "@/src/auth";
@@ -48,5 +48,5 @@ export default async function LiveCapturePage() {
 
   const players = await loadCapturePlayers(session.user.id, session.user.role);
 
-  return <LiveCaptureScreen players={players} />;
+  return <CapturePageClient players={players} />;
 }
