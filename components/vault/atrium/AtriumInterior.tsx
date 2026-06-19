@@ -11,13 +11,112 @@ const DEFAULT_CAMERA_POS = new THREE.Vector3(0, 2, 16);
 const DEFAULT_LOOK_AT = new THREE.Vector3(0, 1, 0);
 const ENTRY_START_POS = new THREE.Vector3(0, 2, 22);
 const CAM_Y = 2;
-const MAX_WALK_DISTANCE = 12;
-const MAX_CAMERA_Z = 14;
+const MAX_WALK_DISTANCE = 20;
+const LOOK_TURN_DURATION = 0.6;
 const DOOR_FOCUS_RADIUS = 8;
 const MAX_DRIFT_H = THREE.MathUtils.degToRad(15);
 const MAX_DRIFT_V = THREE.MathUtils.degToRad(5);
 const DRIFT_LERP = 0.08;
 const GSAP_EASE = "power2.out";
+
+const PLINTH_KEEPAWAYS = [
+  { center: new THREE.Vector3(-3, 0, -2), minDist: 4 },
+  { center: new THREE.Vector3(-24, 0, -8), minDist: 6 },
+  { center: new THREE.Vector3(24, 0, -8), minDist: 6 },
+] as const;
+
+function clipWalkTarget(fromX: number, fromZ: number, toX: number, toZ: number) {
+  let x = toX;
+  let z = toZ;
+
+  for (const { center, minDist } of PLINTH_KEEPAWAYS) {
+    const cx = center.x;
+    const cz = center.z;
+    const endDx = x - cx;
+    const endDz = z - cz;
+    const endDist = Math.hypot(endDx, endDz);
+
+    if (endDist >= minDist) {
+      continue;
+    }
+
+    const fromDx = fromX - cx;
+    const fromDz = fromZ - cz;
+    const fromDist = Math.hypot(fromDx, fromDz);
+    const segDx = x - fromX;
+    const segDz = z - fromZ;
+
+    if (fromDist >= minDist) {
+      const a = segDx * segDx + segDz * segDz;
+      if (a < 0.0001) {
+        const radialLen = endDist || 1;
+        x = cx + (endDx / radialLen) * minDist;
+        z = cz + (endDz / radialLen) * minDist;
+        continue;
+      }
+
+      const b = 2 * (fromDx * segDx + fromDz * segDz);
+      const c = fromDx * fromDx + fromDz * fromDz - minDist * minDist;
+      const disc = b * b - 4 * a * c;
+
+      if (disc >= 0) {
+        const sqrtDisc = Math.sqrt(disc);
+        let tHit = -1;
+        for (const t of [(-b - sqrtDisc) / (2 * a), (-b + sqrtDisc) / (2 * a)]) {
+          if (t >= 0 && t <= 1) {
+            tHit = tHit < 0 ? t : Math.min(tHit, t);
+          }
+        }
+        if (tHit >= 0) {
+          x = fromX + segDx * tHit;
+          z = fromZ + segDz * tHit;
+          continue;
+        }
+      }
+    }
+
+    const radialLen = endDist || Math.hypot(fromDx, fromDz) || 1;
+    const radialDx = endDist > 0.0001 ? endDx : fromDx || 0;
+    const radialDz = endDist > 0.0001 ? endDz : fromDz || 1;
+    const len = Math.hypot(radialDx, radialDz) || 1;
+    x = cx + (radialDx / len) * minDist;
+    z = cz + (radialDz / len) * minDist;
+  }
+
+  return { x, z };
+}
+
+function projectWalkPointFromRay(ray: THREE.Ray, origin: THREE.Vector3) {
+  const floorPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), -CAM_Y);
+  const hit = new THREE.Vector3();
+
+  if (ray.intersectPlane(floorPlane, hit)) {
+    const dx = hit.x - origin.x;
+    const dz = hit.z - origin.z;
+    const dist = Math.hypot(dx, dz);
+    if (dist > 0.05) {
+      const scale = Math.min(1, MAX_WALK_DISTANCE / dist);
+      return clipWalkTarget(
+        origin.x,
+        origin.z,
+        origin.x + dx * scale,
+        origin.z + dz * scale,
+      );
+    }
+  }
+
+  const xzDir = new THREE.Vector3(ray.direction.x, 0, ray.direction.z);
+  if (xzDir.lengthSq() < 0.0001) {
+    return null;
+  }
+  xzDir.normalize();
+  return clipWalkTarget(
+    origin.x,
+    origin.z,
+    origin.x + xzDir.x * MAX_WALK_DISTANCE,
+    origin.z + xzDir.z * MAX_WALK_DISTANCE,
+  );
+}
 
 const GOLD = "#B8972A";
 const GOLD_DIM = "#8B6914";
@@ -95,6 +194,7 @@ export type AtriumTargetId =
 type AtriumTargetConfig = {
   label: string;
   lookAt: THREE.Vector3;
+  standPos: THREE.Vector3;
   doorPos: THREE.Vector3;
   glowPosition: [number, number, number];
   glowSize: [number, number, number];
@@ -103,42 +203,48 @@ type AtriumTargetConfig = {
 const ATRIUM_TARGETS: Record<AtriumTargetId, AtriumTargetConfig> = {
   principles: {
     label: "Principles Vault",
-    lookAt: new THREE.Vector3(-17, 3.5, -22),
+    lookAt: new THREE.Vector3(-17, 1.5, -22),
+    standPos: new THREE.Vector3(-17, CAM_Y, -16),
     doorPos: new THREE.Vector3(-17, 1, -22),
     glowPosition: [-17, 3.5, -21.4],
     glowSize: [3.6, 6.6, 0.12],
   },
   institutions: {
     label: "Institutions",
-    lookAt: new THREE.Vector3(-9, 4, -26),
+    lookAt: new THREE.Vector3(-9, 1.5, -26),
+    standPos: new THREE.Vector3(-9, CAM_Y, -19),
     doorPos: new THREE.Vector3(-9, 1, -26),
     glowPosition: [-9, 4, -25.6],
     glowSize: [4.6, 7.6, 0.12],
   },
   playerWing: {
     label: "The Player Wing",
-    lookAt: new THREE.Vector3(0, 4, -27.5),
+    lookAt: new THREE.Vector3(0, 1.5, -27.5),
+    standPos: new THREE.Vector3(0, CAM_Y, -20),
     doorPos: new THREE.Vector3(0, 1, -27.5),
     glowPosition: [0, 4, -27],
     glowSize: [10.6, 12.6, 0.12],
   },
   collector: {
     label: "Collector Wing",
-    lookAt: new THREE.Vector3(9, 4, -26),
+    lookAt: new THREE.Vector3(9, 1.5, -26),
+    standPos: new THREE.Vector3(9, CAM_Y, -19),
     doorPos: new THREE.Vector3(9, 1, -26),
     glowPosition: [9, 4, -25.6],
     glowSize: [4.6, 7.6, 0.12],
   },
   authority: {
     label: "Authority Chamber",
-    lookAt: new THREE.Vector3(17, 3.5, -22),
+    lookAt: new THREE.Vector3(17, 1.5, -22),
+    standPos: new THREE.Vector3(17, CAM_Y, -16),
     doorPos: new THREE.Vector3(17, 1, -22),
     glowPosition: [17, 3.5, -21.4],
     glowSize: [3.6, 6.6, 0.12],
   },
   mvp: {
     label: "MVP Rotunda",
-    lookAt: new THREE.Vector3(-3, -0.5, -3),
+    lookAt: new THREE.Vector3(-3, 0.5, -3),
+    standPos: new THREE.Vector3(-3, CAM_Y, 3),
     doorPos: new THREE.Vector3(-3, -2, -3),
     glowPosition: [-3, 1.5, -2.2],
     glowSize: [6, 6, 0.12],
@@ -146,6 +252,7 @@ const ATRIUM_TARGETS: Record<AtriumTargetId, AtriumTargetConfig> = {
   champions: {
     label: "Champions",
     lookAt: new THREE.Vector3(-23, 1, -8),
+    standPos: new THREE.Vector3(-17, CAM_Y, -8),
     doorPos: new THREE.Vector3(-12, -2, -10),
     glowPosition: [-23, 2.5, -8],
     glowSize: [14, 18, 0.12],
@@ -153,6 +260,7 @@ const ATRIUM_TARGETS: Record<AtriumTargetId, AtriumTargetConfig> = {
   captains: {
     label: "Captains",
     lookAt: new THREE.Vector3(23, 1, -8),
+    standPos: new THREE.Vector3(17, CAM_Y, -8),
     doorPos: new THREE.Vector3(12, -2, -10),
     glowPosition: [23, 2.5, -8],
     glowSize: [14, 18, 0.12],
@@ -164,6 +272,7 @@ type AtriumInteractionContextValue = {
   selectTarget: (id: AtriumTargetId | null) => void;
   commitTarget: (id: AtriumTargetId) => void;
   walkTo: (point: THREE.Vector3) => void;
+  suppressDirectionalWalkRef: React.MutableRefObject<boolean>;
   isSelected: (id: AtriumTargetId) => boolean;
 };
 
@@ -175,6 +284,287 @@ function useAtriumInteraction() {
     throw new Error("useAtriumInteraction must be used within AtriumInteractionProvider");
   }
   return ctx;
+}
+
+const DOOR_TARGET_IDS = new Set<AtriumTargetId>([
+  "principles",
+  "institutions",
+  "playerWing",
+  "collector",
+  "authority",
+]);
+
+function makeDistortionCurve(amount = 40) {
+  const samples = 44100;
+  const curve = new Float32Array(samples);
+  const deg = Math.PI / 180;
+  for (let i = 0; i < samples; i++) {
+    const x = (i * 2) / samples - 1;
+    curve[i] = ((3 + amount) * x * 20 * deg) / (Math.PI + amount * Math.abs(x));
+  }
+  return curve;
+}
+
+function createNoiseBuffer(ctx: AudioContext, duration: number) {
+  const length = Math.floor(ctx.sampleRate * duration);
+  const buffer = ctx.createBuffer(1, length, ctx.sampleRate);
+  const data = buffer.getChannelData(0);
+  for (let i = 0; i < length; i++) {
+    data[i] = Math.random() * 2 - 1;
+  }
+  return buffer;
+}
+
+function createReverbImpulse(ctx: AudioContext, duration = 1.4, decay = 2.8) {
+  const rate = ctx.sampleRate;
+  const length = Math.floor(rate * duration);
+  const impulse = ctx.createBuffer(2, length, rate);
+  for (let channel = 0; channel < 2; channel++) {
+    const data = impulse.getChannelData(channel);
+    for (let i = 0; i < length; i++) {
+      data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+    }
+  }
+  return impulse;
+}
+
+function useAtriumAudio() {
+  const ctxRef = useRef<AudioContext | null>(null);
+  const masterGainRef = useRef<GainNode | null>(null);
+  const reverbBufferRef = useRef<AudioBuffer | null>(null);
+  const ambientOscsRef = useRef<OscillatorNode[]>([]);
+  const ambientStartedRef = useRef(false);
+  const pendingAmbientRef = useRef(false);
+  const initializedRef = useRef(false);
+
+  const ensureContext = useCallback(() => {
+    if (typeof window === "undefined") return null;
+
+    if (!ctxRef.current) {
+      const ctx = new AudioContext();
+      const master = ctx.createGain();
+      master.gain.value = 1;
+      master.connect(ctx.destination);
+      ctxRef.current = ctx;
+      masterGainRef.current = master;
+    }
+
+    if (ctxRef.current.state === "suspended") {
+      void ctxRef.current.resume();
+    }
+
+    return ctxRef.current;
+  }, []);
+
+  const getReverbBuffer = useCallback(
+    (ctx: AudioContext) => {
+      if (!reverbBufferRef.current) {
+        reverbBufferRef.current = createReverbImpulse(ctx);
+      }
+      return reverbBufferRef.current;
+    },
+    [],
+  );
+
+  const startAmbient = useCallback(() => {
+    if (ambientStartedRef.current) return;
+
+    const ctx = ensureContext();
+    const master = masterGainRef.current;
+    if (!ctx || !master) {
+      pendingAmbientRef.current = true;
+      return;
+    }
+
+    if (ctx.state === "suspended") {
+      pendingAmbientRef.current = true;
+      return;
+    }
+
+    ambientStartedRef.current = true;
+    pendingAmbientRef.current = false;
+
+    const now = ctx.currentTime;
+    const ambientGain = ctx.createGain();
+    ambientGain.gain.setValueAtTime(0, now);
+    ambientGain.gain.linearRampToValueAtTime(0.02, now + 4);
+
+    const lowpass = ctx.createBiquadFilter();
+    lowpass.type = "lowpass";
+    lowpass.frequency.value = 200;
+    lowpass.Q.value = 0.7;
+    lowpass.connect(master);
+    ambientGain.connect(lowpass);
+
+    for (const frequency of [27.5, 55, 110]) {
+      const osc = ctx.createOscillator();
+      osc.type = "sine";
+      osc.frequency.value = frequency;
+      const oscGain = ctx.createGain();
+      oscGain.gain.value = frequency === 27.5 ? 0.65 : 0.45;
+      osc.connect(oscGain);
+      oscGain.connect(ambientGain);
+      osc.start(now);
+      ambientOscsRef.current.push(osc);
+    }
+  }, [ensureContext]);
+
+  const initOnInteraction = useCallback(() => {
+    ensureContext();
+    initializedRef.current = true;
+    if (pendingAmbientRef.current) {
+      startAmbient();
+    }
+  }, [ensureContext, startAmbient]);
+
+  useEffect(() => {
+    const unlock = () => {
+      initOnInteraction();
+    };
+    window.addEventListener("pointerdown", unlock);
+    window.addEventListener("keydown", unlock);
+    return () => {
+      window.removeEventListener("pointerdown", unlock);
+      window.removeEventListener("keydown", unlock);
+      for (const osc of ambientOscsRef.current) {
+        try {
+          osc.stop();
+        } catch {
+          // already stopped
+        }
+      }
+      ambientOscsRef.current = [];
+      reverbBufferRef.current = null;
+      void ctxRef.current?.close();
+    };
+  }, [initOnInteraction, startAmbient]);
+
+  const playStoneClick = useCallback(() => {
+    const ctx = ensureContext();
+    const master = masterGainRef.current;
+    if (!ctx || !master || ctx.state === "suspended") return;
+
+    const now = ctx.currentTime;
+    const duration = 0.4;
+
+    const tone = ctx.createOscillator();
+    tone.type = "sine";
+    tone.frequency.value = 120;
+
+    const noise = ctx.createBufferSource();
+    noise.buffer = createNoiseBuffer(ctx, duration);
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.value = 120;
+    filter.Q.value = 1.8;
+
+    const mix = ctx.createGain();
+    mix.gain.value = 1;
+
+    const envelope = ctx.createGain();
+    envelope.gain.setValueAtTime(0.55, now);
+    envelope.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+    const dryGain = ctx.createGain();
+    dryGain.gain.value = 0.55;
+
+    const wetGain = ctx.createGain();
+    wetGain.gain.value = 0.45;
+
+    const convolver = ctx.createConvolver();
+    convolver.buffer = getReverbBuffer(ctx);
+
+    tone.connect(mix);
+    noise.connect(filter);
+    filter.connect(mix);
+    mix.connect(envelope);
+    envelope.connect(dryGain);
+    envelope.connect(convolver);
+    convolver.connect(wetGain);
+    dryGain.connect(master);
+    wetGain.connect(master);
+
+    tone.start(now);
+    tone.stop(now + duration);
+    noise.start(now);
+    noise.stop(now + duration);
+  }, [ensureContext, getReverbBuffer]);
+
+  const playFootsteps = useCallback(() => {
+    const ctx = ensureContext();
+    const master = masterGainRef.current;
+    if (!ctx || !master || ctx.state === "suspended") return;
+
+    const stepCount = 2 + Math.floor(Math.random() * 2);
+    const pitchVariants = [0.88, 1, 1.12, 0.94, 1.06];
+
+    for (let i = 0; i < stepCount; i++) {
+      const when = ctx.currentTime + i * 0.4;
+      const duration = 0.12;
+      const pitch = pitchVariants[i % pitchVariants.length] * (0.96 + Math.random() * 0.08);
+
+      const noise = ctx.createBufferSource();
+      noise.buffer = createNoiseBuffer(ctx, duration);
+      noise.playbackRate.value = pitch;
+
+      const filter = ctx.createBiquadFilter();
+      filter.type = "lowpass";
+      filter.frequency.value = 80 * pitch;
+      filter.Q.value = 1.4;
+
+      const gain = ctx.createGain();
+      gain.gain.setValueAtTime(0.32, when);
+      gain.gain.exponentialRampToValueAtTime(0.001, when + duration);
+
+      noise.connect(filter);
+      filter.connect(gain);
+      gain.connect(master);
+      noise.start(when);
+      noise.stop(when + duration);
+    }
+  }, [ensureContext]);
+
+  const playDoorCreak = useCallback(() => {
+    const ctx = ensureContext();
+    const master = masterGainRef.current;
+    if (!ctx || !master || ctx.state === "suspended") return;
+
+    const now = ctx.currentTime;
+    const duration = 1.2;
+
+    const osc = ctx.createOscillator();
+    osc.type = "sawtooth";
+    osc.frequency.setValueAtTime(200, now);
+    osc.frequency.exponentialRampToValueAtTime(80, now + duration);
+
+    const distortion = ctx.createWaveShaper();
+    distortion.curve = makeDistortionCurve(72) as Float32Array;
+    distortion.oversample = "4x";
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.value = 750;
+
+    const gain = ctx.createGain();
+    gain.gain.setValueAtTime(0.3, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
+
+    osc.connect(distortion);
+    distortion.connect(filter);
+    filter.connect(gain);
+    gain.connect(master);
+    osc.start(now);
+    osc.stop(now + duration);
+  }, [ensureContext]);
+
+  return {
+    initOnInteraction,
+    startAmbient,
+    playStoneClick,
+    playFootsteps,
+    playDoorCreak,
+  };
 }
 
 const SELECTION_FRAME_OPACITY = 0.15;
@@ -289,7 +679,7 @@ function InteractableSurface({
   targetId: AtriumTargetId;
   children: ReactNode;
 }) {
-  const { selectTarget, commitTarget } = useAtriumInteraction();
+  const { selectTarget, commitTarget, suppressDirectionalWalkRef } = useAtriumInteraction();
 
   return (
     <group
@@ -299,7 +689,11 @@ function InteractableSurface({
       }}
       onDoubleClick={(event) => {
         event.stopPropagation();
+        suppressDirectionalWalkRef.current = true;
         commitTarget(targetId);
+        queueMicrotask(() => {
+          suppressDirectionalWalkRef.current = false;
+        });
       }}
     >
       {children}
@@ -329,6 +723,7 @@ function AtriumCameraRig({
   baseLookAtRef,
   isMovingRef,
   isAnimatingRef,
+  isHeadTurnRef,
   mouseRef,
   cameraResetNonceRef,
   onReady,
@@ -337,6 +732,7 @@ function AtriumCameraRig({
   baseLookAtRef: React.MutableRefObject<THREE.Vector3>;
   isMovingRef: React.MutableRefObject<boolean>;
   isAnimatingRef: React.MutableRefObject<boolean>;
+  isHeadTurnRef: React.MutableRefObject<boolean>;
   mouseRef: React.MutableRefObject<{ x: number; y: number }>;
   cameraResetNonceRef: React.MutableRefObject<number>;
   onReady: (camera: THREE.PerspectiveCamera) => void;
@@ -373,7 +769,7 @@ function AtriumCameraRig({
 
     camera.lookAt(lookAtRef.current);
 
-    if (isMovingRef.current || isAnimatingRef.current) {
+    if (isMovingRef.current || isAnimatingRef.current || isHeadTurnRef.current) {
       return;
     }
 
@@ -438,7 +834,7 @@ function AtriumCameraRig({
 }
 
 function WalkFloor() {
-  const { selectTarget, walkTo } = useAtriumInteraction();
+  const { selectTarget } = useAtriumInteraction();
 
   return (
     <mesh
@@ -448,15 +844,39 @@ function WalkFloor() {
         event.stopPropagation();
         selectTarget(null);
       }}
-      onDoubleClick={(event) => {
-        event.stopPropagation();
-        walkTo(event.point);
-      }}
     >
       <planeGeometry args={[56, 56]} />
       <meshBasicMaterial transparent opacity={0} depthWrite={false} />
     </mesh>
   );
+}
+
+function DirectionalWalkListener({
+  onWalkRay,
+  suppressRef,
+}: {
+  onWalkRay: (ray: THREE.Ray) => void;
+  suppressRef: React.MutableRefObject<boolean>;
+}) {
+  const { camera, gl } = useThree();
+
+  useEffect(() => {
+    const onDoubleClick = (event: MouseEvent) => {
+      if (suppressRef.current) return;
+
+      const rect = gl.domElement.getBoundingClientRect();
+      const ndcX = ((event.clientX - rect.left) / rect.width) * 2 - 1;
+      const ndcY = -((event.clientY - rect.top) / rect.height) * 2 + 1;
+      const raycaster = new THREE.Raycaster();
+      raycaster.setFromCamera(new THREE.Vector2(ndcX, ndcY), camera);
+      onWalkRay(raycaster.ray);
+    };
+
+    gl.domElement.addEventListener("dblclick", onDoubleClick);
+    return () => gl.domElement.removeEventListener("dblclick", onDoubleClick);
+  }, [camera, gl, onWalkRay, suppressRef]);
+
+  return null;
 }
 
 function CarvedLabel({
@@ -670,8 +1090,8 @@ function MvpRotunda({ mvp }: { mvp: AtriumInteriorMvp | null }) {
   return (
     <InteractableSurface targetId="mvp">
       <group>
-        <mesh position={[-3, -1.2, -2.4]}>
-          <boxGeometry args={[6.5, 5, 3.5]} />
+        <mesh position={[-3, 0, -2]}>
+          <boxGeometry args={[8, 8, 4]} />
           <meshBasicMaterial transparent opacity={0} depthWrite={false} />
         </mesh>
 
@@ -1195,13 +1615,16 @@ function AtriumExperience({
   baseLookAtRef,
   isMovingRef,
   isAnimatingRef,
+  isHeadTurnRef,
   mouseRef,
   cameraResetNonceRef,
   selectedId,
   setSelectedId,
   onCameraReady,
   onWalkTo,
+  onWalkRay,
   onCommitTarget,
+  suppressDirectionalWalkRef,
 }: {
   mvp: AtriumInteriorMvp | null;
   champions: AtriumInteriorChampion[];
@@ -1216,13 +1639,16 @@ function AtriumExperience({
   baseLookAtRef: React.MutableRefObject<THREE.Vector3>;
   isMovingRef: React.MutableRefObject<boolean>;
   isAnimatingRef: React.MutableRefObject<boolean>;
+  isHeadTurnRef: React.MutableRefObject<boolean>;
   mouseRef: React.MutableRefObject<{ x: number; y: number }>;
   cameraResetNonceRef: React.MutableRefObject<number>;
   selectedId: AtriumTargetId | null;
   setSelectedId: (id: AtriumTargetId | null) => void;
   onCameraReady: (camera: THREE.PerspectiveCamera) => void;
   onWalkTo: (point: THREE.Vector3) => void;
+  onWalkRay: (ray: THREE.Ray) => void;
   onCommitTarget: (id: AtriumTargetId) => void;
+  suppressDirectionalWalkRef: React.MutableRefObject<boolean>;
 }) {
   const interactionValue = useMemo<AtriumInteractionContextValue>(
     () => ({
@@ -1230,18 +1656,21 @@ function AtriumExperience({
       selectTarget: setSelectedId,
       commitTarget: onCommitTarget,
       walkTo: onWalkTo,
+      suppressDirectionalWalkRef,
       isSelected: (id) => selectedId === id,
     }),
-    [selectedId, setSelectedId, onCommitTarget, onWalkTo],
+    [selectedId, setSelectedId, onCommitTarget, onWalkTo, suppressDirectionalWalkRef],
   );
 
   return (
     <AtriumInteractionContext.Provider value={interactionValue}>
+      <DirectionalWalkListener onWalkRay={onWalkRay} suppressRef={suppressDirectionalWalkRef} />
       <AtriumCameraRig
         lookAtRef={lookAtRef}
         baseLookAtRef={baseLookAtRef}
         isMovingRef={isMovingRef}
         isAnimatingRef={isAnimatingRef}
+        isHeadTurnRef={isHeadTurnRef}
         mouseRef={mouseRef}
         cameraResetNonceRef={cameraResetNonceRef}
         onReady={onCameraReady}
@@ -1264,13 +1693,22 @@ export function AtriumInterior({
   captains,
 }: AtriumInteriorProps) {
   const router = useRouter();
+  const {
+    initOnInteraction,
+    startAmbient,
+    playStoneClick,
+    playFootsteps,
+    playDoorCreak,
+  } = useAtriumAudio();
   const cameraRef = useRef<THREE.PerspectiveCamera | null>(null);
   const lookAtRef = useRef(DEFAULT_LOOK_AT.clone());
   const baseLookAtRef = useRef(DEFAULT_LOOK_AT.clone());
   const isMovingRef = useRef(false);
   const isAnimatingRef = useRef(false);
+  const isHeadTurnRef = useRef(false);
   const mouseRef = useRef({ x: 0, y: 0 });
   const cameraResetNonceRef = useRef(0);
+  const suppressDirectionalWalkRef = useRef(false);
   const moveTweenRef = useRef<gsap.core.Tween | null>(null);
   const lookTweenRef = useRef<gsap.core.Tween | null>(null);
   const hasEnteredRef = useRef(false);
@@ -1293,67 +1731,127 @@ export function AtriumInterior({
     [],
   );
 
-  const animateCamera = useCallback(
+  const stopAllCameraMotion = useCallback(() => {
+    const camera = cameraRef.current;
+    moveTweenRef.current?.kill();
+    lookTweenRef.current?.kill();
+    if (camera) {
+      gsap.killTweensOf(camera.position);
+      gsap.killTweensOf(baseLookAtRef.current);
+    }
+    isMovingRef.current = false;
+    isAnimatingRef.current = false;
+    isHeadTurnRef.current = false;
+    setOverlayOpacity(0);
+  }, []);
+
+  const lookAtTarget = useCallback((look: THREE.Vector3) => {
+    const camera = cameraRef.current;
+    if (!camera) return;
+
+    lookTweenRef.current?.kill();
+    isHeadTurnRef.current = true;
+
+    lookTweenRef.current = gsap.to(baseLookAtRef.current, {
+      x: look.x,
+      y: look.y,
+      z: look.z,
+      duration: LOOK_TURN_DURATION,
+      ease: GSAP_EASE,
+      onUpdate: () => {
+        lookAtRef.current.copy(baseLookAtRef.current);
+      },
+      onComplete: () => {
+        isHeadTurnRef.current = false;
+      },
+    });
+  }, []);
+
+  const walkToward = useCallback(
     (
-      pos: THREE.Vector3,
+      destination: THREE.Vector3,
       look: THREE.Vector3,
-      duration = 1.5,
-      onComplete?: () => void,
+      options?: { clearSelection?: boolean; playSteps?: boolean; onArrived?: () => void },
     ) => {
       const camera = cameraRef.current;
       if (!camera) return;
 
-      isAnimatingRef.current = true;
-      moveTweenRef.current?.kill();
-      lookTweenRef.current?.kill();
+      stopAllCameraMotion();
+      initOnInteraction();
 
-      moveTweenRef.current = gsap.to(camera.position, {
-        x: pos.x,
-        y: pos.y,
-        z: pos.z,
-        duration,
-        ease: GSAP_EASE,
-        onComplete: () => {
-          isAnimatingRef.current = false;
-          onComplete?.();
-        },
-      });
+      if (options?.clearSelection !== false) {
+        setSelectedId(null);
+      }
+
+      const fromX = camera.position.x;
+      const fromZ = camera.position.z;
+      const clippedDest = clipWalkTarget(fromX, fromZ, destination.x, destination.z);
+      const dx = clippedDest.x - fromX;
+      const dz = clippedDest.z - fromZ;
+      const dist = Math.sqrt(dx * dx + dz * dz);
+      const scale = dist < 0.05 ? 1 : Math.min(1, MAX_WALK_DISTANCE / dist);
+      const arriving = dist < 0.05 || scale >= 1;
+      const walkDuration =
+        dist < 0.05 ? LOOK_TURN_DURATION : Math.min(1.4, 0.5 + (dist * scale) / MAX_WALK_DISTANCE);
+
       lookTweenRef.current = gsap.to(baseLookAtRef.current, {
         x: look.x,
         y: look.y,
         z: look.z,
-        duration,
+        duration: walkDuration,
         ease: GSAP_EASE,
         onUpdate: () => {
           lookAtRef.current.copy(baseLookAtRef.current);
         },
       });
+
+      if (dist < 0.05) {
+        camera.position.y = CAM_Y;
+        options?.onArrived?.();
+        return;
+      }
+
+      if (options?.playSteps !== false) {
+        playFootsteps();
+      }
+
+      const targetX = fromX + dx * scale;
+      const targetZ = fromZ + dz * scale;
+
+      isMovingRef.current = true;
+
+      moveTweenRef.current = gsap.to(camera.position, {
+        x: targetX,
+        y: CAM_Y,
+        z: targetZ,
+        duration: walkDuration,
+        ease: GSAP_EASE,
+        onComplete: () => {
+          camera.position.y = CAM_Y;
+          isMovingRef.current = false;
+          if (arriving) {
+            options?.onArrived?.();
+          }
+        },
+      });
     },
-    [],
+    [initOnInteraction, playFootsteps, stopAllCameraMotion],
   );
 
   const resetCamera = useCallback(() => {
     setSelectedId(null);
-    setOverlayOpacity(0);
-
-    moveTweenRef.current?.kill();
-    lookTweenRef.current?.kill();
+    stopAllCameraMotion();
 
     const camera = cameraRef.current;
     if (camera) {
-      gsap.killTweensOf(camera.position);
-      gsap.killTweensOf(baseLookAtRef.current);
-
       camera.position.copy(DEFAULT_CAMERA_POS);
       lookAtRef.current.copy(DEFAULT_LOOK_AT);
       baseLookAtRef.current.copy(DEFAULT_LOOK_AT);
       camera.lookAt(lookAtRef.current);
     }
 
-    isMovingRef.current = false;
-    isAnimatingRef.current = false;
     cameraResetNonceRef.current += 1;
-  }, []);
+  }, [stopAllCameraMotion]);
 
   const handleCameraReady = useCallback((camera: THREE.PerspectiveCamera) => {
     cameraRef.current = camera;
@@ -1369,76 +1867,83 @@ export function AtriumInterior({
       z: DEFAULT_CAMERA_POS.z,
       duration: 2.5,
       ease: GSAP_EASE,
-    });
-  }, []);
-
-  const walkTo = useCallback((point: THREE.Vector3) => {
-    const camera = cameraRef.current;
-    if (!camera || isMovingRef.current || isAnimatingRef.current) return;
-
-    setSelectedId(null);
-    const dx = point.x - camera.position.x;
-    const dz = point.z - camera.position.z;
-    const dist = Math.sqrt(dx * dx + dz * dz);
-    if (dist < 0.05) return;
-
-    const scale = Math.min(1, MAX_WALK_DISTANCE / dist);
-    const targetX = camera.position.x + dx * scale;
-    const targetZ = Math.max(camera.position.z + dz * scale, MAX_CAMERA_Z);
-
-    isMovingRef.current = true;
-    moveTweenRef.current?.kill();
-
-    moveTweenRef.current = gsap.to(camera.position, {
-      x: targetX,
-      y: CAM_Y,
-      z: targetZ,
-      duration: 0.9,
-      ease: GSAP_EASE,
-      onUpdate: () => {
-        if (camera.position.z < MAX_CAMERA_Z) {
-          camera.position.z = MAX_CAMERA_Z;
-        }
-      },
       onComplete: () => {
-        if (camera.position.z < MAX_CAMERA_Z) {
-          camera.position.z = MAX_CAMERA_Z;
-        }
-        isMovingRef.current = false;
+        startAmbient();
       },
     });
-  }, []);
+  }, [startAmbient]);
 
-  const focusChampions = useCallback(() => {
-    animateCamera(new THREE.Vector3(-12, CAM_Y, -6), new THREE.Vector3(-16, 1, -8));
-  }, [animateCamera]);
+  const selectTarget = useCallback(
+    (id: AtriumTargetId | null) => {
+      initOnInteraction();
+      if (id) {
+        playStoneClick();
+        lookAtTarget(ATRIUM_TARGETS[id].lookAt);
+      }
+      setSelectedId(id);
+    },
+    [initOnInteraction, lookAtTarget, playStoneClick],
+  );
 
-  const focusMvp = useCallback(() => {
-    animateCamera(new THREE.Vector3(-4.5, 2.5, 11), new THREE.Vector3(-3, -0.5, -3));
-  }, [animateCamera]);
+  const walkTo = useCallback(
+    (point: THREE.Vector3) => {
+      const camera = cameraRef.current;
+      if (!camera) return;
+      const clipped = clipWalkTarget(camera.position.x, camera.position.z, point.x, point.z);
+      walkToward(
+        new THREE.Vector3(clipped.x, CAM_Y, clipped.z),
+        new THREE.Vector3(clipped.x, 1, clipped.z),
+        { clearSelection: true },
+      );
+    },
+    [walkToward],
+  );
 
-  const focusCaptains = useCallback(() => {
-    animateCamera(new THREE.Vector3(12, CAM_Y, -6), new THREE.Vector3(16, 1, -8));
-  }, [animateCamera]);
+  const walkInClickDirection = useCallback(
+    (ray: THREE.Ray) => {
+      const camera = cameraRef.current;
+      if (!camera) return;
+
+      const projected = projectWalkPointFromRay(ray, camera.position);
+      if (!projected) return;
+
+      walkToward(
+        new THREE.Vector3(projected.x, CAM_Y, projected.z),
+        new THREE.Vector3(projected.x, 1, projected.z),
+        { clearSelection: true },
+      );
+    },
+    [walkToward],
+  );
+
+  const walkToTarget = useCallback(
+    (id: AtriumTargetId, onArrived?: () => void) => {
+      const target = ATRIUM_TARGETS[id];
+      walkToward(target.standPos.clone(), target.lookAt.clone(), {
+        clearSelection: false,
+        onArrived,
+      });
+    },
+    [walkToward],
+  );
 
   const enterPlayerWing = useCallback(() => {
     if (isAnimatingRef.current) return;
 
+    stopAllCameraMotion();
     isAnimatingRef.current = true;
     const overlay = { opacity: 0 };
-    moveTweenRef.current?.kill();
-    lookTweenRef.current?.kill();
 
     gsap.to(cameraRef.current!.position, {
       x: 0,
-      y: 0,
+      y: CAM_Y,
       z: -18,
       duration: 2,
       ease: GSAP_EASE,
     });
     gsap.to(baseLookAtRef.current, {
       x: 0,
-      y: 1,
+      y: 1.5,
       z: -22,
       duration: 2,
       ease: GSAP_EASE,
@@ -1456,7 +1961,7 @@ export function AtriumInterior({
         router.push("/vault/player-wing");
       },
     });
-  }, [router]);
+  }, [router, stopAllCameraMotion]);
 
   const handlePrinciplesDoor = useCallback(() => {
     router.push("/vault/principles");
@@ -1476,39 +1981,39 @@ export function AtriumInterior({
 
   const commitTarget = useCallback(
     (id: AtriumTargetId) => {
+      initOnInteraction();
+      if (DOOR_TARGET_IDS.has(id)) {
+        playDoorCreak();
+      }
       setSelectedId(id);
       switch (id) {
         case "principles":
-          handlePrinciplesDoor();
+          walkToTarget("principles", handlePrinciplesDoor);
           break;
         case "institutions":
-          handleInstitutionsDoor();
+          walkToTarget("institutions", handleInstitutionsDoor);
           break;
         case "playerWing":
-          enterPlayerWing();
+          walkToTarget("playerWing", enterPlayerWing);
           break;
         case "collector":
-          handleCollectorDoor();
+          walkToTarget("collector", handleCollectorDoor);
           break;
         case "authority":
-          handleAuthorityDoor();
+          walkToTarget("authority", handleAuthorityDoor);
           break;
         case "mvp":
-          focusMvp();
-          break;
         case "champions":
-          focusChampions();
-          break;
         case "captains":
-          focusCaptains();
+          walkToTarget(id);
           break;
       }
     },
     [
+      initOnInteraction,
+      playDoorCreak,
       enterPlayerWing,
-      focusCaptains,
-      focusChampions,
-      focusMvp,
+      walkToTarget,
       handleAuthorityDoor,
       handleCollectorDoor,
       handleInstitutionsDoor,
@@ -1552,13 +2057,16 @@ export function AtriumInterior({
           baseLookAtRef={baseLookAtRef}
           isMovingRef={isMovingRef}
           isAnimatingRef={isAnimatingRef}
+          isHeadTurnRef={isHeadTurnRef}
           mouseRef={mouseRef}
           cameraResetNonceRef={cameraResetNonceRef}
           selectedId={selectedId}
-          setSelectedId={setSelectedId}
+          setSelectedId={selectTarget}
           onCameraReady={handleCameraReady}
           onWalkTo={walkTo}
+          onWalkRay={walkInClickDirection}
           onCommitTarget={commitTarget}
+          suppressDirectionalWalkRef={suppressDirectionalWalkRef}
         />
       </Canvas>
     </div>
