@@ -299,7 +299,7 @@ async function main() {
       player_id: beau.id,
       org_id: ohaaa.id,
       season_year: 2024,
-      jersey_number: "14",
+      jersey_number: "86",
       role: "player",
       is_captain: true,
       status: "active",
