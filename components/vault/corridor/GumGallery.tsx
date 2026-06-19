@@ -9,7 +9,7 @@ import { useFrame } from "@react-three/fiber";
 import {
   GUM_OCTAGON_PANELS,
   isGumOctagonComplete,
-} from "@/lib/gum-breakthrough";
+} from "@/lib/gum-octagon";
 import type { CorridorGumItem, CorridorGumResponse, PlayerData } from "./types";
 
 const GOLD = "#B8972A";

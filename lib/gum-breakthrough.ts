@@ -1,28 +1,13 @@
 import { prisma } from "@/lib/db";
+import {
+  GUM_OCTAGON_PANELS,
+  isGumOctagonComplete,
+} from "@/lib/gum-octagon";
 import { bustColorFromVaultLevel, vaultLevelFromScore } from "@/lib/vault-tier";
 
-export const GUM_OCTAGON_PANELS = 10;
-const BREAKTHROUGH_STRENGTH_BONUS = 5;
+export { GUM_OCTAGON_PANELS, isGumOctagonComplete };
 
-export function isGumOctagonComplete(
-  items: {
-    corridor_segment: number;
-    display_position: number | null;
-    status: string;
-  }[],
-  segment = 1,
-): boolean {
-  for (let position = 1; position <= GUM_OCTAGON_PANELS; position += 1) {
-    const item = items.find(
-      (entry) =>
-        entry.corridor_segment === segment &&
-        entry.display_position === position &&
-        entry.status === "authenticated",
-    );
-    if (!item) return false;
-  }
-  return true;
-}
+const BREAKTHROUGH_STRENGTH_BONUS = 5;
 
 export async function applyGumOctagonBreakthrough(playerId: string) {
   const player = await prisma.player.findUnique({
