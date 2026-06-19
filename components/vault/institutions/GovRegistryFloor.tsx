@@ -157,9 +157,14 @@ export function GovRegistryFloor({
   return (
     <div style={pageStyle}>
       <header style={headerStyle}>
-        <Link href="/vault/institutions/registry" style={upLinkStyle}>
-          ↓ Organizations
-        </Link>
+        <nav style={navLinksStyle}>
+          <Link href="/vault/institutions/registry" style={upLinkStyle}>
+            ↓ Organizations
+          </Link>
+          <Link href="/vault/institutions/registry/evt" style={upLinkStyle}>
+            ↑ Events
+          </Link>
+        </nav>
         <p style={eyebrowStyle}>Institutional Registry · Upper Floor</p>
         <h1 style={titleStyle}>GOV Registration</h1>
         <p style={subtitleStyle}>
@@ -475,6 +480,13 @@ const upLinkStyle: CSSProperties = {
   letterSpacing: "0.14em",
   textTransform: "uppercase",
   textDecoration: "none",
+};
+
+const navLinksStyle: CSSProperties = {
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  gap: 8,
   marginBottom: 16,
 };
 
